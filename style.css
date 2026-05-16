@@ -189,7 +189,7 @@ nav.scrolled { box-shadow: var(--shadow); }
 /* Coluna esquerda do hero (texto de apresentação) */
 .hero-left { position: relative; z-index: 1; }
 
-/* Chip/badge topo do hero: "Portfólio Profissional · 2025" */
+/* Chip/badge topo do hero: "Portfólio Profissional" */
 .hero-chip {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--blue-pale); border: 1px solid var(--blue-mid);
@@ -213,7 +213,7 @@ h1.hero-name {
   opacity: 0; animation: up 0.7s 0.25s forwards;
 }
 
-/* "Cesar" em itálico azul dentro do h1 */
+/* "Cesar" em itálico azul dentro do h1*/ 
 h1.hero-name em {
   font-style: italic; font-weight: 300;
   color: var(--blue2);
