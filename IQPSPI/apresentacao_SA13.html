@@ -27,7 +27,7 @@
   --light:        #F8FAFC;
   --glass-bg:     rgba(255,255,255,0.05);
   --glass-border: rgba(255,255,255,0.10);
-  --radius:       14px;
+  --radius:       12px;
   --transition:   0.25s ease;
 }
 
@@ -125,15 +125,15 @@ html, body {
 
 .slide-content {
   height:100%; max-height:720px; display:flex; flex-direction:column;
-  padding:42px 56px; justify-content:flex-start; gap:20px;
+  padding:32px 44px; justify-content:flex-start; gap:12px;
   overflow:hidden; box-sizing:border-box;
 }
 .slide-label {
-  font-family:'DM Mono',monospace; font-size:0.48em; color:var(--teal);
+  font-family:'DM Mono',monospace; font-size:0.38em; color:var(--teal);
   letter-spacing:2px; text-transform:uppercase;
 }
 .slide-title {
-  font-size:1.28em !important; color:var(--white); line-height:1.2; font-weight:700;
+  font-size:1.15em !important; color:var(--white); line-height:1.2; font-weight:700;
   border-bottom:2px solid var(--teal); padding-bottom:10px; margin-bottom:0;
 }
 .slide-title span { color:var(--teal); }
@@ -147,12 +147,9 @@ html, body {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
-  padding: 24px;
+  padding: 14px 16px;
   position: relative; overflow: hidden;
   transition: transform var(--transition), border-color var(--transition), background var(--transition);
-  min-height: 180px;
-  display: flex;
-  flex-direction: column;
 }
 .card:hover {
   transform: translateY(-4px);
@@ -163,8 +160,8 @@ html, body {
   position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:12px 0 0 12px;
 }
 .card-num  { font-family:'DM Mono',monospace; font-size:0.38em; font-weight:700; margin-bottom:6px; display:block; }
-.card-title { font-size:0.72em !important; font-weight:700; color:var(--white); margin-bottom:5px; line-height:1.3; display:block; }
-.card-text  { font-size:0.58em !important; color:var(--gray); line-height:1.6; }
+.card-title { font-size:0.58em !important; font-weight:700; color:var(--white); margin-bottom:5px; line-height:1.3; display:block; }
+.card-text  { font-size:0.46em !important; color:var(--gray); line-height:1.6; }
 
 /* Cores de card-title via classe */
 .card-title-red    { color:var(--red); }
@@ -176,8 +173,8 @@ html, body {
 /* ── BULLET LIST ── */
 .bullet-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
 .bullet-list li {
-  display:flex; align-items:flex-start; gap:12px; font-size:0.64em !important;
-  color:#CBD5E1; line-height:1.8; padding:14px 18px;
+  display:flex; align-items:flex-start; gap:12px; font-size:0.52em !important;
+  color:#CBD5E1; line-height:1.5; padding:8px 12px;
   background:rgba(255,255,255,0.04); border-radius:8px; border-left:3px solid var(--teal);
 }
 .bullet-list li strong { color:var(--white); }
@@ -186,7 +183,7 @@ html, body {
 .highlight-box {
   background:rgba(2,180,204,0.1); border:1px solid rgba(2,180,204,0.3); border-radius:10px; padding:10px 14px;
 }
-.highlight-box p { font-size:0.62em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
 .highlight-box strong { color:var(--teal); }
 
 /* ── QUOTE BOX ── */
@@ -209,8 +206,8 @@ html, body {
 .pdca-d .pdca-letra { color:var(--green); }
 .pdca-c .pdca-letra { color:var(--yellow); }
 .pdca-a .pdca-letra { color:var(--red); }
-.pdca-nome { font-size:0.66em !important; font-weight:700; color:var(--white); margin-bottom:6px; display:block; }
-.pdca-desc { font-size:0.54em !important; color:var(--gray); line-height:1.8; }
+.pdca-nome { font-size:0.55em !important; font-weight:700; color:var(--white); margin-bottom:6px; display:block; }
+.pdca-desc { font-size:0.4em !important;  color:var(--gray); line-height:1.6; }
 
 /* ── MASP GRID ── */
 .masp-grid { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
@@ -223,8 +220,8 @@ html, body {
   font-size:0.4em !important; font-weight:700; width:24px; height:24px; border-radius:50%;
   display:flex; align-items:center; justify-content:center; flex-shrink:0;
 }
-.masp-title { font-size:0.60em !important; font-weight:700; color:var(--white); display:block; margin-bottom:2px; }
-.masp-text  { font-size:0.52em !important; color:var(--gray); line-height:1.7; }
+.masp-title { font-size:0.48em !important; font-weight:700; color:var(--white); display:block; margin-bottom:2px; }
+.masp-text  { font-size:0.38em !important; color:var(--gray); line-height:1.5; }
 
 /* ── COMPARATIVO ── */
 .comp-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
@@ -235,7 +232,7 @@ html, body {
 .comp-pdca .comp-header { color:var(--teal); }
 .comp-masp .comp-header { color:#A78BFA; }
 .comp-item {
-  font-size:0.56em !important; color:#CBD5E1; padding:5px 0;
+  font-size:0.42em !important; color:#CBD5E1; padding:5px 0;
   border-bottom:1px solid rgba(255,255,255,0.06); line-height:1.5; display:flex; gap:8px;
 }
 .comp-item:last-child { border-bottom:none; }
@@ -255,7 +252,7 @@ html, body {
 .fs-d .flow-label { color:var(--green); }
 .fs-c .flow-label { color:var(--yellow); }
 .fs-a .flow-label { color:var(--red); }
-.flow-text          { font-size:0.58em !important; color:#CBD5E1; line-height:1.6; }
+.flow-text          { font-size:0.44em !important; color:#CBD5E1; line-height:1.6; }
 .flow-text strong   { color:var(--white); }
 
 /* ── DINÂMICA ── */
@@ -285,12 +282,12 @@ html, body {
 /* ── RESPONSIVIDADE ── */
 @media (max-width:768px) {
   .cards-grid, .comp-grid, .pdca-ciclo, .masp-grid, .enc-grid { grid-template-columns:1fr !important; }
-  .slide-content { padding:26px; gap:16px; }
-  .slide-title   { font-size:1em !important; }
-  .card-title, .pdca-nome, .masp-title { font-size:0.62em !important; }
-  .card-text, .flow-text, .pdca-desc, .masp-text, .bullet-list li { font-size:0.58em !important; line-height:1.8; }
-  .capa-title { font-size:1.5em !important; }
-  .capa-sub   { font-size:0.62em; max-width:100%; }
+  .slide-content { padding:24px; gap:14px; }
+  .slide-title   { font-size:0.9em !important; }
+  .card-title, .pdca-nome, .masp-title { font-size:0.55em !important; }
+  .card-text, .flow-text, .pdca-desc, .masp-text, .bullet-list li { font-size:0.52em !important; line-height:1.7; }
+  .capa-title { font-size:1.3em !important; }
+  .capa-sub   { max-width:100%; }
 }
 </style>
 </head>
@@ -481,12 +478,22 @@ html, body {
       <div class="card">
         <div class="card-accent accent-teal"></div>
         <span class="card-title">Sprint Ágil = PDCA</span>
-        <div class="card-text"><strong style="color:var(--teal);">P</strong> Planning · <strong style="color:var(--green);">D</strong> Sprint · <strong style="color:var(--yellow);">C</strong> Review · <strong style="color:var(--red);">A</strong> Retrospectiva. O ciclo se repete a cada sprint, gerando melhoria contínua do produto.</div>
+        <div class="card-text"><strong style="color:var(--teal);">P</strong> Planning · <strong style="color:var(--green);">D</strong> Sprint · <strong style="color:var(--yellow);">C</strong> Review · <strong style="color:var(--red);">A</strong> Retrospectiva</div>
       </div>
       <div class="card">
         <div class="card-accent accent-green"></div>
         <span class="card-title">CI/CD = PDCA automatizado</span>
-        <div class="card-text">Código (P) → Commit (D) → Pipeline de testes (C) → Merge ou correção (A). O pipeline valida cada ciclo automaticamente, com feedback imediato.</div>
+        <div class="card-text">Código (P) → Commit (D) → Pipeline de testes (C) → Merge ou correção (A)</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title">Bug em produção</span>
+        <div class="card-text">Analisar (P) → Fix (D) → Staging (C) → Deploy ou rollback (A)</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title">Code Review</span>
+        <div class="card-text">PR aberto (D) → Revisão (C) → Feedback (A) → Novo ciclo até aprovação</div>
       </div>
     </div>
   </div>
@@ -523,12 +530,12 @@ html, body {
 </section>
 
 <!-- ═══════════════════════════════════════ -->
-<!-- SLIDE 10A — MASP ETAPAS 1–4            -->
+<!-- SLIDE 10 — 8 ETAPAS DO MASP            -->
 <!-- ═══════════════════════════════════════ -->
 <section class="slide-std" data-transition="slide">
   <div class="slide-content">
-    <div class="slide-label">O método completo · Parte 1 de 2</div>
-    <h2 class="slide-title">📋 As 8 Etapas do <span>MASP</span> — Diagnóstico</h2>
+    <div class="slide-label">O método completo</div>
+    <h2 class="slide-title">📋 As 8 Etapas do <span>MASP</span></h2>
     <div class="masp-grid">
       <div class="masp-item">
         <div class="masp-num">1</div>
@@ -546,21 +553,6 @@ html, body {
         <div class="masp-num">4</div>
         <div><span class="masp-title">Plano de Ação</span><span class="masp-text">Elaborar o plano detalhado para eliminar as causas (5W2H)</span></div>
       </div>
-    </div>
-    <div class="highlight-box">
-      <p>Etapas <strong>1 a 4</strong> formam a fase de <strong>diagnóstico</strong>: entender bem o problema antes de agir.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════ -->
-<!-- SLIDE 10B — MASP ETAPAS 5–8            -->
-<!-- ═══════════════════════════════════════ -->
-<section class="slide-std" data-transition="slide">
-  <div class="slide-content">
-    <div class="slide-label">O método completo · Parte 2 de 2</div>
-    <h2 class="slide-title">📋 As 8 Etapas do <span>MASP</span> — Solução</h2>
-    <div class="masp-grid">
       <div class="masp-item">
         <div class="masp-num">5</div>
         <div><span class="masp-title">Ação</span><span class="masp-text">Executar o plano, treinar envolvidos e registrar tudo</span></div>
@@ -577,9 +569,6 @@ html, body {
         <div class="masp-num">8</div>
         <div><span class="masp-title">Conclusão</span><span class="masp-text">Registrar o aprendizado e planejar os próximos problemas</span></div>
       </div>
-    </div>
-    <div class="highlight-box">
-      <p>Etapas <strong>5 a 8</strong> formam a fase de <strong>solução e consolidação</strong>: agir, verificar e perpetuar a melhoria.</p>
     </div>
   </div>
 </section>
@@ -796,7 +785,7 @@ html, body {
       <div class="din-meta-item">👥 <strong>5 grupos de 5 alunos</strong></div>
       <div class="din-meta-item">📋 <strong>1 cartão por grupo</strong></div>
     </div>
-    <div class="cards-grid cards-3">
+    <div class="cards-grid cards-2">
       <div class="card">
         <div class="card-accent accent-teal"></div>
         <span class="card-title card-title-teal">Grupo A</span>
@@ -833,7 +822,7 @@ html, body {
   <div class="slide-content">
     <div class="slide-label">O que vimos hoje</div>
     <h2 class="slide-title">📌 Resumo da Aula</h2>
-    <div class="cards-grid cards-3">
+    <div class="cards-grid cards-2">
       <div class="card">
         <div class="card-accent accent-teal"></div>
         <span class="card-title card-title-teal">🔄 PDCA</span>
@@ -853,11 +842,6 @@ html, body {
         <div class="card-accent accent-green"></div>
         <span class="card-title card-title-green">🔑 Chave de tudo</span>
         <div class="card-text">Ambos dependem de <strong style="color:var(--green);">dados</strong>. Sem dados é chute. Com dados é método.</div>
-      </div>
-      <div class="card">
-        <div class="card-accent accent-orange"></div>
-        <span class="card-title card-title-orange">🎯 Próximos Passos</span>
-        <div class="card-text">Aplique em seus projetos! Documente, mida, melhore. A qualidade é construída iteração após iteração.</div>
       </div>
     </div>
   </div>
