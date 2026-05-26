@@ -189,6 +189,14 @@ nav.scrolled { box-shadow: var(--shadow); }
 /* Coluna esquerda do hero (texto de apresentação) */
 .hero-left { position: relative; z-index: 1; }
 
+.hero-right {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Chip/badge topo do hero: "Portfólio Profissional" */
 .hero-chip {
   display: inline-flex; align-items: center; gap: 8px;
@@ -390,6 +398,57 @@ h1.hero-name em {
 /* Seta "→" entre as etapas do pipeline */
 .pipe-arrow {
   color: var(--dim); font-size: 0.7rem; padding-bottom: 16px;
+}
+
+.resources-section {
+  padding: 4rem 5rem;
+  background: rgba(255,255,255,0.92);
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.resource-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.35rem 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.resource-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow2);
+}
+
+.resource-card strong {
+  display: block;
+  font-family: var(--f-display);
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.resource-card p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.resource-card::after {
+  content: '↗';
+  margin-top: auto;
+  align-self: flex-end;
+  color: var(--blue2);
+  font-size: 1.1rem;
 }
 
 /* ══════════ SEÇÃO BASE ══════════

@@ -150,6 +150,9 @@ html, body {
   padding: 24px;
   position: relative; overflow: hidden;
   transition: transform var(--transition), border-color var(--transition), background var(--transition);
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
 }
 .card:hover {
   transform: translateY(-4px);
@@ -793,7 +796,7 @@ html, body {
       <div class="din-meta-item">👥 <strong>5 grupos de 5 alunos</strong></div>
       <div class="din-meta-item">📋 <strong>1 cartão por grupo</strong></div>
     </div>
-    <div class="cards-grid cards-2">
+    <div class="cards-grid cards-3">
       <div class="card">
         <div class="card-accent accent-teal"></div>
         <span class="card-title card-title-teal">Grupo A</span>
@@ -830,7 +833,7 @@ html, body {
   <div class="slide-content">
     <div class="slide-label">O que vimos hoje</div>
     <h2 class="slide-title">📌 Resumo da Aula</h2>
-    <div class="cards-grid cards-2">
+    <div class="cards-grid cards-3">
       <div class="card">
         <div class="card-accent accent-teal"></div>
         <span class="card-title card-title-teal">🔄 PDCA</span>
@@ -850,6 +853,11 @@ html, body {
         <div class="card-accent accent-green"></div>
         <span class="card-title card-title-green">🔑 Chave de tudo</span>
         <div class="card-text">Ambos dependem de <strong style="color:var(--green);">dados</strong>. Sem dados é chute. Com dados é método.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">🎯 Próximos Passos</span>
+        <div class="card-text">Aplique em seus projetos! Documente, mida, melhore. A qualidade é construída iteração após iteração.</div>
       </div>
     </div>
   </div>
