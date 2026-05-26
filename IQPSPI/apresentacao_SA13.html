@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Apresentação sobre PDCA e MASP aplicada ao desenvolvimento de software.">
+<meta name="theme-color" content="#0A2342">
+<meta name="color-scheme" content="dark">
+<meta name="author" content="Prof. Julio Cesar">
+<title>SA 13 — PDCA e MASP</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ── VARIÁVEIS ── */
+:root {
+  --teal:         #02B4CC;
+  --teal-d:       #028090;
+  --yellow:       #F9C74F;
+  --dark:         #0A2342;
+  --purple:       #7C3AED;
+  --green:        #10B981;
+  --red:          #EF4444;
+  --orange:       #F97316;
+  --white:        #FFFFFF;
+  --gray:         #CBD5E1;
+  --light:        #F8FAFC;
+  --glass-bg:     rgba(255,255,255,0.05);
+  --glass-border: rgba(255,255,255,0.10);
+  --radius:       14px;
+  --transition:   0.25s ease;
+}
+
+/* ── UTILITIES ── */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(6px);
+}
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.text-muted  { color: var(--gray); }
+.transition  { transition: var(--transition); }
+
+/* ── ACCENT CLASSES ── */
+.accent-teal   { background: var(--teal); }
+.accent-yellow { background: var(--yellow); }
+.accent-green  { background: var(--green); }
+.accent-red    { background: var(--red); }
+.accent-orange { background: var(--orange); }
+.accent-purple { background: var(--purple); }
+
+/* ── BASE ── */
+html, body {
+  background: #06101E !important;
+  margin: 0; padding: 0;
+}
+
+/* Moldura do slide — aparência de PowerPoint */
+.reveal .slides {
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 1px rgba(2,180,204,0.25),
+    0 8px 32px rgba(0,0,0,0.6),
+    0 2px 8px rgba(0,0,0,0.4);
+}
+
+.reveal { font-family: 'DM Sans', sans-serif; }
+.reveal .slides section { height: 100%; text-align: left; overflow: hidden; }
+.reveal h1,.reveal h2,.reveal h3,.reveal h4,.reveal h5,.reveal h6 {
+  text-transform: none; font-family: 'DM Sans', sans-serif; margin: 0;
+}
+.reveal p  { margin: 0; }
+.reveal ul,.reveal ol { margin: 0; padding: 0; }
+
+/* ── CAPA ── */
+.slide-capa {
+  background: linear-gradient(135deg,#0A2342 0%,#0E3A6E 60%,#0A2342 100%) !important;
+  position: relative; overflow: hidden;
+}
+.slide-capa::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:8px; background:var(--teal);
+}
+.slide-capa::after {
+  content:''; position:absolute; left:8px; top:0; bottom:0; width:4px; background:var(--yellow);
+}
+.capa-inner {
+  height:100%; max-height:720px; display:flex; flex-direction:column;
+  justify-content:center; padding:36px 40px 36px 48px;
+  overflow:hidden; box-sizing:border-box;
+}
+.capa-kicker {
+  font-family:'DM Mono',monospace; font-size:0.5em; color:var(--teal);
+  letter-spacing:3px; text-transform:uppercase; margin-bottom:16px;
+}
+.capa-title {
+  font-size:2em !important; line-height:1.15; color:var(--white);
+  margin-bottom:12px; font-weight:700;
+}
+.capa-title span { color:var(--yellow); }
+.capa-sub {
+  font-size:0.52em; color:var(--gray); margin-bottom:28px;
+  max-width:65%; line-height:1.6;
+}
+.capa-badges { display:flex; gap:10px; flex-wrap:wrap; }
+.capa-badge {
+  font-size:0.42em; padding:5px 14px; border-radius:20px;
+  font-weight:600; font-family:'DM Mono',monospace;
+}
+.cb-teal   { background:var(--teal);   color:var(--dark); }
+.cb-yellow { background:var(--yellow); color:var(--dark); }
+.cb-dark   { background:rgba(255,255,255,0.1); color:var(--white); border:1px solid rgba(255,255,255,0.2); }
+.capa-deco {
+  position:absolute; right:-60px; bottom:-60px; width:280px; height:280px;
+  border-radius:50%; background:rgba(2,180,204,0.08); border:2px solid rgba(2,180,204,0.12);
+}
+.capa-deco2 {
+  position:absolute; right:40px; bottom:40px; width:140px; height:140px;
+  border-radius:50%; background:rgba(249,199,79,0.06); border:2px solid rgba(249,199,79,0.1);
+}
+
+/* ── SLIDE PADRÃO ── */
+.slide-std { background:#0D1F35 !important; padding:0 !important; }
+.slide-enc { background:linear-gradient(135deg,#0A2342 0%,#0D1F35 100%) !important; padding:0 !important; }
+
+.slide-content {
+  height:100%; max-height:720px; display:flex; flex-direction:column;
+  padding:42px 56px; justify-content:flex-start; gap:20px;
+  overflow:hidden; box-sizing:border-box;
+}
+.slide-label {
+  font-family:'DM Mono',monospace; font-size:0.48em; color:var(--teal);
+  letter-spacing:2px; text-transform:uppercase;
+}
+.slide-title {
+  font-size:1.28em !important; color:var(--white); line-height:1.2; font-weight:700;
+  border-bottom:2px solid var(--teal); padding-bottom:10px; margin-bottom:0;
+}
+.slide-title span { color:var(--teal); }
+
+/* ── CARDS ── */
+.cards-grid { display:grid; gap:10px; }
+.cards-2 { grid-template-columns:1fr 1fr; }
+.cards-3 { grid-template-columns:1fr 1fr 1fr; }
+
+.card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  position: relative; overflow: hidden;
+  transition: transform var(--transition), border-color var(--transition), background var(--transition);
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(2,180,204,0.4);
+  background: rgba(255,255,255,0.08);
+}
+.card-accent {
+  position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:12px 0 0 12px;
+}
+.card-num  { font-family:'DM Mono',monospace; font-size:0.38em; font-weight:700; margin-bottom:6px; display:block; }
+.card-title { font-size:0.72em !important; font-weight:700; color:var(--white); margin-bottom:5px; line-height:1.3; display:block; }
+.card-text  { font-size:0.58em !important; color:var(--gray); line-height:1.6; }
+
+/* Cores de card-title via classe */
+.card-title-red    { color:var(--red); }
+.card-title-yellow { color:var(--yellow); }
+.card-title-green  { color:var(--green); }
+.card-title-orange { color:var(--orange); }
+.card-title-teal   { color:var(--teal); }
+
+/* ── BULLET LIST ── */
+.bullet-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.bullet-list li {
+  display:flex; align-items:flex-start; gap:12px; font-size:0.64em !important;
+  color:#CBD5E1; line-height:1.8; padding:14px 18px;
+  background:rgba(255,255,255,0.04); border-radius:8px; border-left:3px solid var(--teal);
+}
+.bullet-list li strong { color:var(--white); }
+
+/* ── HIGHLIGHT BOX ── */
+.highlight-box {
+  background:rgba(2,180,204,0.1); border:1px solid rgba(2,180,204,0.3); border-radius:10px; padding:10px 14px;
+}
+.highlight-box p { font-size:0.62em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box strong { color:var(--teal); }
+
+/* ── QUOTE BOX ── */
+.quote-box {
+  background:rgba(249,199,79,0.08); border-left:4px solid var(--yellow);
+  border-radius:0 10px 10px 0; padding:14px 18px;
+}
+.quote-box p    { font-size:0.5em !important; color:#E2E8F0; font-style:italic; line-height:1.7; margin:0; }
+.quote-box cite { font-size:0.38em !important; color:var(--yellow); font-style:normal; display:block; margin-top:6px; font-family:'DM Mono',monospace; }
+
+/* ── PDCA CICLO ── */
+.pdca-ciclo { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.pdca-item  { border-radius:10px; padding:14px; }
+.pdca-p { background:rgba(2,180,204,0.12);  border:1px solid rgba(2,180,204,0.3); }
+.pdca-d { background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3); }
+.pdca-c { background:rgba(249,199,79,0.12); border:1px solid rgba(249,199,79,0.3); }
+.pdca-a { background:rgba(239,68,68,0.12);  border:1px solid rgba(239,68,68,0.3); }
+.pdca-letra { font-size:1.8em !important; font-weight:900; line-height:1; margin-bottom:4px; display:block; }
+.pdca-p .pdca-letra { color:var(--teal); }
+.pdca-d .pdca-letra { color:var(--green); }
+.pdca-c .pdca-letra { color:var(--yellow); }
+.pdca-a .pdca-letra { color:var(--red); }
+.pdca-nome { font-size:0.66em !important; font-weight:700; color:var(--white); margin-bottom:6px; display:block; }
+.pdca-desc { font-size:0.54em !important; color:var(--gray); line-height:1.8; }
+
+/* ── MASP GRID ── */
+.masp-grid { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+.masp-item {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+  border-radius:8px; padding:9px 11px; display:flex; align-items:flex-start; gap:10px;
+}
+.masp-num {
+  background:var(--teal); color:var(--dark); font-family:'DM Mono',monospace;
+  font-size:0.4em !important; font-weight:700; width:24px; height:24px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.masp-title { font-size:0.60em !important; font-weight:700; color:var(--white); display:block; margin-bottom:2px; }
+.masp-text  { font-size:0.52em !important; color:var(--gray); line-height:1.7; }
+
+/* ── COMPARATIVO ── */
+.comp-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.comp-col  { border-radius:10px; padding:14px; }
+.comp-pdca { background:rgba(2,180,204,0.1);  border:1px solid rgba(2,180,204,0.25); }
+.comp-masp { background:rgba(124,58,237,0.1); border:1px solid rgba(124,58,237,0.25); }
+.comp-header { font-size:0.6em !important; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.comp-pdca .comp-header { color:var(--teal); }
+.comp-masp .comp-header { color:#A78BFA; }
+.comp-item {
+  font-size:0.56em !important; color:#CBD5E1; padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,0.06); line-height:1.5; display:flex; gap:8px;
+}
+.comp-item:last-child { border-bottom:none; }
+
+/* ── FLOW STEPS ── */
+.exemplo-flow { display:flex; flex-direction:column; gap:7px; }
+.flow-step {
+  background:rgba(255,255,255,0.04); border-radius:8px; padding:11px 14px;
+  display:flex; gap:14px; align-items:flex-start; border-left:3px solid;
+}
+.flow-step.fs-p { border-color:var(--teal); }
+.flow-step.fs-d { border-color:var(--green); }
+.flow-step.fs-c { border-color:var(--yellow); }
+.flow-step.fs-a { border-color:var(--red); }
+.flow-label { font-family:'DM Mono',monospace; font-size:0.44em !important; font-weight:700; flex-shrink:0; min-width:28px; }
+.fs-p .flow-label { color:var(--teal); }
+.fs-d .flow-label { color:var(--green); }
+.fs-c .flow-label { color:var(--yellow); }
+.fs-a .flow-label { color:var(--red); }
+.flow-text          { font-size:0.58em !important; color:#CBD5E1; line-height:1.6; }
+.flow-text strong   { color:var(--white); }
+
+/* ── DINÂMICA ── */
+.din-header {
+  background:rgba(124,58,237,0.2); border:1px solid rgba(124,58,237,0.4);
+  border-radius:10px; padding:12px 18px; display:flex; align-items:center; gap:12px;
+}
+.din-header-text { font-size:0.55em !important; font-weight:700; color:#A78BFA; }
+.din-meta         { display:flex; gap:20px; flex-wrap:wrap; }
+.din-meta-item    { font-size:0.42em !important; color:var(--gray); }
+.din-meta-item strong { color:var(--white); }
+
+/* ── ENCERRAMENTO ── */
+.enc-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.enc-card { border-radius:10px; padding:12px 16px; }
+.enc-prox { background:rgba(249,199,79,0.1);  border:1px solid rgba(249,199,79,0.3); }
+.enc-rev  { background:rgba(2,180,204,0.1);   border:1px solid rgba(2,180,204,0.3); }
+.enc-card-label { font-family:'DM Mono',monospace; font-size:0.36em !important; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; display:block; }
+.enc-prox .enc-card-label { color:var(--yellow); }
+.enc-rev  .enc-card-label { color:var(--teal); }
+.enc-card-text { font-size:0.46em !important; color:var(--white); line-height:1.5; }
+
+/* ── PROGRESS / SLIDE NUMBER ── */
+.reveal .progress               { color:var(--teal); height:3px; }
+.reveal .slide-number           { font-family:'DM Mono',monospace; font-size:12px; color:var(--gray); background:rgba(0,0,0,0.4); border-radius:6px; padding:4px 8px; }
+
+/* ── RESPONSIVIDADE ── */
+@media (max-width:768px) {
+  .cards-grid, .comp-grid, .pdca-ciclo, .masp-grid, .enc-grid { grid-template-columns:1fr !important; }
+  .slide-content { padding:26px; gap:16px; }
+  .slide-title   { font-size:1em !important; }
+  .card-title, .pdca-nome, .masp-title { font-size:0.62em !important; }
+  .card-text, .flow-text, .pdca-desc, .masp-text, .bullet-list li { font-size:0.58em !important; line-height:1.8; }
+  .capa-title { font-size:1.5em !important; }
+  .capa-sub   { font-size:0.62em; max-width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 1 — CAPA                         -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-capa" data-transition="zoom">
+  <div class="capa-deco"></div>
+  <div class="capa-deco2"></div>
+  <div class="capa-inner">
+    <div class="capa-kicker">SA 13 · 2º Trimestre · Qualidade, Produtividade e Sustentabilidade</div>
+    <h1 class="capa-title">PDCA e MASP<br><span>Ferramentas da Qualidade</span></h1>
+    <p class="capa-sub">Ciclo de melhoria contínua e método estruturado de solução de problemas aplicados ao desenvolvimento de sistemas</p>
+    <div class="capa-badges">
+      <span class="capa-badge cb-teal">SA 13</span>
+      <span class="capa-badge cb-yellow">22/05/2026</span>
+      <span class="capa-badge cb-dark">Prof. Julio Cesar</span>
+      <span class="capa-badge cb-dark">SENAI Umuarama</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 2 — OBJETIVOS                    -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O que você vai aprender hoje</div>
+    <h2 class="slide-title">🏆 Objetivos da Aula</h2>
+    <ul class="bullet-list">
+      <li><strong>Origem:</strong> Entender de onde veio o PDCA e quem criou esse ciclo</li>
+      <li><strong>PDCA:</strong> Dominar as 4 etapas — Plan, Do, Check, Act</li>
+      <li><strong>MASP:</strong> Conhecer as 8 etapas do método e quando aplicá-lo</li>
+      <li><strong>Diferença:</strong> Distinguir PDCA de MASP e escolher o certo para cada situação</li>
+      <li><strong>Na prática:</strong> Aplicar ambos em situações reais de desenvolvimento de software</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 3 — POR QUE MÉTODO?              -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Antes de tudo</div>
+    <h2 class="slide-title">🤔 Por que precisamos de <span>método</span>?</h2>
+    <div class="highlight-box">
+      <p>Você já viu um <strong>bug que volta toda semana</strong>? Ou a sprint que nunca entrega no prazo, mas ninguém sabe <strong>exatamente por quê</strong>?</p>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">Sem método</span>
+        <div class="card-text">Apagamos incêndios. O problema volta. A equipe cansa.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">Achismo</span>
+        <div class="card-text">Funciona às vezes. Não dá pra repetir o que deu certo.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">Com método</span>
+        <div class="card-text">Agimos com dados, verificamos e padronizamos. O problema não volta.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 4 — ORIGEM DO PDCA               -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">A história por trás</div>
+    <h2 class="slide-title">📖 Origem do <span>PDCA</span></h2>
+    <div class="quote-box">
+      <p>"Se você não consegue descrever o que faz como um processo, você não sabe o que está fazendo."</p>
+      <cite>— W. Edwards Deming</cite>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-teal"></div>
+        <span class="card-num" style="color:var(--teal);">1930s</span>
+        <span class="card-title">Walter Shewhart</span>
+        <div class="card-text">Criou o ciclo de melhoria em Bell Labs. Foco em controle estatístico de qualidade industrial.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">1950s</span>
+        <span class="card-title">W. Edwards Deming</span>
+        <div class="card-text">Popularizou no Japão pós-guerra. A Toyota adotou e transformou em fundamento do TPS e do Lean.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 5 — O CICLO PDCA                 -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O coração da melhoria contínua</div>
+    <h2 class="slide-title">🔄 O Ciclo <span>PDCA</span></h2>
+    <div class="pdca-ciclo">
+      <div class="pdca-item pdca-p">
+        <span class="pdca-letra">P</span>
+        <span class="pdca-nome">Plan — Planejar</span>
+        <div class="pdca-desc">Identificar o problema, analisar causas e definir metas. <strong style="color:var(--teal);">O que? Por quê? Como?</strong></div>
+      </div>
+      <div class="pdca-item pdca-d">
+        <span class="pdca-letra">D</span>
+        <span class="pdca-nome">Do — Executar</span>
+        <div class="pdca-desc">Colocar o plano em prática, treinar a equipe e coletar dados.</div>
+      </div>
+      <div class="pdca-item pdca-c">
+        <span class="pdca-letra">C</span>
+        <span class="pdca-nome">Check — Verificar</span>
+        <div class="pdca-desc">Comparar resultados com as metas. <strong style="color:var(--yellow);">O que funcionou?</strong></div>
+      </div>
+      <div class="pdca-item pdca-a">
+        <span class="pdca-letra">A</span>
+        <span class="pdca-nome">Act — Agir</span>
+        <div class="pdca-desc">Funcionou: padronizar. Não funcionou: reiniciar. <strong style="color:var(--red);">Nunca para!</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 6 — PDCA: PLAN                   -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Etapa 1 do PDCA</div>
+    <h2 class="slide-title">🔵 <span>Plan</span> — Planejar</h2>
+    <div class="highlight-box">
+      <p><strong>Pergunta central:</strong> Qual é o problema, qual é a causa raiz e o que vamos fazer para resolver?</p>
+    </div>
+    <ul class="bullet-list">
+      <li>📌 <strong>Definir o problema:</strong> Seja específico. "O sistema é lento" não é um problema. Dados quantificados são.</li>
+      <li>🔍 <strong>Analisar as causas:</strong> Use dados! Ferramentas como Ishikawa e Pareto ajudam aqui.</li>
+      <li>🎯 <strong>Definir metas:</strong> Metas mensuráveis e com prazo definido.</li>
+      <li>📋 <strong>Plano de ação:</strong> Quem faz o quê, quando e como. O 5W2H é perfeito aqui.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 7 — DO, CHECK, ACT               -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Etapas 2, 3 e 4 do PDCA</div>
+    <h2 class="slide-title">Do · Check · <span>Act</span></h2>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-d">
+        <span class="flow-label">DO</span>
+        <div class="flow-text"><strong>Executar o plano.</strong> Registre tudo. Os dados coletados aqui alimentam o Check. Não improvise.</div>
+      </div>
+      <div class="flow-step fs-c">
+        <span class="flow-label">CHECK</span>
+        <div class="flow-text"><strong>Verificar os resultados.</strong> Atingiu a meta? Use gráficos e dados. Onde foi diferente do esperado?</div>
+      </div>
+      <div class="flow-step fs-a">
+        <span class="flow-label">ACT</span>
+        <div class="flow-text"><strong>Tomar ação.</strong> ✅ Funcionou → Padronize. ❌ Não funcionou → Volte ao Plan. O ciclo é infinito.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 8 — PDCA EM TI                   -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">PDCA no seu dia a dia</div>
+    <h2 class="slide-title">💻 PDCA no Desenvolvimento de <span>Software</span></h2>
+    <div class="highlight-box">
+      <p>Você já usa o PDCA sem saber — em sprints, retrospectivas e deploys.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-teal"></div>
+        <span class="card-title">Sprint Ágil = PDCA</span>
+        <div class="card-text"><strong style="color:var(--teal);">P</strong> Planning · <strong style="color:var(--green);">D</strong> Sprint · <strong style="color:var(--yellow);">C</strong> Review · <strong style="color:var(--red);">A</strong> Retrospectiva. O ciclo se repete a cada sprint, gerando melhoria contínua do produto.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title">CI/CD = PDCA automatizado</span>
+        <div class="card-text">Código (P) → Commit (D) → Pipeline de testes (C) → Merge ou correção (A). O pipeline valida cada ciclo automaticamente, com feedback imediato.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 9 — INTRO MASP                   -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O método mais completo</div>
+    <h2 class="slide-title">🛠️ O que é o <span>MASP</span>?</h2>
+    <div class="highlight-box">
+      <p>O <strong>MASP — Método de Análise e Solução de Problemas</strong> é uma versão expandida do PDCA. Enquanto o PDCA é um ciclo contínuo, o MASP é um <strong>método detalhado para resolver um problema específico</strong> de vez.</p>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-teal"></div>
+        <span class="card-title">Origem</span>
+        <div class="card-text">Desenvolvido no Japão baseado em Deming. Popularizado no Brasil nos anos 1990.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-purple"></div>
+        <span class="card-title">Para quê serve?</span>
+        <div class="card-text">Resolver problemas crônicos com evidências e documentação em cada etapa.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title">Quando usar?</span>
+        <div class="card-text">Quando o problema é recorrente, impacta a qualidade e precisa de análise aprofundada.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 10A — MASP ETAPAS 1–4            -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O método completo · Parte 1 de 2</div>
+    <h2 class="slide-title">📋 As 8 Etapas do <span>MASP</span> — Diagnóstico</h2>
+    <div class="masp-grid">
+      <div class="masp-item">
+        <div class="masp-num">1</div>
+        <div><span class="masp-title">Identificação</span><span class="masp-text">Definir o problema com dados, histórico e impacto</span></div>
+      </div>
+      <div class="masp-item">
+        <div class="masp-num">2</div>
+        <div><span class="masp-title">Observação</span><span class="masp-text">Investigar as características do problema com dados reais</span></div>
+      </div>
+      <div class="masp-item">
+        <div class="masp-num">3</div>
+        <div><span class="masp-title">Análise</span><span class="masp-text">Identificar causas raiz com Ishikawa e Pareto</span></div>
+      </div>
+      <div class="masp-item">
+        <div class="masp-num">4</div>
+        <div><span class="masp-title">Plano de Ação</span><span class="masp-text">Elaborar o plano detalhado para eliminar as causas (5W2H)</span></div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p>Etapas <strong>1 a 4</strong> formam a fase de <strong>diagnóstico</strong>: entender bem o problema antes de agir.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 10B — MASP ETAPAS 5–8            -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O método completo · Parte 2 de 2</div>
+    <h2 class="slide-title">📋 As 8 Etapas do <span>MASP</span> — Solução</h2>
+    <div class="masp-grid">
+      <div class="masp-item">
+        <div class="masp-num">5</div>
+        <div><span class="masp-title">Ação</span><span class="masp-text">Executar o plano, treinar envolvidos e registrar tudo</span></div>
+      </div>
+      <div class="masp-item">
+        <div class="masp-num">6</div>
+        <div><span class="masp-title">Verificação</span><span class="masp-text">Confirmar se as ações eliminaram as causas e a meta foi atingida</span></div>
+      </div>
+      <div class="masp-item">
+        <div class="masp-num">7</div>
+        <div><span class="masp-title">Padronização</span><span class="masp-text">Documentar, treinar a equipe e oficializar como padrão</span></div>
+      </div>
+      <div class="masp-item">
+        <div class="masp-num">8</div>
+        <div><span class="masp-title">Conclusão</span><span class="masp-text">Registrar o aprendizado e planejar os próximos problemas</span></div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p>Etapas <strong>5 a 8</strong> formam a fase de <strong>solução e consolidação</strong>: agir, verificar e perpetuar a melhoria.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 11 — MASP ETAPAS 1 E 2           -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">MASP na prática — Parte 1</div>
+    <h2 class="slide-title">🔍 MASP: Identificação e <span>Observação</span></h2>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-p">
+        <span class="flow-label">1</span>
+        <div class="flow-text"><strong>Identificação:</strong> "Módulo de relatórios tem bugs em 60% dos deploys há 3 meses, causando rollback e atraso médio de 4h por ocorrência." Problema quantificado com impacto claro.</div>
+      </div>
+      <div class="flow-step fs-d">
+        <span class="flow-label">2</span>
+        <div class="flow-text"><strong>Observação:</strong> Quando acontece? Com qual tipo de dado? Em qual ambiente? Quem reporta? <strong>Colete tudo antes de concluir qualquer coisa.</strong></div>
+      </div>
+    </div>
+    <div class="quote-box">
+      <p>💡 Nunca pule da identificação para a solução. O maior erro é "achar que já sabe a causa" sem observar os dados.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 12 — MASP ETAPAS 3 E 4           -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">MASP na prática — Parte 2</div>
+    <h2 class="slide-title">🎯 MASP: Análise e <span>Plano de Ação</span></h2>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-c">
+        <span class="flow-label">3</span>
+        <div class="flow-text"><strong>Análise:</strong> Com Pareto, 80% dos bugs vêm de queries sem paginação. Causa raiz: ausência de limite de registros nos padrões de código.</div>
+      </div>
+      <div class="flow-step fs-a">
+        <span class="flow-label">4</span>
+        <div class="flow-text"><strong>Plano de Ação (5W2H):</strong> Implementar paginação obrigatória, revisar queries críticas e criar regra automática no linter.</div>
+      </div>
+    </div>
+    <div class="quote-box">
+      <p>Se você não chegou na <strong>causa raiz</strong>, vai tratar o sintoma — o problema volta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 13 — MASP ETAPAS 5 A 8           -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">MASP na prática — Parte 3</div>
+    <h2 class="slide-title">✅ MASP: Ação → <span>Conclusão</span></h2>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-p">
+        <span class="flow-label">5</span>
+        <div class="flow-text"><strong>Ação:</strong> Implementa paginação, atualiza documentação, treina a equipe.</div>
+      </div>
+      <div class="flow-step fs-d">
+        <span class="flow-label">6</span>
+        <div class="flow-text"><strong>Verificação:</strong> Após 2 sprints, bugs caíram de 60% para 4%. Meta atingida com dados.</div>
+      </div>
+      <div class="flow-step fs-c">
+        <span class="flow-label">7</span>
+        <div class="flow-text"><strong>Padronização:</strong> Regra entra no coding standards. Lint rule ativada. Inclusa no onboarding.</div>
+      </div>
+      <div class="flow-step fs-a">
+        <span class="flow-label">8</span>
+        <div class="flow-text"><strong>Conclusão:</strong> Economia de R$2.400/mês registrada. Próximo problema identificado: tempo de geração de PDF.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 14 — PDCA x MASP                 -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Qual usar em cada situação?</div>
+    <h2 class="slide-title">⚖️ PDCA <span>×</span> MASP — Quando usar cada um</h2>
+    <div class="comp-grid">
+      <div class="comp-col comp-pdca">
+        <div class="comp-header">🔄 PDCA</div>
+        <div class="comp-item">Ciclo de melhoria contínua — sem fim</div>
+        <div class="comp-item">4 etapas — simples e ágil</div>
+        <div class="comp-item">Uso diário: sprints, CI/CD, retros</div>
+        <div class="comp-item">Para melhorias incrementais e rápidas</div>
+        <div class="comp-item"><strong>Use quando:</strong> quer melhorar algo continuamente</div>
+      </div>
+      <div class="comp-col comp-masp">
+        <div class="comp-header">🛠️ MASP</div>
+        <div class="comp-item">Método para um problema específico</div>
+        <div class="comp-item">8 etapas — detalhado e analítico</div>
+        <div class="comp-item">Problemas crônicos, recorrentes, críticos</div>
+        <div class="comp-item">Exige dados, ferramentas e documentação</div>
+        <div class="comp-item"><strong>Use quando:</strong> o problema precisa ser resolvido de vez</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 15 — EXEMPLO: BUG EM PRODUÇÃO    -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Caso real</div>
+    <h2 class="slide-title">🐛 Exemplo: <span>Bug em Produção</span> com PDCA</h2>
+    <div class="highlight-box">
+      <p><strong>Situação:</strong> Login com taxa de erro de 30% após atualização de versão.</p>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-p">
+        <span class="flow-label">P</span>
+        <div class="flow-text"><strong>Plan:</strong> Token JWT expirando em 30% das chamadas. Meta: 0% de erros. Investigar mudança de expiração na v2.1.4.</div>
+      </div>
+      <div class="flow-step fs-d">
+        <span class="flow-label">D</span>
+        <div class="flow-text"><strong>Do:</strong> Dev ajusta configuração. Deploy em staging. Testes automatizados rodando.</div>
+      </div>
+      <div class="flow-step fs-c">
+        <span class="flow-label">C</span>
+        <div class="flow-text"><strong>Check:</strong> 24h de monitoramento. Taxa caiu para 0,2%. Dentro da margem.</div>
+      </div>
+      <div class="flow-step fs-a">
+        <span class="flow-label">A</span>
+        <div class="flow-text"><strong>Act:</strong> Deploy em produção. Configuração documentada. Alerta criado.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 16 — EXEMPLO: SPRINTS ATRASADAS  -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Caso real — problema recorrente</div>
+    <h2 class="slide-title">⏰ Exemplo: <span>Sprints Atrasadas</span> com MASP</h2>
+    <div class="highlight-box">
+      <p><strong>Situação:</strong> Sprints atrasadas há 3 ciclos. Problema crônico → usar MASP!</p>
+    </div>
+    <div class="masp-grid">
+      <div class="masp-item">
+        <div class="masp-num">1</div>
+        <div><span class="masp-title">Identificação</span><span class="masp-text">3 sprints atrasadas. Média: 4 dias além do prazo.</span></div>
+      </div>
+      <div class="masp-item">
+        <div class="masp-num">2</div>
+        <div><span class="masp-title">Observação</span><span class="masp-text">Atraso sempre na última semana. Tasks de integração são o gargalo.</span></div>
+      </div>
+      <div class="masp-item">
+        <div class="masp-num">3</div>
+        <div><span class="masp-title">Análise</span><span class="masp-text">Causa raiz: tasks de integração sem critério de pronto definido.</span></div>
+      </div>
+      <div class="masp-item">
+        <div class="masp-num">4–8</div>
+        <div><span class="masp-title">Ação → Conclusão</span><span class="masp-text">DoD criado, equipe treinada. Próximas 3 sprints entregues no prazo.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 17 — ERROS COMUNS                -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Cuidado com isso</div>
+    <h2 class="slide-title">⚠️ Erros Comuns no <span>PDCA e MASP</span></h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">❌ Pular o Check</span>
+        <div class="card-text">Ir do Do direto pro próximo ciclo. O problema some por um tempo e volta.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">❌ Plan sem dados</span>
+        <div class="card-text">Planejar baseado em achismo. Sem dados a causa raiz é um chute.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">⚠️ MASP sem padronização</span>
+        <div class="card-text">Resolver e não documentar. Em 6 meses ninguém sabe o que foi feito.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">⚠️ PDCA como projeto pontual</span>
+        <div class="card-text">PDCA é ciclo contínuo. Se parou de aplicar, não era PDCA.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 18 — DINÂMICA                    -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Mão na massa!</div>
+    <h2 class="slide-title">🎮 Dinâmica: <span>Roda do PDCA</span></h2>
+    <div class="din-header">
+      <span style="font-size:1.4em;">🎯</span>
+      <div class="din-header-text">Aplicar as 4 etapas do PDCA em um problema real de desenvolvimento</div>
+    </div>
+    <div class="din-meta">
+      <div class="din-meta-item">⏱️ <strong>10 a 15 minutos</strong></div>
+      <div class="din-meta-item">👥 <strong>5 grupos de 5 alunos</strong></div>
+      <div class="din-meta-item">📋 <strong>1 cartão por grupo</strong></div>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-teal"></div>
+        <span class="card-title card-title-teal">Grupo A</span>
+        <div class="card-text">Login com taxa de erro de 30% após atualização</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">Grupo B</span>
+        <div class="card-text">Sprints atrasadas há 3 ciclos consecutivos</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-purple"></div>
+        <span class="card-title" style="color:#A78BFA;">Grupo C</span>
+        <div class="card-text">Código sem padronização — cada dev usa um estilo diferente</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">Grupo D</span>
+        <div class="card-text">Bugs recorrentes no módulo de relatórios após cada deploy</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">Grupo E</span>
+        <div class="card-text">Tempo de resposta da API aumentou 200% após nova funcionalidade</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 19 — RESUMO                      -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O que vimos hoje</div>
+    <h2 class="slide-title">📌 Resumo da Aula</h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-teal"></div>
+        <span class="card-title card-title-teal">🔄 PDCA</span>
+        <div class="card-text">4 etapas: Plan → Do → Check → Act. Ciclo contínuo. Uso diário em sprints, CI/CD e retros.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-purple"></div>
+        <span class="card-title" style="color:#A78BFA;">🛠️ MASP</span>
+        <div class="card-text">8 etapas estruturadas para problemas crônicos. Análise de causa raiz, ação e padronização.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">⚖️ Quando usar?</span>
+        <div class="card-text"><strong style="color:var(--teal);">PDCA</strong> → dia a dia. <strong style="color:#A78BFA;">MASP</strong> → problema grave que precisa ser resolvido de vez.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">🔑 Chave de tudo</span>
+        <div class="card-text">Ambos dependem de <strong style="color:var(--green);">dados</strong>. Sem dados é chute. Com dados é método.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 20 — ENCERRAMENTO                -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-enc" data-transition="zoom">
+  <div class="slide-content">
+    <div class="slide-label">Até a próxima</div>
+    <h2 class="slide-title">🚀 O que vem a seguir</h2>
+    <div class="enc-grid">
+      <div class="enc-card enc-prox">
+        <span class="enc-card-label">→ Próxima aula — SA 14</span>
+        <div class="enc-card-text">Ferramentas da Qualidade I — Histograma, Brainstorming e Fluxograma de processos</div>
+      </div>
+      <div class="enc-card enc-rev">
+        <span class="enc-card-label">📝 Avaliação desta aula</span>
+        <div class="enc-card-text">Questões Objetivas + Questões Discursivas sobre PDCA e MASP</div>
+      </div>
+    </div>
+    <div class="quote-box">
+      <p>"Qualidade nunca é um acidente. É sempre o resultado de esforço inteligente."</p>
+      <cite>— John Ruskin</cite>
+    </div>
+    <div style="text-align:center;margin-top:12px;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.36em;color:var(--gray);letter-spacing:2px;text-transform:uppercase;">SA 13 · PDCA e MASP · Prof. Julio Cesar · SENAI Umuarama · 2026</div>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    progress: true,
+    controls: true,
+    controlsTutorial: true,
+    transition: 'slide',
+    transitionSpeed: 'default',
+    backgroundTransition: 'fade',
+    center: true,
+    width: 1280,
+    height: 720,
+    margin: 0.08,
+    minScale: 0.2,
+    maxScale: 1.0,
+    plugins: []
+  });
+</script>
+</body>
+</html>

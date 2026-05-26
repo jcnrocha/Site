@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<!-- DOCTYPE: informa ao navegador que este é um documento HTML5 (versão atual do HTML) -->
+
+<html lang="pt-BR">
+<!-- <html> é o elemento raiz — envolve TODO o conteúdo da página -->
+<!-- lang="pt-BR" informa ao navegador (e leitores de tela) que o idioma é português do Brasil -->
+
+<!-- ═══════════════════════════════════════════════════
+     <head> — CABEÇALHO TÉCNICO DA PÁGINA
+     Tudo aqui é invisível para o usuário, mas essencial
+     para o navegador, mecanismos de busca e dispositivos
+     ═══════════════════════════════════════════════════ -->
+<head>
+
+  <!-- Define a codificação de caracteres: UTF-8 suporta acentos, ç, emojis etc. -->
+  <meta charset="UTF-8">
+
+  <!-- viewport: controla como a página é exibida em celulares.
+       width=device-width  → largura da página = largura do dispositivo
+       initial-scale=1.0   → sem zoom inicial (tamanho 1:1) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Título da aba do navegador e dos resultados de busca (SEO) -->
+  <title>Cronograma 2026 — Qualidade, Produtividade e Sustentabilidade</title>
+  <meta name="description" content="Cronograma anual da disciplina Qualidade, Produtividade e Sustentabilidade do SENAI Umuarama.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0D1A2B">
+
+  <!-- Carrega 3 famílias de fontes do Google Fonts via CDN:
+       - IBM Plex Sans   → texto corrido e interface
+       - IBM Plex Mono   → números, datas, códigos
+       - IBM Plex Serif  → títulos e o "2026" em destaque
+       wght@400;600 = pesos (espessuras) que serão baixados -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Carrega o arquivo CSS externo da pasta css/.
+       rel="stylesheet" diz que é uma folha de estilos.
+       href="css/styles.css" é o caminho relativo ao index.html -->
+  <link rel="stylesheet" href="css/styles.css">
+
+</head>
+<!-- ═══════════════════════════════════════════════════
+     <body> — CORPO DA PÁGINA
+     Tudo que o usuário vê e interage fica aqui dentro
+     ═══════════════════════════════════════════════════ -->
+<body>
+
+
+<!-- ─────────────────────────────────────────────────
+     SEÇÃO 1 — TOPO (cabeçalho visual da página)
+     Fundo escuro com barra lateral colorida.
+     Usa Flexbox para colocar título e ano lado a lado.
+───────────────────────────────────────────────────── -->
+<div class="topo">
+  <!-- topo-inner: centraliza o conteúdo e limita a largura máxima (max-width no CSS) -->
+  <div class="topo-inner">
+
+    <!-- Bloco da ESQUERDA: subtítulo pequeno + título principal + descrição -->
+    <div>
+      <!-- Kicker: texto pequeno acima do título — identifica o documento rapidamente -->
+      <div class="topo-kicker">Cronograma Anual · 39 Encontros · Sextas-feiras</div>
+
+      <!-- <h1> é o título principal da página — deve existir só um por página (SEO e acessibilidade)
+           <br> força uma quebra de linha dentro do título
+           <em> aqui está sendo usado para aplicar cor especial à palavra (estilo, não ênfase semântica) -->
+      <h1 class="topo-title">Qualidade, Produtividade<br>e <em>Sustentabilidade</em></h1>
+
+      <!-- <p> é um parágrafo — usado aqui para a descrição curta da disciplina -->
+      <p class="topo-sub">Introdução à Qualidade, Produtividade e Sustentabilidade nos Processos Industriais · 1ª Série · Técnico em Desenvolvimento de Sistemas</p>
+    </div>
+
+    <!-- Bloco da DIREITA: ano letivo em destaque tipográfico -->
+    <div class="topo-right">
+      <div class="topo-ano">2026</div>
+      <div class="topo-ano-label">Ano Letivo</div>
+    </div>
+
+  </div>
+</div>
+<!-- fim .topo -->
+
+
+<!-- ─────────────────────────────────────────────────
+     SEÇÃO 2 — META-BAR (barra de metadados)
+     Faixa escura com pílulas de informação sobre a disciplina.
+     Cada <span class="meta-pill"> é uma "etiqueta" independente.
+───────────────────────────────────────────────────── -->
+<div class="meta-bar">
+  <div class="meta-inner">
+
+    <!-- <span> é um elemento inline (não quebra linha) usado para pequenos trechos de texto.
+         <strong> deixa o texto em negrito e indica importância semântica -->
+    <span class="meta-pill"><strong>Instituição:</strong> SENAI — Umuarama</span>
+    <span class="meta-pill"><strong>Curso:</strong> Técnico em Desenvolvimento de Sistemas</span>
+    <span class="meta-pill"><strong>Turma:</strong> 1ª Série</span>
+    <span class="meta-pill"><strong>Carga horária:</strong> 33h · 40h-aula</span>
+    <span class="meta-pill"><strong>Professor:</strong> Julio Cesar</span>
+
+  </div>
+</div>
+<!-- fim .meta-bar -->
+
+
+<!-- ─────────────────────────────────────────────────
+     SEÇÃO 3 — LEGENDA (guia de cores)
+     Barra branca que explica o significado das cores dos cards.
+     Cada leg-item combina um círculo colorido com um rótulo.
+───────────────────────────────────────────────────── -->
+<div class="legenda-bar">
+  <div class="legenda-inner">
+
+    <!-- Rótulo "Tipos" à esquerda -->
+    <span class="leg-label">Tipos</span>
+
+    <!-- Cada leg-item tem:
+         1. leg-dot → círculo colorido (cor vem do CSS via variável, ex: var(--aula))
+         2. texto   → nome do tipo de encontro
+         style="background:var(--aula)" aplica a variável de cor definida no :root do CSS -->
+    <span class="leg-item"><span class="leg-dot" style="background:var(--aula)"></span>Aula</span>
+    <span class="leg-item"><span class="leg-dot" style="background:var(--prova)"></span>Prova</span>
+    <span class="leg-item"><span class="leg-dot" style="background:var(--recup)"></span>Recuperação</span>
+    <span class="leg-item"><span class="leg-dot" style="background:var(--revisao)"></span>Revisão</span>
+    <span class="leg-item"><span class="leg-dot" style="background:var(--ponte)"></span>Ponte</span>
+
+  </div>
+</div>
+<!-- fim .legenda-bar -->
+
+
+<!-- ─────────────────────────────────────────────────
+     SEÇÃO 4 — CONTAINER PRINCIPAL
+     Envolve todo o conteúdo central da página:
+     tabelas de overview + os três blocos de trimestre.
+     O CSS limita a largura e centraliza com margin: auto.
+───────────────────────────────────────────────────── -->
+<main class="container">
+
+
+  <!-- ┌─────────────────────────────────────────────┐
+       │  BLOCO: OVERVIEW (tabelas de resumo)        │
+       │  Grid de 2 colunas no desktop,              │
+       │  1 coluna em mobile (responsivo no CSS)     │
+       └─────────────────────────────────────────────┘ -->
+  <div class="overview-grid">
+
+    <!-- CARD 1: Visão por trimestre -->
+    <div class="overview-card">
+      <!-- Cabeçalho escuro do card -->
+      <div class="overview-card-header">Visão consolidada por trimestre</div>
+
+      <!-- <table> estrutura dados em linhas (<tr>) e colunas (<td>/<th>).
+           <thead> = cabeçalho da tabela  |  <tbody> = corpo com os dados
+           <th> = célula de cabeçalho (negrito por padrão)
+           <td> = célula de dado normal -->
+      <table class="overview-table">
+        <thead>
+          <tr>
+            <th>Trimestre</th><th>Período</th><th>Aulas</th>
+            <th>Prova</th><th>Recup.</th><th>Revisão</th><th>Conexão</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1º TRI</td><td>06/02 – 08/05</td><td>8</td><td>10/04</td><td>17/04</td><td>24/04</td><td>08/05</td></tr>
+          <tr><td>2º TRI</td><td>22/05 – 04/09</td><td>9</td><td>14/08</td><td>21/08</td><td>28/08</td><td>04/09</td></tr>
+          <tr><td>3º TRI</td><td>11/09 – 18/12</td><td>10</td><td>27/11</td><td>04/12</td><td>11/12</td><td>18/12</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- fim card 1 -->
+
+    <!-- CARD 2: Distribuição por tópicos da matriz curricular -->
+    <div class="overview-card">
+      <div class="overview-card-header">Distribuição do conteúdo da matriz</div>
+      <table class="overview-table">
+        <thead>
+          <tr><th>Tópico</th><th>Descrição</th><th>Tri</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1.1 · 1.2</td><td>Definição e Evolução da Qualidade</td><td>1º</td></tr>
+          <tr><td>2.1 – 2.7</td><td>Princípios da Gestão da Qualidade</td><td>1º</td></tr>
+          <tr><td>5.1 – 5.3</td><td>Visão Sistêmica</td><td>1º</td></tr>
+          <tr><td>6.1 – 6.4</td><td>Estrutura Organizacional</td><td>1º</td></tr>
+          <tr><td>3.1.1 – 3.1.11</td><td>Métodos e Ferramentas da Qualidade</td><td>2º</td></tr>
+          <tr><td>4.1 – 4.5</td><td>Filosofia Lean completa</td><td>2º</td></tr>
+          <tr><td>1.1 – 1.4 (S.)</td><td>Organização de ambientes de trabalho</td><td>3º</td></tr>
+          <tr><td>2.1 – 2.4 (S.)</td><td>Desenvolvimento Sustentável e Meio Ambiente</td><td>3º</td></tr>
+          <tr><td>3.1 – 3.4 (S.)</td><td>Poluição Industrial e Prevenção</td><td>3º</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- fim card 2 -->
+
+  </div>
+  <!-- fim .overview-grid -->
+
+
+  <!-- ┌─────────────────────────────────────────────┐
+       │  1º TRIMESTRE                               │
+       │  Qualidade: Fundamentos e Gestão            │
+       └─────────────────────────────────────────────┘ -->
+
+  <!-- tri-divider: separador visual entre trimestres.
+       Tem 3 filhos: linha — rótulo — linha (Flexbox no CSS).
+       A ausência de classe no tri-label usa a cor padrão dourada (1º TRI). -->
+  <div class="tri-divider">
+    <div class="tri-line"></div>
+    <div class="tri-label">1º Trimestre · Qualidade: Fundamentos e Gestão</div>
+    <div class="tri-line"></div>
+  </div>
+
+  <!-- bloco: agrupa todos os cards de um trimestre -->
+  <section class="bloco">
+
+    <!-- ═══ ANATOMIA DO CARD DE AULA ═══════════════════════════════
+         .aula-card usa CSS Grid de 3 colunas:
+           [coluna 1: aula-id] [coluna 2: conteúdo] [coluna 3: tópico]
+         Em mobile, a coluna 3 some (display:none no CSS responsivo).
+
+         Modificadores de tipo (mudam a cor da borda esquerda):
+           (sem classe)  → aula normal   — cor dourada
+           t-prova       → prova         — cor vermelha
+           t-recup       → recuperação   — cor roxa
+           t-revisao     → revisão       — cor azul
+           t-ponte       → ponte/conexão — cor verde
+    ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- SA 01 — Card de aula normal (sem modificador de tipo) -->
+    <article class="aula-card">
+
+      <!-- COLUNA 1: identificação (número, data, dia da semana) -->
+      <div class="aula-id">
+        <span class="aula-num">SA 01</span>   <!-- número da situação de aprendizagem -->
+        <span class="aula-data">06/02</span>  <!-- data do encontro -->
+        <span class="aula-dia">Sexta</span>   <!-- dia da semana -->
+      </div>
+
+      <!-- COLUNA 2: conteúdo principal do card -->
+      <div>
+        <div class="aula-titulo">Apresentação da UC — O que é Qualidade e por que importa</div>
+        <div class="aula-desc">Apresentação do cronograma anual e contrato pedagógico. Introdução ao conceito de qualidade e sua aplicação no desenvolvimento de sistemas.</div>
+
+        <!-- aula-tags: lista de etiquetas coloridas.
+             Cada tag pode ter uma ou duas classes:
+               "tag"           → estilo base de todas as etiquetas
+               "tag-aula"      → badge dourado "Plano de Aula"
+               "tag-slides"    → indica quantidade de slides
+               "tag-dinamica"  → indica atividade dinâmica
+               "tag-quest"     → indica questionário -->
+        <div class="aula-tags">
+          <span class="tag tag-aula">Plano de Aula</span>
+          <span class="tag tag-slides">Slides</span>
+          <span class="tag tag-dinamica">Dinâmica</span>
+          <span class="tag tag-quest">Questionário</span>
+        </div>
+      </div>
+
+      <!-- COLUNA 3: referência ao tópico da matriz curricular (oculto em mobile) -->
+      <div class="aula-topico">
+        <span class="topico-label">Tópico da Matriz</span>
+        <span class="topico-num">Introdução</span>
+      </div>
+
+    </article>
+    <!-- fim SA 01 -->
+
+    <!-- SA 02 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 02</span><span class="aula-data">13/02</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Qualidade — Definição e conceito (ISO 9000)</div>
+        <div class="aula-desc">O que é qualidade segundo a ISO 9000. Diferença entre qualidade percebida e qualidade conformidade. Exemplos práticos em software.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">1.1</span></div>
+    </article>
+
+    <!-- SA03 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 03</span><span class="aula-data">20/02</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Evolução da Qualidade — As 4 Eras</div>
+        <div class="aula-desc">Da inspeção ao controle estatístico, da garantia à gestão total da qualidade. Como cada era moldou as práticas atuais de desenvolvimento.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">1.2</span></div>
+    </article>
+
+    <!-- SA04 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 04</span><span class="aula-data">27/02</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Gurus da Qualidade — Shewhart, Deming, Juran, Ishikawa, Crosby</div>
+        <div class="aula-desc">Contribuições dos principais pensadores da qualidade. Conceitos que fundamentam as ferramentas e práticas utilizadas até hoje.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">1.2</span></div>
+    </article>
+
+    <!-- SA05 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 05</span><span class="aula-data">06/03</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Princípios da Gestão da Qualidade — P1 a P4 (ISO 9001)</div>
+        <div class="aula-desc">Foco no cliente, liderança, engajamento das pessoas e abordagem de processos. Como esses princípios se aplicam em equipes de desenvolvimento ágil.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">2.1 – 2.4</span></div>
+    </article>
+
+    <!-- SA06 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 06</span><span class="aula-data">13/03</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Princípios da Gestão da Qualidade — P5 a P7 (ISO 9001)</div>
+        <div class="aula-desc">Tomada de decisão baseada em evidências, melhoria contínua e gestão de relacionamentos. Como dados guiam decisões de qualidade em projetos de software.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">2.5 – 2.7</span></div>
+    </article>
+
+    <!-- SA07 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 07</span><span class="aula-data">20/03</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Visão Sistêmica — Conceito, microcosmo, macrocosmo e pensamento sistêmico</div>
+        <div class="aula-desc">Compreender a organização como um sistema integrado. Pensamento sistêmico aplicado à qualidade e ao desenvolvimento de software.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">5.1 – 5.3</span></div>
+    </article>
+
+    <!-- SA08 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 08</span><span class="aula-data">27/03</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Estrutura Organizacional — Formal, informal, funções e comunicação</div>
+        <div class="aula-desc">Organização formal e informal nas empresas. Funções, responsabilidades e sistemas de comunicação. Como a estrutura influencia a qualidade dos processos.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">6.1 – 6.4</span></div>
+    </article>
+
+    <!-- SA09 — PROVA: classe "t-prova" muda a borda esquerda para vermelho -->
+    <article class="aula-card t-prova">
+      <div class="aula-id"><span class="aula-num">SA 09</span><span class="aula-data">10/04</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Prova — 1ª Avaliação Trimestral</div>
+        <div class="aula-desc">Avaliação escrita cobrindo todos os conteúdos do 1º trimestre: definição, evolução, princípios da gestão, visão sistêmica e estrutura organizacional.</div>
+        <!-- tag-prova: badge vermelho; tags sem classe extra ficam com o estilo neutro padrão -->
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-prova">Prova</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">1º TRI</span></div>
+    </article>
+
+    <!-- SA10 — RECUPERAÇÃO: classe "t-recup" muda a borda esquerda para roxo -->
+    <article class="aula-card t-recup">
+      <div class="aula-id"><span class="aula-num">SA 10</span><span class="aula-data">17/04</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Prova de Recuperação — 1º Trimestre</div>
+        <div class="aula-desc">Recuperação para alunos que não atingiram a média no 1º trimestre. Cobertura integral dos conteúdos trabalhados.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-recup">Recuperação</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">1º TRI</span></div>
+    </article>
+
+    <!-- SA11 — REVISÃO: classe "t-revisao" muda a borda esquerda para azul -->
+    <article class="aula-card t-revisao">
+      <div class="aula-id"><span class="aula-num">SA 11</span><span class="aula-data">24/04</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Revisão e correção comentada das provas do 1º trimestre</div>
+        <div class="aula-desc">Correção coletiva das provas com feedback detalhado. Retomada dos pontos de maior dificuldade identificados nas respostas da turma.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-revisao">Revisão</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">—</span></div>
+    </article>
+
+    <!-- SA12 — PONTE: classe "t-ponte" muda a borda esquerda para verde -->
+    <article class="aula-card t-ponte">
+      <div class="aula-id"><span class="aula-num">SA 12</span><span class="aula-data">08/05</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Conexão com o 2º trimestre — Introdução às Ferramentas da Qualidade</div>
+        <div class="aula-desc">Encerramento do 1º trimestre e apresentação do que vem a seguir. Contextualização das ferramentas da qualidade como aplicação prática dos princípios estudados.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-ponte">Ponte</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">Ponte</span></div>
+    </article>
+
+  </section>
+  <!-- fim .bloco do 1º trimestre -->
+
+
+  <!-- ┌─────────────────────────────────────────────┐
+       │  2º TRIMESTRE                               │
+       │  Ferramentas da Qualidade e Filosofia Lean  │
+       └─────────────────────────────────────────────┘ -->
+
+  <!-- tri-label.t2: modificador que aplica a paleta azul no separador do 2º trimestre -->
+  <div class="tri-divider">
+    <div class="tri-line"></div>
+    <div class="tri-label t2">2º Trimestre · Ferramentas da Qualidade e Filosofia Lean</div>
+    <div class="tri-line"></div>
+  </div>
+
+  <section class="bloco">
+
+    <!-- SA 13 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 13</span><span class="aula-data">22/05</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">PDCA e MASP — Ciclo de melhoria e método de solução de problemas</div>
+        <div class="aula-desc">As 4 etapas do PDCA e as 8 etapas do MASP aplicadas à resolução de problemas em processos de desenvolvimento de sistemas.</div>
+        <div class="aula-tags"><a href="plano_aula_SA13.html" target="_blank" class="tag tag-aula">Plano de Aula</a><a href="apresentacao_SA13.html" target="_blank" class="tag tag-slides">Slides</a><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">3.1.1 · 3.1.2</span></div>
+    </article>
+
+    <!-- SA14 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 14</span><span class="aula-data">29/05</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Ferramentas da Qualidade I — Histograma, Brainstorming e Fluxograma de processos</div>
+        <div class="aula-desc">Histograma para análise de distribuição, brainstorming estruturado para geração de ideias e fluxograma para mapeamento de processos de desenvolvimento.</div>
+        <div class="aula-tags"><a href="plano_aula_SA14.html" target="_blank" class="tag tag-aula">Plano de Aula</a><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">3.1.3 – 3.1.5</span></div>
+    </article>
+
+    <!-- SA15 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 15</span><span class="aula-data">12/06</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Ferramentas da Qualidade II — Diagrama de Pareto e Diagrama de Ishikawa</div>
+        <div class="aula-desc">Princípio 80/20 e priorização de problemas com Pareto. Diagrama de causa e efeito (Ishikawa / Espinha de peixe) aplicado a falhas em sistemas.</div>
+        <div class="aula-tags"><a href="plano_aula_SA15.html" target="_blank" class="tag tag-aula">Plano de Aula</a><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">3.1.6 · 3.1.7</span></div>
+    </article>
+
+    <!-- SA16 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 16</span><span class="aula-data">19/06</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Ferramentas da Qualidade III — CEP, 5W2H, Folha de verificação e Dispersão</div>
+        <div class="aula-desc">Controle Estatístico de Processos, plano de ação 5W2H, coleta sistemática de dados e correlação entre variáveis. Comparativo das 11 ferramentas estudadas.</div>
+        <div class="aula-tags"><a href="plano_aula_SA16.html" target="_blank" class="tag tag-aula">Plano de Aula</a><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">3.1.8 – 3.1.11</span></div>
+    </article>
+
+    <!-- SA17 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 17</span><span class="aula-data">26/06</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Filosofia Lean — Definição, mindset e pilares</div>
+        <div class="aula-desc">Origem do Lean no Toyota Production System. Mindset de eliminação de desperdícios e geração de valor. Os 5 pilares Lean e sua relação com metodologias ágeis em TI.</div>
+        <div class="aula-tags"><a href="plano_aula_SA17.html" target="_blank" class="tag tag-aula">Plano de Aula</a><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">4.1 – 4.3</span></div>
+    </article>
+
+    <!-- SA18 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 18</span><span class="aula-data">03/07</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Lean — Etapas: Preparação, Coleta e Intervenção</div>
+        <div class="aula-desc">Mapeamento do estado atual, medição de desperdícios e aplicação das primeiras melhorias. Exemplos em fluxos de trabalho de desenvolvimento de software.</div>
+        <div class="aula-tags"><a href="plano_aula_SA18.html" target="_blank" class="tag tag-aula">Plano de Aula</a><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">4.4.1 – 4.4.3</span></div>
+    </article>
+
+    <!-- SA19 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 19</span><span class="aula-data">10/07</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Lean — Etapas: Monitoramento e Encerramento</div>
+        <div class="aula-desc">Indicadores e KPIs para monitoramento das melhorias implantadas. Documentação e sustentação dos resultados. Como medir o sucesso de uma intervenção Lean.</div>
+        <div class="aula-tags"><a href="plano_aula_SA19.html" target="_blank" class="tag tag-aula">Plano de Aula</a><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">4.4.4 · 4.4.5</span></div>
+    </article>
+
+    <!-- SA20 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 20</span><span class="aula-data">31/07</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Ferramentas Lean I — Diagrama Espaguete e Cronoanálise</div>
+        <div class="aula-desc">Visualização do fluxo de movimentação e identificação de ineficiências. Medição e análise de tempos de processo aplicada a fluxos de trabalho em equipe.</div>
+        <div class="aula-tags"><a href="plano_aula_SA20.html" target="_blank" class="tag tag-aula">Plano de Aula</a><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">4.5.1 · 4.5.2</span></div>
+    </article>
+
+    <!-- SA21 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 21</span><span class="aula-data">07/08</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Ferramentas Lean II — Takt-time, Cadeia de valores e Mapa de fluxo de valor (VSM)</div>
+        <div class="aula-desc">Ritmo de produção sincronizado com a demanda. Identificação de atividades que geram valor vs. desperdícios. Construção prática de um VSM em sala.</div>
+        <div class="aula-tags"><a href="plano_aula_SA21.html" target="_blank" class="tag tag-aula">Plano de Aula</a><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">4.5.3 – 4.5.5</span></div>
+    </article>
+
+    <!-- SA22 — PROVA do 2º trimestre -->
+    <article class="aula-card t-prova">
+      <div class="aula-id"><span class="aula-num">SA 22</span><span class="aula-data">14/08</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Prova — 2ª Avaliação Trimestral</div>
+        <div class="aula-desc">Avaliação escrita cobrindo todos os conteúdos do 2º trimestre: ferramentas da qualidade e filosofia Lean completa.</div>
+        <div class="aula-tags"><a href="plano_aula_SA22.html" target="_blank" class="tag tag-aula">Plano de Aula</a><span class="tag tag-prova">Prova</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">2º TRI</span></div>
+    </article>
+
+    <!-- SA23 — RECUPERAÇÃO do 2º trimestre -->
+    <article class="aula-card t-recup">
+      <div class="aula-id"><span class="aula-num">SA 23</span><span class="aula-data">21/08</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Prova de Recuperação — 2º Trimestre</div>
+        <div class="aula-desc">Recuperação para alunos que não atingiram a média no 2º trimestre. Cobertura integral dos conteúdos trabalhados.</div>
+        <div class="aula-tags"><a href="plano_aula_SA23.html" target="_blank" class="tag tag-aula">Plano de Aula</a><span class="tag tag-recup">Recuperação</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">2º TRI</span></div>
+    </article>
+
+    <!-- SA24 — REVISÃO do 2º trimestre -->
+    <article class="aula-card t-revisao">
+      <div class="aula-id"><span class="aula-num">SA 24</span><span class="aula-data">28/08</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Revisão e correção comentada das provas do 2º trimestre</div>
+        <div class="aula-desc">Correção coletiva das provas com feedback detalhado. Retomada dos pontos de maior dificuldade identificados nas respostas da turma.</div>
+        <div class="aula-tags"><a href="plano_aula_SA24.html" target="_blank" class="tag tag-aula">Plano de Aula</a><span class="tag tag-revisao">Revisão</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">—</span></div>
+    </article>
+
+    <!-- SA25 — PONTE para o 3º trimestre -->
+    <article class="aula-card t-ponte">
+      <div class="aula-id"><span class="aula-num">SA 25</span><span class="aula-data">04/09</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Conexão com o 3º trimestre — Introdução à Sustentabilidade</div>
+        <div class="aula-desc">Encerramento do 2º trimestre e apresentação do bloco de Sustentabilidade. Como os conceitos de qualidade e Lean se conectam com as práticas sustentáveis.</div>
+        <div class="aula-tags"><a href="plano_aula_SA25.html" target="_blank" class="tag tag-aula">Plano de Aula</a><span class="tag tag-ponte">Ponte</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">Ponte</span></div>
+    </article>
+
+  </section>
+  <!-- fim .bloco do 2º trimestre -->
+
+
+  <!-- ┌─────────────────────────────────────────────┐
+       │  3º TRIMESTRE                               │
+       │  Sustentabilidade nos Processos Industriais │
+       └─────────────────────────────────────────────┘ -->
+
+  <!-- tri-label.t3: modificador que aplica a paleta roxa no separador do 3º trimestre -->
+  <div class="tri-divider">
+    <div class="tri-line"></div>
+    <div class="tri-label t3">3º Trimestre · Sustentabilidade nos Processos Industriais</div>
+    <div class="tri-line"></div>
+  </div>
+
+  <section class="bloco">
+
+    <!-- SA 26 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 26</span><span class="aula-data">11/09</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Organização do ambiente de trabalho — Princípios, ferramentas e disciplina</div>
+        <div class="aula-desc">Princípios de organização do espaço de trabalho. Disciplina, compromisso e gestão do tempo no contexto profissional de TI.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">1.1 – 1.4</span></div>
+    </article>
+
+    <!-- SA27 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 27</span><span class="aula-data">18/09</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Recursos Naturais — Definição, renováveis e não renováveis</div>
+        <div class="aula-desc">Classificação dos recursos naturais e impacto da produção industrial sobre eles. Conexão com o consumo energético de data centers e equipamentos de TI.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">2.1</span></div>
+    </article>
+
+    <!-- SA28 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 28</span><span class="aula-data">25/09</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Sustentabilidade — Definição, pilares e políticas/programas</div>
+        <div class="aula-desc">Os três pilares da sustentabilidade: ambiental, social e econômico. Políticas e programas nacionais e internacionais. Como empresas de tecnologia adotam práticas sustentáveis.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">2.2</span></div>
+    </article>
+
+    <!-- SA29 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 29</span><span class="aula-data">02/10</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Produção e consumo inteligente — Uso racional de recursos e meio ambiente</div>
+        <div class="aula-desc">Uso racional de energia e recursos naturais. Relação entre homem e meio ambiente nos processos industriais. Responsabilidade ambiental do profissional de sistemas.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">2.3 · 2.4</span></div>
+    </article>
+
+    <!-- SA30 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 30</span><span class="aula-data">09/10</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Poluição Industrial — Resíduos: caracterização, classificação e destinação</div>
+        <div class="aula-desc">Tipos de resíduos industriais (sólido, líquido e gasoso) e suas classificações. Lixo eletrônico como resíduo de TI: impactos e regulamentação.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">3.1 · 3.2</span></div>
+    </article>
+
+    <!-- SA31 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 31</span><span class="aula-data">16/10</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Ações de prevenção da poluição — Redução, Reciclagem, Reuso, Tratamento e Disposição</div>
+        <div class="aula-desc">Hierarquia das ações de prevenção e controle da poluição industrial. Aplicação dos 5 princípios no contexto de descarte de equipamentos de TI.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">3.3</span></div>
+    </article>
+
+    <!-- SA32 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 32</span><span class="aula-data">23/10</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Ciclo de Vida e Logística Reversa</div>
+        <div class="aula-desc">Fases do ciclo de vida de um produto industrial. Logística reversa: definição, objetivo e exemplos práticos no setor de tecnologia.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">3.4.1 · 3.4.2</span></div>
+    </article>
+
+    <!-- SA33 -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 33</span><span class="aula-data">30/10</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Produção mais limpa e Economia Circular</div>
+        <div class="aula-desc">Produção mais limpa: fases e aplicação no setor de TI. Economia circular: eliminar resíduos por design, manter produtos em uso e regenerar sistemas naturais.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-slides">Slides</span><span class="tag tag-dinamica">Dinâmica</span><span class="tag tag-quest">Questionário</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">3.4.3 · 3.4.4</span></div>
+    </article>
+
+    <!-- SA34 — aula de revisão pré-prova (sem tag-quest neste card) -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 34</span><span class="aula-data">06/11</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Revisão pré-prova — Sustentabilidade completa</div>
+        <div class="aula-desc">Retomada dos conteúdos do 3º trimestre: organização do ambiente, recursos naturais, sustentabilidade, poluição, prevenção e economia circular.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-dinamica">Revisão ativa</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">3º TRI</span></div>
+    </article>
+
+    <!-- SA35 — revisão integradora de toda a UC -->
+    <article class="aula-card">
+      <div class="aula-id"><span class="aula-num">SA 35</span><span class="aula-data">13/11</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Revisão pré-prova — Integração Qualidade + Lean + Sustentabilidade</div>
+        <div class="aula-desc">Mapa integrador de toda a UC. Conexão entre os três grandes blocos de conteúdo: fundamentos da qualidade, ferramentas Lean e práticas sustentáveis.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-dinamica">Mapa integrador</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">UC completa</span></div>
+    </article>
+
+    <!-- SA36 — PROVA do 3º trimestre -->
+    <article class="aula-card t-prova">
+      <div class="aula-id"><span class="aula-num">SA 36</span><span class="aula-data">27/11</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Prova — 3ª Avaliação Trimestral</div>
+        <div class="aula-desc">Avaliação escrita cobrindo todos os conteúdos do 3º trimestre: sustentabilidade nos processos industriais completa.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-prova">Prova</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">3º TRI</span></div>
+    </article>
+
+    <!-- SA37 — RECUPERAÇÃO do 3º trimestre -->
+    <article class="aula-card t-recup">
+      <div class="aula-id"><span class="aula-num">SA 37</span><span class="aula-data">04/12</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Prova de Recuperação — 3º Trimestre</div>
+        <div class="aula-desc">Recuperação para alunos que não atingiram a média no 3º trimestre. Cobertura integral dos conteúdos trabalhados.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-recup">Recuperação</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">3º TRI</span></div>
+    </article>
+
+    <!-- SA38 — REVISÃO do 3º trimestre -->
+    <article class="aula-card t-revisao">
+      <div class="aula-id"><span class="aula-num">SA 38</span><span class="aula-data">11/12</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Revisão e correção comentada das provas do 3º trimestre</div>
+        <div class="aula-desc">Correção coletiva das provas com feedback detalhado. Retomada dos pontos de maior dificuldade identificados nas respostas da turma.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-revisao">Revisão</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">—</span></div>
+    </article>
+
+    <!-- SA39 — ENCERRAMENTO: último encontro do ano (usa t-ponte visualmente) -->
+    <article class="aula-card t-ponte">
+      <div class="aula-id"><span class="aula-num">SA 39</span><span class="aula-data">18/12</span><span class="aula-dia">Sexta</span></div>
+      <div>
+        <div class="aula-titulo">Encerramento da UC — Integração geral e reflexão sobre a jornada</div>
+        <div class="aula-desc">Encerramento formal da UC. Reflexão sobre os aprendizados do ano: da qualidade ao Lean e à sustentabilidade. Perspectivas para o ano seguinte.</div>
+        <div class="aula-tags"><span class="tag tag-aula">Plano de Aula</span><span class="tag tag-ponte">Encerramento</span></div>
+      </div>
+      <div class="aula-topico"><span class="topico-label">Tópico da Matriz</span><span class="topico-num">—</span></div>
+    </article>
+
+  </section>
+  <!-- fim .bloco do 3º trimestre -->
+
+
+</main>
+<!-- fim .container -->
+
+
+<!-- ─────────────────────────────────────────────────
+     RODAPÉ DA PÁGINA
+     <footer> é uma tag semântica do HTML5 (assim como
+     <header>, <main>, <nav>, <section>, <article>).
+     Informa ao navegador que este bloco é o rodapé,
+     melhorando acessibilidade e SEO.
+───────────────────────────────────────────────────── -->
+<footer>
+  <span>Qualidade, Produtividade e Sustentabilidade</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+
+
+<!-- Carrega o arquivo JavaScript externo, posicionado no FINAL do <body>.
+     Colocar o <script> aqui (e não no <head>) garante que todo o HTML
+     já foi carregado antes do JavaScript tentar acessar os elementos da página. -->
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
