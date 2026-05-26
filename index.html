@@ -3,648 +3,539 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Julio Cesar — Analista de Dados</title>
+<title>Prof. Julio Cesar — Técnico em Desenvolvimento de Sistemas</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #F5F4F0;
+    --dark:     #0E0E0E;
+    --mid:      #3A3A3A;
+    --muted:    #888;
+    --border:   #DDDBD6;
+    --white:    #FFFFFF;
 
-<!-- Importação das fontes do Google Fonts:
-     - Fraunces: fonte serif para títulos e destaques
-     - Manrope: fonte sans-serif para o corpo do texto
-     - Fira Code: fonte monospace para labels técnicos e chips -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=Manrope:wght@300;400;500;600;700&family=Fira+Code:wght@300;400&display=swap" rel="stylesheet">
+    /* UCs */
+    --prog-ap:    #1A7A4A; --prog-ap-bg: #EAF3DE; --prog-ap-tx: #173404;
+    --qualidade:  #BA7517; --qualidade-bg: #FAEEDA; --qualidade-tx: #412402;
+    --projetos:   #993C1D; --projetos-bg: #FAECE7; --projetos-tx: #4A1B0C;
+    --fund-ti:    #534AB7; --fund-ti-bg: #EEEDFE; --fund-ti-tx: #26215C;
+    --fund-bd:    #185FA5; --fund-bd-bg: #E6F1FB; --fund-bd-tx: #042C53;
+    --redes:      #0F6E56; --redes-bg: #E1F5EE; --redes-tx: #04342C;
+    --logica:     #3B9E6A; --logica-bg: #D6F5E6; --logica-tx: #0A3320;
+  }
 
-<!-- Estilos externos — todo o CSS está em style.css -->
-<link rel="stylesheet" href="style.css">
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: relative;
+    z-index: 1;
+    padding: 48px 32px 0;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .logo-area { flex: 1; }
+
+  .logo-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 14px;
+    margin-bottom: 18px;
+  }
+
+  .logo-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 7vw, 72px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    color: var(--dark);
+  }
+
+  .logo-name em {
+    font-style: normal;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .logo-sub {
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 360px;
+    line-height: 1.7;
+  }
+
+  .institucoes {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .inst-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--mid);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    max-width: 1100px;
+    margin: 40px auto 0;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .divider-line {
+    height: 1px;
+    background: var(--border);
+    position: relative;
+  }
+
+  .divider-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg);
+    padding: 0 16px 0 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    position: relative;
+    top: -10px;
+  }
+
+  .divider-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--dark);
+  }
+
+  /* ── GRID UCS ── */
+  .ucs-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 32px 64px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .escola-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 32px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .escola-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .ucs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  /* ── UC CARD ── */
+  .uc-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+
+  .uc-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  }
+
+  .uc-card-top {
+    height: 6px;
+    flex-shrink: 0;
+  }
+
+  .uc-card-body {
+    padding: 20px 22px 22px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .uc-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .uc-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .uc-info { flex: 1; }
+
+  .uc-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+
+  .uc-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .uc-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .uc-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .uc-arrow {
+    margin-left: auto;
+    font-size: 16px;
+    color: var(--muted);
+    align-self: flex-end;
+    transition: transform 0.2s;
+  }
+
+  .uc-card:hover .uc-arrow {
+    transform: translate(3px, -3px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 24px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ── FADE IN ANIMATION ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .header        { animation: fadeUp 0.5s ease both; }
+  .divider       { animation: fadeUp 0.5s 0.1s ease both; }
+  .ucs-section   { animation: fadeUp 0.5s 0.2s ease both; }
+
+  .uc-card { animation: fadeUp 0.4s ease both; }
+  .uc-card:nth-child(1) { animation-delay: 0.15s; }
+  .uc-card:nth-child(2) { animation-delay: 0.2s; }
+  .uc-card:nth-child(3) { animation-delay: 0.25s; }
+  .uc-card:nth-child(4) { animation-delay: 0.3s; }
+  .uc-card:nth-child(5) { animation-delay: 0.35s; }
+  .uc-card:nth-child(6) { animation-delay: 0.4s; }
+  .uc-card:nth-child(7) { animation-delay: 0.45s; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 640px) {
+    .header, footer { padding-left: 20px; padding-right: 20px; }
+    .ucs-section { padding-left: 20px; padding-right: 20px; }
+    .divider { padding-left: 20px; padding-right: 20px; }
+    .ucs-grid { grid-template-columns: 1fr; }
+    .header-top { flex-direction: column; }
+    .logo-name { font-size: 42px; }
+  }
+</style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════
-     NAV — Barra de navegação fixa no topo
-     Contém: logo, links de seção e badge de disponibilidade
-     ══════════════════════════════════════════════ -->
-<nav id="nav">
-  <!-- Logo clicável que volta ao topo da página -->
-  <a href="#hero" class="nav-brand">
-    <div class="nav-brand-icon">
-      <!-- SVG decorativo de gráfico de barras crescente -->
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-        <rect x="2" y="10" width="3" height="6" rx="1" fill="white"/>
-        <rect x="7" y="6" width="3" height="10" rx="1" fill="white" opacity="0.8"/>
-        <rect x="12" y="2" width="3" height="14" rx="1" fill="white" opacity="0.6"/>
-      </svg>
-    </div>
-    <span class="nav-brand-name">Julio<span>Cesar</span></span>
-  </a>
-
-  <!-- Links de navegação que rolam suavemente para cada seção -->
-  <ul class="nav-links">
-    <li><a href="#sobre">Sobre</a></li>
-    <li><a href="#habilidades">Skills</a></li>
-    <li><a href="#experiencia">Carreira</a></li>
-    <li><a href="#formacao">Formação</a></li>
-    <li><a href="#docencia">Docência</a></li>
-    <li><a href="#contato">Contato</a></li>
-  </ul>
-
-  <!-- Badge verde com ponto pulsante indicando disponibilidade -->
-  <div class="nav-badge">
-    <div class="nav-badge-dot"></div>
-    Disponível
-  </div>
-</nav>
-
-<!-- ══════════════════════════════════════════════
-     HERO — Seção de apresentação principal
-     Layout: texto à esquerda + card de dashboard à direita
-     ══════════════════════════════════════════════ -->
-<section id="hero">
-  <!-- Manchas de gradiente decorativas no fundo -->
-  <div class="hero-blob1"></div>
-  <div class="hero-blob2"></div>
-
-  <!-- Bolinhas animadas flutuantes (decoração de "nós de dados") -->
-  <div class="hero-nodes">
-    <div class="node"></div><div class="node"></div>
-    <div class="node"></div><div class="node"></div>
-    <div class="node"></div>
-  </div>
-
-  <!-- Coluna esquerda: apresentação textual -->
-  <div class="hero-left">
-    <!-- Chip badge acima do nome -->
-    <div class="hero-chip">
-      <span class="hero-chip-icon">📊</span>
-      Portfólio Profissional
-    </div>
-
-    <!-- Nome principal com "Cesar" em destaque itálico azul -->
-    <h1 class="hero-name">
-      Julio Cesar
-    </h1>
-
-    <!-- Breve descrição profissional -->
-    <p class="hero-tagline">
-      <strong> Olá, seja muito bem vindo(a) ao meu portfólio de projetos. Especialista em análise de dados e Business Intelligence, transformando dados em decisões estratégicas<strong>.
-    </p>
-
-    <!-- Pílulas das principais tecnologias -->
-    <div class="hero-pills">
-      <span class="hero-pill">SQL · PL/SQL</span>
-      <span class="hero-pill">Power BI · Tableau</span>
-      <span class="hero-pill">ODI · ETL</span>
-      <span class="hero-pill">Data Warehouse</span>
-      <span class="hero-pill">Professor de TI</span>
-    </div>
-
-    <!-- Botões de ação: ver trajetória e entrar em contato -->
-    <div class="hero-btns">
-      <a href="#experiencia" class="btn-solid">Ver trajetória</a>
-      <a href="#contato" class="btn-line">Entrar em contato</a>
-    </div>
-  </div>
-
-  <!-- Coluna direita: card decorativo simulando um dashboard de dados -->
-  <div class="hero-viz-card">
-    <!-- Cabeçalho do card estilo terminal (bolinhas + título) -->
-    <div class="viz-card-header">
-      <div class="viz-card-dots">
-        <span></span><span></span><span></span>
-      </div>
-      <div class="viz-card-title">experiencia.dashboard</div>
-    </div>
-
-    <!-- Gráfico de barras decorativo mostrando evolução por ano -->
-    <div class="viz-chart">
-      <div class="viz-bar-wrap">
-        <div class="viz-bar" style="height:40%;background:#dbeafe;"></div>
-        <div class="viz-bar-label">2006</div>
-      </div>
-      <div class="viz-bar-wrap">
-        <div class="viz-bar" style="height:55%;background:#bfdbfe;"></div>
-        <div class="viz-bar-label">2008</div>
-      </div>
-      <div class="viz-bar-wrap">
-        <div class="viz-bar" style="height:65%;background:#93c5fd;"></div>
-        <div class="viz-bar-label">2010</div>
-      </div>
-      <div class="viz-bar-wrap">
-        <div class="viz-bar" style="height:75%;background:#60a5fa;"></div>
-        <div class="viz-bar-label">2012</div>
-      </div>
-      <div class="viz-bar-wrap">
-        <div class="viz-bar" style="height:82%;background:#3b82f6;"></div>
-        <div class="viz-bar-label">2015</div>
-      </div>
-      <div class="viz-bar-wrap">
-        <div class="viz-bar" style="height:90%;background:#2563eb;"></div>
-        <div class="viz-bar-label">2018</div>
-      </div>
-      <div class="viz-bar-wrap">
-        <div class="viz-bar" style="height:100%;background:#1d4ed8;"></div>
-        <div class="viz-bar-label">2022</div>
-      </div>
-    </div>
-
-    <!-- Grid 2x2 com números de destaque da carreira -->
-    <div class="viz-stats">
-      <div class="viz-stat">
-        <div class="viz-stat-num">19<sup>+</sup></div>
-        <div class="viz-stat-label">Anos exp.</div>
-      </div>
-      <div class="viz-stat">
-        <div class="viz-stat-num">3k<sup>+</sup></div>
-        <div class="viz-stat-label">ETL criados</div>
-      </div>
-      <div class="viz-stat">
-        <div class="viz-stat-num">3×</div>
-        <div class="viz-stat-label">Melhor PR</div>
-      </div>
-      <div class="viz-stat">
-        <div class="viz-stat-num">2×</div>
-        <div class="viz-stat-label">Melhor Sul</div>
-      </div>
-    </div>
-
-    <!-- Diagrama visual de pipeline de dados: Source → ETL → DW → BI → Insight -->
-    <div class="viz-pipeline">
-      <div class="pipe-step">
-        <div class="pipe-icon" style="background:#eff6ff;">🗄️</div>
-        <div class="pipe-name">Source</div>
-      </div>
-      <div class="pipe-arrow">→</div>
-      <div class="pipe-step">
-        <div class="pipe-icon" style="background:#f0fdfa;">⚙️</div>
-        <div class="pipe-name">ETL</div>
-      </div>
-      <div class="pipe-arrow">→</div>
-      <div class="pipe-step">
-        <div class="pipe-icon" style="background:#fdf4ff;">🏗️</div>
-        <div class="pipe-name">DW</div>
-      </div>
-      <div class="pipe-arrow">→</div>
-      <div class="pipe-step">
-        <div class="pipe-icon" style="background:#fffbeb;">📊</div>
-        <div class="pipe-name">BI</div>
-      </div>
-      <div class="pipe-arrow">→</div>
-      <div class="pipe-step">
-        <div class="pipe-icon" style="background:#f0fdf4;">💡</div>
-        <div class="pipe-name">Insight</div>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-top">
+    <div class="logo-area">
+      <div class="logo-tag">Portal do Professor</div>
+      <h1 class="logo-name">Julio Cesar<br><em>Nogueira da Rocha</em></h1>
+      <p class="logo-sub">Técnico em Desenvolvimento de Sistemas · Colégio Neiva Pavan &amp; SENAI Umuarama</p>
+      <div class="institucoes">
+        <span class="inst-badge">Neiva Pavan</span>
+        <span class="inst-badge">SENAI Umuarama</span>
+        <span class="inst-badge">2026</span>
       </div>
     </div>
   </div>
-</section>
+</header>
 
-<!-- ══════════════════════════════════════════════
-     SOBRE — Seção biográfica (01)
-     Texto de apresentação + card com dados pessoais
-     ══════════════════════════════════════════════ -->
-<section id="sobre" class="section">
-  <div class="sec-header">
-    <div class="sec-eyebrow">
-      <div class="sec-eyebrow-line"></div>
-      <span class="sec-eyebrow-text">01 — Sobre mim</span>
-    </div>
-    <h2 class="sec-title">Quem sou eu</h2>
+<!-- DIVIDER -->
+<div class="divider">
+  <div class="divider-line">
+    <span class="divider-label">
+      <span class="divider-dot"></span>
+      Unidades Curriculares
+    </span>
   </div>
+</div>
 
-  <div class="sobre-wrap">
-    <!-- Texto biográfico com quote em destaque (classe reveal = entra ao rolar) -->
-    <div class="sobre-text reveal">
-      <p class="sobre-quote">"Transformar grandes volumes de dados em informações estratégicas para apoiar a tomada de decisão — é o que faço há mais de 19 anos."</p>
-      <p>Ao longo da carreira atuei em empresas referência no mercado nacional — <strong>Ambev, HEINEKEN e Coamo</strong> — desenvolvendo dashboards, automatizando KPIs, construindo pipelines de dados e liderando migrações de infraestrutura crítica com Oracle Data Integrator.</p>
-      <p>Hoje combino essa bagagem corporativa com a <strong>docência técnica no SENAI </strong>, formando a próxima geração de profissionais de tecnologia em Banco de Dados, Programação e Fundamentos de TI.</p>
-      <p>Perfil analítico, visão estratégica e forte foco em resultados. Disponível para oportunidades remotas, híbridas ou presenciais em projetos desafiadores.</p>
-    </div>
+<!-- UCS -->
+<main class="ucs-section">
 
-    <!-- Card lateral com informações rápidas (localização, formação, contato, etc.) -->
-    <div class="sobre-aside reveal">
-      <div class="aside-card">
-        <div class="aside-item">
-          <div class="aside-key">📍 Localização</div>
-          <div class="aside-val">Umuarama / Curitiba, PR</div>
+  <!-- 1º ANO -->
+  <div class="escola-label">Colégio Neiva Pavan · 1º Ano</div>
+  <div class="ucs-grid">
+
+    <a class="uc-card" href="01-programacao-aplicativos/index.html">
+      <div class="uc-card-top" style="background:#1A7A4A;"></div>
+      <div class="uc-card-body">
+        <div class="uc-card-header">
+          <div class="uc-icon" style="background:#EAF3DE;">💻</div>
+          <div class="uc-info">
+            <div class="uc-name">Programação de Aplicativos</div>
+            <div class="uc-meta">1º Ano · 133h<br>Qua (1ª,2ª,3ª) · Sex (5ª,6ª)</div>
+          </div>
         </div>
-        <div class="aside-item">
-          <div class="aside-key">🎓 Formação</div>
-          <div class="aside-val">Sistemas de Informação<br>MBA Projetos & Gov. TI</div>
-        </div>
-        <div class="aside-item">
-          <div class="aside-key">🌐 Idiomas</div>
-          <div class="aside-val">Português (Nativo)<br>Inglês (Intermediário)</div>
-        </div>
-        <div class="aside-item">
-          <div class="aside-key">📱 Telefone</div>
-          <div class="aside-val">(44) 99911-5544</div>
-        </div>
-        <div class="aside-item">
-          <div class="aside-key">🏢 Modalidade</div>
-          <div class="aside-val">Remoto · Híbrido · Presencial</div>
+        <div class="uc-tags">
+          <span class="uc-tag" style="background:#EAF3DE;color:#173404;">PHP</span>
+          <span class="uc-tag" style="background:#EAF3DE;color:#173404;">OOP</span>
+          <span class="uc-tag" style="background:#EAF3DE;color:#173404;">Web</span>
+          <span class="uc-arrow">↗</span>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </a>
 
-<!-- ══════════════════════════════════════════════
-     HABILIDADES — Stack técnica (02)
-     Grade de 6 cartões com as áreas de competência
-     ══════════════════════════════════════════════ -->
-<section id="habilidades" class="section">
-  <div class="sec-header">
-    <div class="sec-eyebrow">
-      <div class="sec-eyebrow-line"></div>
-      <span class="sec-eyebrow-text">02 — Stack técnica</span>
-    </div>
-    <h2 class="sec-title">Habilidades técnicas</h2>
-  </div>
-
-  <!-- Grade de 3 colunas com os cartões de habilidade -->
-  <div class="skills-grid reveal">
-    <!-- Cartão: Banco de Dados -->
-    <div class="skill-card">
-      <div class="skill-card-icon" style="background:#eff6ff;">🗄️</div>
-      <div class="skill-card-name">Banco de Dados</div>
-      <div class="skill-items">
-        <div class="skill-item"><div class="skill-item-dot" style="background:#3b82f6;"></div>SQL & PL/SQL</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#3b82f6;"></div>Oracle Database</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#3b82f6;"></div>Modelagem Dimensional</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#3b82f6;"></div>BigQuery · MySQL</div>
-      </div>
-    </div>
-
-    <!-- Cartão: ETL & Engenharia de Dados -->
-    <div class="skill-card">
-      <div class="skill-card-icon" style="background:#f0fdfa;">⚙️</div>
-      <div class="skill-card-name">ETL & Engenharia</div>
-      <div class="skill-items">
-        <div class="skill-item"><div class="skill-item-dot" style="background:#0d9488;"></div>ODI 11g / 12c</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#0d9488;"></div>Data Warehouse</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#0d9488;"></div>Data Marts & Staging</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#0d9488;"></div>IKMs · CKMs · LKMs</div>
-      </div>
-    </div>
-
-    <!-- Cartão: Business Intelligence & Visualização -->
-    <div class="skill-card">
-      <div class="skill-card-icon" style="background:#fffbeb;">📊</div>
-      <div class="skill-card-name">BI & Visualização</div>
-      <div class="skill-items">
-        <div class="skill-item"><div class="skill-item-dot" style="background:#d97706;"></div>Power BI</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#d97706;"></div>Tableau</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#d97706;"></div>Oracle Analytics (OAS)</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#d97706;"></div>Excel Avançado & KPIs</div>
-      </div>
-    </div>
-
-    <!-- Cartão: Desenvolvimento Web -->
-    <div class="skill-card">
-      <div class="skill-card-icon" style="background:#fdf4ff;">💻</div>
-      <div class="skill-card-name">Desenvolvimento</div>
-      <div class="skill-items">
-        <div class="skill-item"><div class="skill-item-dot" style="background:#7c3aed;"></div>PHP & OOP</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#7c3aed;"></div>HTML · CSS · JavaScript</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#7c3aed;"></div>Git & GitHub</div>
-      </div>
-    </div>
-
-    <!-- Cartão: Metodologias Ágeis -->
-    <div class="skill-card">
-      <div class="skill-card-icon" style="background:#fdf2f8;">🔄</div>
-      <div class="skill-card-name">Metodologias</div>
-      <div class="skill-items">
-        <div class="skill-item"><div class="skill-item-dot" style="background:#db2777;"></div>Scrum & Kanban</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#db2777;"></div>Product Owner</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#db2777;"></div>Governança de Dados</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#db2777;"></div>Jira · Confluence</div>
-      </div>
-    </div>
-
-    <!-- Cartão: Docência -->
-    <div class="skill-card">
-      <div class="skill-card-icon" style="background:#f0fdf4;">🎓</div>
-      <div class="skill-card-name">Docência</div>
-      <div class="skill-items">
-        <div class="skill-item"><div class="skill-item-dot" style="background:#16a34a;"></div>Banco de Dados</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#16a34a;"></div>Programação PHP/OOP</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#16a34a;"></div>Fundamentos de TI</div>
-        <div class="skill-item"><div class="skill-item-dot" style="background:#16a34a;"></div>Material didático técnico</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     EXPERIÊNCIA — Linha do tempo profissional (03)
-     3 experiências em ordem cronológica inversa (mais recente primeiro)
-     ══════════════════════════════════════════════ -->
-<section id="experiencia" class="section">
-  <div class="sec-header">
-    <div class="sec-eyebrow">
-      <div class="sec-eyebrow-line"></div>
-      <span class="sec-eyebrow-text">03 — Histórico</span>
-    </div>
-    <h2 class="sec-title">Trajetória profissional</h2>
-  </div>
-
-  <div class="timeline">
-
-    <!-- Experiência 1: Coamo (mais recente) -->
-    <div class="tl-item reveal">
-      <div class="tl-left">
-        <div class="tl-period">Mai 2022 — Mar 2025</div>
-        <div class="tl-logo" style="background:#f0fdf4;">🌾</div>
-        <div class="tl-company">Coamo</div>
-        <div class="tl-city">Campo Mourão, PR</div>
-      </div>
-      <div class="tl-right">
-        <div class="tl-role">Analista de Dados</div>
-        <p class="tl-desc">Responsável por otimizar processos de integração de dados com Oracle Data Integrator (ODI), conduzindo atividades técnicas de ponta a ponta: criação de processos ETL, construção de Data Warehouse e Data Marts, modelagem multidimensional e manutenção de dashboards estratégicos.</p>
-        <div class="tl-techs">
-          <span class="tl-tech">ODI 11g/12c</span><span class="tl-tech">PL/SQL</span>
-          <span class="tl-tech">Power BI</span><span class="tl-tech">Tableau</span>
-          <span class="tl-tech">OAS</span><span class="tl-tech">Data Warehouse</span>
+    <a class="uc-card" href="02-qualidade-produtividade/index.html">
+      <div class="uc-card-top" style="background:#BA7517;"></div>
+      <div class="uc-card-body">
+        <div class="uc-card-header">
+          <div class="uc-icon" style="background:#FAEEDA;">📊</div>
+          <div class="uc-info">
+            <div class="uc-name">Qualidade, Produtividade e Sustentabilidade</div>
+            <div class="uc-meta">1º Ano · 33h<br>Sex (4ª aula) · Semana A</div>
+          </div>
         </div>
-        <!-- Conquistas e resultados em formato de bullets -->
-        <div class="tl-bullets">
-          <div class="tl-bullet"><div class="tl-bullet-icon">✓</div><span>Criação de mais de 3.000 processos ETL com configuração de IKMs, fortalecendo a governança e confiabilidade dos dados</span></div>
-          <div class="tl-bullet"><div class="tl-bullet-icon">✓</div><span>Liderança na migração do ODI 11g para 12c, garantindo continuidade e aprimoramento das integrações</span></div>
-          <div class="tl-bullet"><div class="tl-bullet-icon">✓</div><span>Implementação de modelos dinâmicos em Excel com automações que elevaram a produtividade operacional</span></div>
+        <div class="uc-tags">
+          <span class="uc-tag" style="background:#FAEEDA;color:#412402;">PDCA</span>
+          <span class="uc-tag" style="background:#FAEEDA;color:#412402;">Qualidade</span>
+          <span class="uc-tag" style="background:#FAEEDA;color:#412402;">5S</span>
+          <span class="uc-arrow">↗</span>
         </div>
       </div>
-    </div>
+    </a>
 
-    <!-- Experiência 2: HEINEKEN -->
-    <div class="tl-item reveal">
-      <div class="tl-left">
-        <div class="tl-period">Set 2012 — Abr 2022</div>
-        <div class="tl-logo" style="background:#fff7ed;">🍺</div>
-        <div class="tl-company">HEINEKEN</div>
-        <div class="tl-city">Umuarama, PR</div>
-      </div>
-      <div class="tl-right">
-        <div class="tl-role">Analista de Sistemas</div>
-        <p class="tl-desc">Atuação com forte foco em inteligência comercial e suporte estratégico à equipe de vendas. Criação de dashboards em Excel e Power BI, treinamento de novos vendedores e liderança de processos de Assessment ao longo de quase 10 anos.</p>
-        <div class="tl-techs">
-          <span class="tl-tech">Power BI</span><span class="tl-tech">Excel Avançado</span>
-          <span class="tl-tech">KPIs</span><span class="tl-tech">Assessment</span>
+    <a class="uc-card" href="03-dev-projetos-sst/index.html">
+      <div class="uc-card-top" style="background:#993C1D;"></div>
+      <div class="uc-card-body">
+        <div class="uc-card-header">
+          <div class="uc-icon" style="background:#FAECE7;">🦺</div>
+          <div class="uc-info">
+            <div class="uc-name">Desenvolvimento de Projetos e SST</div>
+            <div class="uc-meta">1º Ano · 33h<br>Sex (4ª aula) · Semana B</div>
+          </div>
         </div>
-        <div class="tl-bullets">
-          <div class="tl-bullet"><div class="tl-bullet-icon">✓</div><span>Líder de Assessment — contribuiu para a conquista do prêmio de melhor distribuidora do Paraná por 3 vezes</span></div>
-          <div class="tl-bullet"><div class="tl-bullet-icon">✓</div><span>Desenvolvimento de relatórios e dashboards que impulsionaram ações comerciais mais assertivas</span></div>
-          <div class="tl-bullet"><div class="tl-bullet-icon">✓</div><span>Treinamento e capacitação de novos vendedores com foco em estratégias de venda e domínio de KPIs</span></div>
+        <div class="uc-tags">
+          <span class="uc-tag" style="background:#FAECE7;color:#4A1B0C;">NRs</span>
+          <span class="uc-tag" style="background:#FAECE7;color:#4A1B0C;">EPI/EPC</span>
+          <span class="uc-tag" style="background:#FAECE7;color:#4A1B0C;">CIPA</span>
+          <span class="uc-arrow">↗</span>
         </div>
       </div>
-    </div>
+    </a>
 
-    <!-- Experiência 3: Ambev (mais antiga) -->
-    <div class="tl-item reveal">
-      <div class="tl-left">
-        <div class="tl-period">Abr 2006 — Set 2012</div>
-        <div class="tl-logo" style="background:#eff6ff;">🏭</div>
-        <div class="tl-company">Ambev</div>
-        <div class="tl-city">Região Sul, Brasil</div>
-      </div>
-      <div class="tl-right">
-        <div class="tl-role">Analista de Sistemas</div>
-        <p class="tl-desc">Suporte à equipe comercial por meio do desenvolvimento de planilhas, relatórios e dashboards avançados em Excel. Formação de novos colaboradores e liderança na implantação de sistemas críticos de gestão.</p>
-        <div class="tl-techs">
-          <span class="tl-tech">Excel</span><span class="tl-tech">PROMAX</span>
-          <span class="tl-tech">SIV</span><span class="tl-tech">Implantação</span>
+  </div>
+
+  <!-- 2º ANO -->
+  <div class="escola-label">Colégio Neiva Pavan · 2º Ano</div>
+  <div class="ucs-grid">
+
+    <a class="uc-card" href="04-fundamentos-ti/index.html">
+      <div class="uc-card-top" style="background:#534AB7;"></div>
+      <div class="uc-card-body">
+        <div class="uc-card-header">
+          <div class="uc-icon" style="background:#EEEDFE;">🖥️</div>
+          <div class="uc-info">
+            <div class="uc-name">Fundamentos de Tecnologias da Informação</div>
+            <div class="uc-meta">2º Ano · 100h<br>Terça (4ª,5ª,6ª aula)</div>
+          </div>
         </div>
-        <div class="tl-bullets">
-          <div class="tl-bullet"><div class="tl-bullet-icon">✓</div><span>Liderança na implantação dos sistemas PROMAX e SIV, otimizando fluxos administrativos e comerciais</span></div>
-          <div class="tl-bullet"><div class="tl-bullet-icon">✓</div><span>Eleito melhor analista da região Sul por duas vezes pelo impacto direto nas operações</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     FORMAÇÃO — Acadêmica e certificações (04)
-     Dois cartões de formação + card de certificações/cursos
-     ══════════════════════════════════════════════ -->
-<section id="formacao" class="section">
-  <div class="sec-header">
-    <div class="sec-eyebrow">
-      <div class="sec-eyebrow-line"></div>
-      <span class="sec-eyebrow-text">04 — Educação</span>
-    </div>
-    <h2 class="sec-title">Formação acadêmica</h2>
-  </div>
-
-  <!-- Linha de dois cartões de formação (pós-graduação e graduação) -->
-  <div class="edu-row">
-    <div class="edu-card reveal">
-      <div class="edu-icon">🎓</div>
-      <div>
-        <div class="edu-badge">Pós-graduação</div>
-        <div class="edu-degree">MBA em Gerência de Projetos e Governança de TI</div>
-        <div class="edu-school">Unipar – Universidade Paranaense</div>
-        <div class="edu-year">2011 – 2012</div>
-      </div>
-    </div>
-    <div class="edu-card reveal">
-      <div class="edu-icon">🏫</div>
-      <div>
-        <div class="edu-badge">Graduação</div>
-        <div class="edu-degree">Bacharelado em Sistemas de Informação</div>
-        <div class="edu-school">Unipar – Universidade Paranaense</div>
-        <div class="edu-year">2002 – 2010</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Card com todas as certificações e cursos complementares -->
-  <div class="certs-card reveal">
-    <div class="certs-head">
-      <div class="certs-head-icon">🏅</div>
-      <div class="certs-head-title">Certificações & Cursos complementares</div>
-    </div>
-    <!-- Cada tag representa uma certificação ou curso -->
-    <div class="certs-wrap">
-      <span class="cert-tag">📈 Tableau Básico ao Avançado · IN10 · 60h</span>
-      <span class="cert-tag">🧩 Product Owner para TI · Coamo · 40h</span>
-      <span class="cert-tag">☁️ Big Data Analytics · PUCPR · 32h</span>
-      <span class="cert-tag">🎨 Mastering Data Visualization · Udemy</span>
-      <span class="cert-tag">🗂️ Modelagem de Dados · Udemy</span>
-      <span class="cert-tag">⚡ Aprenda Power BI</span>
-      <span class="cert-tag">🔬 Introdução à Ciência de Dados</span>
-      <span class="cert-tag">📖 Visualização de Dados para Histórias</span>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     DOCÊNCIA — Atuação como professor (05)
-     Dois cartões: SENAI e Colégio Neiva Pavan
-     ══════════════════════════════════════════════ -->
-<section id="docencia" class="section">
-  <div class="sec-header">
-    <div class="sec-eyebrow">
-      <div class="sec-eyebrow-line"></div>
-      <span class="sec-eyebrow-text">05 — Ensino técnico</span>
-    </div>
-    <h2 class="sec-title">Atuação docente</h2>
-  </div>
-
-  <div class="teach-grid">
-    <!-- Cartão: SENAI -->
-    <div class="teach-card reveal">
-      <div class="teach-head">
-        <div class="teach-head-icon" style="background:#eff6ff;">🏭</div>
-        <div>
-          <div class="teach-school">SENAI</div>
-          <div class="teach-badge">Professor Técnico</div>
+        <div class="uc-tags">
+          <span class="uc-tag" style="background:#EEEDFE;color:#26215C;">Hardware</span>
+          <span class="uc-tag" style="background:#EEEDFE;color:#26215C;">SO</span>
+          <span class="uc-tag" style="background:#EEEDFE;color:#26215C;">Sistemas</span>
+          <span class="uc-arrow">↗</span>
         </div>
       </div>
-      <!-- Disciplinas ensinadas no SENAI -->
-      <div class="teach-body">
-        <div class="teach-item"><span class="teach-item-icon">🗄️</span><span>Banco de Dados — SQL, modelagem relacional e BigQuery</span></div>
-        <div class="teach-item"><span class="teach-item-icon">📋</span><span>Introdução ao Desenvolvimento de Projetos</span></div>
-        <div class="teach-item"><span class="teach-item-icon">🦺</span><span>Saúde e Segurança no Trabalho (SST)</span></div>
-      </div>
-    </div>
+    </a>
 
-    <!-- Cartão: Colégio Neiva Pavan -->
-    <div class="teach-card reveal">
-      <div class="teach-head">
-        <div class="teach-head-icon" style="background:#f0fdf4;">🏫</div>
-        <div>
-          <div class="teach-school">Col. Neiva Pavan</div>
-          <div class="teach-badge">Professor de Tecnologia</div>
+    <a class="uc-card" href="05-banco-de-dados/index.html">
+      <div class="uc-card-top" style="background:#185FA5;"></div>
+      <div class="uc-card-body">
+        <div class="uc-card-header">
+          <div class="uc-icon" style="background:#E6F1FB;">🗄️</div>
+          <div class="uc-info">
+            <div class="uc-name">Fundamentos de Banco de Dados</div>
+            <div class="uc-meta">2º Ano · 33h<br>Qua (4ª,5ª,6ª) · Semana A</div>
+          </div>
+        </div>
+        <div class="uc-tags">
+          <span class="uc-tag" style="background:#E6F1FB;color:#042C53;">SQL</span>
+          <span class="uc-tag" style="background:#E6F1FB;color:#042C53;">MER</span>
+          <span class="uc-tag" style="background:#E6F1FB;color:#042C53;">BigQuery</span>
+          <span class="uc-arrow">↗</span>
         </div>
       </div>
-      <!-- Disciplinas ensinadas no Colégio Neiva Pavan -->
-      <div class="teach-body">
-        <div class="teach-item"><span class="teach-item-icon">💡</span><span>Fundamentos de Tecnologias da Informação</span></div>
-        <div class="teach-item"><span class="teach-item-icon">💻</span><span>Programação de Aplicativos — PHP e OOP</span></div>
-        <div class="teach-item"><span class="teach-item-icon">🎓</span><span>Curso Técnico em Desenvolvimento de Sistemas</span></div>
+    </a>
+
+    <a class="uc-card" href="06-redes-computadores/index.html">
+      <div class="uc-card-top" style="background:#0F6E56;"></div>
+      <div class="uc-card-body">
+        <div class="uc-card-header">
+          <div class="uc-icon" style="background:#E1F5EE;">🌐</div>
+          <div class="uc-info">
+            <div class="uc-name">Fundamentos de Redes de Computadores</div>
+            <div class="uc-meta">2º Ano · 67h<br>Qua (4ª,5ª,6ª) · Semana B</div>
+          </div>
+        </div>
+        <div class="uc-tags">
+          <span class="uc-tag" style="background:#E1F5EE;color:#04342C;">TCP/IP</span>
+          <span class="uc-tag" style="background:#E1F5EE;color:#04342C;">OSI</span>
+          <span class="uc-tag" style="background:#E1F5EE;color:#04342C;">Wi-Fi</span>
+          <span class="uc-arrow">↗</span>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </a>
 
-<!-- ══════════════════════════════════════════════
-     CONTATO — Fale comigo (06)
-     Fundo azul gradiente com texto + links de contato
-     ══════════════════════════════════════════════ -->
-<section id="contato" class="section">
-  <div class="sec-header">
-    <div class="sec-eyebrow">
-      <div class="sec-eyebrow-line"></div>
-      <span class="sec-eyebrow-text">06 — Fale comigo</span>
-    </div>
-    <h2 class="sec-title">Vamos conversar?</h2>
   </div>
 
-  <div class="contact-grid">
-    <!-- Texto de apresentação e disponibilidade -->
-    <div class="reveal">
-      <p class="contact-desc">
-        Aberto a oportunidades em <strong>Análise de Dados, Business Intelligence e Engenharia de Dados</strong> — bem como colaborações na área de educação em tecnologia.<br><br>
-      </p>
-    </div>
+  <!-- SENAI -->
+  <div class="escola-label">SENAI Umuarama</div>
+  <div class="ucs-grid">
 
-    <!-- Links clicáveis de contato (e-mail, LinkedIn, GitHub, telefone) -->
-    <div class="contact-links reveal">
-      <!-- E-mail -->
-      <a href="mailto:juliorocha50@gmail.com" class="clink">
-        <div class="clink-icon">📧</div>
-        <div><div class="clink-key">E-mail</div><div class="clink-val">juliorocha50@gmail.com</div></div>
-        <div class="clink-arrow">→</div>
-      </a>
+    <a class="uc-card" href="07-logica-programacao/index.html">
+      <div class="uc-card-top" style="background:#3B9E6A;"></div>
+      <div class="uc-card-body">
+        <div class="uc-card-header">
+          <div class="uc-icon" style="background:#D6F5E6;">🧠</div>
+          <div class="uc-info">
+            <div class="uc-name">Lógica de Programação</div>
+            <div class="uc-meta">Turma Noturna<br>Quinta · 19h–22h30</div>
+          </div>
+        </div>
+        <div class="uc-tags">
+          <span class="uc-tag" style="background:#D6F5E6;color:#0A3320;">Algoritmos</span>
+          <span class="uc-tag" style="background:#D6F5E6;color:#0A3320;">Fluxograma</span>
+          <span class="uc-tag" style="background:#D6F5E6;color:#0A3320;">Pseudocódigo</span>
+          <span class="uc-arrow">↗</span>
+        </div>
+      </div>
+    </a>
 
-      <!-- LinkedIn — abre em nova aba -->
-      <a href="https://linkedin.com/in/jcnrocha" target="_blank" rel="noopener" class="clink">
-        <div class="clink-icon">💼</div>
-        <div><div class="clink-key">LinkedIn</div><div class="clink-val">linkedin.com/in/jcnrocha</div></div>
-        <div class="clink-arrow">→</div>
-      </a>
-
-      <!-- GitHub — abre em nova aba -->
-      <a href="https://github.com/jcnrocha" target="_blank" rel="noopener" class="clink">
-        <div class="clink-icon">🐙</div>
-        <div><div class="clink-key">GitHub</div><div class="clink-val">github.com/jcnrocha</div></div>
-        <div class="clink-arrow">→</div>
-      </a>
-
-      <!-- Telefone — abre o discador no mobile -->
-      <a href="tel:+5544999115544" class="clink">
-        <div class="clink-icon">📱</div>
-        <div><div class="clink-key">Telefone</div><div class="clink-val">(44) 99911-5544</div></div>
-        <div class="clink-arrow">→</div>
-      </a>
-    </div>
   </div>
-</section>
 
-<!-- ══════════════════════════════════════════════
-     FOOTER — Rodapé com copyright
-     ══════════════════════════════════════════════ -->
+</main>
+
 <footer>
-  <span>© 2025 Julio Cesar N. da Rocha — Analista de Dados & Professor de TI</span>
-  <span>dataelevate.com.br</span>
+  <span class="footer-left">Prof. Julio Cesar Nogueira da Rocha · jcnrocha</span>
+  <span class="footer-right">Técnico em Desenvolvimento de Sistemas · 2026</span>
 </footer>
 
-<script>
-/* ══════════════════════════════════════════════
-   SCROLL REVEAL
-   Usa IntersectionObserver para detectar quando elementos .reveal
-   entram na viewport e adiciona a classe "on", que dispara a transição CSS.
-   O delay escalonado (i * 80ms) faz os elementos aparecerem em sequência.
-   ══════════════════════════════════════════════ */
-const io = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('on'), i * 80);
-      io.unobserve(e.target); /* para de observar após a animação ocorrer */
-    }
-  });
-}, { threshold: 0.08 }); /* dispara quando 8% do elemento está visível */
-
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-/* ══════════════════════════════════════════════
-   SMOOTH SCROLL
-   Intercepta cliques em links internos (#ancora) e usa scrollIntoView
-   com behavior:'smooth' para rolar suavemente até a seção alvo.
-   ══════════════════════════════════════════════ */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
-  });
-});
-
-/* ══════════════════════════════════════════════
-   NAV SCROLLED
-   Adiciona a classe "scrolled" à nav quando o usuário rola mais de 40px,
-   ativando a sombra definida no CSS (.nav.scrolled { box-shadow: ... }).
-   { passive: true } melhora a performance do listener de scroll.
-   ══════════════════════════════════════════════ */
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 40);
-}, { passive: true });
-
-/* ══════════════════════════════════════════════
-   NAV ACTIVE (LINK ATIVO)
-   Monitora a posição de scroll e destaca o link da nav
-   correspondente à seção que está atualmente visível.
-   A seção ativa é aquela cujo offsetTop é menor que scrollY + 150px.
-   ══════════════════════════════════════════════ */
-const sections = document.querySelectorAll('section[id]');
-const links = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll', () => {
-  let cur = '';
-  sections.forEach(s => {
-    if (window.scrollY >= s.offsetTop - 150) cur = s.id;
-  });
-  links.forEach(a => {
-    /* aplica cor azul ao link ativo, remove dos demais */
-    a.style.color = a.getAttribute('href') === `#${cur}` ? 'var(--blue2)' : '';
-  });
-}, { passive: true });
-</script>
 </body>
 </html>
