@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 19 — Modelo Físico: Restrições, Chaves e Design</title>
+<meta name="description" content="Plano de aula SA 19 — Modelo Físico: Restrições, Chaves e Design · UC: Fundamentos de Banco de Dados · Colégio Neiva Pavan">
+<meta name="theme-color" content="#0D1A2B">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uc-main:  #185FA5;
+    --uc-light: #E6F1FB;
+    --uc-tx:    #042C53;
+    --dark:     #0D1A2B;
+    --yellow:   #F9C74F;
+    --gold:     #C49A00;
+    --gray:     #64748B;
+    --light:    #F2F5F8;
+    --white:    #FFFFFF;
+    --text:     #1A2635;
+    --border:   #D4DCE4;
+    --warn-bg:  #FFF8E7;
+    --red:      #C0392B;
+    --red-bg:   #FDF0EE;
+  }
+
+  html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+
+  /* PAGE HEADER */
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner {
+    max-width: 980px; margin: 0 auto; padding: 44px 48px 44px 60px;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 32px;
+  }
+  .header-label {
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+    color: #94A3B8; letter-spacing: 0.5px; margin-bottom: 14px;
+    display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  }
+  .header-label .hl-sep  { color: #475569; font-weight: 300; }
+  .header-label .hl-sa {
+    font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 600;
+    color: var(--uc-main); background: rgba(24,95,165,0.18);
+    padding: 2px 10px; border-radius: 20px; letter-spacing: 1px;
+  }
+  .header-label .hl-tri  { color: var(--yellow); font-weight: 600; }
+  .header-label .hl-data { font-family: 'DM Mono', monospace; font-size: 13px; color: #64748B; }
+  .header-title { font-family: 'DM Serif Display', serif; font-size: 36px; line-height: 1.15; color: var(--white); margin-bottom: 10px; }
+  .header-title span { color: var(--yellow); }
+  .header-sub { font-size: 13.5px; color: #64748B; line-height: 1.6; }
+  .header-sub .uc-nome { white-space: nowrap; display: block; }
+  .header-badge {
+    background: var(--uc-main); color: var(--white); font-size: 12px; font-weight: 600;
+    padding: 6px 14px; border-radius: 20px; white-space: nowrap;
+    flex-shrink: 0; align-self: flex-start; margin-top: 4px;
+  }
+
+  /* CONTAINER */
+  .container { max-width: 980px; margin: 0 auto; padding: 40px 48px; }
+
+  /* SECTION */
+  .section {
+    background: var(--white); border-radius: 12px; border: 1px solid var(--border);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04); margin-bottom: 28px; overflow: hidden;
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 12px; padding: 18px 26px;
+    border-bottom: 1px solid var(--border); background: var(--light);
+  }
+  .section-icon  { font-size: 20px; }
+  .section-title { font-size: 16px; font-weight: 700; color: var(--dark); flex: 1; }
+  .section-tag {
+    font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+    background: var(--uc-light); color: var(--uc-main);
+    padding: 3px 10px; border-radius: 12px; letter-spacing: 0.5px;
+  }
+  .section-body { padding: 24px 26px; }
+
+  /* TEMA BOX */
+  .tema-box {
+    background: var(--light); border-radius: 8px; padding: 14px 18px;
+    font-size: 15px; font-weight: 600; color: var(--dark); border-left: 4px solid var(--uc-main);
+  }
+  .tema-box span { color: var(--uc-main); }
+  .hab-row { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .hab-tag {
+    font-family: 'DM Mono', monospace; font-size: 11.5px; font-weight: 500;
+    background: var(--uc-light); color: var(--uc-tx);
+    padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(24,95,165,0.2);
+  }
+
+  /* OBJECTIVES */
+  .obj-intro { font-size: 13.5px; color: var(--gray); margin-bottom: 12px; }
+  .obj-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .obj-list li {
+    display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px;
+    background: var(--light); border-radius: 8px; font-size: 13.5px;
+    border-left: 3px solid var(--uc-main);
+  }
+  .obj-num {
+    background: var(--uc-main); color: var(--white);
+    font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+
+  /* CONTENT GRID */
+  .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .content-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 11px 14px; background: var(--light); border-radius: 8px; font-size: 13px;
+  }
+  .content-bullet { width: 6px; height: 6px; background: var(--uc-main); border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+
+  /* TIPOS DE DADOS GRID */
+  .tipos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; }
+  .tipo-grupo {
+    border-radius: 10px; overflow: hidden; border: 1px solid var(--border);
+    display: flex; flex-direction: column;
+  }
+  .tipo-grupo-header {
+    padding: 9px 14px; font-size: 12.5px; font-weight: 700;
+    color: var(--white); display: flex; align-items: center; gap: 6px;
+  }
+  .tg-num  .tipo-grupo-header { background: #042C53; }
+  .tg-txt  .tipo-grupo-header { background: #185FA5; }
+  .tg-dt   .tipo-grupo-header { background: #378ADD; }
+  .tg-bool .tipo-grupo-header { background: #1A7A4A; }
+  .tipo-grupo-body { padding: 10px 14px; background: var(--white); flex: 1; }
+  .tipo-item {
+    font-family: 'DM Mono', monospace; font-size: 11.5px;
+    background: var(--uc-light); color: var(--uc-tx);
+    padding: 3px 8px; border-radius: 5px; display: inline-block;
+    margin: 2px 2px; border: 1px solid rgba(24,95,165,0.15);
+  }
+  .tg-bool .tipo-item { background: #EBF8F2; color: #085041; border-color: rgba(8,80,65,0.15); }
+
+  /* RESTRIÇÕES GRID */
+  .rest-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; }
+  .rest-card {
+    border-radius: 8px; border: 1px solid var(--border);
+    overflow: hidden; display: flex; flex-direction: column;
+  }
+  .rest-card-top {
+    padding: 8px 12px; background: var(--dark); color: var(--white);
+    font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 700;
+  }
+  .rest-card-body { padding: 10px 12px; font-size: 12px; color: var(--gray); flex: 1; line-height: 1.5; }
+  .rest-card-ex {
+    margin: 0 12px 10px; font-family: 'DM Mono', monospace; font-size: 10.5px;
+    background: var(--uc-light); color: var(--uc-tx);
+    padding: 4px 8px; border-radius: 5px; border: 1px solid rgba(24,95,165,0.2);
+    word-break: break-all;
+  }
+
+  /* ORDER BOX */
+  .order-box {
+    margin-top: 16px; background: var(--light); border: 1px solid var(--border);
+    border-left: 4px solid var(--gold); border-radius: 8px; padding: 12px 16px;
+    font-size: 13px; color: var(--text); line-height: 1.6;
+  }
+  .order-box strong { color: var(--dark); }
+
+  /* TIME TABLE */
+  .time-table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+    border-radius: 8px; overflow: hidden; border: 1px solid var(--border);
+  }
+  .time-table thead tr { background: var(--dark); }
+  .time-table th { color: var(--white); padding: 11px 14px; text-align: left; font-size: 12.5px; }
+  .time-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .time-table tr:last-child td { border-bottom: none; }
+  .time-table tr:nth-child(even) td { background: #F7FAFC; }
+  .etapa-pill { font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 12px; display: inline-block; white-space: nowrap; }
+  .ep-abertura  { background:#E0F2FE; color:#0369A1; }
+  .ep-retomada  { background:#FEF9C3; color:#854D0E; }
+  .ep-expl      { background:#DCFCE7; color:#166534; }
+  .ep-dinamica  { background:#F3E8FF; color:#6B21A8; }
+  .ep-quest     { background:#FFE4E6; color:#9F1239; }
+  .ep-fecha     { background:#F1F5F9; color:#475569; }
+
+  /* DINAMICA */
+  .dinamica-box {
+    background: var(--light); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; margin-bottom: 16px;
+  }
+  .dinamica-header {
+    background: var(--uc-tx); color: var(--white);
+    padding: 12px 18px; font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .dinamica-body { padding: 18px; }
+  .dinamica-meta { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+  .dinamica-meta-item { font-size: 12.5px; color: var(--gray); display: flex; align-items: center; gap: 6px; }
+  .dinamica-meta-item strong { color: var(--dark); }
+  .dinamica-step { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13.5px; }
+  .dinamica-step:last-child { border-bottom: none; }
+  .step-num {
+    background: var(--uc-main); color: var(--white);
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+
+  /* RODADAS TABLE */
+  .rodadas-table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+    border-radius: 8px; overflow: hidden; border: 1px solid var(--border); margin-top: 16px;
+  }
+  .rodadas-table thead tr { background: var(--dark); }
+  .rodadas-table th { color: var(--white); padding: 10px 14px; text-align: left; font-size: 12.5px; }
+  .rodadas-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .rodadas-table tr:last-child td { border-bottom: none; }
+  .rodadas-table tr:nth-child(even) td { background: #F7FAFC; }
+  .rodadas-table td:first-child {
+    font-family: 'DM Mono', monospace; font-weight: 700; color: var(--uc-main);
+    width: 70px; text-align: center; vertical-align: middle;
+  }
+  .rodadas-table td:last-child { color: var(--red); font-size: 12.5px; }
+  .code-sql {
+    font-family: 'DM Mono', monospace; font-size: 11.5px;
+    background: #0D1A2B; color: #A8D0F0; padding: 8px 12px;
+    border-radius: 6px; line-height: 1.7; display: block;
+    word-break: break-all;
+  }
+  .sql-kw  { color: #79C0FF; }
+  .sql-fn  { color: #FFA657; }
+  .sql-str { color: #A5D6FF; }
+  .sql-err { color: #FF7B72; text-decoration: underline wavy #FF7B72; }
+
+  /* NOTA BOX */
+  .nota-box {
+    background: var(--uc-light); border: 1px solid rgba(24,95,165,0.25);
+    border-left: 4px solid var(--uc-main); border-radius: 8px;
+    padding: 12px 16px; font-size: 13px; color: var(--uc-tx); line-height: 1.6; margin-top: 16px;
+  }
+  .nota-warn {
+    background: var(--red-bg); border: 1px solid rgba(192,57,43,0.2);
+    border-left: 4px solid var(--red); color: var(--red); border-radius: 8px;
+    padding: 12px 16px; font-size: 13px; line-height: 1.6; margin-top: 12px;
+  }
+
+  /* AVALIAÇÃO */
+  .aval-parts { display: flex; flex-direction: column; gap: 12px; }
+  .aval-part { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .aval-part-header { padding: 11px 18px; font-size: 13.5px; font-weight: 700; }
+  .aph-uc   { background: var(--uc-main); color: var(--white); }
+  .aph-dark { background: var(--dark);    color: var(--white); }
+  .aval-part-body { padding: 14px 18px; background: var(--white); }
+  .aval-part-body ul { list-style: none; }
+  .aval-part-body ul li {
+    padding: 5px 0 5px 18px; font-size: 13.5px; position: relative;
+    color: var(--text); border-bottom: 1px solid var(--border);
+  }
+  .aval-part-body ul li:last-child { border-bottom: none; }
+  .aval-part-body ul li::before { content: '•'; position: absolute; left: 0; color: var(--uc-main); font-weight: 700; }
+
+  /* CONNECTION BOX */
+  .connection-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .conn-card { border-radius: 8px; padding: 14px 18px; font-size: 13.5px; }
+  .conn-ant  { background: var(--uc-light); border-left: 4px solid var(--uc-main); }
+  .conn-prox { background: var(--warn-bg);  border-left: 4px solid var(--gold); }
+  .conn-label { font-size: 11px; font-family: 'DM Mono', monospace; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .conn-ant .conn-label  { color: var(--uc-main); }
+  .conn-prox .conn-label { color: var(--gold); }
+
+  /* RECURSOS */
+  .recursos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .recurso-item {
+    background: var(--light); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 14px; font-size: 13px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .recurso-icon { font-size: 20px; }
+
+  /* OBS */
+  .obs-box {
+    background: var(--light); border: 1px dashed var(--border);
+    border-radius: 8px; padding: 16px 20px; min-height: 80px; font-size: 13.5px; color: var(--gray);
+  }
+
+  /* CI */
+  .ci { font-family: 'DM Mono', monospace; font-size: 12px; background: rgba(24,95,165,0.08); color: var(--uc-tx); padding: 1px 5px; border-radius: 4px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark); color: #475569; text-align: center;
+    padding: 22px; font-size: 12px; font-family: 'DM Mono', monospace;
+    margin-top: 16px; border-top: 3px solid var(--uc-main);
+  }
+  footer span { color: var(--uc-main); }
+
+  /* BOTÕES */
+  .btn-group { position: fixed; top: 20px; right: 24px; z-index: 999; display: flex; flex-direction: column; gap: 8px; }
+  .btn-action {
+    border: none; border-radius: 8px; padding: 10px 18px;
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 8px;
+    white-space: nowrap; transition: all 0.2s ease;
+  }
+  .btn-action:active { transform: scale(0.97); }
+  .btn-imprimir, .btn-pdf { background: var(--dark); color: var(--white); }
+  .btn-imprimir:hover, .btn-pdf:hover { background: #1a3d66; box-shadow: 0 4px 12px rgba(10,35,66,0.4); }
+  button:focus, .btn-action:focus, a:focus { outline: 3px solid var(--yellow); outline-offset: 2px; }
+
+  /* IMPRESSÃO */
+  @media print {
+    @page { size: A4 portrait; margin: 18mm 14mm 16mm 14mm; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    body { background: white !important; font-size: 11.5px; }
+    .btn-group { display: none !important; }
+    .page-header { background: var(--dark) !important; }
+    .header-inner { padding: 16px 24px 16px 30px !important; gap: 16px !important; }
+    .header-title { font-size: 22px !important; }
+    .header-label { font-size: 11px !important; margin-bottom: 8px !important; }
+    .header-label .hl-sa { font-size: 10px !important; padding: 1px 7px !important; }
+    .container { padding: 10px 0 !important; }
+    .section { box-shadow: none !important; border: 1px solid #ccc !important; break-inside: avoid; margin-bottom: 12px !important; }
+    .section-body   { padding: 14px 20px !important; }
+    .section-header { padding: 10px 20px !important; }
+    table { break-inside: avoid; }
+    tr    { break-inside: avoid; }
+    a[href]::after { content: none !important; }
+    a { text-decoration: none !important; color: inherit !important; }
+    .obs-box {
+      min-height: 80px !important;
+      background-image: repeating-linear-gradient(transparent, transparent 27px, #c8d0db 27px, #c8d0db 28px) !important;
+      background-color: white !important;
+    }
+    .tipos-grid     { grid-template-columns: repeat(4, 1fr) !important; }
+    .rest-grid      { grid-template-columns: repeat(4, 1fr) !important; }
+    .content-grid   { grid-template-columns: 1fr 1fr !important; }
+    .connection-row { grid-template-columns: 1fr 1fr !important; }
+    .recursos-grid  { grid-template-columns: repeat(3, 1fr) !important; }
+    .code-sql       { background: #0D1A2B !important; }
+    footer { background: var(--dark) !important; margin-top: 8px !important; padding: 12px !important; font-size: 10.5px !important; }
+    .section.break-before-print { break-before: page; }
+  }
+
+  /* TABLET */
+  @media (max-width: 960px) {
+    .header-inner  { padding: 36px 32px 36px 44px; gap: 24px; }
+    .container     { padding: 28px 32px; }
+    .header-title  { font-size: 28px; }
+    .tipos-grid    { grid-template-columns: 1fr 1fr; }
+    .rest-grid     { grid-template-columns: 1fr 1fr; }
+    .recursos-grid { grid-template-columns: 1fr 1fr; }
+    .btn-group     { top: 16px; right: 16px; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .header-inner   { flex-direction: column; padding: 28px 20px 28px 28px; gap: 14px; }
+    .container      { padding: 20px 16px; }
+    .header-title   { font-size: 22px; }
+    .uc-nome        { white-space: normal; }
+    .section-header { padding: 14px 18px; }
+    .section-body   { padding: 18px; }
+    .content-grid   { grid-template-columns: 1fr; }
+    .connection-row { grid-template-columns: 1fr; }
+    .time-table, .rodadas-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .btn-group      { top: auto; bottom: 20px; right: 16px; flex-direction: row; }
+    .btn-action     { padding: 9px 14px; font-size: 12px; }
+  }
+
+  /* SMALL MOBILE */
+  @media (max-width: 480px) {
+    .page-header::before { width: 4px; }
+    .page-header::after  { left: 4px; width: 2px; }
+    .header-inner  { padding: 20px 14px 20px 18px; gap: 10px; }
+    .container     { padding: 14px 12px; }
+    .header-title  { font-size: 18px; }
+    .section-body  { padding: 14px; }
+    .tipos-grid    { grid-template-columns: 1fr 1fr; }
+    .rest-grid     { grid-template-columns: 1fr 1fr; }
+    .recursos-grid { grid-template-columns: 1fr; }
+    .obj-list li   { padding: 10px 12px; font-size: 13px; }
+    .content-item  { font-size: 12px; padding: 9px 12px; }
+    .btn-group     { bottom: 14px; right: 12px; gap: 6px; }
+    .btn-action    { padding: 8px 12px; font-size: 11.5px; }
+    footer         { padding: 16px; font-size: 11px; }
+  }
+
+  /* BOTÃO TOPO */
+  #btn-topo {
+    position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px;
+    border-radius: 50%; background: var(--dark); color: var(--white);
+    border: none; font-size: 18px; font-weight: 700; cursor: pointer;
+    z-index: 999; display: none; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.2s ease;
+  }
+  #btn-topo.visible { display: flex; }
+  #btn-topo:hover   { background: var(--uc-main); transform: translateY(-2px); }
+  #btn-topo:focus   { outline: 3px solid var(--uc-light); outline-offset: 2px; }
+  @media print { #btn-topo { display: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action btn-imprimir" onclick="window.print()" aria-label="Imprimir plano de aula">🖨️ Imprimir</button>
+  <button class="btn-action btn-pdf" onclick="salvarPDF()" aria-label="Exportar plano de aula como PDF">📄 Exportar PDF</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 19 · Aula 06</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">2º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">24/06/2026</span>
+      </div>
+      <h1 class="header-title">Modelo Físico<br><span>Restrições, Chaves e Design</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Banco de Dados</span>
+        2º Ano · Técnico em Desenvolvimento de Sistemas · Colégio Neiva Pavan
+      </p>
+    </div>
+    <span class="header-badge">Prof. Julio Cesar</span>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- TEMA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema da Aula</span>
+      <span class="section-tag">SA 19 · Aula 06</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">
+        ⚙️ <span>Modelo Físico — Tradução do esquema lógico para SQL: tipos de dados, restrições e ordem de criação</span>
+      </div>
+      <div class="hab-row">
+        <span class="hab-tag">H03 — Identificar características de modelagem de dados</span>
+        <span class="hab-tag">H07 — Identificar ferramentas de manipulação de banco de dados</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag">5 objetivos</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+      <ul class="obj-list">
+        <li><span class="obj-num">1</span>Compreender o que é o modelo físico e como ele se diferencia do modelo lógico</li>
+        <li><span class="obj-num">2</span>Traduzir um esquema lógico em comandos SQL utilizando <span class="ci">CREATE TABLE</span> com tipos de dados e restrições</li>
+        <li><span class="obj-num">3</span>Aplicar corretamente as restrições de integridade: <span class="ci">PRIMARY KEY</span>, <span class="ci">FOREIGN KEY</span>, <span class="ci">NOT NULL</span>, <span class="ci">UNIQUE</span>, <span class="ci">DEFAULT</span> e <span class="ci">CHECK</span></li>
+        <li><span class="obj-num">4</span>Escolher o tipo de dado adequado para cada coluna com base na natureza da informação</li>
+        <li><span class="obj-num">5</span>Identificar a relação direta entre cada decisão do modelo lógico e o código SQL gerado no modelo físico</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo</span>
+      <span class="section-tag">H03 · H07 · SQL DDL</span>
+    </div>
+    <div class="section-body">
+      <div class="content-grid">
+        <div class="content-item"><div class="content-bullet"></div>Revisão: o modelo físico no processo de modelagem</div>
+        <div class="content-item"><div class="content-bullet"></div>Da notação lógica ao SQL — como cada elemento vira código</div>
+        <div class="content-item"><div class="content-bullet"></div>Ordem de criação das tabelas: sem FK antes das dependentes</div>
+        <div class="content-item"><div class="content-bullet"></div>Conversão completa do esquema lógico da locadora para SQL</div>
+        <div class="content-item"><div class="content-bullet"></div>Boas práticas: nomenclatura, consistência de tipos, documentação</div>
+        <div class="content-item"><div class="content-bullet"></div><span class="ci">AUTO_INCREMENT</span> — geração automática de identificadores</div>
+      </div>
+
+      <!-- TIPOS DE DADOS -->
+      <div style="font-size:12px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin:16px 0 8px;">Tipos de dados em MySQL</div>
+      <div class="tipos-grid">
+        <div class="tipo-grupo tg-num">
+          <div class="tipo-grupo-header">🔢 Numéricos</div>
+          <div class="tipo-grupo-body">
+            <span class="tipo-item">INT</span>
+            <span class="tipo-item">SMALLINT</span>
+            <span class="tipo-item">DECIMAL(p,s)</span>
+            <span class="tipo-item">FLOAT</span>
+          </div>
+        </div>
+        <div class="tipo-grupo tg-txt">
+          <div class="tipo-grupo-header">📝 Texto</div>
+          <div class="tipo-grupo-body">
+            <span class="tipo-item">VARCHAR(n)</span>
+            <span class="tipo-item">CHAR(n)</span>
+            <span class="tipo-item">TEXT</span>
+          </div>
+        </div>
+        <div class="tipo-grupo tg-dt">
+          <div class="tipo-grupo-header">📅 Data e Hora</div>
+          <div class="tipo-grupo-body">
+            <span class="tipo-item">DATE</span>
+            <span class="tipo-item">DATETIME</span>
+            <span class="tipo-item">TIMESTAMP</span>
+          </div>
+        </div>
+        <div class="tipo-grupo tg-bool">
+          <div class="tipo-grupo-header">✅ Lógico</div>
+          <div class="tipo-grupo-body">
+            <span class="tipo-item">BOOLEAN</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESTRIÇÕES -->
+      <div style="font-size:12px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin:16px 0 8px;">Restrições de integridade</div>
+      <div class="rest-grid">
+        <div class="rest-card">
+          <div class="rest-card-top">PRIMARY KEY</div>
+          <div class="rest-card-body">Identifica unicamente cada linha da tabela.</div>
+          <div class="rest-card-ex">id INT PRIMARY KEY</div>
+        </div>
+        <div class="rest-card">
+          <div class="rest-card-top">FOREIGN KEY</div>
+          <div class="rest-card-body">Garante integridade referencial entre tabelas.</div>
+          <div class="rest-card-ex">FK (col) REFERENCES TAB(col)</div>
+        </div>
+        <div class="rest-card">
+          <div class="rest-card-top">NOT NULL</div>
+          <div class="rest-card-body">Impede valor vazio em coluna obrigatória.</div>
+          <div class="rest-card-ex">nome VARCHAR(100) NOT NULL</div>
+        </div>
+        <div class="rest-card">
+          <div class="rest-card-top">UNIQUE</div>
+          <div class="rest-card-body">Garante que não há valores duplicados na coluna.</div>
+          <div class="rest-card-ex">email VARCHAR(100) UNIQUE</div>
+        </div>
+        <div class="rest-card">
+          <div class="rest-card-top">DEFAULT</div>
+          <div class="rest-card-body">Define valor padrão quando nenhum é fornecido.</div>
+          <div class="rest-card-ex">ativo BOOLEAN DEFAULT true</div>
+        </div>
+        <div class="rest-card">
+          <div class="rest-card-top">CHECK</div>
+          <div class="rest-card-body">Valida uma condição antes de inserir ou atualizar.</div>
+          <div class="rest-card-ex">CHECK (preco > 0)</div>
+        </div>
+        <div class="rest-card">
+          <div class="rest-card-top">AUTO_INCREMENT</div>
+          <div class="rest-card-body">Gera automaticamente valores únicos crescentes.</div>
+          <div class="rest-card-ex">id INT AUTO_INCREMENT</div>
+        </div>
+      </div>
+
+      <div class="order-box">
+        <strong>⚠️ Ordem de criação:</strong> tabelas sem <span class="ci">FOREIGN KEY</span> devem ser criadas <strong>antes</strong> das que dependem delas — o SGBD não aceita referenciar uma tabela que ainda não existe.
+      </div>
+    </div>
+  </section>
+
+  <!-- ORGANIZAÇÃO DO TEMPO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag">Distribuição fixa</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+        <thead>
+          <tr><th style="width:25%">Etapa</th><th>Atividade</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="etapa-pill ep-abertura">Abertura</span></td>
+            <td>Chamada e retomada da Aula 05 — pergunta oral: <em>"Por que o relacionamento N:N precisa de uma tabela associativa?"</em></td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-retomada">Retomada</span></td>
+            <td>Professor exibe o esquema lógico da locadora e pergunta: <em>"O que ainda falta para criarmos esse banco no MySQL?"</em> — alunos identificam: tipos de dados e restrições</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-expl">Explicação</span></td>
+            <td>Slides — tipos de dados, restrições de integridade, ordem de criação das tabelas, conversão do esquema lógico para SQL</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-dinamica">Dinâmica</span></td>
+            <td>"Certo ou Errado? — Round Físico" — ver seção abaixo</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-quest">Questionário</span></td>
+            <td>5 questões objetivas + 5 questões discursivas sobre o conteúdo da aula</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-fecha">Fechamento</span></td>
+            <td>Resumo: as três perguntas do modelo físico — qual tipo? qual restrição? qual ordem? · Próxima aula: Dependência Funcional</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DINÂMICA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica</span>
+      <span class="section-tag">Obrigatória</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box">
+        <div class="dinamica-header">✅ Certo ou Errado? — Round Físico</div>
+        <div class="dinamica-body">
+          <div class="dinamica-meta">
+            <div class="dinamica-meta-item">⏱️ <strong>Duração:</strong> 15 minutos</div>
+            <div class="dinamica-meta-item">👥 <strong>Agrupamento:</strong> turma inteira</div>
+            <div class="dinamica-meta-item">🖊️ <strong>Materiais:</strong> slides com os blocos SQL · quadro branco para votos</div>
+          </div>
+          <p style="font-size:13.5px;color:var(--gray);margin-bottom:16px;">Reativação da dinâmica da Aula 01, agora voltada ao modelo físico — fixar restrições de integridade e escolha de tipos de dados por análise crítica de código SQL com erros intencionais.</p>
+          <div class="dinamica-step">
+            <div><div class="step-num">1</div></div>
+            <div>
+              <div style="font-weight:600;margin-bottom:3px;">Apresentação do bloco <span style="font-weight:400;color:var(--gray);font-size:12.5px;">(1 min por rodada)</span></div>
+              <div style="color:var(--gray);font-size:13px;">O professor exibe um <span class="ci">CREATE TABLE</span> no slide — código limpo, sem marcação de erro.</div>
+            </div>
+          </div>
+          <div class="dinamica-step">
+            <div><div class="step-num">2</div></div>
+            <div>
+              <div style="font-weight:600;margin-bottom:3px;">Votação <span style="font-weight:400;color:var(--gray);font-size:12.5px;">(1 min)</span></div>
+              <div style="color:var(--gray);font-size:13px;">A turma decide: <strong>CERTO ✅ ou ERRADO ❌</strong>. O professor registra os votos no quadro.</div>
+            </div>
+          </div>
+          <div class="dinamica-step">
+            <div><div class="step-num">3</div></div>
+            <div>
+              <div style="font-weight:600;margin-bottom:3px;">Justificativa obrigatória <span style="font-weight:400;color:var(--gray);font-size:12.5px;">(2 min)</span></div>
+              <div style="color:var(--gray);font-size:13px;">Quem votou ❌ aponta a linha com problema e explica o erro. Sem justificativa, o ponto não conta.</div>
+            </div>
+          </div>
+          <div class="dinamica-step">
+            <div><div class="step-num">4</div></div>
+            <div>
+              <div style="font-weight:600;margin-bottom:3px;">Reveal e consolidação <span style="font-weight:400;color:var(--gray);font-size:12.5px;">(1 min)</span></div>
+              <div style="color:var(--gray);font-size:13px;">O professor exibe a versão corrigida e reforça a regra técnica envolvida.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <table class="rodadas-table">
+        <thead>
+          <tr><th>Rodada</th><th>Bloco SQL</th><th>Problema</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>
+              <code class="code-sql"><span class="sql-kw">CREATE TABLE</span> cliente (<br>&nbsp;&nbsp;cpf <span class="sql-fn">VARCHAR</span>(11),<br>&nbsp;&nbsp;nome <span class="sql-fn">VARCHAR</span>(150) <span class="sql-kw">NOT NULL</span>,<br>&nbsp;&nbsp;email <span class="sql-fn">VARCHAR</span>(100)<br>);</code>
+            </td>
+            <td>Ausência de <span class="ci">PRIMARY KEY</span> — nenhuma coluna identifica unicamente o registro</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>
+              <code class="code-sql"><span class="sql-kw">CREATE TABLE</span> locacao (<br>&nbsp;&nbsp;id <span class="sql-fn">INT</span> <span class="sql-kw">PRIMARY KEY AUTO_INCREMENT</span>,<br>&nbsp;&nbsp;id_cliente <span class="sql-fn">VARCHAR</span>(11),<br>&nbsp;&nbsp;data_locacao <span class="sql-fn">DATE</span> <span class="sql-err">DEFAULT</span><br>);</code>
+            </td>
+            <td><span class="ci">DEFAULT</span> sem valor definido — sintaxe incompleta</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>
+              <code class="code-sql"><span class="sql-kw">CREATE TABLE</span> elenco (<br>&nbsp;&nbsp;id_filme <span class="sql-fn">INT</span> <span class="sql-kw">NOT NULL</span>,<br>&nbsp;&nbsp;id_ator <span class="sql-fn">INT</span> <span class="sql-kw">NOT NULL</span>,<br>&nbsp;&nbsp;<span class="sql-kw">FOREIGN KEY</span> (id_filme)<br>&nbsp;&nbsp;<span class="sql-kw">REFERENCES</span> <span class="sql-err">filmes</span>(id_filme)<br>);</code>
+            </td>
+            <td>Nome da tabela referenciada errado — <span class="ci">filmes</span> deveria ser <span class="ci">filme</span></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>
+              <code class="code-sql"><span class="sql-kw">CREATE TABLE</span> produto (<br>&nbsp;&nbsp;id <span class="sql-fn">INT</span> <span class="sql-kw">PRIMARY KEY</span>,<br>&nbsp;&nbsp;preco <span class="sql-err">CHAR</span>(10),<br>&nbsp;&nbsp;estoque <span class="sql-fn">INT</span> <span class="sql-kw">DEFAULT</span> 0 <span class="sql-kw">NOT NULL</span><br>);</code>
+            </td>
+            <td>Tipo inadequado — <span class="ci">CHAR(10)</span> não permite operações numéricas; <span class="ci">preco</span> deveria ser <span class="ci">DECIMAL</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="nota-warn">
+        <strong>⚠️ Atenção — Rodada 4:</strong> o bloco está sintaticamente correto, mas semanticamente errado. O objetivo é que os alunos percebam que erros de design não geram mensagem de erro no SGBD, mas causam problemas sérios de integridade e desempenho.
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag">Padrão fixo</span>
+    </div>
+    <div class="section-body">
+      <div class="aval-parts">
+        <div class="aval-part">
+          <div class="aval-part-header aph-uc">Parte 1 — 5 Questões Objetivas</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Nível alto · 4 alternativas: A) B) C) D)</li>
+              <li>Gabarito alternado, sem repetição consecutiva de letra</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header aph-dark">Parte 2 — 5 Questões Discursivas</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Cada questão com título explicativo antes do enunciado</li>
+              <li>Sem linhas — apenas espaço em branco com <span class="ci">R:</span></li>
+              <li>Gabarito em página separada — uso exclusivo do professor</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONEXÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag">Continuidade</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant">
+          <div class="conn-label">← Aula anterior — SA 18 · Aula 05</div>
+          <div style="font-size:13.5px;color:var(--dark);">17/06/2026 · Modelo Lógico<br>
+            <span style="font-size:12.5px;color:var(--gray);">Conceitos e Conversão do DER</span>
+          </div>
+        </div>
+        <div class="conn-card conn-prox">
+          <div class="conn-label">Próxima aula → SA 20 · Aula 07</div>
+          <div style="font-size:13.5px;color:var(--dark);">01/07/2026 · Dependência Funcional<br>
+            <span style="font-size:12.5px;color:var(--gray);">Total, parcial e transitiva</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag">Verificar antes da aula</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid">
+        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor / TV</span></div>
+        <div class="recurso-item"><span class="recurso-icon">💻</span><span>Computador com HDMI</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📊</span><span>Apresentação — 20 slides</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📄</span><span>Questionário impresso ou digital</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🖊️</span><span>Quadro branco e marcador</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSERVAÇÕES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag">Opcional</span>
+    </div>
+    <div class="section-body">
+      <div class="obs-box"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Plano de Aula · <span>SA 19 — Modelo Físico: Restrições, Chaves e Design</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · Colégio Neiva Pavan · 2026
+</footer>
+
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF = () => {
+    const tituloOriginal = document.title;
+    document.title = 'Plano_Aula_SA19_BD_Modelo_Fisico_Restricoes_Chaves_Design';
+    window.print();
+    setTimeout(() => { document.title = tituloOriginal; }, 1000);
+  };
+
+  const btnTopo = document.getElementById('btn-topo');
+  window.addEventListener('scroll', () => {
+    if (btnTopo) btnTopo.classList.toggle('visible', window.scrollY > 400);
+  });
+  if (btnTopo) {
+    btnTopo.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+</script>
+</body>
+</html>
