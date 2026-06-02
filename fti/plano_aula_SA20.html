@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plano de Aula SA 16 — Google Sheets · FTI</title>
-<meta name="description" content="Plano de aula SA 16 — Google Sheets · Fundamentos de Tecnologias da Informação · Colégio Neiva Pavan">
+<title>Plano de Aula SA 20 — Google Docs · FTI</title>
+<meta name="description" content="Plano de aula SA 20 — Google Docs · Fundamentos de Tecnologias da Informação · Colégio Neiva Pavan">
 <meta name="theme-color" content="#0D1A2B">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -20,8 +20,6 @@
     --light:      #F5F7FA;
     --white:      #FFFFFF;
     --text:       #1A2B3C;
-    --red:        #E63946;
-    --green:      #1A7A4A;
     --border:     #E2E8F0;
     --warn-bg:    #FFF8E7;
     --purple:     #6A0572;
@@ -31,7 +29,6 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
 
-  /* PAGE HEADER */
   .page-header { background: var(--dark); position: relative; overflow: hidden; }
   .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc); }
   .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--uc-dark); }
@@ -46,10 +43,8 @@
   .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
   .header-sub .uc-nome { white-space:nowrap; display:block; }
 
-  /* CONTAINER */
   .container { max-width:980px; margin:0 auto; padding:40px 48px; }
 
-  /* SECTION */
   .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
   .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
   .section-icon  { font-size:20px; }
@@ -57,22 +52,18 @@
   .section-tag   { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
   .section-body  { padding:24px 26px; }
 
-  /* TEMA */
   .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc); }
   .tema-box span { color:var(--uc); }
 
-  /* OBJECTIVES */
   .obj-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
   .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
   .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc); }
   .obj-num { background:var(--uc); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
 
-  /* CONTENT GRID */
   .content-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
   .content-item { display:flex; align-items:flex-start; gap:10px; padding:11px 14px; background:var(--light); border-radius:8px; font-size:13px; }
   .content-bullet { width:6px; height:6px; background:var(--uc); border-radius:50%; flex-shrink:0; margin-top:5px; }
 
-  /* TIME TABLE */
   .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
   .time-table thead tr { background:var(--dark); }
   .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
@@ -87,7 +78,6 @@
   .ep-aval     { background:#FFE4E6; color:#9F1239; }
   .ep-fecha    { background:#F1F5F9; color:#475569; }
 
-  /* DINÂMICA BOX */
   .dinamica-box { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
   .dinamica-header { background:var(--purple); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
   .dinamica-body { padding:18px; }
@@ -98,7 +88,6 @@
   .dinamica-step:last-child { border-bottom:none; }
   .step-num { background:var(--purple); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
 
-  /* CENÁRIOS TABLE */
   .cenarios-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-top:16px; }
   .cenarios-table thead tr { background:var(--dark); }
   .cenarios-table th { color:var(--white); padding:10px 14px; text-align:left; font-size:12.5px; }
@@ -107,10 +96,9 @@
   .cenarios-table tr:nth-child(even) td { background:#F7FAFC; }
   .cenarios-table td:first-child { font-family:'DM Mono',monospace; font-weight:700; color:var(--uc-dark); width:64px; text-align:center; }
   .tool-badge { display:inline-block; font-family:'DM Mono',monospace; font-size:11px; font-weight:600; padding:2px 8px; border-radius:6px; white-space:nowrap; }
-  .tool-excel  { background:#FFF7ED; color:#92400E; border:1px solid #FCD34D; }
-  .tool-sheets { background:#DCFCE7; color:#166534; border:1px solid #86EFAC; }
+  .tool-word { background:#FFF0E6; color:#92400E; border:1px solid #FDBA74; }
+  .tool-docs { background:#DCFCE7; color:#166534; border:1px solid #86EFAC; }
 
-  /* CONNECTION */
   .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
   .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc); }
@@ -119,19 +107,15 @@
   .conn-ant .conn-label  { color:var(--uc); }
   .conn-prox .conn-label { color:var(--gold); }
 
-  /* RECURSOS */
   .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
   .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
   .recurso-icon  { font-size:20px; }
 
-  /* OBS */
   .obs-box { background:var(--light); border:1px dashed var(--border); border-radius:8px; padding:16px 20px; min-height:80px; font-size:13.5px; color:var(--gray); }
 
-  /* FOOTER */
   footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; }
   footer span { color:var(--uc-mid); }
 
-  /* BOTÕES */
   .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
   .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; }
   .btn-action:active { transform:scale(0.97); }
@@ -145,7 +129,6 @@
   #btn-topo.visible { display:flex; }
   #btn-topo:hover   { background:var(--uc); transform:translateY(-2px); }
 
-  /* PRINT */
   @media print {
     @page { size:A4 portrait; margin:18mm 14mm 16mm 14mm; }
     * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
@@ -169,7 +152,6 @@
     .connection-row { grid-template-columns:1fr 1fr !important; }
     .recursos-grid { grid-template-columns:repeat(3,1fr) !important; }
     footer { background:var(--dark) !important; margin-top:8px !important; padding:12px !important; font-size:10.5px !important; }
-    .section.break-before-print { break-before:page; }
     #btn-topo { display:none !important; }
   }
 
@@ -231,13 +213,13 @@
       <div class="header-label">
         Plano de Aula
         <span class="hl-sep">·</span>
-        <span class="hl-sa">SA 16</span>
+        <span class="hl-sa">SA 20</span>
         <span class="hl-sep">·</span>
         <span class="hl-tri">2º Trimestre</span>
         <span class="hl-sep">·</span>
-        <span class="hl-data">09/06/2026</span>
+        <span class="hl-data">07/07/2026</span>
       </div>
-      <h1 class="header-title">Google Sheets<br><span>Colaboração em Tempo Real e Atividade Avaliativa</span></h1>
+      <h1 class="header-title">Google Docs<br><span>Colaboração em Tempo Real e Atividade Avaliativa</span></h1>
       <p class="header-sub">
         <span class="uc-nome">UC: Fundamentos de Tecnologias da Informação</span>
         2º Ano · Técnico em Desenvolvimento de Sistemas · Colégio Neiva Pavan
@@ -253,11 +235,11 @@
     <div class="section-header">
       <span class="section-icon">🎯</span>
       <span class="section-title">Tema da Aula</span>
-      <span class="section-tag">SA 16 · H18 · H19</span>
+      <span class="section-tag">SA 20 · H18 · H19</span>
     </div>
     <div class="section-body">
       <div class="tema-box">
-        🔖 <span>Google Sheets · Comparação com Excel, colaboração em tempo real e Atividade Avaliativa do Módulo de Planilhas</span>
+        🔖 <span>Google Docs · Comparação com Word, colaboração em tempo real e Atividade Avaliativa do Módulo de Documentos</span>
       </div>
     </div>
   </section>
@@ -272,11 +254,11 @@
     <div class="section-body">
       <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
       <ul class="obj-list">
-        <li><span class="obj-num">1</span>Reconhecer a interface do Google Sheets e identificar suas semelhanças e diferenças em relação ao Excel</li>
-        <li><span class="obj-num">2</span>Utilizar as principais funções do Sheets (=SOMA, =MEDIA, =SE, =CONT.SE) de forma equivalente ao Excel</li>
-        <li><span class="obj-num">3</span>Aplicar os recursos de colaboração em tempo real — compartilhamento, comentários e edição simultânea</li>
-        <li><span class="obj-num">4</span>Compreender as vantagens do Sheets para trabalho em equipe e armazenamento em nuvem</li>
-        <li><span class="obj-num">5</span>Demonstrar o aprendizado do módulo de planilhas na atividade avaliativa prática</li>
+        <li><span class="obj-num">1</span>Reconhecer a interface do Google Docs e identificar suas semelhanças e diferenças em relação ao Word</li>
+        <li><span class="obj-num">2</span>Utilizar os principais recursos do Docs — estilos, tabelas, cabeçalho, rodapé e sumário — de forma equivalente ao Word</li>
+        <li><span class="obj-num">3</span>Aplicar os recursos de colaboração em tempo real — compartilhamento, comentários, sugestões de edição e histórico de versões</li>
+        <li><span class="obj-num">4</span>Compreender as vantagens do Google Docs para produção colaborativa de documentos técnicos em equipe</li>
+        <li><span class="obj-num">5</span>Demonstrar o aprendizado do módulo de documentos na atividade avaliativa prática</li>
       </ul>
     </div>
   </section>
@@ -290,13 +272,14 @@
     </div>
     <div class="section-body">
       <div class="content-grid">
-        <div class="content-item"><div class="content-bullet"></div>Interface do Google Sheets — barra de menus, barra de ferramentas, células e guias</div>
-        <div class="content-item"><div class="content-bullet"></div>Comparação Excel × Sheets — semelhanças, diferenças de interface e funcionalidades exclusivas</div>
-        <div class="content-item"><div class="content-bullet"></div>Funções equivalentes — =SOMA(), =MEDIA(), =SE(), =MÍNIMO(), =MÁXIMO(), =CONT.SE() no Sheets</div>
-        <div class="content-item"><div class="content-bullet"></div>Colaboração em tempo real — compartilhar planilha e definir permissões (visualizar, comentar, editar)</div>
-        <div class="content-item"><div class="content-bullet"></div>Comentários e histórico de versões — rastrear alterações e restaurar versões anteriores</div>
-        <div class="content-item"><div class="content-bullet"></div>Armazenamento em nuvem — acesso pelo navegador e sincronização automática com Google Drive</div>
-        <div class="content-item"><div class="content-bullet"></div>Atividade Avaliativa — planilha prática integrando os conteúdos das SA 13, 14 e 15</div>
+        <div class="content-item"><div class="content-bullet"></div>Interface do Google Docs — barra de menus, barra de ferramentas, área de edição e modos de exibição</div>
+        <div class="content-item"><div class="content-bullet"></div>Comparação Word x Docs — semelhanças, diferenças de interface e recursos exclusivos de cada um</div>
+        <div class="content-item"><div class="content-bullet"></div>Estilos e formatação no Docs — Título, Subtítulo, Cabeçalho 1, 2 e 3, texto normal</div>
+        <div class="content-item"><div class="content-bullet"></div>Inserindo elementos — tabelas, imagens, links, notas de rodapé e sumário automático</div>
+        <div class="content-item"><div class="content-bullet"></div>Colaboração em tempo real — compartilhar documento, definir permissões e editar simultaneamente</div>
+        <div class="content-item"><div class="content-bullet"></div>Modo de sugestão — propor alterações sem modificar o original, aceitar ou rejeitar sugestões</div>
+        <div class="content-item"><div class="content-bullet"></div>Histórico de versões — visualizar e restaurar versões anteriores do documento</div>
+        <div class="content-item"><div class="content-bullet"></div>Atividade Avaliativa — documento técnico prático integrando os conteúdos das SA 19 e SA 20</div>
       </div>
     </div>
   </section>
@@ -316,27 +299,27 @@
         <tbody>
           <tr>
             <td><span class="etapa-pill ep-abertura">Abertura</span></td>
-            <td>Chamada, apresentação do tema e contextualização — por que o mercado usa tanto o Google Sheets quanto o Excel</td>
+            <td>Chamada, apresentação do tema e contextualização — como equipes de desenvolvimento usam o Google Docs para criar documentações técnicas, especificações de requisitos e relatórios colaborativos</td>
           </tr>
           <tr>
             <td><span class="etapa-pill ep-retomada">Retomada</span></td>
-            <td>Revisão oral rápida — gráficos, dashboard e funções do Excel das aulas anteriores (SA 13, 14 e 15)</td>
+            <td>Revisão oral rápida — estilos, sumário automático, tabelas e boas práticas de formatação da SA 19</td>
           </tr>
           <tr>
             <td><span class="etapa-pill ep-expl">Explicação</span></td>
-            <td>Slides — interface do Sheets, comparação com Excel, funções equivalentes e recursos de colaboração. Demonstração ao vivo: compartilhamento e edição simultânea projetados</td>
+            <td>Slides — interface do Docs, comparação com Word, colaboração, modo de sugestão e histórico de versões. Demonstração ao vivo: edição simultânea e uso do modo de sugestão com dois computadores projetados</td>
           </tr>
           <tr>
             <td><span class="etapa-pill ep-dinamica">Dinâmica</span></td>
-            <td>"Excel ou Sheets?" — ver seção abaixo</td>
+            <td>"Word ou Docs?" — ver seção abaixo</td>
           </tr>
           <tr>
             <td><span class="etapa-pill ep-aval">Atividade Avaliativa</span></td>
-            <td>Alunos realizam a atividade avaliativa do Módulo de Planilhas individualmente no computador — planilha com notas, fórmulas, formatação condicional e gráfico</td>
+            <td>Alunos realizam a atividade avaliativa do Módulo de Documentos individualmente — criar um documento técnico no Google Docs com estilos, tabela, cabeçalho, rodapé e sumário automático</td>
           </tr>
           <tr>
             <td><span class="etapa-pill ep-fecha">Fechamento</span></td>
-            <td>Correção coletiva dos principais pontos da atividade. Antecipação da SA 17 — PowerPoint: Básico ao Intermediário</td>
+            <td>Correção coletiva dos principais critérios da atividade. Antecipação da SA 21 — Correio Eletrônico: boas práticas e etiqueta profissional</td>
           </tr>
         </tbody>
       </table>
@@ -352,25 +335,25 @@
     </div>
     <div class="section-body">
       <div class="dinamica-box">
-        <div class="dinamica-header">🤔 Excel ou Sheets?</div>
+        <div class="dinamica-header">🤔 Word ou Docs?</div>
         <div class="dinamica-body">
           <div class="dinamica-meta">
             <div class="dinamica-meta-item">⏱️ <strong>Duração:</strong> 10 a 15 minutos</div>
             <div class="dinamica-meta-item">👥 <strong>Agrupamento:</strong> 5 grupos de 4 alunos</div>
           </div>
-          <p style="font-size:13.5px;color:var(--gray);margin-bottom:16px;">O professor projeta situações do cotidiano profissional de uma equipe de desenvolvimento. Cada grupo decide qual ferramenta — Excel ou Google Sheets — seria a mais indicada e justifica a escolha. Professor discute as respostas reforçando as vantagens de cada ferramenta.</p>
+          <p style="font-size:13.5px;color:var(--gray);margin-bottom:16px;">O professor projeta situações do cotidiano profissional de equipes de tecnologia. Cada grupo decide qual ferramenta — Word ou Google Docs — seria a mais indicada e justifica a escolha. Professor discute as respostas reforçando as vantagens de cada ferramenta.</p>
           <div class="dinamica-step">
             <div><div class="step-num">1</div></div>
             <div>
               <div style="font-weight:600;margin-bottom:3px;">Apresentação</div>
-              <div style="color:var(--gray);font-size:13px;">Professor projeta a situação profissional para cada grupo.</div>
+              <div style="color:var(--gray);font-size:13px;">Professor projeta a situação profissional para toda a turma.</div>
             </div>
           </div>
           <div class="dinamica-step">
             <div><div class="step-num">2</div></div>
             <div>
               <div style="font-weight:600;margin-bottom:3px;">Análise em grupo</div>
-              <div style="color:var(--gray);font-size:13px;">Cada grupo escolhe Excel ou Sheets e anota a justificativa na folha da dinâmica.</div>
+              <div style="color:var(--gray);font-size:13px;">Cada grupo escolhe Word ou Google Docs e anota a justificativa na folha da dinâmica.</div>
             </div>
           </div>
           <div class="dinamica-step">
@@ -397,33 +380,33 @@
         <tbody>
           <tr>
             <td>A</td>
-            <td>4 desenvolvedores precisam preencher um relatório de horas trabalhadas ao mesmo tempo, cada um de sua casa</td>
-            <td><span class="tool-badge tool-sheets">Google Sheets</span></td>
-            <td>Colaboração em tempo real e acesso pela nuvem</td>
+            <td>A equipe de produto precisa escrever a especificação de requisitos de um sistema, com 4 pessoas contribuindo ao mesmo tempo de locais diferentes</td>
+            <td><span class="tool-badge tool-docs">Google Docs</span></td>
+            <td>Edição colaborativa em tempo real sem instalação</td>
           </tr>
           <tr>
             <td>B</td>
-            <td>O financeiro precisa criar um modelo de planilha complexo com macros e fórmulas avançadas para uso interno offline</td>
-            <td><span class="tool-badge tool-excel">Excel</span></td>
-            <td>Suporte completo a macros VBA e uso offline</td>
+            <td>O gerente de projetos precisa criar um contrato formal com layout preciso, numeração específica de cláusulas e assinatura digital integrada</td>
+            <td><span class="tool-badge tool-word">Word</span></td>
+            <td>Controle avançado de formatação e integração com ferramentas jurídicas</td>
           </tr>
           <tr>
             <td>C</td>
-            <td>O gestor quer compartilhar o cronograma do projeto com o cliente para que ele possa visualizar mas não editar</td>
-            <td><span class="tool-badge tool-sheets">Google Sheets</span></td>
-            <td>Compartilhamento com permissão de visualização</td>
+            <td>O analista quer enviar um documento para revisão do cliente, onde o cliente pode sugerir alterações sem modificar o texto original</td>
+            <td><span class="tool-badge tool-docs">Google Docs</span></td>
+            <td>Modo de sugestão — propõe mudanças sem alterar o original</td>
           </tr>
           <tr>
             <td>D</td>
-            <td>O analista precisa cruzar duas tabelas de banco de dados com mais de 500 mil linhas para gerar um relatório</td>
-            <td><span class="tool-badge tool-excel">Excel</span></td>
-            <td>Melhor desempenho com grandes volumes de dados</td>
+            <td>O técnico precisa criar um manual de instalação com macros que automatizam a numeração de procedimentos e geração de índice remissivo</td>
+            <td><span class="tool-badge tool-word">Word</span></td>
+            <td>Suporte a macros VBA e recursos avançados de indexação</td>
           </tr>
           <tr>
             <td>E</td>
-            <td>A equipe de RH quer que todos os funcionários preencham uma planilha de avaliação sem instalar nenhum software</td>
-            <td><span class="tool-badge tool-sheets">Google Sheets</span></td>
-            <td>Acesso pelo navegador sem instalação</td>
+            <td>O estagiário precisa acessar e editar um documento do trabalho pelo celular, sem ter nenhum software instalado</td>
+            <td><span class="tool-badge tool-docs">Google Docs</span></td>
+            <td>Acesso pelo navegador ou app mobile sem instalação</td>
           </tr>
         </tbody>
       </table>
@@ -455,12 +438,12 @@
     <div class="section-body">
       <div class="connection-row">
         <div class="conn-card conn-ant">
-          <div class="conn-label">← Aula anterior — SA 15</div>
-          <div style="font-size:13.5px;color:var(--dark);">Excel — Gráficos e Dashboards · Tipos de gráfico, formatação e dashboard de boletim escolar</div>
+          <div class="conn-label">← Aula anterior — SA 19</div>
+          <div style="font-size:13.5px;color:var(--dark);">Word — Básico ao Intermediário · Formatação de texto, estilos, tabelas e sumário automático</div>
         </div>
         <div class="conn-card conn-prox">
-          <div class="conn-label">Próxima aula → SA 17</div>
-          <div style="font-size:13.5px;color:var(--dark);">PowerPoint — Básico ao Intermediário · Interface, slides, animações, transições e apresentação profissional</div>
+          <div class="conn-label">Próxima aula → SA 21</div>
+          <div style="font-size:13.5px;color:var(--dark);">Correio Eletrônico · Estrutura do e-mail, CC e CCO, redação profissional e boas práticas</div>
         </div>
       </div>
     </div>
@@ -477,10 +460,11 @@
       <div class="recursos-grid">
         <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor / TV</span></div>
         <div class="recurso-item"><span class="recurso-icon">💻</span><span>Computador do professor com HDMI — demonstração ao vivo</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📱</span><span>Segundo computador ou celular — demonstrar edição simultânea e modo de sugestão</span></div>
         <div class="recurso-item"><span class="recurso-icon">🌐</span><span>Laboratório — 1 computador por aluno com Google Chrome e conta Google</span></div>
         <div class="recurso-item"><span class="recurso-icon">📊</span><span>Apresentação PowerPoint — 20 slides</span></div>
-        <div class="recurso-item"><span class="recurso-icon">📄</span><span>Atividade Avaliativa impressa ou disponibilizada digitalmente</span></div>
-        <div class="recurso-item"><span class="recurso-icon">🗂️</span><span>Folha da dinâmica "Excel ou Sheets?" impressa — 1 por grupo</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📄</span><span>Atividade Avaliativa disponibilizada digitalmente ou impressa</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🗂️</span><span>Folha da dinâmica "Word ou Docs?" impressa — 1 por grupo</span></div>
         <div class="recurso-item"><span class="recurso-icon">🖊️</span><span>Quadro branco / Marcador</span></div>
       </div>
     </div>
@@ -501,7 +485,7 @@
 </main>
 
 <footer>
-  Plano de Aula · <span>SA 16 — Google Sheets</span> · Prof. Julio Cesar · Fundamentos de Tecnologias da Informação · Colégio Neiva Pavan · 2026
+  Plano de Aula · <span>SA 20 — Google Docs</span> · Prof. Julio Cesar · Fundamentos de Tecnologias da Informação · Colégio Neiva Pavan · 2026
 </footer>
 
 <button id="btn-topo" aria-label="Voltar ao topo">↑</button>
@@ -509,7 +493,7 @@
 <script>
   const salvarPDF = () => {
     const tituloOriginal = document.title;
-    document.title = 'Plano_Aula_SA16_FTI_Google_Sheets';
+    document.title = 'Plano_Aula_SA20_FTI_Google_Docs';
     window.print();
     setTimeout(() => { document.title = tituloOriginal; }, 1000);
   };

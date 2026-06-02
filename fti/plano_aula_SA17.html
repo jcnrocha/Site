@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plano de Aula SA 16 — Google Sheets · FTI</title>
-<meta name="description" content="Plano de aula SA 16 — Google Sheets · Fundamentos de Tecnologias da Informação · Colégio Neiva Pavan">
+<title>Plano de Aula SA 17 — PowerPoint Básico ao Intermediário · FTI</title>
+<meta name="description" content="Plano de aula SA 17 — PowerPoint Básico ao Intermediário · Fundamentos de Tecnologias da Informação · Colégio Neiva Pavan">
 <meta name="theme-color" content="#0D1A2B">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -83,8 +83,9 @@
   .ep-abertura { background:#E0F2FE; color:#0369A1; }
   .ep-retomada { background:#FEF9C3; color:#854D0E; }
   .ep-expl     { background:#DCFCE7; color:#166534; }
+  .ep-pratica  { background:#CCFBF1; color:#0F766E; }
   .ep-dinamica { background:#F3E8FF; color:#6B21A8; }
-  .ep-aval     { background:#FFE4E6; color:#9F1239; }
+  .ep-quest    { background:#FFE4E6; color:#9F1239; }
   .ep-fecha    { background:#F1F5F9; color:#475569; }
 
   /* DINÂMICA BOX */
@@ -98,17 +99,15 @@
   .dinamica-step:last-child { border-bottom:none; }
   .step-num { background:var(--purple); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
 
-  /* CENÁRIOS TABLE */
-  .cenarios-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-top:16px; }
-  .cenarios-table thead tr { background:var(--dark); }
-  .cenarios-table th { color:var(--white); padding:10px 14px; text-align:left; font-size:12.5px; }
-  .cenarios-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; font-size:13px; }
-  .cenarios-table tr:last-child td { border-bottom:none; }
-  .cenarios-table tr:nth-child(even) td { background:#F7FAFC; }
-  .cenarios-table td:first-child { font-family:'DM Mono',monospace; font-weight:700; color:var(--uc-dark); width:64px; text-align:center; }
-  .tool-badge { display:inline-block; font-family:'DM Mono',monospace; font-size:11px; font-weight:600; padding:2px 8px; border-radius:6px; white-space:nowrap; }
-  .tool-excel  { background:#FFF7ED; color:#92400E; border:1px solid #FCD34D; }
-  .tool-sheets { background:#DCFCE7; color:#166534; border:1px solid #86EFAC; }
+  /* SLIDES TABLE (dinâmica) */
+  .slides-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-top:16px; }
+  .slides-table thead tr { background:var(--dark); }
+  .slides-table th { color:var(--white); padding:10px 14px; text-align:left; font-size:12.5px; }
+  .slides-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; font-size:13px; }
+  .slides-table tr:last-child td { border-bottom:none; }
+  .slides-table tr:nth-child(even) td { background:#F7FAFC; }
+  .slides-table td:first-child { font-family:'DM Mono',monospace; font-weight:700; color:var(--uc-dark); width:64px; text-align:center; }
+  .principio-badge { display:inline-block; font-family:'DM Mono',monospace; font-size:11px; font-weight:600; background:var(--uc-light); color:var(--uc-dark); padding:2px 8px; border-radius:6px; }
 
   /* CONNECTION */
   .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
@@ -192,7 +191,7 @@
     .content-grid { grid-template-columns:1fr; }
     .connection-row { grid-template-columns:1fr; }
     .recursos-grid { grid-template-columns:1fr 1fr; }
-    .time-table, .cenarios-table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .time-table, .slides-table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
     .btn-group { top:auto; bottom:20px; right:16px; flex-direction:row; }
     .btn-action { padding:9px 14px; font-size:12px; }
   }
@@ -231,13 +230,13 @@
       <div class="header-label">
         Plano de Aula
         <span class="hl-sep">·</span>
-        <span class="hl-sa">SA 16</span>
+        <span class="hl-sa">SA 17</span>
         <span class="hl-sep">·</span>
         <span class="hl-tri">2º Trimestre</span>
         <span class="hl-sep">·</span>
-        <span class="hl-data">09/06/2026</span>
+        <span class="hl-data">16/06/2026</span>
       </div>
-      <h1 class="header-title">Google Sheets<br><span>Colaboração em Tempo Real e Atividade Avaliativa</span></h1>
+      <h1 class="header-title">PowerPoint — Básico ao Intermediário<br><span>Interface, slides, animações e apresentação profissional</span></h1>
       <p class="header-sub">
         <span class="uc-nome">UC: Fundamentos de Tecnologias da Informação</span>
         2º Ano · Técnico em Desenvolvimento de Sistemas · Colégio Neiva Pavan
@@ -253,11 +252,11 @@
     <div class="section-header">
       <span class="section-icon">🎯</span>
       <span class="section-title">Tema da Aula</span>
-      <span class="section-tag">SA 16 · H18 · H19</span>
+      <span class="section-tag">SA 17 · H16</span>
     </div>
     <div class="section-body">
       <div class="tema-box">
-        🔖 <span>Google Sheets · Comparação com Excel, colaboração em tempo real e Atividade Avaliativa do Módulo de Planilhas</span>
+        🔖 <span>PowerPoint — Básico ao Intermediário · Interface, slides, animações, transições e apresentação profissional</span>
       </div>
     </div>
   </section>
@@ -272,11 +271,11 @@
     <div class="section-body">
       <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
       <ul class="obj-list">
-        <li><span class="obj-num">1</span>Reconhecer a interface do Google Sheets e identificar suas semelhanças e diferenças em relação ao Excel</li>
-        <li><span class="obj-num">2</span>Utilizar as principais funções do Sheets (=SOMA, =MEDIA, =SE, =CONT.SE) de forma equivalente ao Excel</li>
-        <li><span class="obj-num">3</span>Aplicar os recursos de colaboração em tempo real — compartilhamento, comentários e edição simultânea</li>
-        <li><span class="obj-num">4</span>Compreender as vantagens do Sheets para trabalho em equipe e armazenamento em nuvem</li>
-        <li><span class="obj-num">5</span>Demonstrar o aprendizado do módulo de planilhas na atividade avaliativa prática</li>
+        <li><span class="obj-num">1</span>Reconhecer a interface do PowerPoint e utilizar seus principais recursos de criação e edição de slides</li>
+        <li><span class="obj-num">2</span>Aplicar layouts, temas e esquemas de cores para criar apresentações visualmente consistentes</li>
+        <li><span class="obj-num">3</span>Inserir e formatar elementos visuais — imagens, ícones, formas e caixas de texto — de forma equilibrada</li>
+        <li><span class="obj-num">4</span>Configurar animações e transições com critério, evitando excessos que prejudiquem a apresentação</li>
+        <li><span class="obj-num">5</span>Estruturar uma apresentação profissional seguindo boas práticas de design e comunicação visual</li>
       </ul>
     </div>
   </section>
@@ -286,17 +285,19 @@
     <div class="section-header">
       <span class="section-icon">📚</span>
       <span class="section-title">Conteúdo</span>
-      <span class="section-tag">H18 · H19</span>
+      <span class="section-tag">H16</span>
     </div>
     <div class="section-body">
       <div class="content-grid">
-        <div class="content-item"><div class="content-bullet"></div>Interface do Google Sheets — barra de menus, barra de ferramentas, células e guias</div>
-        <div class="content-item"><div class="content-bullet"></div>Comparação Excel × Sheets — semelhanças, diferenças de interface e funcionalidades exclusivas</div>
-        <div class="content-item"><div class="content-bullet"></div>Funções equivalentes — =SOMA(), =MEDIA(), =SE(), =MÍNIMO(), =MÁXIMO(), =CONT.SE() no Sheets</div>
-        <div class="content-item"><div class="content-bullet"></div>Colaboração em tempo real — compartilhar planilha e definir permissões (visualizar, comentar, editar)</div>
-        <div class="content-item"><div class="content-bullet"></div>Comentários e histórico de versões — rastrear alterações e restaurar versões anteriores</div>
-        <div class="content-item"><div class="content-bullet"></div>Armazenamento em nuvem — acesso pelo navegador e sincronização automática com Google Drive</div>
-        <div class="content-item"><div class="content-bullet"></div>Atividade Avaliativa — planilha prática integrando os conteúdos das SA 13, 14 e 15</div>
+        <div class="content-item"><div class="content-bullet"></div>Interface do PowerPoint — faixa de opções, painel de slides, área de edição e modo de exibição</div>
+        <div class="content-item"><div class="content-bullet"></div>Criando e organizando slides — adicionar, duplicar, mover, excluir e reorganizar slides</div>
+        <div class="content-item"><div class="content-bullet"></div>Layouts e temas — aplicar e personalizar temas, cores e fontes de forma consistente</div>
+        <div class="content-item"><div class="content-bullet"></div>Caixas de texto — inserir, formatar e alinhar texto nos slides</div>
+        <div class="content-item"><div class="content-bullet"></div>Inserindo elementos visuais — imagens, ícones, formas, SmartArt e organogramas</div>
+        <div class="content-item"><div class="content-bullet"></div>Animações — tipos de animação (entrada, saída, ênfase), ordem e tempo de execução</div>
+        <div class="content-item"><div class="content-bullet"></div>Transições — aplicar transições entre slides com moderação</div>
+        <div class="content-item"><div class="content-bullet"></div>Modo de apresentação — tela cheia, anotações do apresentador e ponteiro laser virtual</div>
+        <div class="content-item"><div class="content-bullet"></div>Boas práticas — regra dos 6x6, contraste, hierarquia visual, menos é mais</div>
       </div>
     </div>
   </section>
@@ -316,27 +317,31 @@
         <tbody>
           <tr>
             <td><span class="etapa-pill ep-abertura">Abertura</span></td>
-            <td>Chamada, apresentação do tema e contextualização — por que o mercado usa tanto o Google Sheets quanto o Excel</td>
+            <td>Chamada, apresentação do tema e contextualização — por que saber fazer uma boa apresentação é uma habilidade essencial no mercado de TI</td>
           </tr>
           <tr>
             <td><span class="etapa-pill ep-retomada">Retomada</span></td>
-            <td>Revisão oral rápida — gráficos, dashboard e funções do Excel das aulas anteriores (SA 13, 14 e 15)</td>
+            <td>Revisão oral rápida — o que os alunos já viram sobre PowerPoint na SA 12 (Introdução às Ferramentas de Escritório)</td>
           </tr>
           <tr>
             <td><span class="etapa-pill ep-expl">Explicação</span></td>
-            <td>Slides — interface do Sheets, comparação com Excel, funções equivalentes e recursos de colaboração. Demonstração ao vivo: compartilhamento e edição simultânea projetados</td>
+            <td>Slides — interface, layouts, temas, elementos visuais, animações e transições. Demonstração ao vivo: construção de uma apresentação do zero no computador projetado</td>
           </tr>
           <tr>
             <td><span class="etapa-pill ep-dinamica">Dinâmica</span></td>
-            <td>"Excel ou Sheets?" — ver seção abaixo</td>
+            <td>"Boa ou Ruim?" — ver seção abaixo</td>
           </tr>
           <tr>
-            <td><span class="etapa-pill ep-aval">Atividade Avaliativa</span></td>
-            <td>Alunos realizam a atividade avaliativa do Módulo de Planilhas individualmente no computador — planilha com notas, fórmulas, formatação condicional e gráfico</td>
+            <td><span class="etapa-pill ep-pratica">Prática</span></td>
+            <td>Alunos criam uma apresentação de 5 slides sobre uma tecnologia à sua escolha, aplicando os conceitos da aula</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-quest">Questionário</span></td>
+            <td>6 questões objetivas + 4 questões discursivas</td>
           </tr>
           <tr>
             <td><span class="etapa-pill ep-fecha">Fechamento</span></td>
-            <td>Correção coletiva dos principais pontos da atividade. Antecipação da SA 17 — PowerPoint: Básico ao Intermediário</td>
+            <td>Resumo oral — boas práticas de apresentação. Antecipação da SA 18 — Google Slides e Atividade Avaliativa do Módulo de Apresentações</td>
           </tr>
         </tbody>
       </table>
@@ -352,78 +357,73 @@
     </div>
     <div class="section-body">
       <div class="dinamica-box">
-        <div class="dinamica-header">🤔 Excel ou Sheets?</div>
+        <div class="dinamica-header">👀 Boa ou Ruim?</div>
         <div class="dinamica-body">
           <div class="dinamica-meta">
             <div class="dinamica-meta-item">⏱️ <strong>Duração:</strong> 10 a 15 minutos</div>
             <div class="dinamica-meta-item">👥 <strong>Agrupamento:</strong> 5 grupos de 4 alunos</div>
           </div>
-          <p style="font-size:13.5px;color:var(--gray);margin-bottom:16px;">O professor projeta situações do cotidiano profissional de uma equipe de desenvolvimento. Cada grupo decide qual ferramenta — Excel ou Google Sheets — seria a mais indicada e justifica a escolha. Professor discute as respostas reforçando as vantagens de cada ferramenta.</p>
+          <p style="font-size:13.5px;color:var(--gray);margin-bottom:16px;">O professor projeta slides com problemas comuns de design — texto em excesso, cores sem contraste, animações exageradas, falta de hierarquia visual. Cada grupo identifica os erros, aponta o problema e sugere como corrigir. Professor valida e apresenta a versão corrigida em seguida.</p>
           <div class="dinamica-step">
             <div><div class="step-num">1</div></div>
             <div>
               <div style="font-weight:600;margin-bottom:3px;">Apresentação</div>
-              <div style="color:var(--gray);font-size:13px;">Professor projeta a situação profissional para cada grupo.</div>
+              <div style="color:var(--gray);font-size:13px;">Professor projeta o slide com erro proposital para toda a turma.</div>
             </div>
           </div>
           <div class="dinamica-step">
             <div><div class="step-num">2</div></div>
             <div>
               <div style="font-weight:600;margin-bottom:3px;">Análise em grupo</div>
-              <div style="color:var(--gray);font-size:13px;">Cada grupo escolhe Excel ou Sheets e anota a justificativa na folha da dinâmica.</div>
+              <div style="color:var(--gray);font-size:13px;">Cada grupo tem 45 segundos para identificar os problemas e anotar as correções sugeridas.</div>
             </div>
           </div>
           <div class="dinamica-step">
             <div><div class="step-num">3</div></div>
             <div>
               <div style="font-weight:600;margin-bottom:3px;">Compartilhamento</div>
-              <div style="color:var(--gray);font-size:13px;">Um representante apresenta a decisão e o motivo para a turma.</div>
+              <div style="color:var(--gray);font-size:13px;">Um representante apresenta os erros encontrados e as sugestões de correção.</div>
             </div>
           </div>
           <div class="dinamica-step">
             <div><div class="step-num">4</div></div>
             <div>
-              <div style="font-weight:600;margin-bottom:3px;">Discussão</div>
-              <div style="color:var(--gray);font-size:13px;">Professor valida, complementa e apresenta casos em que ambas as ferramentas funcionariam bem.</div>
+              <div style="font-weight:600;margin-bottom:3px;">Correção</div>
+              <div style="color:var(--gray);font-size:13px;">Professor projeta a versão corrigida do slide e explica o princípio de design aplicado.</div>
             </div>
           </div>
         </div>
       </div>
 
-      <table class="cenarios-table">
+      <table class="slides-table">
         <thead>
-          <tr><th>Grupo</th><th>Situação</th><th>Ferramenta ideal</th><th>Justificativa principal</th></tr>
+          <tr><th>Slide</th><th>Erro proposital</th><th>Princípio ensinado</th></tr>
         </thead>
         <tbody>
           <tr>
-            <td>A</td>
-            <td>4 desenvolvedores precisam preencher um relatório de horas trabalhadas ao mesmo tempo, cada um de sua casa</td>
-            <td><span class="tool-badge tool-sheets">Google Sheets</span></td>
-            <td>Colaboração em tempo real e acesso pela nuvem</td>
+            <td>1</td>
+            <td>Slide com 15 linhas de texto em fonte tamanho 10</td>
+            <td><span class="principio-badge">Regra dos 6x6</span> — máximo 6 linhas com 6 palavras cada</td>
           </tr>
           <tr>
-            <td>B</td>
-            <td>O financeiro precisa criar um modelo de planilha complexo com macros e fórmulas avançadas para uso interno offline</td>
-            <td><span class="tool-badge tool-excel">Excel</span></td>
-            <td>Suporte completo a macros VBA e uso offline</td>
+            <td>2</td>
+            <td>Texto amarelo claro sobre fundo branco</td>
+            <td><span class="principio-badge">Contraste</span> — garantir legibilidade entre texto e fundo</td>
           </tr>
           <tr>
-            <td>C</td>
-            <td>O gestor quer compartilhar o cronograma do projeto com o cliente para que ele possa visualizar mas não editar</td>
-            <td><span class="tool-badge tool-sheets">Google Sheets</span></td>
-            <td>Compartilhamento com permissão de visualização</td>
+            <td>3</td>
+            <td>4 tipos de fonte diferentes no mesmo slide</td>
+            <td><span class="principio-badge">Consistência</span> — máximo 2 fontes por apresentação</td>
           </tr>
           <tr>
-            <td>D</td>
-            <td>O analista precisa cruzar duas tabelas de banco de dados com mais de 500 mil linhas para gerar um relatório</td>
-            <td><span class="tool-badge tool-excel">Excel</span></td>
-            <td>Melhor desempenho com grandes volumes de dados</td>
+            <td>4</td>
+            <td>Cada elemento com uma animação diferente e exagerada</td>
+            <td><span class="principio-badge">Moderação</span> — animações devem servir ao conteúdo, não distrair</td>
           </tr>
           <tr>
-            <td>E</td>
-            <td>A equipe de RH quer que todos os funcionários preencham uma planilha de avaliação sem instalar nenhum software</td>
-            <td><span class="tool-badge tool-sheets">Google Sheets</span></td>
-            <td>Acesso pelo navegador sem instalação</td>
+            <td>5</td>
+            <td>Slide sem título, com imagens desalinhadas e sem hierarquia</td>
+            <td><span class="principio-badge">Hierarquia visual</span> — título, subtítulo e corpo bem definidos</td>
           </tr>
         </tbody>
       </table>
@@ -455,12 +455,12 @@
     <div class="section-body">
       <div class="connection-row">
         <div class="conn-card conn-ant">
-          <div class="conn-label">← Aula anterior — SA 15</div>
-          <div style="font-size:13.5px;color:var(--dark);">Excel — Gráficos e Dashboards · Tipos de gráfico, formatação e dashboard de boletim escolar</div>
+          <div class="conn-label">← Aula anterior — SA 16</div>
+          <div style="font-size:13.5px;color:var(--dark);">Google Sheets · Comparação com Excel, colaboração em tempo real e Atividade Avaliativa do Módulo de Planilhas</div>
         </div>
         <div class="conn-card conn-prox">
-          <div class="conn-label">Próxima aula → SA 17</div>
-          <div style="font-size:13.5px;color:var(--dark);">PowerPoint — Básico ao Intermediário · Interface, slides, animações, transições e apresentação profissional</div>
+          <div class="conn-label">Próxima aula → SA 18</div>
+          <div style="font-size:13.5px;color:var(--dark);">Google Slides · Comparação com PowerPoint, colaboração e Atividade Avaliativa do Módulo de Apresentações</div>
         </div>
       </div>
     </div>
@@ -477,10 +477,10 @@
       <div class="recursos-grid">
         <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor / TV</span></div>
         <div class="recurso-item"><span class="recurso-icon">💻</span><span>Computador do professor com HDMI — demonstração ao vivo</span></div>
-        <div class="recurso-item"><span class="recurso-icon">🌐</span><span>Laboratório — 1 computador por aluno com Google Chrome e conta Google</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🖥️</span><span>Laboratório — 1 computador por aluno com PowerPoint instalado</span></div>
         <div class="recurso-item"><span class="recurso-icon">📊</span><span>Apresentação PowerPoint — 20 slides</span></div>
-        <div class="recurso-item"><span class="recurso-icon">📄</span><span>Atividade Avaliativa impressa ou disponibilizada digitalmente</span></div>
-        <div class="recurso-item"><span class="recurso-icon">🗂️</span><span>Folha da dinâmica "Excel ou Sheets?" impressa — 1 por grupo</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📄</span><span>Questionário impresso ou digital</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🖼️</span><span>Slides com erros propositais para a dinâmica (preparados com antecedência)</span></div>
         <div class="recurso-item"><span class="recurso-icon">🖊️</span><span>Quadro branco / Marcador</span></div>
       </div>
     </div>
@@ -501,7 +501,7 @@
 </main>
 
 <footer>
-  Plano de Aula · <span>SA 16 — Google Sheets</span> · Prof. Julio Cesar · Fundamentos de Tecnologias da Informação · Colégio Neiva Pavan · 2026
+  Plano de Aula · <span>SA 17 — PowerPoint Básico ao Intermediário</span> · Prof. Julio Cesar · Fundamentos de Tecnologias da Informação · Colégio Neiva Pavan · 2026
 </footer>
 
 <button id="btn-topo" aria-label="Voltar ao topo">↑</button>
@@ -509,7 +509,7 @@
 <script>
   const salvarPDF = () => {
     const tituloOriginal = document.title;
-    document.title = 'Plano_Aula_SA16_FTI_Google_Sheets';
+    document.title = 'Plano_Aula_SA17_FTI_PowerPoint_Basico_Intermediario';
     window.print();
     setTimeout(() => { document.title = tituloOriginal; }, 1000);
   };

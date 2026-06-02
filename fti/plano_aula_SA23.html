@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plano de Aula SA 16 — Google Sheets · FTI</title>
-<meta name="description" content="Plano de aula SA 16 — Google Sheets · Fundamentos de Tecnologias da Informação · Colégio Neiva Pavan">
+<title>Plano de Aula SA 23 — Prova Escrita 2º Trimestre · FTI</title>
+<meta name="description" content="Plano de aula SA 23 — Prova Escrita 2º Trimestre · Fundamentos de Tecnologias da Informação · Colégio Neiva Pavan">
 <meta name="theme-color" content="#0D1A2B">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -20,8 +20,8 @@
     --light:      #F5F7FA;
     --white:      #FFFFFF;
     --text:       #1A2B3C;
-    --red:        #E63946;
-    --green:      #1A7A4A;
+    --red:        #9B1C1C;
+    --red-light:  #FEF2F2;
     --border:     #E2E8F0;
     --warn-bg:    #FFF8E7;
     --purple:     #6A0572;
@@ -31,46 +31,46 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
 
-  /* PAGE HEADER */
   .page-header { background: var(--dark); position: relative; overflow: hidden; }
   .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc); }
   .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--uc-dark); }
   .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
   .header-label { font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
-  .header-label .hl-sep  { color:#475569; font-weight:300; }
-  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:#B8B0F0; background:rgba(83,74,183,0.22); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
-  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
-  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-label .hl-sep   { color:#475569; font-weight:300; }
+  .header-label .hl-sa    { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:#B8B0F0; background:rgba(83,74,183,0.22); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
+  .header-label .hl-tri   { color:var(--yellow); font-weight:600; }
+  .header-label .hl-prova { font-family:'DM Mono',monospace; font-size:13px; font-weight:700; color:#FCA5A5; background:rgba(155,28,28,0.25); padding:2px 10px; border-radius:20px; }
+  .header-label .hl-data  { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
   .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
-  .header-title span { color:var(--yellow); }
+  .header-title span { color:#FCA5A5; }
   .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
   .header-sub .uc-nome { white-space:nowrap; display:block; }
 
-  /* CONTAINER */
   .container { max-width:980px; margin:0 auto; padding:40px 48px; }
 
-  /* SECTION */
   .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
   .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
   .section-icon  { font-size:20px; }
   .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
   .section-tag   { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
+  .section-tag-red { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--red-light); color:var(--red); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
   .section-body  { padding:24px 26px; }
 
-  /* TEMA */
-  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc); }
-  .tema-box span { color:var(--uc); }
+  .tema-box { background:var(--red-light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--red); }
+  .tema-box span { color:var(--red); }
 
-  /* OBJECTIVES */
   .obj-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
   .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
   .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc); }
   .obj-num { background:var(--uc); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
 
-  /* CONTENT GRID */
-  .content-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .content-item { display:flex; align-items:flex-start; gap:10px; padding:11px 14px; background:var(--light); border-radius:8px; font-size:13px; }
-  .content-bullet { width:6px; height:6px; background:var(--uc); border-radius:50%; flex-shrink:0; margin-top:5px; }
+  /* MÓDULOS AVALIADOS */
+  .modulo-cov-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .modulo-cov-card { background:var(--light); border-radius:8px; padding:14px 16px; border-left:3px solid var(--uc); }
+  .modulo-cov-header { font-size:12px; font-family:'DM Mono',monospace; font-weight:700; color:var(--uc-dark); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px; }
+  .modulo-cov-items { list-style:none; display:flex; flex-direction:column; gap:4px; }
+  .modulo-cov-items li { font-size:12.5px; color:var(--gray); padding-left:10px; position:relative; }
+  .modulo-cov-items li::before { content:'·'; position:absolute; left:0; color:var(--uc-mid); }
 
   /* TIME TABLE */
   .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
@@ -81,57 +81,35 @@
   .time-table tr:nth-child(even) td { background:#F7FAFC; }
   .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; }
   .ep-abertura { background:#E0F2FE; color:#0369A1; }
-  .ep-retomada { background:#FEF9C3; color:#854D0E; }
-  .ep-expl     { background:#DCFCE7; color:#166534; }
-  .ep-dinamica { background:#F3E8FF; color:#6B21A8; }
-  .ep-aval     { background:#FFE4E6; color:#9F1239; }
+  .ep-prova    { background:#FFE4E6; color:#9F1239; }
+  .ep-recolhe  { background:#FEF9C3; color:#854D0E; }
   .ep-fecha    { background:#F1F5F9; color:#475569; }
 
-  /* DINÂMICA BOX */
-  .dinamica-box { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
-  .dinamica-header { background:var(--purple); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
-  .dinamica-body { padding:18px; }
-  .dinamica-meta { display:flex; gap:16px; margin-bottom:16px; flex-wrap:wrap; }
-  .dinamica-meta-item { font-size:12.5px; color:var(--gray); display:flex; align-items:center; gap:6px; }
-  .dinamica-meta-item strong { color:var(--dark); }
-  .dinamica-step { display:flex; gap:14px; padding:10px 0; border-bottom:1px solid var(--border); font-size:13.5px; }
-  .dinamica-step:last-child { border-bottom:none; }
-  .step-num { background:var(--purple); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  /* INSTRUMENTOS */
+  .instr-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
+  .instr-card { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:14px 10px; text-align:center; }
+  .instr-value { font-size:22px; font-weight:700; color:var(--uc-dark); font-family:'DM Serif Display',serif; line-height:1.2; }
+  .instr-label { font-size:11px; color:var(--gray); margin-top:4px; line-height:1.4; }
+  .instr-warn  { background:var(--red-light); border:1px solid #FCA5A5; border-radius:8px; padding:13px 16px; font-size:13.5px; color:var(--red); border-left:4px solid var(--red); }
+  .instr-warn strong { color:var(--red); }
 
-  /* CENÁRIOS TABLE */
-  .cenarios-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-top:16px; }
-  .cenarios-table thead tr { background:var(--dark); }
-  .cenarios-table th { color:var(--white); padding:10px 14px; text-align:left; font-size:12.5px; }
-  .cenarios-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; font-size:13px; }
-  .cenarios-table tr:last-child td { border-bottom:none; }
-  .cenarios-table tr:nth-child(even) td { background:#F7FAFC; }
-  .cenarios-table td:first-child { font-family:'DM Mono',monospace; font-weight:700; color:var(--uc-dark); width:64px; text-align:center; }
-  .tool-badge { display:inline-block; font-family:'DM Mono',monospace; font-size:11px; font-weight:600; padding:2px 8px; border-radius:6px; white-space:nowrap; }
-  .tool-excel  { background:#FFF7ED; color:#92400E; border:1px solid #FCD34D; }
-  .tool-sheets { background:#DCFCE7; color:#166534; border:1px solid #86EFAC; }
-
-  /* CONNECTION */
   .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
   .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc); }
-  .conn-prox  { background:var(--warn-bg);  border-left:4px solid var(--gold); }
+  .conn-prox  { background:#FFF7ED;         border-left:4px solid #92400E; }
   .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
   .conn-ant .conn-label  { color:var(--uc); }
-  .conn-prox .conn-label { color:var(--gold); }
+  .conn-prox .conn-label { color:#92400E; }
 
-  /* RECURSOS */
   .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
   .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
   .recurso-icon  { font-size:20px; }
 
-  /* OBS */
   .obs-box { background:var(--light); border:1px dashed var(--border); border-radius:8px; padding:16px 20px; min-height:80px; font-size:13.5px; color:var(--gray); }
 
-  /* FOOTER */
   footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; }
   footer span { color:var(--uc-mid); }
 
-  /* BOTÕES */
   .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
   .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; }
   .btn-action:active { transform:scale(0.97); }
@@ -145,7 +123,6 @@
   #btn-topo.visible { display:flex; }
   #btn-topo:hover   { background:var(--uc); transform:translateY(-2px); }
 
-  /* PRINT */
   @media print {
     @page { size:A4 portrait; margin:18mm 14mm 16mm 14mm; }
     * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
@@ -165,11 +142,11 @@
     a[href]::after { content:none !important; }
     a { text-decoration:none !important; color:inherit !important; }
     .obs-box { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
-    .content-grid { grid-template-columns:1fr 1fr !important; }
+    .modulo-cov-grid { grid-template-columns:1fr 1fr !important; }
     .connection-row { grid-template-columns:1fr 1fr !important; }
+    .instr-grid { grid-template-columns:repeat(4,1fr) !important; }
     .recursos-grid { grid-template-columns:repeat(3,1fr) !important; }
     footer { background:var(--dark) !important; margin-top:8px !important; padding:12px !important; font-size:10.5px !important; }
-    .section.break-before-print { break-before:page; }
     #btn-topo { display:none !important; }
   }
 
@@ -177,6 +154,7 @@
     .header-inner { padding:36px 32px 36px 44px; gap:24px; }
     .container { padding:28px 32px; }
     .header-title { font-size:28px; }
+    .instr-grid { grid-template-columns:repeat(2,1fr); }
     .recursos-grid { grid-template-columns:1fr 1fr; }
     .btn-group { top:16px; right:16px; }
   }
@@ -189,10 +167,11 @@
     .uc-nome { white-space:normal; }
     .section-header { padding:14px 18px; gap:10px; }
     .section-body { padding:18px; }
-    .content-grid { grid-template-columns:1fr; }
+    .modulo-cov-grid { grid-template-columns:1fr; }
     .connection-row { grid-template-columns:1fr; }
+    .instr-grid { grid-template-columns:repeat(2,1fr); }
     .recursos-grid { grid-template-columns:1fr 1fr; }
-    .time-table, .cenarios-table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .time-table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
     .btn-group { top:auto; bottom:20px; right:16px; flex-direction:row; }
     .btn-action { padding:9px 14px; font-size:12px; }
   }
@@ -208,10 +187,9 @@
     .section-icon { font-size:16px; }
     .section-title { font-size:14px; }
     .section-body { padding:14px; }
+    .instr-grid { grid-template-columns:1fr 1fr; }
     .recursos-grid { grid-template-columns:1fr; }
     .obj-list li { padding:10px 12px; font-size:13px; }
-    .content-item { font-size:12px; padding:9px 12px; }
-    .dinamica-body { padding:14px; }
     .btn-group { bottom:14px; right:12px; gap:6px; }
     .btn-action { padding:8px 12px; font-size:11.5px; }
     footer { padding:16px; font-size:11px; }
@@ -231,13 +209,15 @@
       <div class="header-label">
         Plano de Aula
         <span class="hl-sep">·</span>
-        <span class="hl-sa">SA 16</span>
+        <span class="hl-sa">SA 23</span>
         <span class="hl-sep">·</span>
         <span class="hl-tri">2º Trimestre</span>
         <span class="hl-sep">·</span>
-        <span class="hl-data">09/06/2026</span>
+        <span class="hl-prova">📝 Prova Escrita</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">11/08/2026</span>
       </div>
-      <h1 class="header-title">Google Sheets<br><span>Colaboração em Tempo Real e Atividade Avaliativa</span></h1>
+      <h1 class="header-title">Prova Escrita<br><span>2ª Avaliação Trimestral — 2º Trimestre</span></h1>
       <p class="header-sub">
         <span class="uc-nome">UC: Fundamentos de Tecnologias da Informação</span>
         2º Ano · Técnico em Desenvolvimento de Sistemas · Colégio Neiva Pavan
@@ -253,11 +233,11 @@
     <div class="section-header">
       <span class="section-icon">🎯</span>
       <span class="section-title">Tema da Aula</span>
-      <span class="section-tag">SA 16 · H18 · H19</span>
+      <span class="section-tag-red">SA 23 · Prova</span>
     </div>
     <div class="section-body">
       <div class="tema-box">
-        🔖 <span>Google Sheets · Comparação com Excel, colaboração em tempo real e Atividade Avaliativa do Módulo de Planilhas</span>
+        📝 <span>Prova Escrita — 2º Trimestre · Excel · PowerPoint · Word · Ferramentas Google · Correio Eletrônico</span>
       </div>
     </div>
   </section>
@@ -266,37 +246,67 @@
   <section class="section">
     <div class="section-header">
       <span class="section-icon">🏆</span>
-      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-title">Objetivos da Avaliação</span>
       <span class="section-tag">5 objetivos</span>
     </div>
     <div class="section-body">
-      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+      <p class="obj-intro">Ao final desta SA, o aluno terá demonstrado ser capaz de:</p>
       <ul class="obj-list">
-        <li><span class="obj-num">1</span>Reconhecer a interface do Google Sheets e identificar suas semelhanças e diferenças em relação ao Excel</li>
-        <li><span class="obj-num">2</span>Utilizar as principais funções do Sheets (=SOMA, =MEDIA, =SE, =CONT.SE) de forma equivalente ao Excel</li>
-        <li><span class="obj-num">3</span>Aplicar os recursos de colaboração em tempo real — compartilhamento, comentários e edição simultânea</li>
-        <li><span class="obj-num">4</span>Compreender as vantagens do Sheets para trabalho em equipe e armazenamento em nuvem</li>
-        <li><span class="obj-num">5</span>Demonstrar o aprendizado do módulo de planilhas na atividade avaliativa prática</li>
+        <li><span class="obj-num">1</span>Demonstrar domínio dos conteúdos trabalhados no 2º Trimestre por meio de questões objetivas e discursivas</li>
+        <li><span class="obj-num">2</span>Identificar conceitos, funções e boas práticas das ferramentas de planilhas, apresentações e documentos</li>
+        <li><span class="obj-num">3</span>Resolver situações-problema envolvendo o uso profissional das ferramentas Google e do correio eletrônico</li>
+        <li><span class="obj-num">4</span>Aplicar o raciocínio lógico para interpretar fórmulas e resultados do Excel</li>
+        <li><span class="obj-num">5</span>Refletir sobre seu próprio desempenho ao longo do trimestre</li>
       </ul>
     </div>
   </section>
 
-  <!-- CONTEÚDO -->
+  <!-- CONTEÚDO AVALIADO -->
   <section class="section">
     <div class="section-header">
       <span class="section-icon">📚</span>
-      <span class="section-title">Conteúdo</span>
-      <span class="section-tag">H18 · H19</span>
+      <span class="section-title">Conteúdo Avaliado</span>
+      <span class="section-tag">4 Módulos</span>
     </div>
     <div class="section-body">
-      <div class="content-grid">
-        <div class="content-item"><div class="content-bullet"></div>Interface do Google Sheets — barra de menus, barra de ferramentas, células e guias</div>
-        <div class="content-item"><div class="content-bullet"></div>Comparação Excel × Sheets — semelhanças, diferenças de interface e funcionalidades exclusivas</div>
-        <div class="content-item"><div class="content-bullet"></div>Funções equivalentes — =SOMA(), =MEDIA(), =SE(), =MÍNIMO(), =MÁXIMO(), =CONT.SE() no Sheets</div>
-        <div class="content-item"><div class="content-bullet"></div>Colaboração em tempo real — compartilhar planilha e definir permissões (visualizar, comentar, editar)</div>
-        <div class="content-item"><div class="content-bullet"></div>Comentários e histórico de versões — rastrear alterações e restaurar versões anteriores</div>
-        <div class="content-item"><div class="content-bullet"></div>Armazenamento em nuvem — acesso pelo navegador e sincronização automática com Google Drive</div>
-        <div class="content-item"><div class="content-bullet"></div>Atividade Avaliativa — planilha prática integrando os conteúdos das SA 13, 14 e 15</div>
+      <div class="modulo-cov-grid">
+        <div class="modulo-cov-card">
+          <div class="modulo-cov-header">📊 Módulo 1 — Planilhas</div>
+          <ul class="modulo-cov-items">
+            <li>Excel Básico — interface, células, =SOMA(), =MEDIA()</li>
+            <li>Excel Intermediário — =SE(), =MÁXIMO(), =MÍNIMO(), =CONT.SE()</li>
+            <li>Referência Absoluta ($) e Formatação Condicional</li>
+            <li>Excel — Gráficos e Dashboards</li>
+            <li>Google Sheets — colaboração e funções equivalentes</li>
+          </ul>
+        </div>
+        <div class="modulo-cov-card">
+          <div class="modulo-cov-header">🖥️ Módulo 2 — Apresentações</div>
+          <ul class="modulo-cov-items">
+            <li>PowerPoint — interface, layouts, temas e elementos visuais</li>
+            <li>Animações e transições — moderação e boas práticas</li>
+            <li>Regra dos 6x6 e princípios de design</li>
+            <li>Google Slides — colaboração e publicação na web</li>
+          </ul>
+        </div>
+        <div class="modulo-cov-card">
+          <div class="modulo-cov-header">📄 Módulo 3 — Documentos</div>
+          <ul class="modulo-cov-items">
+            <li>Word — interface, formatação de texto e parágrafo</li>
+            <li>Estilos (Título 1, 2, Normal) e sumário automático</li>
+            <li>Tabelas, cabeçalho, rodapé e numeração de páginas</li>
+            <li>Google Docs — modo de sugestão e histórico de versões</li>
+          </ul>
+        </div>
+        <div class="modulo-cov-card">
+          <div class="modulo-cov-header">📧 Módulo 4 — Comunicação Digital</div>
+          <ul class="modulo-cov-items">
+            <li>Estrutura do e-mail — De, Para, CC, CCO, Assunto, Corpo</li>
+            <li>CC x CCO — diferença e quando usar cada um</li>
+            <li>Redação profissional e assinatura de e-mail</li>
+            <li>Phishing, spam e segurança no correio eletrônico</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -306,7 +316,7 @@
     <div class="section-header">
       <span class="section-icon">⏱️</span>
       <span class="section-title">Organização do Tempo</span>
-      <span class="section-tag">3 aulas · 50 min cada</span>
+      <span class="section-tag">2h30 · 3 aulas de 50 min</span>
     </div>
     <div class="section-body">
       <table class="time-table">
@@ -316,117 +326,54 @@
         <tbody>
           <tr>
             <td><span class="etapa-pill ep-abertura">Abertura</span></td>
-            <td>Chamada, apresentação do tema e contextualização — por que o mercado usa tanto o Google Sheets quanto o Excel</td>
+            <td>Chamada · Orientações gerais da prova: tempo de aplicação, uso de materiais, conduta durante a prova e procedimento de entrega</td>
           </tr>
           <tr>
-            <td><span class="etapa-pill ep-retomada">Retomada</span></td>
-            <td>Revisão oral rápida — gráficos, dashboard e funções do Excel das aulas anteriores (SA 13, 14 e 15)</td>
+            <td><span class="etapa-pill ep-prova">Aplicação</span></td>
+            <td>Alunos realizam a prova individualmente e em silêncio · Professor circula pela sala monitorando a aplicação</td>
           </tr>
           <tr>
-            <td><span class="etapa-pill ep-expl">Explicação</span></td>
-            <td>Slides — interface do Sheets, comparação com Excel, funções equivalentes e recursos de colaboração. Demonstração ao vivo: compartilhamento e edição simultânea projetados</td>
-          </tr>
-          <tr>
-            <td><span class="etapa-pill ep-dinamica">Dinâmica</span></td>
-            <td>"Excel ou Sheets?" — ver seção abaixo</td>
-          </tr>
-          <tr>
-            <td><span class="etapa-pill ep-aval">Atividade Avaliativa</span></td>
-            <td>Alunos realizam a atividade avaliativa do Módulo de Planilhas individualmente no computador — planilha com notas, fórmulas, formatação condicional e gráfico</td>
+            <td><span class="etapa-pill ep-recolhe">Recolhimento</span></td>
+            <td>Professor recolhe as provas ao sinal de término · Alunos que terminarem antes aguardam em silêncio até o encerramento</td>
           </tr>
           <tr>
             <td><span class="etapa-pill ep-fecha">Fechamento</span></td>
-            <td>Correção coletiva dos principais pontos da atividade. Antecipação da SA 17 — PowerPoint: Básico ao Intermediário</td>
+            <td>Professor comenta brevemente os pontos mais importantes da prova · Antecipação da SA 24 — Prova de Recuperação (para quem precisar) e SA 25 — Trabalho em Grupo</td>
           </tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- DINÂMICA -->
+  <!-- INSTRUMENTOS DE AVALIAÇÃO -->
   <section class="section">
     <div class="section-header">
-      <span class="section-icon">🎮</span>
-      <span class="section-title">Dinâmica</span>
-      <span class="section-tag">Obrigatória</span>
+      <span class="section-icon">📋</span>
+      <span class="section-title">Instrumentos de Avaliação</span>
+      <span class="section-tag-red">3 modelos · 10 pts</span>
     </div>
     <div class="section-body">
-      <div class="dinamica-box">
-        <div class="dinamica-header">🤔 Excel ou Sheets?</div>
-        <div class="dinamica-body">
-          <div class="dinamica-meta">
-            <div class="dinamica-meta-item">⏱️ <strong>Duração:</strong> 10 a 15 minutos</div>
-            <div class="dinamica-meta-item">👥 <strong>Agrupamento:</strong> 5 grupos de 4 alunos</div>
-          </div>
-          <p style="font-size:13.5px;color:var(--gray);margin-bottom:16px;">O professor projeta situações do cotidiano profissional de uma equipe de desenvolvimento. Cada grupo decide qual ferramenta — Excel ou Google Sheets — seria a mais indicada e justifica a escolha. Professor discute as respostas reforçando as vantagens de cada ferramenta.</p>
-          <div class="dinamica-step">
-            <div><div class="step-num">1</div></div>
-            <div>
-              <div style="font-weight:600;margin-bottom:3px;">Apresentação</div>
-              <div style="color:var(--gray);font-size:13px;">Professor projeta a situação profissional para cada grupo.</div>
-            </div>
-          </div>
-          <div class="dinamica-step">
-            <div><div class="step-num">2</div></div>
-            <div>
-              <div style="font-weight:600;margin-bottom:3px;">Análise em grupo</div>
-              <div style="color:var(--gray);font-size:13px;">Cada grupo escolhe Excel ou Sheets e anota a justificativa na folha da dinâmica.</div>
-            </div>
-          </div>
-          <div class="dinamica-step">
-            <div><div class="step-num">3</div></div>
-            <div>
-              <div style="font-weight:600;margin-bottom:3px;">Compartilhamento</div>
-              <div style="color:var(--gray);font-size:13px;">Um representante apresenta a decisão e o motivo para a turma.</div>
-            </div>
-          </div>
-          <div class="dinamica-step">
-            <div><div class="step-num">4</div></div>
-            <div>
-              <div style="font-weight:600;margin-bottom:3px;">Discussão</div>
-              <div style="color:var(--gray);font-size:13px;">Professor valida, complementa e apresenta casos em que ambas as ferramentas funcionariam bem.</div>
-            </div>
-          </div>
+      <div class="instr-grid">
+        <div class="instr-card">
+          <div class="instr-value">3</div>
+          <div class="instr-label">Modelos (A, B e C)<br>para evitar cola</div>
+        </div>
+        <div class="instr-card">
+          <div class="instr-value">10</div>
+          <div class="instr-label">Questões objetivas<br>6 pontos no total</div>
+        </div>
+        <div class="instr-card">
+          <div class="instr-value">4</div>
+          <div class="instr-label">Questões discursivas<br>4 pontos no total</div>
+        </div>
+        <div class="instr-card">
+          <div class="instr-value">6,0</div>
+          <div class="instr-label">Pontos mínimos<br>para aprovação</div>
         </div>
       </div>
-
-      <table class="cenarios-table">
-        <thead>
-          <tr><th>Grupo</th><th>Situação</th><th>Ferramenta ideal</th><th>Justificativa principal</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>A</td>
-            <td>4 desenvolvedores precisam preencher um relatório de horas trabalhadas ao mesmo tempo, cada um de sua casa</td>
-            <td><span class="tool-badge tool-sheets">Google Sheets</span></td>
-            <td>Colaboração em tempo real e acesso pela nuvem</td>
-          </tr>
-          <tr>
-            <td>B</td>
-            <td>O financeiro precisa criar um modelo de planilha complexo com macros e fórmulas avançadas para uso interno offline</td>
-            <td><span class="tool-badge tool-excel">Excel</span></td>
-            <td>Suporte completo a macros VBA e uso offline</td>
-          </tr>
-          <tr>
-            <td>C</td>
-            <td>O gestor quer compartilhar o cronograma do projeto com o cliente para que ele possa visualizar mas não editar</td>
-            <td><span class="tool-badge tool-sheets">Google Sheets</span></td>
-            <td>Compartilhamento com permissão de visualização</td>
-          </tr>
-          <tr>
-            <td>D</td>
-            <td>O analista precisa cruzar duas tabelas de banco de dados com mais de 500 mil linhas para gerar um relatório</td>
-            <td><span class="tool-badge tool-excel">Excel</span></td>
-            <td>Melhor desempenho com grandes volumes de dados</td>
-          </tr>
-          <tr>
-            <td>E</td>
-            <td>A equipe de RH quer que todos os funcionários preencham uma planilha de avaliação sem instalar nenhum software</td>
-            <td><span class="tool-badge tool-sheets">Google Sheets</span></td>
-            <td>Acesso pelo navegador sem instalação</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="instr-warn">
+        ⚠️ <strong>Alunos que não atingirem a média de 6,0 pts</strong> estarão convocados para a <strong>SA 24 — Prova de Recuperação</strong> (18/08/2026).
+      </div>
     </div>
   </section>
 
@@ -455,12 +402,12 @@
     <div class="section-body">
       <div class="connection-row">
         <div class="conn-card conn-ant">
-          <div class="conn-label">← Aula anterior — SA 15</div>
-          <div style="font-size:13.5px;color:var(--dark);">Excel — Gráficos e Dashboards · Tipos de gráfico, formatação e dashboard de boletim escolar</div>
+          <div class="conn-label">← Aula anterior — SA 22</div>
+          <div style="font-size:13.5px;color:var(--dark);">Revisão Geral · Retomada dos 4 módulos do 2º Trimestre e Atividade Integradora</div>
         </div>
         <div class="conn-card conn-prox">
-          <div class="conn-label">Próxima aula → SA 17</div>
-          <div style="font-size:13.5px;color:var(--dark);">PowerPoint — Básico ao Intermediário · Interface, slides, animações, transições e apresentação profissional</div>
+          <div class="conn-label">🔁 Próxima aula → SA 24</div>
+          <div style="font-size:13.5px;color:#92400E;">Prova de Recuperação — 2º Trimestre · 18/08/2026 · Para alunos que não atingiram a média</div>
         </div>
       </div>
     </div>
@@ -475,13 +422,10 @@
     </div>
     <div class="section-body">
       <div class="recursos-grid">
-        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor / TV</span></div>
-        <div class="recurso-item"><span class="recurso-icon">💻</span><span>Computador do professor com HDMI — demonstração ao vivo</span></div>
-        <div class="recurso-item"><span class="recurso-icon">🌐</span><span>Laboratório — 1 computador por aluno com Google Chrome e conta Google</span></div>
-        <div class="recurso-item"><span class="recurso-icon">📊</span><span>Apresentação PowerPoint — 20 slides</span></div>
-        <div class="recurso-item"><span class="recurso-icon">📄</span><span>Atividade Avaliativa impressa ou disponibilizada digitalmente</span></div>
-        <div class="recurso-item"><span class="recurso-icon">🗂️</span><span>Folha da dinâmica "Excel ou Sheets?" impressa — 1 por grupo</span></div>
-        <div class="recurso-item"><span class="recurso-icon">🖊️</span><span>Quadro branco / Marcador</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor / TV — para exibir orientações gerais e cronômetro</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📝</span><span>Prova impressa — 3 modelos (A, B e C) + gabarito por modelo</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Lista de chamada para controle de entrega</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🖊️</span><span>Quadro branco / Marcador — para anotar horário de início e término</span></div>
       </div>
     </div>
   </section>
@@ -501,7 +445,7 @@
 </main>
 
 <footer>
-  Plano de Aula · <span>SA 16 — Google Sheets</span> · Prof. Julio Cesar · Fundamentos de Tecnologias da Informação · Colégio Neiva Pavan · 2026
+  Plano de Aula · <span>SA 23 — Prova Escrita 2º Trimestre</span> · Prof. Julio Cesar · Fundamentos de Tecnologias da Informação · Colégio Neiva Pavan · 2026
 </footer>
 
 <button id="btn-topo" aria-label="Voltar ao topo">↑</button>
@@ -509,7 +453,7 @@
 <script>
   const salvarPDF = () => {
     const tituloOriginal = document.title;
-    document.title = 'Plano_Aula_SA16_FTI_Google_Sheets';
+    document.title = 'Plano_Aula_SA23_FTI_Prova_2Trimestre';
     window.print();
     setTimeout(() => { document.title = tituloOriginal; }, 1000);
   };
