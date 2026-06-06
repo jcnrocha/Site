@@ -3,33 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plano de Aula SA 39 — Encerramento do Ano Letivo · IDPSST</title>
-<meta name="description" content="Plano de aula SA 39 — Encerramento do Ano Letivo 2026 · Devolutiva Final · Desenvolvimento de Projetos + SST · Colégio Neiva Pavan">
+<title>Plano de Aula SA 03 — EPI e EPC · IDPSST</title>
+<meta name="description" content="Plano de aula SA 03 — EPI e EPC · Conceitos, Diferenças e Hierarquia de Controle de Riscos · Desenvolvimento de Projetos + SST · Colégio Neiva Pavan">
 <meta name="theme-color" content="#0D1A2B">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --uc:         #993C1D;
+    --uc-mid:     #C45010;
     --uc-light:   #FAECE7;
     --uc-dark:    #4A1B0C;
-    --enc:        #0F6E56;
-    --enc-mid:    #138E6E;
-    --enc-light:  #E8F8F2;
-    --enc-dark:   #084A39;
     --dark:       #0D1A2B;
     --yellow:     #F9C74F;
     --gray:       #64748B;
     --light:      #F5F7FA;
     --white:      #FFFFFF;
     --text:       #1A2B3C;
+    --border:     #E2E8F0;
+    --ponte:      #0F6E56;
+    --ponte-light:#E8F8F2;
     --revisao:    #185FA5;
     --revisao-light:#E6F1FB;
-    --border:     #E2E8F0;
-    --ct1-bg:     #F0FAF6;
-    --ct2-bg:     #F0FAF6;
-    --ct3-bg:     var(--revisao-light);
-    --ct4-bg:     #FFF8F0;
-    --ct5-bg:     #F5F0FF;
+    --epc:        #1A7A4A;
+    --epc-light:  #EBF8F2;
+    --epi:        #185FA5;
+    --epi-light:  #E6F1FB;
   }
 
   html { scroll-behavior: smooth; }
@@ -37,17 +35,17 @@
   body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
 
   .page-header { background: var(--dark); position: relative; overflow: hidden; }
-  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--enc); }
-  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--enc-mid); }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--uc-mid); }
   .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
   .header-label { font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
   .header-label .hl-sep  { color:#475569; font-weight:300; }
   .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:#F0A070; background:rgba(153,60,29,0.22); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
   .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
-  .header-label .hl-enc  { font-family:'DM Mono',monospace; font-size:13px; font-weight:700; color:#6EE7B7; background:rgba(15,110,86,0.3); padding:2px 10px; border-radius:20px; }
+  .header-label .hl-tipo { font-family:'DM Mono',monospace; font-size:13px; font-weight:700; color:#F0A070; background:rgba(153,60,29,0.22); padding:2px 10px; border-radius:20px; }
   .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
   .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
-  .header-title span { color:#6EE7B7; }
+  .header-title span { color:#F0A070; }
   .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
   .header-sub .uc-nome { white-space:nowrap; display:block; }
 
@@ -57,31 +55,33 @@
   .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
   .section-icon  { font-size:20px; }
   .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
-  .section-tag     { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
-  .section-tag-enc { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--enc-light); color:var(--enc); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; border:1px solid #6EE7B7; }
+  .section-tag    { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
+  .section-tag-uc { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; border:1px solid #F0A070; }
   .section-body  { padding:24px 26px; }
 
-  .tema-box { background:var(--enc-light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--enc); }
-  .tema-box span { color:var(--enc); }
+  .tema-box { background:var(--uc-light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc); }
+  .tema-box span { color:var(--uc); }
 
   .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
-  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--enc); }
-  .obj-num { background:var(--enc); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc); }
+  .obj-num { background:var(--uc); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
 
   /* CONTEÚDO BLOCOS */
   .conteudo-tris { display:flex; flex-direction:column; gap:10px; }
   .conteudo-tri { border-radius:8px; padding:14px 16px; border-left:4px solid; }
-  .ct-dev  { background:#E8F8F2; border-color:var(--enc); }
-  .ct-ref  { background:#F0FAF6; border-color:var(--enc-mid); }
-  .ct-con  { background:var(--revisao-light); border-color:var(--revisao); }
-  .ct-eti  { background:#FFF8F0; border-color:#C45010; }
-  .ct-pos  { background:#F5F0FF; border-color:#7C3AED; }
+  .ct-1 { background:var(--epi-light); border-color:var(--epi); }
+  .ct-2 { background:var(--epc-light); border-color:var(--epc); }
+  .ct-3 { background:var(--uc-light); border-color:var(--uc); }
+  .ct-4 { background:#FEF9C3; border-color:#B45309; }
+  .ct-5 { background:#FFF0E8; border-color:var(--uc-mid); }
+  .ct-6 { background:#F5F0FF; border-color:#7C3AED; }
   .conteudo-tri-label { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; }
-  .ct-dev  .conteudo-tri-label { color:var(--enc); }
-  .ct-ref  .conteudo-tri-label { color:var(--enc-dark); }
-  .ct-con  .conteudo-tri-label { color:var(--revisao); }
-  .ct-eti  .conteudo-tri-label { color:#C45010; }
-  .ct-pos  .conteudo-tri-label { color:#7C3AED; }
+  .ct-1 .conteudo-tri-label { color:var(--epi); }
+  .ct-2 .conteudo-tri-label { color:var(--epc); }
+  .ct-3 .conteudo-tri-label { color:var(--uc); }
+  .ct-4 .conteudo-tri-label { color:#B45309; }
+  .ct-5 .conteudo-tri-label { color:var(--uc-mid); }
+  .ct-6 .conteudo-tri-label { color:#7C3AED; }
   .conteudo-tri p { font-size:13.5px; color:var(--gray); }
 
   /* TIME TABLE */
@@ -92,19 +92,19 @@
   .time-table tr:last-child td { border-bottom:none; }
   .time-table tr:nth-child(even) td { background:#F7FAFC; }
   .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; }
-  .ep-abertura   { background:#E0F2FE; color:#0369A1; }
-  .ep-devolutiva { background:var(--enc-light); color:var(--enc); }
-  .ep-reflexao   { background:#F0FAF6; color:var(--enc-dark); }
-  .ep-dinamica   { background:#FEF9C3; color:#854D0E; }
-  .ep-conexao    { background:var(--revisao-light); color:var(--revisao); }
-  .ep-fecha      { background:#F1F5F9; color:#475569; }
+  .ep-abertura { background:#E0F2FE; color:#0369A1; }
+  .ep-retomada { background:#FEF9C3; color:#854D0E; }
+  .ep-explic   { background:var(--revisao-light); color:var(--revisao); }
+  .ep-dinamica { background:var(--uc-light); color:var(--uc); }
+  .ep-quest    { background:#F5F0FF; color:#7C3AED; }
+  .ep-fecha    { background:#F1F5F9; color:#475569; }
 
   /* DINÂMICA */
   .dinamica-card { background:var(--dark); border-radius:12px; overflow:hidden; }
-  .dinamica-header { background:var(--enc); padding:18px 24px; display:flex; align-items:center; gap:14px; }
+  .dinamica-header { background:var(--uc); padding:18px 24px; display:flex; align-items:center; gap:14px; }
   .dinamica-header-icon { font-size:28px; }
   .dinamica-header-text h3 { font-family:'DM Serif Display',serif; font-size:20px; color:var(--white); margin-bottom:2px; }
-  .dinamica-header-text p  { font-size:13px; color:#A7F3D0; }
+  .dinamica-header-text p  { font-size:13px; color:#FCA98A; }
   .dinamica-body { padding:20px 24px; }
   .dinamica-meta { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:20px; }
   .dinamica-meta-item { background:rgba(255,255,255,0.08); border-radius:8px; padding:10px 16px; }
@@ -113,42 +113,38 @@
   .dinamica-desc { font-size:13.5px; color:#94A3B8; line-height:1.7; margin-bottom:20px; }
   .dinamica-steps { display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
   .dinamica-step { display:flex; gap:14px; align-items:flex-start; }
-  .step-num { background:var(--enc); color:var(--white); font-family:'DM Mono',monospace; font-size:12px; font-weight:700; min-width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+  .step-num { background:var(--uc); color:var(--white); font-family:'DM Mono',monospace; font-size:12px; font-weight:700; min-width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
   .step-text { font-size:13.5px; color:#CBD5E1; padding-top:4px; line-height:1.6; }
   .step-text strong { color:var(--white); }
 
-  /* CARTA TABLE */
-  .carta-title { font-family:'DM Mono',monospace; font-size:12px; font-weight:700; color:#6EE7B7; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:12px; }
-  .carta-table { width:100%; border-collapse:collapse; font-size:12.5px; border-radius:8px; overflow:hidden; border:1px solid rgba(255,255,255,0.1); }
-  .carta-table thead tr { background:rgba(15,110,86,0.4); }
-  .carta-table th { color:#6EE7B7; padding:9px 12px; text-align:left; font-size:11.5px; font-family:'DM Mono',monospace; text-transform:uppercase; letter-spacing:0.5px; }
-  .carta-table td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.06); color:#CBD5E1; vertical-align:top; }
-  .carta-table tr:last-child td { border-bottom:none; }
-  .carta-table tr:nth-child(odd) td { background:rgba(255,255,255,0.02); }
-  .carta-bloco { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:700; color:#6EE7B7; }
-  .carta-exemplo { font-size:11.5px; color:#475569; font-style:italic; margin-top:5px; }
+  /* MEDIDAS TABLE */
+  .din-table-title { font-family:'DM Mono',monospace; font-size:12px; font-weight:700; color:#F0A070; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:12px; }
+  .din-table { width:100%; border-collapse:collapse; font-size:12px; border-radius:8px; overflow:hidden; border:1px solid rgba(255,255,255,0.1); }
+  .din-table thead tr { background:rgba(153,60,29,0.4); }
+  .din-table th { color:#F0A070; padding:9px 12px; text-align:left; font-size:11px; font-family:'DM Mono',monospace; text-transform:uppercase; letter-spacing:0.5px; }
+  .din-table td { padding:9px 12px; border-bottom:1px solid rgba(255,255,255,0.06); color:#CBD5E1; vertical-align:top; line-height:1.5; }
+  .din-table tr:last-child td { border-bottom:none; }
+  .din-table tr:nth-child(odd) td { background:rgba(255,255,255,0.02); }
+  .med-num { font-family:'DM Mono',monospace; font-size:12px; font-weight:700; color:#F0A070; text-align:center; }
+  .badge-epi { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; background:rgba(24,95,165,0.35); color:#93C5FD; padding:2px 8px; border-radius:10px; white-space:nowrap; }
+  .badge-epc { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; background:rgba(26,122,74,0.35); color:#6EE7B7; padding:2px 8px; border-radius:10px; white-space:nowrap; }
 
   /* AVALIAÇÃO */
   .aval-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px; }
-  .aval-bloco { background:var(--light); border-radius:8px; padding:14px 16px; border-left:3px solid var(--enc); }
-  .aval-bloco-title { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:var(--enc); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px; }
+  .aval-bloco { background:var(--light); border-radius:8px; padding:14px 16px; border-left:3px solid var(--uc); }
+  .aval-bloco-title { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:var(--uc); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px; }
   .aval-items { list-style:none; display:flex; flex-direction:column; gap:4px; }
   .aval-items li { font-size:12.5px; color:var(--gray); padding-left:12px; position:relative; }
-  .aval-items li::before { content:'·'; position:absolute; left:0; color:var(--enc-mid); }
-  .cap-row  { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
-  .cap-badge { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:600; background:var(--enc-light); color:var(--enc); border:1px solid var(--enc-mid); padding:4px 12px; border-radius:20px; }
+  .aval-items li::before { content:'·'; position:absolute; left:0; color:var(--uc-mid); }
 
   /* CONEXÃO */
   .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
-  .conn-ant   { background:var(--revisao-light); border-left:4px solid var(--revisao); }
-  .conn-prox  { background:var(--enc-light); border-left:4px solid var(--enc); }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc); }
+  .conn-prox  { background:var(--uc-light); border-left:4px solid var(--uc-mid); }
   .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
-  .conn-ant  .conn-label { color:var(--revisao); }
-  .conn-prox .conn-label { color:var(--enc); }
-  .conn-ucs  { display:flex; flex-direction:column; gap:5px; margin-top:6px; }
-  .conn-uc   { font-size:12.5px; color:var(--enc-dark); padding-left:14px; position:relative; }
-  .conn-uc::before { content:'›'; position:absolute; left:0; font-weight:700; color:var(--enc); }
+  .conn-ant  .conn-label { color:var(--uc); }
+  .conn-prox .conn-label { color:var(--uc-mid); }
 
   /* RECURSOS */
   .recursos-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; }
@@ -158,20 +154,20 @@
   .obs-box { background:var(--light); border:1px dashed var(--border); border-radius:8px; padding:16px 20px; min-height:80px; font-size:13.5px; color:var(--gray); }
 
   footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; }
-  footer span { color:#6EE7B7; }
+  footer span { color:#F0A070; }
 
   .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
   .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; }
   .btn-action:active { transform:scale(0.97); }
   .btn-imprimir { background:var(--dark); color:var(--white); }
-  .btn-imprimir:hover { background:#1a3d66; box-shadow:0 4px 12px rgba(13,26,43,0.4); }
+  .btn-imprimir:hover { background:#3D1A0B; box-shadow:0 4px 12px rgba(153,60,29,0.4); }
   .btn-pdf { background:var(--dark); color:var(--white); }
-  .btn-pdf:hover { background:#1a3d66; box-shadow:0 4px 12px rgba(13,26,43,0.4); }
+  .btn-pdf:hover { background:#3D1A0B; box-shadow:0 4px 12px rgba(153,60,29,0.4); }
   button:focus, a:focus { outline:3px solid var(--yellow); outline-offset:2px; }
 
   #btn-topo { position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--dark); color:var(--white); border:none; font-size:18px; font-weight:700; cursor:pointer; z-index:999; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:all 0.2s ease; }
   #btn-topo.visible { display:flex; }
-  #btn-topo:hover   { background:var(--enc); transform:translateY(-2px); }
+  #btn-topo:hover   { background:var(--uc); transform:translateY(-2px); }
 
   @media print {
     @page { size:A4 portrait; margin:18mm 14mm 16mm 14mm; }
@@ -219,7 +215,7 @@
     .connection-row { grid-template-columns:1fr; }
     .dinamica-meta { gap:10px; }
     .time-table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
-    .carta-table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .din-table  { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
     .btn-group { top:auto; bottom:20px; right:16px; flex-direction:row; }
     .btn-action { padding:9px 14px; font-size:12px; }
   }
@@ -256,15 +252,15 @@
       <div class="header-label">
         Plano de Aula
         <span class="hl-sep">·</span>
-        <span class="hl-sa">SA 39</span>
+        <span class="hl-sa">SA 03</span>
         <span class="hl-sep">·</span>
-        <span class="hl-tri">3º Trimestre · Última aula do ano</span>
+        <span class="hl-tri">1º Trimestre</span>
         <span class="hl-sep">·</span>
-        <span class="hl-enc">🌿 Encerramento</span>
+        <span class="hl-tipo">📖 Aula</span>
         <span class="hl-sep">·</span>
-        <span class="hl-data">18/12/2026</span>
+        <span class="hl-data">20/02/2026</span>
       </div>
-      <h1 class="header-title">Encerramento do Ano Letivo 2026<br><span>Devolutiva Final · Conexão com o 2º Ano</span></h1>
+      <h1 class="header-title">EPI e EPC<br><span>Conceitos, Diferenças e Hierarquia de Controle de Riscos</span></h1>
       <p class="header-sub">
         <span class="uc-nome">UC: Desenvolvimento de Projetos + Saúde e Segurança no Trabalho</span>
         1º Ano · Técnico em Desenvolvimento de Sistemas · Colégio Neiva Pavan
@@ -280,11 +276,11 @@
     <div class="section-header">
       <span class="section-icon">🎯</span>
       <span class="section-title">Tema da Aula</span>
-      <span class="section-tag-enc">SA 39 · Encerramento · Devolutiva Final</span>
+      <span class="section-tag-uc">SA 03 · 3ª SA do 1º Trimestre</span>
     </div>
     <div class="section-body">
       <div class="tema-box">
-        🌿 <span>Encerramento do Ano Letivo 2026</span> — Devolutiva final individualizada, reflexão coletiva sobre a jornada do ano, dinâmica "Carta para o Eu do 2º Ano" e apresentação das UCs do 2º ano do curso.
+        🦺 <span>EPI e EPC</span> — Equipamento de Proteção Individual × Equipamento de Proteção Coletiva. Diferenças, exemplos práticos em TI e hierarquia de controle de riscos: eliminação → substituição → EPC → controle administrativo → EPI.
       </div>
     </div>
   </section>
@@ -294,15 +290,14 @@
     <div class="section-header">
       <span class="section-icon">🏆</span>
       <span class="section-title">Objetivos de Aprendizagem</span>
-      <span class="section-tag">5 objetivos</span>
+      <span class="section-tag">4 objetivos</span>
     </div>
     <div class="section-body">
       <ul class="obj-list">
-        <li><span class="obj-num">1</span>Receber e compreender a devolutiva final do ano letivo com os resultados, conquistas e pontos de desenvolvimento</li>
-        <li><span class="obj-num">2</span>Refletir sobre a jornada percorrida ao longo de 2026 reconhecendo o crescimento individual e coletivo da turma</li>
-        <li><span class="obj-num">3</span>Identificar as conexões entre os conteúdos desenvolvidos no 1º ano e as UCs que serão trabalhadas no 2º ano do curso</li>
-        <li><span class="obj-num">4</span>Registrar intenções e compromissos para o 2º ano com base na autoavaliação realizada na SA 38</li>
-        <li><span class="obj-num">5</span>Encerrar o ano letivo com senso de pertencimento, ética profissional e postura investigativa consolidados</li>
+        <li><span class="obj-num">1</span>Compreender o conceito de EPI e reconhecer suas características: uso individual, CA obrigatório e fornecimento gratuito pelo empregador</li>
+        <li><span class="obj-num">2</span>Compreender o conceito de EPC e reconhecer sua atuação sobre o ambiente protegendo todos os trabalhadores simultaneamente</li>
+        <li><span class="obj-num">3</span>Diferenciar EPI e EPC com exemplos práticos aplicados ao ambiente de trabalho do técnico em TI</li>
+        <li><span class="obj-num">4</span>Aplicar a hierarquia de controle de riscos identificando o EPC como medida prioritária em relação ao EPI</li>
       </ul>
     </div>
   </section>
@@ -312,29 +307,33 @@
     <div class="section-header">
       <span class="section-icon">📚</span>
       <span class="section-title">Conteúdo da Aula</span>
-      <span class="section-tag">Síntese e encerramento</span>
+      <span class="section-tag">6 tópicos</span>
     </div>
     <div class="section-body">
       <div class="conteudo-tris">
-        <div class="conteudo-tri ct-dev">
-          <div class="conteudo-tri-label">📋 Devolutiva Final</div>
-          <p>Notas, conceitos, resultados e feedback individualizado do professor para cada aluno</p>
+        <div class="conteudo-tri ct-1">
+          <div class="conteudo-tri-label">🧤 EPI — Equipamento de Proteção Individual</div>
+          <p>Definição, características, CA (Certificado de Aprovação) e obrigações do empregador e do trabalhador</p>
         </div>
-        <div class="conteudo-tri ct-ref">
-          <div class="conteudo-tri-label">🌱 Reflexão Coletiva</div>
-          <p>Pontos fortes da turma, conquistas do ano e aspectos a desenvolver no 2º ano</p>
+        <div class="conteudo-tri ct-2">
+          <div class="conteudo-tri-label">🛡️ EPC — Equipamento de Proteção Coletiva</div>
+          <p>Definição, características e atuação coletiva sobre o ambiente de trabalho</p>
         </div>
-        <div class="conteudo-tri ct-con">
-          <div class="conteudo-tri-label">🔗 Conexão com o 2º Ano</div>
-          <p>Quais UCs virão e como os conteúdos de SST e projetos serão utilizados no 2º ano do curso</p>
+        <div class="conteudo-tri ct-3">
+          <div class="conteudo-tri-label">⚖️ Diferenças entre EPI e EPC</div>
+          <p>Critérios de distinção e exemplos práticos em ambientes de TI</p>
         </div>
-        <div class="conteudo-tri ct-eti">
-          <div class="conteudo-tri-label">⚖️ Ética Profissional</div>
-          <p>Retomada dos princípios do código de ética como encerramento do ciclo do 1º ano</p>
+        <div class="conteudo-tri ct-4">
+          <div class="conteudo-tri-label">🔻 Hierarquia de Controle de Riscos</div>
+          <p>Eliminação → substituição → EPC → controle administrativo → EPI — ordem de prioridade das medidas</p>
         </div>
-        <div class="conteudo-tri ct-pos">
-          <div class="conteudo-tri-label">🔬 Postura Investigativa</div>
-          <p>Como carregar essa competência para o 2º ano e para a vida profissional</p>
+        <div class="conteudo-tri ct-5">
+          <div class="conteudo-tri-label">❗ Por que o EPC tem prioridade sobre o EPI</div>
+          <p>O EPI não elimina o risco, apenas reduz a exposição individual — o EPC atua na fonte ou no ambiente</p>
+        </div>
+        <div class="conteudo-tri ct-6">
+          <div class="conteudo-tri-label">💻 Exemplos em TI</div>
+          <p>Sala de servidores, escritório de desenvolvimento e trabalho em campo — aplicações reais da hierarquia</p>
         </div>
       </div>
     </div>
@@ -355,27 +354,27 @@
         <tbody>
           <tr>
             <td><span class="etapa-pill ep-abertura">Abertura</span></td>
-            <td>Chamada, apresentação da agenda e contextualização do encerramento do ano letivo 2026</td>
+            <td>Chamada, retomada rápida da SA 02 e apresentação do tema da aula</td>
           </tr>
           <tr>
-            <td><span class="etapa-pill ep-devolutiva">Devolutiva</span></td>
-            <td>Professor entrega a devolutiva final individualizada e comenta os resultados gerais da turma</td>
+            <td><span class="etapa-pill ep-retomada">Retomada</span></td>
+            <td>Revisão oral rápida — alunos recordam a pirâmide normativa e as NRs apresentadas na SA 02</td>
           </tr>
           <tr>
-            <td><span class="etapa-pill ep-reflexao">Reflexão coletiva</span></td>
-            <td>Slides — linha do tempo do ano: conquistas da turma, desafios superados e evolução coletiva</td>
+            <td><span class="etapa-pill ep-explic">Explicação</span></td>
+            <td>Slides — EPI, EPC, diferenças, hierarquia de controle e exemplos práticos em ambientes de TI</td>
           </tr>
           <tr>
             <td><span class="etapa-pill ep-dinamica">Dinâmica</span></td>
-            <td><em>Carta para o Eu do 2º Ano</em> — escrita individual + leitura voluntária + recolhimento das cartas</td>
+            <td><em>EPI ou EPC?</em> — grupos classificam 10 medidas de proteção e justificam as escolhas</td>
           </tr>
           <tr>
-            <td><span class="etapa-pill ep-conexao">Conexão 2º Ano</span></td>
-            <td>Professor apresenta as UCs do 2º ano e mostra como os conteúdos de 2026 se conectam ao que vem pela frente</td>
+            <td><span class="etapa-pill ep-quest">Questionário</span></td>
+            <td>5 questões objetivas + 5 questões discursivas</td>
           </tr>
           <tr>
             <td><span class="etapa-pill ep-fecha">Fechamento</span></td>
-            <td>Encerramento oficial do ano letivo 2026 · Mensagem final do professor</td>
+            <td>Resumo oral da hierarquia de controle · Antecipação da SA 04 — Perigo x Risco</td>
           </tr>
         </tbody>
       </table>
@@ -385,17 +384,17 @@
   <!-- DINÂMICA -->
   <section class="section">
     <div class="section-header">
-      <span class="section-icon">✉️</span>
-      <span class="section-title">Dinâmica — Carta para o Eu do 2º Ano</span>
-      <span class="section-tag-enc">15 min · Individual</span>
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Dinâmica — EPI ou EPC?</span>
+      <span class="section-tag-uc">15 min · Grupos de 3–4</span>
     </div>
     <div class="section-body">
       <div class="dinamica-card">
         <div class="dinamica-header">
-          <span class="dinamica-header-icon">✉️</span>
+          <span class="dinamica-header-icon">🦺</span>
           <div class="dinamica-header-text">
-            <h3>Carta para o Eu do 2º Ano</h3>
-            <p>Reflexão individual sobre o 1º ano e compromisso com o 2º ano</p>
+            <h3>EPI ou EPC?</h3>
+            <p>Classificação de 10 medidas de proteção em ambientes de TI</p>
           </div>
         </div>
         <div class="dinamica-body">
@@ -406,57 +405,96 @@
             </div>
             <div class="dinamica-meta-item">
               <div class="dinamica-meta-label">Agrupamento</div>
-              <div class="dinamica-meta-value">Individual</div>
+              <div class="dinamica-meta-value">Grupos de 3 a 4 alunos</div>
             </div>
             <div class="dinamica-meta-item">
-              <div class="dinamica-meta-label">Entrega</div>
-              <div class="dinamica-meta-value">1ª aula do 2º ano</div>
+              <div class="dinamica-meta-label">Medidas</div>
+              <div class="dinamica-meta-value">10 situações para classificar</div>
             </div>
           </div>
 
-          <p class="dinamica-desc">Cada aluno escreve uma carta curta para si mesmo — para ser lida no início do 2º ano. A carta deve registrar o que o aluno aprendeu no 1º ano, o que quer levar para o 2º ano e um compromisso concreto com sua formação como técnico em desenvolvimento de sistemas. O professor recolhe as cartas, guarda e entrega na primeira aula do 2º ano.</p>
+          <p class="dinamica-desc">O professor projeta 10 medidas de proteção encontradas em ambientes de trabalho de TI. Cada grupo classifica cada medida como EPI ou EPC, justifica a escolha e indica se ela está corretamente posicionada na hierarquia de controle. Ao final, os grupos compartilham as respostas e o professor consolida os critérios de classificação.</p>
 
           <div class="dinamica-steps">
             <div class="dinamica-step">
               <span class="step-num">1</span>
-              <span class="step-text"><strong>Escrita individual</strong> — Cada aluno recebe a folha da carta e tem 10 minutos para escrever livremente seguindo os três blocos sugeridos</span>
+              <span class="step-text"><strong>Classificação em grupo</strong> — Professor projeta cada medida nos slides. O grupo discute e registra na folha: EPI ou EPC, justificativa e posição na hierarquia de controle</span>
             </div>
             <div class="dinamica-step">
               <span class="step-num">2</span>
-              <span class="step-text"><strong>Leitura voluntária</strong> — O professor convida 2 ou 3 alunos que queiram ler sua carta para a turma. Participação opcional e sem julgamento</span>
+              <span class="step-text"><strong>Votação rápida</strong> — Para cada medida, o professor pergunta quantos classificaram como EPI e quantos como EPC, registra no quadro e abre o debate nos casos com divergência</span>
             </div>
             <div class="dinamica-step">
               <span class="step-num">3</span>
-              <span class="step-text"><strong>Recolhimento</strong> — O professor recolhe todas as cartas em envelope lacrado, registra o nome de cada aluno na parte externa e guarda para entregar na primeira aula do 2º ano</span>
+              <span class="step-text"><strong>Consolidação</strong> — Professor confirma a classificação correta, reforça o critério de distinção e conecta ao conceito de hierarquia de controle</span>
             </div>
           </div>
 
-          <div class="carta-title">📄 Estrutura sugerida para a carta</div>
-          <table class="carta-table">
+          <div class="din-table-title">🔍 Medidas para Classificação</div>
+          <table class="din-table">
             <thead>
-              <tr><th style="width:22%">Bloco</th><th>O que o aluno deve escrever</th></tr>
+              <tr><th style="width:5%">Nº</th><th style="width:48%">Medida de proteção</th><th style="width:12%">Classe</th><th>Justificativa-chave</th></tr>
             </thead>
             <tbody>
               <tr>
-                <td><span class="carta-bloco">O que aprendi</span></td>
-                <td>
-                  Os 3 conhecimentos ou capacidades que mais marcaram o 1º ano — pode ser técnico, comportamental ou pessoal
-                  <div class="carta-exemplo">Ex: "aprendi a identificar os riscos no ambiente de trabalho antes de agir", "entendi como um projeto começa antes mesmo do código"</div>
-                </td>
+                <td><span class="med-num">01</span></td>
+                <td>Sistema de ar-condicionado regulado entre 20°C e 23°C na sala de desenvolvimento</td>
+                <td><span class="badge-epc">EPC</span></td>
+                <td>Atua sobre o ambiente protegendo todos os trabalhadores simultaneamente</td>
               </tr>
               <tr>
-                <td><span class="carta-bloco">O que levo comigo</span></td>
-                <td>
-                  Uma postura, um hábito ou uma forma de pensar que o aluno quer manter no 2º ano
-                  <div class="carta-exemplo">Ex: postura investigativa, colaboração em equipe, atenção às normas de SST</div>
-                </td>
+                <td><span class="med-num">02</span></td>
+                <td>Protetor auricular fornecido aos técnicos que trabalham na sala de servidores</td>
+                <td><span class="badge-epi">EPI</span></td>
+                <td>Dispositivo de uso individual e intransferível</td>
               </tr>
               <tr>
-                <td><span class="carta-bloco">Meu compromisso</span></td>
-                <td>
-                  Um compromisso concreto e específico para o 2º ano
-                  <div class="carta-exemplo">Ex: "me comprometer a documentar os projetos desde o início", "ouvir mais os colegas antes de tomar decisões", "aplicar a NR-17 no ambiente onde trabalhar"</div>
-                </td>
+                <td><span class="med-num">03</span></td>
+                <td>Enclausuramento acústico instalado ao redor dos servidores para reduzir o ruído</td>
+                <td><span class="badge-epc">EPC</span></td>
+                <td>Atua na fonte do risco protegendo coletivamente</td>
+              </tr>
+              <tr>
+                <td><span class="med-num">04</span></td>
+                <td>Luvas isolantes fornecidas ao técnico que realiza manutenção elétrica</td>
+                <td><span class="badge-epi">EPI</span></td>
+                <td>Uso individual, específico para quem realiza a tarefa</td>
+              </tr>
+              <tr>
+                <td><span class="med-num">05</span></td>
+                <td>Aterramento elétrico instalado em todas as tomadas do laboratório de TI</td>
+                <td><span class="badge-epc">EPC</span></td>
+                <td>Proteção coletiva sobre o ambiente — elimina o risco para todos</td>
+              </tr>
+              <tr>
+                <td><span class="med-num">06</span></td>
+                <td>Óculos de proteção fornecidos ao técnico que manuseia produtos químicos de limpeza</td>
+                <td><span class="badge-epi">EPI</span></td>
+                <td>Uso individual, fornecido para quem realiza a atividade específica</td>
+              </tr>
+              <tr>
+                <td><span class="med-num">07</span></td>
+                <td>Sinalização de piso escorregadio com faixa antiderrapante no corredor do laboratório</td>
+                <td><span class="badge-epc">EPC</span></td>
+                <td>Medida coletiva que protege todos que circulam pelo local</td>
+              </tr>
+              <tr>
+                <td><span class="med-num">08</span></td>
+                <td>Cadeira ergonômica com regulagem de altura fornecida a cada desenvolvedor</td>
+                <td><span class="badge-epc">EPC</span></td>
+                <td>Atua sobre o ambiente de trabalho reduzindo o risco ergonômico coletivamente</td>
+              </tr>
+              <tr>
+                <td><span class="med-num">09</span></td>
+                <td>Calçado de segurança fornecido ao técnico que trabalha em data center</td>
+                <td><span class="badge-epi">EPI</span></td>
+                <td>Uso individual e intransferível, específico para o trabalhador</td>
+              </tr>
+              <tr>
+                <td><span class="med-num">10</span></td>
+                <td>Iluminação adequada instalada em todas as estações de trabalho do escritório</td>
+                <td><span class="badge-epc">EPC</span></td>
+                <td>Medida coletiva sobre o ambiente que protege todos os trabalhadores</td>
               </tr>
             </tbody>
           </table>
@@ -471,29 +509,29 @@
     <div class="section-header">
       <span class="section-icon">📝</span>
       <span class="section-title">Avaliação</span>
-      <span class="section-tag-enc">Devolutiva final — encerramento do ano</span>
+      <span class="section-tag-uc">Questionário — 10 questões</span>
     </div>
     <div class="section-body">
       <div class="aval-grid">
         <div class="aval-bloco">
-          <div class="aval-bloco-title">Registro Avaliativo</div>
+          <div class="aval-bloco-title">Parte 1 — Objetivas (5)</div>
           <ul class="aval-items">
-            <li>Não há questionário nesta aula — encerramento do ano letivo 2026</li>
-            <li>A devolutiva final individualizada constitui o registro avaliativo desta SA</li>
-            <li>A carta escrita na dinâmica integra o registro de reflexão do aluno</li>
+            <li>Nível alto de dificuldade (A/B/C/D)</li>
+            <li>Gabarito alternado, sem repetição consecutiva</li>
+            <li>Conteúdo: EPI · EPC · diferenças · hierarquia de controle</li>
           </ul>
         </div>
         <div class="aval-bloco">
-          <div class="aval-bloco-title">Capacidades Consolidadas no Ano</div>
+          <div class="aval-bloco-title">Parte 2 — Discursivas (5)</div>
           <ul class="aval-items">
-            <li>CB-SST-1 a CB-SST-5 — Saúde e Segurança no Trabalho</li>
-            <li>CB-PRJ-1 a CB-PRJ-3 — Desenvolvimento de Projetos</li>
-            <li>Capacidades socioemocionais desenvolvidas ao longo do ano</li>
+            <li>Título explicativo antes do enunciado</li>
+            <li>Campo R: para resposta</li>
+            <li>Gabarito em documento separado — uso exclusivo do professor</li>
           </ul>
         </div>
       </div>
-      <div style="background:var(--enc-light);border-left:4px solid var(--enc);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--enc-dark);">
-        🌿 <strong>Encerramento do ciclo do 1º ano:</strong> SST · Gestão de Projetos · Métodos · Documentação Técnica · Ética Profissional · Postura Investigativa
+      <div style="background:var(--uc-light);border-left:4px solid var(--uc);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--uc-dark);">
+        🦺 <strong>Conteúdo cobrado:</strong> EPI · EPC · Diferenças · Hierarquia de controle de riscos · Exemplos em TI
       </div>
     </div>
   </section>
@@ -503,21 +541,17 @@
     <div class="section-header">
       <span class="section-icon">🔗</span>
       <span class="section-title">Conexão com Conteúdos</span>
-      <span class="section-tag">Continuidade para o 2º Ano</span>
+      <span class="section-tag">Continuidade</span>
     </div>
     <div class="section-body">
       <div class="connection-row">
         <div class="conn-card conn-ant">
-          <div class="conn-label">📖 Aula anterior — SA 38</div>
-          <div style="font-size:13.5px;color:var(--revisao);">Revisão Geral do Ano Letivo — Síntese Integradora · 11/12/2026</div>
+          <div class="conn-label">📖 Aula anterior — SA 02</div>
+          <div style="font-size:13.5px;color:var(--uc-dark);">Legislação Trabalhista e SST — Hierarquia das Leis, CLT e NRs · 13/02/2026</div>
         </div>
         <div class="conn-card conn-prox">
-          <div class="conn-label">Próximo ciclo → 2º Ano</div>
-          <div class="conn-ucs">
-            <div class="conn-uc">Fundamentos de Tecnologias da Informação</div>
-            <div class="conn-uc">Fundamentos de Banco de Dados</div>
-            <div class="conn-uc">Fundamentos de Redes de Computadores</div>
-          </div>
+          <div class="conn-label">Próxima aula → SA 04</div>
+          <div style="font-size:13.5px;color:var(--uc-dark);">Perigo x Risco — Identificação, Classificação e Exemplos em TI · 27/02/2026</div>
         </div>
       </div>
     </div>
@@ -528,16 +562,15 @@
     <div class="section-header">
       <span class="section-icon">📦</span>
       <span class="section-title">Recursos Necessários</span>
-      <span class="section-tag">Preparar previamente</span>
+      <span class="section-tag">Verificar antes da aula</span>
     </div>
     <div class="section-body">
       <div class="recursos-grid">
         <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor / TV</span></div>
         <div class="recurso-item"><span class="recurso-icon">💻</span><span>Computador com HDMI</span></div>
-        <div class="recurso-item"><span class="recurso-icon">📊</span><span>PowerPoint — 20 slides (linha do tempo + conexão 2º ano)</span></div>
-        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Devolutiva final impressa e individualizada (1 por aluno)</span></div>
-        <div class="recurso-item"><span class="recurso-icon">✉️</span><span>Folha da carta impressa com estrutura sugerida (1 por aluno)</span></div>
-        <div class="recurso-item"><span class="recurso-icon">📩</span><span>Envelopes para guardar as cartas (1 por aluno)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📊</span><span>PowerPoint — 20 slides</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📄</span><span>Folha de classificação da dinâmica impressa (1 por grupo)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📝</span><span>Questionário impresso ou digital</span></div>
         <div class="recurso-item"><span class="recurso-icon">🖊️</span><span>Quadro branco / Marcador</span></div>
       </div>
     </div>
@@ -552,7 +585,7 @@
     </div>
     <div class="section-body">
       <div class="obs-box">
-        <span style="color:#CBD5E1;font-size:13px;font-style:italic;">Clima geral da turma, alunos que se destacaram na reflexão, pontos de atenção para a primeira aula do 2º ano, lembretes sobre as cartas guardadas para entrega.</span>
+        <span style="color:#CBD5E1;font-size:13px;font-style:italic;">Dificuldades na distinção entre EPI e EPC, grupos que confundiram a hierarquia de controle, pontos de atenção para a SA 04.</span>
       </div>
     </div>
   </section>
@@ -560,7 +593,7 @@
 </main>
 
 <footer>
-  Plano de Aula · <span>SA 39 — Encerramento do Ano Letivo 2026 · Última aula</span> · Prof. Julio Cesar · Desenvolvimento de Projetos + SST · Colégio Neiva Pavan · 2026
+  Plano de Aula · <span>SA 03 — EPI e EPC · Hierarquia de Controle de Riscos</span> · Prof. Julio Cesar · Desenvolvimento de Projetos + SST · Colégio Neiva Pavan · 2026
 </footer>
 
 <button id="btn-topo" aria-label="Voltar ao topo">↑</button>
@@ -568,7 +601,7 @@
 <script>
   const salvarPDF = () => {
     const tituloOriginal = document.title;
-    document.title = 'Plano_Aula_SA39_SST_Encerramento_Ano_2026';
+    document.title = 'Plano_Aula_SA03_SST_EPI_EPC';
     window.print();
     setTimeout(() => { document.title = tituloOriginal; }, 1000);
   };
