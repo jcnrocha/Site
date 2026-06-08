@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 40 — Encerramento da UC · Integração Geral e Reflexão</title>
+<meta name="description" content="Plano de aula SA 40 — Encerramento da UC Fundamentos de Banco de Dados · Integração geral, reflexão sobre a jornada e perspectivas · SENAI Umuarama">
+<meta name="theme-color" content="#0D1A2B">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uc-main:   #185FA5;
+    --uc-light:  #E6F1FB;
+    --uc-tx:     #042C53;
+    --dark:      #0D1A2B;
+    --yellow:    #F9C74F;
+    --gold:      #C49A00;
+    --gray:      #64748B;
+    --light:     #F2F5F8;
+    --white:     #FFFFFF;
+    --text:      #1A2635;
+    --green:     #15803D;
+    --green-light:#DCFCE7;
+    --amber:     #D97706;
+    --amber-light:#FEF3C7;
+    --red:       #DC2626;
+    --red-light: #FEE2E2;
+    --teal:      #0F766E;
+    --teal-light:#CCFBF1;
+    --teal-dark: #134E4A;
+    --enc:       #4F46E5;
+    --enc-light: #EEF2FF;
+    --enc-dark:  #312E81;
+    --enc-gold:  #F59E0B;
+    --enc-gold-light:#FFFBEB;
+    --border:    #D4DCE4;
+  }
+
+  html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+
+  /* HEADER ESPECIAL — gradiente índigo → escuro */
+  .page-header { background: linear-gradient(135deg, #1E1B4B 0%, #312E81 30%, #0D1A2B 100%); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--enc-gold); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--enc); }
+  /* efeito estrelas decorativas */
+  .page-header .star-1 { position:absolute; top:18px; right:180px; width:6px; height:6px; background:var(--enc-gold); border-radius:50%; opacity:0.7; }
+  .page-header .star-2 { position:absolute; top:38px; right:240px; width:4px; height:4px; background:var(--white); border-radius:50%; opacity:0.4; }
+  .page-header .star-3 { position:absolute; bottom:22px; right:160px; width:5px; height:5px; background:var(--enc-gold); border-radius:50%; opacity:0.5; }
+  .page-header .star-4 { position:absolute; top:28px; right:100px; width:3px; height:3px; background:var(--white); border-radius:50%; opacity:0.5; }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--enc-gold); background:rgba(245,158,11,0.2); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-tag  { color:#C7D2FE; font-weight:700; background:rgba(79,70,229,0.3); padding:2px 10px; border-radius:12px; font-size:13px; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:34px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--enc-gold); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-sub .uc-nome { white-space:nowrap; display:block; }
+  .header-badge { background:var(--enc-gold); color:#1C1917; font-size:12px; font-weight:700; padding:6px 14px; border-radius:20px; white-space:nowrap; flex-shrink:0; align-self:flex-start; margin-top:4px; }
+
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag      { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
+  .section-tag-enc  { background:var(--enc-light); color:var(--enc-dark); border:1px solid rgba(79,70,229,0.25); }
+  .section-tag-gold { background:var(--enc-gold-light); color:#92400E; border:1px solid rgba(245,158,11,0.3); }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); }
+  .section-body  { padding:24px 26px; }
+
+  .tema-box { background:linear-gradient(135deg, var(--enc-light) 0%, var(--enc-gold-light) 100%); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--enc); }
+  .tema-box span { color:var(--enc); }
+  .hab-row { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(24,95,165,0.2); }
+
+  .obj-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--enc); }
+  .obj-num { background:var(--enc); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  .sub-titulo { font-size:12.5px; font-weight:700; color:var(--dark); margin:20px 0 10px; text-transform:uppercase; letter-spacing:0.8px; font-family:'DM Mono',monospace; padding-bottom:6px; border-bottom:2px solid var(--border); }
+  .sub-titulo:first-child { margin-top:0; }
+
+  /* TIME TABLE */
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  .time-table thead tr { background:var(--enc-dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:last-child td { border-bottom:none; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; }
+  .ep-aber  { background:var(--enc-gold-light); color:#92400E; }
+  .ep-quiz  { background:#EDE9FE; color:#5B21B6; }
+  .ep-refl  { background:var(--enc-light); color:var(--enc-dark); }
+  .ep-mapa  { background:var(--teal-light); color:var(--teal-dark); }
+  .ep-persp { background:#F0FDF4; color:#166534; }
+  .ep-encerra { background:var(--enc-gold-light); color:#92400E; }
+
+  /* QUIZ CARDS */
+  .quiz-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+  .quiz-q { border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  .quiz-head { display:flex; align-items:center; gap:8px; padding:9px 14px; background:var(--light); border-bottom:1px solid var(--border); }
+  .quiz-num { background:var(--enc); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:700; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .quiz-tema { font-size:11.5px; font-family:'DM Mono',monospace; color:var(--enc); font-weight:600; }
+  .quiz-body { padding:10px 14px; font-size:13px; }
+  .quiz-pergunta { font-weight:600; color:var(--dark); margin-bottom:4px; font-size:12.5px; }
+  .quiz-resp { font-size:12px; color:var(--gray); font-style:italic; background:var(--enc-light); border-radius:4px; padding:4px 8px; }
+
+  /* ATIVIDADE REFLEXIVA */
+  .reflex-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  .reflex-card { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .reflex-head { padding:12px 16px; font-size:13px; font-weight:700; color:var(--white); display:flex; align-items:center; gap:8px; }
+  .rh-1 { background:#1D4ED8; }
+  .rh-2 { background:var(--enc); }
+  .rh-3 { background:var(--teal); }
+  .rh-4 { background:#D97706; }
+  .reflex-body { padding:12px 16px; background:var(--white); }
+  .reflex-prompt { font-size:13px; color:var(--text); line-height:1.7; }
+  .reflex-lines { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
+  .reflex-line  { height:22px; border-bottom:1px dashed var(--border); }
+
+  /* MAPA DA UC */
+  .mapa-container { position:relative; }
+  .mapa-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
+  .mapa-bloco { border-radius:10px; overflow:hidden; border:1px solid var(--border); }
+  .mapa-head { padding:12px 14px; }
+  .mb-1 { background:#1D4ED8; }
+  .mb-2 { background:#0369A1; }
+  .mb-3 { background:var(--uc-main); }
+  .mb-4 { background:var(--enc-dark); }
+  .mb-5 { background:var(--teal); }
+  .mapa-bloco-num { font-family:'DM Mono',monospace; font-size:10px; font-weight:700; color:rgba(255,255,255,0.7); margin-bottom:4px; text-transform:uppercase; letter-spacing:1px; }
+  .mapa-bloco-titulo { font-size:12.5px; font-weight:700; color:var(--white); line-height:1.2; }
+  .mapa-body { padding:10px 14px; background:var(--white); }
+  .mapa-sa-range { font-family:'DM Mono',monospace; font-size:10px; color:var(--gray); margin-bottom:6px; }
+  .mapa-topicos { list-style:none; font-size:11.5px; display:flex; flex-direction:column; gap:3px; }
+  .mapa-topicos li { padding-left:12px; position:relative; }
+  .mapa-topicos li::before { content:'·'; position:absolute; left:2px; font-weight:700; }
+  .mb-1 + .mapa-body .mapa-topicos li::before { color:#1D4ED8; }
+  .mb-2 + .mapa-body .mapa-topicos li::before { color:#0369A1; }
+  .mb-3 + .mapa-body .mapa-topicos li::before { color:var(--uc-main); }
+  .mb-4 + .mapa-body .mapa-topicos li::before { color:var(--enc-dark); }
+  .mb-5 + .mapa-body .mapa-topicos li::before { color:var(--teal); }
+
+  /* FRASE FINAL DA UC */
+  .frase-final { background:linear-gradient(135deg, var(--enc-dark) 0%, #1E1B4B 100%); border-radius:12px; padding:28px 32px; text-align:center; position:relative; overflow:hidden; margin-bottom:16px; }
+  .frase-final::before { content:'"'; position:absolute; top:-20px; left:16px; font-size:120px; color:rgba(245,158,11,0.15); font-family:'DM Serif Display',serif; line-height:1; }
+  .ff-texto { font-family:'DM Serif Display',serif; font-size:20px; color:var(--white); line-height:1.5; margin-bottom:12px; position:relative; z-index:1; }
+  .ff-texto em { color:var(--enc-gold); font-style:normal; }
+  .ff-sub { font-size:13px; color:#94A3B8; position:relative; z-index:1; }
+
+  /* AVALIAÇÃO DA UC */
+  .avalia-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+  .avalia-item { border:1px solid var(--border); border-radius:8px; padding:12px 14px; background:var(--light); font-size:13px; }
+  .avalia-q    { font-weight:600; color:var(--dark); margin-bottom:6px; }
+  .avalia-esc  { display:flex; gap:6px; flex-wrap:wrap; }
+  .avalia-opt  { font-size:11.5px; background:var(--white); border:1px solid var(--border); border-radius:6px; padding:3px 10px; color:var(--gray); }
+  .avalia-open { background:var(--white); border:1px dashed var(--border); border-radius:6px; padding:8px 10px; min-height:36px; width:100%; margin-top:4px; font-size:12px; color:var(--gray); font-style:italic; }
+
+  /* PROSPECTIVA — PARA O PRÓXIMO ANO */
+  .prosp-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .prosp-card { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .prosp-head { padding:11px 14px; font-size:12.5px; font-weight:700; color:var(--white); }
+  .ph-sql  { background:#1D4ED8; }
+  .ph-app  { background:var(--teal); }
+  .ph-full { background:var(--enc); }
+  .prosp-body { padding:12px 14px; background:var(--white); font-size:12.5px; }
+  .prosp-body ul { list-style:none; display:flex; flex-direction:column; gap:4px; }
+  .prosp-body ul li { padding-left:16px; position:relative; color:var(--text); }
+  .prosp-body ul li::before { content:'→'; position:absolute; left:0; color:var(--gray); font-size:10px; top:4px; }
+
+  /* NOTA BOXES */
+  .nota-enc   { background:var(--enc-light); border:1px solid rgba(79,70,229,0.25); border-left:4px solid var(--enc); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--enc-dark); line-height:1.6; margin-top:12px; }
+  .nota-gold  { background:var(--enc-gold-light); border:1px solid rgba(245,158,11,0.3); border-left:4px solid var(--enc-gold); border-radius:8px; padding:12px 16px; font-size:13px; color:#78350F; line-height:1.6; margin-top:12px; }
+  .nota-green { background:var(--green-light); border:1px solid rgba(21,128,61,0.25); border-left:4px solid var(--green); border-radius:8px; padding:12px 16px; font-size:13px; color:#14532D; line-height:1.6; margin-top:12px; }
+
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--teal-light); border-left:4px solid var(--teal); }
+  .conn-prox  { background:var(--enc-light); border-left:4px solid var(--enc); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--teal); }
+  .conn-prox .conn-label { color:var(--enc); }
+
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  .recurso-icon  { font-size:20px; }
+  .obs-box { background:var(--light); border:1px dashed var(--border); border-radius:8px; padding:16px 20px; min-height:80px; }
+
+  /* CERTIFICADO SIMBÓLICO */
+  .cert-wrapper { border:2px solid var(--enc-gold); border-radius:16px; padding:28px 32px; text-align:center; background:linear-gradient(135deg, var(--enc-gold-light) 0%, var(--enc-light) 100%); margin-bottom:16px; }
+  .cert-titulo  { font-family:'DM Serif Display',serif; font-size:22px; color:var(--enc-dark); margin-bottom:6px; }
+  .cert-sub     { font-size:13px; color:var(--gray); margin-bottom:16px; }
+  .cert-nome    { border-bottom:2px solid var(--enc-gold); width:280px; margin:0 auto 10px; height:32px; }
+  .cert-uc      { font-size:14px; font-weight:600; color:var(--enc); margin-bottom:4px; }
+  .cert-periodo { font-size:12px; color:var(--gray); margin-bottom:16px; }
+  .cert-assin   { display:flex; justify-content:center; gap:60px; margin-top:8px; }
+  .cert-assin-item { text-align:center; }
+  .cert-assin-line { width:140px; height:1px; background:var(--enc); margin:0 auto 4px; }
+  .cert-assin-txt  { font-size:11.5px; color:var(--gray); }
+
+  footer { background:linear-gradient(135deg, #1E1B4B 0%, #0D1A2B 100%); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--enc-gold); }
+  footer span { color:var(--enc-gold); }
+
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; background:var(--dark); color:var(--white); }
+  .btn-action:hover { background:var(--enc-dark); box-shadow:0 4px 12px rgba(79,70,229,0.35); }
+  .btn-action:active { transform:scale(0.97); }
+
+  @media print {
+    @page { size:A4 portrait; margin:16mm 14mm 14mm 14mm; }
+    * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    body { background:white !important; font-size:11.5px; }
+    .btn-group { display:none !important; }
+    .page-header { background:var(--enc-dark) !important; }
+    .header-inner { padding:16px 24px 16px 30px !important; }
+    .header-title { font-size:22px !important; }
+    .container { padding:10px 0 !important; }
+    .section { box-shadow:none !important; break-inside:avoid; margin-bottom:12px !important; }
+    .section-body { padding:14px 20px !important; }
+    .quiz-grid   { grid-template-columns:repeat(2,1fr) !important; }
+    .reflex-grid { grid-template-columns:1fr 1fr !important; }
+    .mapa-grid   { grid-template-columns:repeat(4,1fr) !important; }
+    .avalia-grid { grid-template-columns:1fr 1fr !important; }
+    .prosp-grid  { grid-template-columns:repeat(3,1fr) !important; }
+    .connection-row { grid-template-columns:1fr 1fr !important; }
+    .recursos-grid  { grid-template-columns:repeat(3,1fr) !important; }
+    .mapa-bloco  { break-inside:avoid; }
+    .cert-wrapper { break-before:page; }
+    a[href]::after { content:none !important; }
+    .obs-box { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
+    footer { background:var(--enc-dark) !important; padding:12px !important; }
+    #btn-topo { display:none !important; }
+    .star-1,.star-2,.star-3,.star-4 { display:none !important; }
+  }
+
+  @media (max-width:960px) {
+    .header-inner { padding:36px 32px 36px 44px; }
+    .container    { padding:28px 32px; }
+    .header-title { font-size:28px; }
+    .mapa-grid    { grid-template-columns:repeat(2,1fr); }
+    .recursos-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:768px) {
+    .header-inner  { flex-direction:column; padding:28px 20px 28px 28px; gap:14px; }
+    .container     { padding:20px 16px; }
+    .header-title  { font-size:22px; }
+    .uc-nome       { white-space:normal; }
+    .section-header { padding:14px 18px; }
+    .section-body  { padding:18px; }
+    .quiz-grid    { grid-template-columns:1fr; }
+    .reflex-grid  { grid-template-columns:1fr; }
+    .mapa-grid    { grid-template-columns:1fr 1fr; }
+    .avalia-grid  { grid-template-columns:1fr; }
+    .prosp-grid   { grid-template-columns:1fr; }
+    .connection-row { grid-template-columns:1fr; }
+    .recursos-grid  { grid-template-columns:1fr 1fr; }
+    .btn-group { top:auto; bottom:20px; right:16px; flex-direction:row; }
+    .btn-action { padding:9px 14px; font-size:12px; }
+    .cert-assin { gap:30px; }
+  }
+  @media (max-width:480px) {
+    .header-inner  { padding:20px 14px 20px 18px; }
+    .container     { padding:14px 12px; }
+    .header-title  { font-size:18px; }
+    .recursos-grid { grid-template-columns:1fr; }
+    .mapa-grid     { grid-template-columns:1fr; }
+    .section-body  { padding:14px; }
+    footer         { padding:16px; font-size:11px; }
+    .frase-final   { padding:20px; }
+    .ff-texto      { font-size:16px; }
+    .cert-assin    { flex-direction:column; align-items:center; gap:16px; }
+  }
+
+  #btn-topo { position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--enc-dark); color:var(--white); border:none; font-size:18px; font-weight:700; cursor:pointer; z-index:999; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:all 0.2s ease; }
+  #btn-topo.visible { display:flex; }
+  #btn-topo:hover   { background:var(--enc); transform:translateY(-2px); }
+  @media print { #btn-topo { display:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action" onclick="window.print()">🖨️ Imprimir</button>
+  <button class="btn-action" onclick="salvarPDF()">📄 Exportar PDF</button>
+</div>
+
+<header class="page-header">
+  <div class="star-1"></div><div class="star-2"></div><div class="star-3"></div><div class="star-4"></div>
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 40</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">3º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tag">Encerramento da UC</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">16/12/2026</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">Quarta-feira</span>
+      </div>
+      <h1 class="header-title">Encerramento da UC — <span>Integração Geral e Reflexão sobre a Jornada</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Banco de Dados · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">ÚLTIMA AULA DA UC · H06 · H07</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- TEMA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎓</span>
+      <span class="section-title">Tema e Habilidades</span>
+      <span class="section-tag section-tag-gold">Encerramento · Integração · Reflexão</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">
+        Encerramento da UC — Integração Geral e Reflexão sobre a Jornada
+        <span>— celebração do percurso · quiz retrospectivo sem nota · atividade de reflexão escrita · mapa completo da UC · perspectivas para o próximo nível · avaliação anônima da UC</span>
+      </div>
+      <div class="hab-row">
+        <span class="hab-tag">H06 — Identificar linguagem de banco de dados relacionais e não-relacionais</span>
+        <span class="hab-tag">H07 — Identificar ferramentas de manipulação de banco de dados</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag section-tag-enc">5 objetivos</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+      <ul class="obj-list">
+        <li><span class="obj-num">1</span>Reconhecer, de forma integrada, o percurso completo da UC — do modelo conceitual ao SQL avançado documentado</li>
+        <li><span class="obj-num">2</span>Articular verbalmente ou por escrito os conceitos que mais impactaram seu aprendizado no ano</li>
+        <li><span class="obj-num">3</span>Identificar conexões entre os blocos temáticos da UC — modelagem, DDL, DML, DQL e documentação — como partes de um sistema coerente</li>
+        <li><span class="obj-num">4</span>Refletir sobre suas dificuldades ao longo da UC e nomear as estratégias que usou para superá-las</li>
+        <li><span class="obj-num">5</span>Reconhecer os próximos passos na formação em banco de dados e desenvolvimento de sistemas</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ORGANIZAÇÃO DO TEMPO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag section-tag-enc">6 etapas · 90 min</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+        <thead>
+          <tr><th style="width:28%">Etapa</th><th>Atividade</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="etapa-pill ep-aber">Abertura (~8 min)</span></td>
+            <td>Boas-vindas à última aula da UC. Tom leve e comemorativo — sem prova, sem pressão. Apresentar o roteiro do dia: vamos relembrar o ano inteiro, refletir sobre a jornada e fechar com chave de ouro. Chamada.</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-quiz">Quiz Retrospectivo (~18 min)</span></td>
+            <td><strong>"Do DER ao SQL" — 10 perguntas sem nota.</strong> O professor projeta cada pergunta, a turma responde em voz alta (ou por whiteboards, dedos, placardões de papel). Objetivo: rir dos erros do começo do ano, celebrar o quanto avançaram. Ver questões na seção abaixo.</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-refl">Reflexão Escrita (~20 min)</span></td>
+            <td><strong>Atividade "Carta para o Futuro".</strong> Cada aluno recebe uma folha com 4 prompts e escreve individualmente. Quem quiser pode compartilhar com a turma voluntariamente. As cartas podem ser guardadas pelo aluno ou coladas em um mural na sala. Ver ficha na seção abaixo.</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-mapa">Mapa da UC (~20 min)</span></td>
+            <td>Projetar o mapa completo da UC — os 5 blocos temáticos de SA01 a SA39. Para cada bloco: relembrar a "grande ideia", destacar um código ou diagrama marcante, perguntar à turma quem lembra de um momento específico. Fechar com a frase-síntese da UC.</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-persp">Perspectivas (~14 min)</span></td>
+            <td>O que vem depois desta UC — as próximas fronteiras do banco de dados e do desenvolvimento. Mostrar brevemente como o SQL que aprenderam se conecta ao back-end, ao NoSQL, às stored procedures e ao mercado de trabalho. Foco: motivação e curiosidade.</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-encerra">Encerramento (~10 min)</span></td>
+            <td>Avaliação anônima da UC (formulário ou papel — ver seção abaixo). Entrega simbólica do certificado de conclusão (opcional). Palavras finais do professor. Foto da turma. Avisos finais sobre o próximo semestre.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="nota-gold" style="margin-top:14px;">
+        ★ <strong>Clima da aula:</strong> este é o momento de celebrar — a turma chegou até o final de uma UC densa. Priorize o engajamento e a leveza sobre cobrir cada ponto do mapa. Se a reflexão escrita render discussão emocionante, deixe fluir — comprime o mapa, não o momento humano.
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ RETROSPECTIVO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🧠</span>
+      <span class="section-title">Quiz Retrospectivo — "Do DER ao SQL"</span>
+      <span class="section-tag section-tag-enc">10 perguntas · sem nota · coletivo</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro" style="margin-bottom:14px;">Perguntas projetadas uma a uma. A turma responde em voz alta ou com placardões de papel. Após a resposta, o professor comenta brevemente o conceito. Tom: descontraído e celebrativo.</p>
+
+      <div class="quiz-grid">
+        <div class="quiz-q">
+          <div class="quiz-head"><span class="quiz-num">1</span><span class="quiz-tema">MODELAGEM</span></div>
+          <div class="quiz-body">
+            <div class="quiz-pergunta">O que é uma entidade no DER?</div>
+            <div class="quiz-resp">Algo do mundo real que tem dados que vale a pena armazenar — ex.: Cliente, Produto, Funcionário.</div>
+          </div>
+        </div>
+        <div class="quiz-q">
+          <div class="quiz-head"><span class="quiz-num">2</span><span class="quiz-tema">DDL</span></div>
+          <div class="quiz-body">
+            <div class="quiz-pergunta">Qual é a diferença entre PRIMARY KEY e FOREIGN KEY?</div>
+            <div class="quiz-resp">PK identifica unicamente cada linha naquela tabela. FK é uma referência à PK de outra tabela, criando o relacionamento.</div>
+          </div>
+        </div>
+        <div class="quiz-q">
+          <div class="quiz-head"><span class="quiz-num">3</span><span class="quiz-tema">DML</span></div>
+          <div class="quiz-body">
+            <div class="quiz-pergunta">Por que usamos BEGIN / COMMIT antes de um UPDATE ou DELETE importante?</div>
+            <div class="quiz-resp">Para poder usar ROLLBACK se algo der errado — sem BEGIN, as alterações são imediatas e irreversíveis.</div>
+          </div>
+        </div>
+        <div class="quiz-q">
+          <div class="quiz-head"><span class="quiz-num">4</span><span class="quiz-tema">JOIN</span></div>
+          <div class="quiz-body">
+            <div class="quiz-pergunta">Qual é a diferença entre INNER JOIN e LEFT JOIN?</div>
+            <div class="quiz-resp">INNER JOIN retorna só os pares que combinam. LEFT JOIN retorna todas as linhas da esquerda, com NULL onde não há par à direita.</div>
+          </div>
+        </div>
+        <div class="quiz-q">
+          <div class="quiz-head"><span class="quiz-num">5</span><span class="quiz-tema">ANTI-JOIN</span></div>
+          <div class="quiz-body">
+            <div class="quiz-pergunta">Como encontramos clientes que NUNCA fizeram uma locação?</div>
+            <div class="quiz-resp">LEFT JOIN entre CLIENTE e LOCACAO, depois WHERE locacao.cpf_cliente IS NULL.</div>
+          </div>
+        </div>
+        <div class="quiz-q">
+          <div class="quiz-head"><span class="quiz-num">6</span><span class="quiz-tema">SUBQUERY</span></div>
+          <div class="quiz-body">
+            <div class="quiz-pergunta">O que acontece se colocarmos NULL dentro de uma subquery com NOT IN?</div>
+            <div class="quiz-resp">A query retorna zero linhas — silenciosamente, sem erro. É um bug perigoso. Solução: WHERE col IS NOT NULL dentro da subquery.</div>
+          </div>
+        </div>
+        <div class="quiz-q">
+          <div class="quiz-head"><span class="quiz-num">7</span><span class="quiz-tema">VIEW</span></div>
+          <div class="quiz-body">
+            <div class="quiz-pergunta">Uma VIEW armazena dados físicos no banco de dados?</div>
+            <div class="quiz-resp">Não. VIEW é uma query nomeada — cada SELECT sobre ela reexecuta o SELECT interno sobre as tabelas originais.</div>
+          </div>
+        </div>
+        <div class="quiz-q">
+          <div class="quiz-head"><span class="quiz-num">8</span><span class="quiz-tema">GROUP BY</span></div>
+          <div class="quiz-body">
+            <div class="quiz-pergunta">Por que não podemos escrever WHERE COUNT(*) > 2?</div>
+            <div class="quiz-resp">WHERE filtra linhas antes do agrupamento — funções de agregação ainda não existem nesse momento. Usamos HAVING para filtrar grupos depois do GROUP BY.</div>
+          </div>
+        </div>
+        <div class="quiz-q">
+          <div class="quiz-head"><span class="quiz-num">9</span><span class="quiz-tema">DOCUMENTAÇÃO</span></div>
+          <div class="quiz-body">
+            <div class="quiz-pergunta">Qual o problema com o comentário: <code style="font-family:'DM Mono',monospace;font-size:11px;background:var(--uc-light);color:var(--uc-tx);padding:1px 4px;border-radius:3px;">-- Seleciona o nome do cliente</code> antes de um SELECT nome FROM cliente?</div>
+            <div class="quiz-resp">Ele repete o que o código já diz — não agrega nenhuma informação. Um bom comentário explica o PORQUÊ, não o QUÊ.</div>
+          </div>
+        </div>
+        <div class="quiz-q">
+          <div class="quiz-head"><span class="quiz-num">10</span><span class="quiz-tema">BÔNUS</span></div>
+          <div class="quiz-body">
+            <div class="quiz-pergunta">Em qual SA criamos um banco de dados completo do zero para a Clínica Veterinária "Pet Saúde"?</div>
+            <div class="quiz-resp">SA 35 — Projeto Integrador. 6 tabelas: dono, animal, veterinario, consulta, procedimento, consulta_proc.</div>
+          </div>
+        </div>
+      </div>
+      <div class="nota-enc" style="margin-top:6px;">
+        💡 <strong>Dica de condução:</strong> nas perguntas conceituais (1, 7, 8), aceite qualquer formulação correta — o que importa é a ideia, não a exatidão da frase. Nas perguntas técnicas (5, 6, 9), se a turma acertar, peça alguém para explicar por que — essa verbalização consolida o aprendizado.
+      </div>
+    </div>
+  </section>
+
+  <!-- CARTA PARA O FUTURO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">✍️</span>
+      <span class="section-title">Atividade — "Carta para o Futuro"</span>
+      <span class="section-tag section-tag-gold">Reflexão individual · 20 min</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro" style="margin-bottom:14px;">Cada aluno recebe uma folha e responde livremente aos 4 prompts abaixo. Não há resposta certa. Quem quiser pode ler para a turma ao final.</p>
+
+      <div class="reflex-grid">
+        <div class="reflex-card">
+          <div class="reflex-head rh-1">1 — A maior dificuldade que superei</div>
+          <div class="reflex-body">
+            <div class="reflex-prompt">Qual foi o conceito ou atividade desta UC que mais te travou? Como você conseguiu superar (ou ainda está tentando superar)?</div>
+            <div class="reflex-lines">
+              <div class="reflex-line"></div>
+              <div class="reflex-line"></div>
+              <div class="reflex-line"></div>
+              <div class="reflex-line"></div>
+            </div>
+          </div>
+        </div>
+        <div class="reflex-card">
+          <div class="reflex-head rh-2">2 — O meu momento "eureka"</div>
+          <div class="reflex-body">
+            <div class="reflex-prompt">Houve um instante no ano em que algo "encaixou" — uma aula, uma atividade, um código que finalmente rodou. O que foi? O que você sentiu?</div>
+            <div class="reflex-lines">
+              <div class="reflex-line"></div>
+              <div class="reflex-line"></div>
+              <div class="reflex-line"></div>
+              <div class="reflex-line"></div>
+            </div>
+          </div>
+        </div>
+        <div class="reflex-card">
+          <div class="reflex-head rh-3">3 — Conselho para quem vem depois</div>
+          <div class="reflex-body">
+            <div class="reflex-prompt">Se você pudesse dar um conselho para um aluno que vai começar esta UC no próximo ano, o que diria? O que você teria feito diferente?</div>
+            <div class="reflex-lines">
+              <div class="reflex-line"></div>
+              <div class="reflex-line"></div>
+              <div class="reflex-line"></div>
+              <div class="reflex-line"></div>
+            </div>
+          </div>
+        </div>
+        <div class="reflex-card">
+          <div class="reflex-head rh-4">4 — O que quero explorar mais</div>
+          <div class="reflex-body">
+            <div class="reflex-prompt">Algum tópico desta UC despertou uma curiosidade que você ainda não teve tempo de explorar? O que você gostaria de aprofundar por conta própria?</div>
+            <div class="reflex-lines">
+              <div class="reflex-line"></div>
+              <div class="reflex-line"></div>
+              <div class="reflex-line"></div>
+              <div class="reflex-line"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nota-enc" style="margin-top:6px;">
+        📋 <strong>Opcional:</strong> recolher as cartas, fazer uma leitura seletiva (sem identificar autores) no início da próxima turma que cursar esta UC. Esse recurso gera engajamento real nos novos alunos e cria um sentido de comunidade de aprendizado ao longo do tempo.
+      </div>
+    </div>
+  </section>
+
+  <!-- MAPA DA UC -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🗺️</span>
+      <span class="section-title">Mapa Completo da UC — SA 01 a SA 39</span>
+      <span class="section-tag section-tag-enc">5 blocos · do DER ao SQL avançado</span>
+    </div>
+    <div class="section-body">
+      <div class="mapa-grid">
+        <div class="mapa-bloco">
+          <div class="mapa-head mb-1">
+            <div class="mapa-bloco-num">Bloco 1 · 1º Trimestre</div>
+            <div class="mapa-bloco-titulo">Fundamentos e Modelagem</div>
+          </div>
+          <div class="mapa-body">
+            <div class="mapa-sa-range">SA 01 – SA ~12</div>
+            <ul class="mapa-topicos">
+              <li>O que é banco de dados e SGBD</li>
+              <li>Modelo Entidade-Relacionamento</li>
+              <li>Entidades, atributos e relacionamentos</li>
+              <li>Cardinalidade: 1:1, 1:N, N:N</li>
+              <li>Normalização: 1FN, 2FN, 3FN</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mapa-bloco">
+          <div class="mapa-head mb-2">
+            <div class="mapa-bloco-num">Bloco 2 · 1º–2º Trimestre</div>
+            <div class="mapa-bloco-titulo">DDL — Da Modelagem ao Código</div>
+          </div>
+          <div class="mapa-body">
+            <div class="mapa-sa-range">SA ~10 – SA ~18</div>
+            <ul class="mapa-topicos">
+              <li>CREATE TABLE, tipos de dado</li>
+              <li>PRIMARY KEY, FOREIGN KEY</li>
+              <li>INSERT INTO — carga de dados</li>
+              <li>ALTER TABLE, DROP TABLE</li>
+              <li>Banco Locadora completo</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mapa-bloco">
+          <div class="mapa-head mb-3">
+            <div class="mapa-bloco-num">Bloco 3 · 2º Trimestre</div>
+            <div class="mapa-bloco-titulo">DQL — Consultas Fundamentais</div>
+          </div>
+          <div class="mapa-body">
+            <div class="mapa-sa-range">SA ~18 – SA ~26</div>
+            <ul class="mapa-topicos">
+              <li>SELECT, WHERE, ORDER BY</li>
+              <li>Funções: COUNT, SUM, AVG, MIN, MAX</li>
+              <li>GROUP BY + HAVING</li>
+              <li>INNER JOIN entre duas tabelas</li>
+              <li>UPDATE e DELETE introdutórios</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mapa-bloco">
+          <div class="mapa-head mb-4">
+            <div class="mapa-bloco-num">Bloco 4 · 3º Trimestre (início)</div>
+            <div class="mapa-bloco-titulo">DQL Avançado — JOINs e Subqueries</div>
+          </div>
+          <div class="mapa-body">
+            <div class="mapa-sa-range">SA 28 – SA 32</div>
+            <ul class="mapa-topicos">
+              <li>LEFT JOIN, RIGHT JOIN</li>
+              <li>Anti-join (LEFT JOIN + IS NULL)</li>
+              <li>Subquery WHERE IN / NOT IN</li>
+              <li>Subquery scalar e FROM derivada</li>
+              <li>CREATE VIEW, DROP VIEW</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mapa-bloco" style="grid-column: span 4;">
+          <div class="mapa-head mb-5">
+            <div class="mapa-bloco-num">Bloco 5 · 3º Trimestre (conclusão) — SA 33 – SA 39</div>
+            <div class="mapa-bloco-titulo">DML Avançado, Documentação e Projeto Integrador</div>
+          </div>
+          <div class="mapa-body">
+            <div class="mapa-sa-range">UPDATE com transação (BEGIN/COMMIT/ROLLBACK) · DELETE seguro · Comentários SQL (-- e /* */) · Cabeçalho de script · Boas práticas de documentação · Projeto integrador "Pet Saúde" (SA 35) · Apresentação (SA 36) · Prova (SA 37) · Recuperação (SA 38) · Revisão e correção (SA 39)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="frase-final">
+        <div class="ff-texto">Começamos com um retângulo no papel.<br>Terminamos com <em>código que protege dados reais, que consulta com precisão,<br>que documenta para quem vem depois.</em></div>
+        <div class="ff-sub">Essa é a jornada da UC Fundamentos de Banco de Dados · 2026</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PERSPECTIVAS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔭</span>
+      <span class="section-title">Perspectivas — O Que Vem Pela Frente</span>
+      <span class="section-tag section-tag-enc">Próximas fronteiras</span>
+    </div>
+    <div class="section-body">
+      <div class="prosp-grid">
+        <div class="prosp-card">
+          <div class="prosp-head ph-sql">SQL — nível especialista</div>
+          <div class="prosp-body">
+            <ul>
+              <li><strong>Stored Procedures</strong> — lógica de negócio dentro do banco</li>
+              <li><strong>Triggers</strong> — código que executa automaticamente</li>
+              <li><strong>Índices e performance</strong> — por que algumas queries são 100× mais lentas</li>
+              <li><strong>Window Functions</strong> — RANK, ROW_NUMBER, LAG, LEAD</li>
+              <li><strong>Transações avançadas</strong> — isolamento e concorrência</li>
+            </ul>
+          </div>
+        </div>
+        <div class="prosp-card">
+          <div class="prosp-head ph-app">Banco de Dados + Aplicações</div>
+          <div class="prosp-body">
+            <ul>
+              <li><strong>SQL no back-end</strong> — integrar o banco a Python, Node.js, Java</li>
+              <li><strong>ORMs</strong> — Sequelize, SQLAlchemy, Hibernate</li>
+              <li><strong>APIs e bancos</strong> — como uma requisição HTTP vira um SELECT</li>
+              <li><strong>SQL Injection</strong> — o ataque e como prevenir com queries parametrizadas</li>
+              <li><strong>Cloud databases</strong> — MySQL gerenciado na AWS, Azure, Supabase</li>
+            </ul>
+          </div>
+        </div>
+        <div class="prosp-card">
+          <div class="prosp-head ph-full">Além do SQL</div>
+          <div class="prosp-body">
+            <ul>
+              <li><strong>NoSQL</strong> — MongoDB (documentos), Redis (chave-valor), Cassandra</li>
+              <li><strong>Quando NÃO usar SQL</strong> — casos reais de escolha NoSQL</li>
+              <li><strong>Data Warehouse / BI</strong> — modelagem estrela, OLAP</li>
+              <li><strong>Banco de dados em sistemas distribuídos</strong> — replicação, sharding</li>
+              <li><strong>O banco nos próximos anos</strong> — IA, vetores, busca semântica</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÃO DA UC -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📊</span>
+      <span class="section-title">Avaliação da UC — Formulário Anônimo</span>
+      <span class="section-tag section-tag-gold">Feedback dos alunos · versão papel</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro" style="margin-bottom:14px;">Distribuir uma cópia para cada aluno. Recolher antes de encerrar a aula. Não assinar — o objetivo é coletar feedback honesto para melhorar a UC nos próximos anos.</p>
+      <div class="avalia-grid">
+        <div class="avalia-item">
+          <div class="avalia-q">1. Como você avalia a clareza das explicações ao longo do ano?</div>
+          <div class="avalia-esc">
+            <span class="avalia-opt">( ) Muito clara</span>
+            <span class="avalia-opt">( ) Clara</span>
+            <span class="avalia-opt">( ) Regular</span>
+            <span class="avalia-opt">( ) Confusa</span>
+          </div>
+        </div>
+        <div class="avalia-item">
+          <div class="avalia-q">2. As atividades práticas ajudaram a fixar o conteúdo?</div>
+          <div class="avalia-esc">
+            <span class="avalia-opt">( ) Sempre</span>
+            <span class="avalia-opt">( ) Na maioria</span>
+            <span class="avalia-opt">( ) Às vezes</span>
+            <span class="avalia-opt">( ) Raramente</span>
+          </div>
+        </div>
+        <div class="avalia-item">
+          <div class="avalia-q">3. O ritmo das aulas foi adequado para você acompanhar?</div>
+          <div class="avalia-esc">
+            <span class="avalia-opt">( ) Muito rápido</span>
+            <span class="avalia-opt">( ) Rápido</span>
+            <span class="avalia-opt">( ) Adequado</span>
+            <span class="avalia-opt">( ) Lento</span>
+          </div>
+        </div>
+        <div class="avalia-item">
+          <div class="avalia-q">4. Como você avalia sua própria dedicação a esta UC?</div>
+          <div class="avalia-esc">
+            <span class="avalia-opt">( ) Excelente</span>
+            <span class="avalia-opt">( ) Boa</span>
+            <span class="avalia-opt">( ) Regular</span>
+            <span class="avalia-opt">( ) Preciso melhorar</span>
+          </div>
+        </div>
+        <div class="avalia-item" style="grid-column: span 2;">
+          <div class="avalia-q">5. O que você mudaria nesta UC? (conteúdo, ordem dos tópicos, atividades, avaliações…)</div>
+          <div class="avalia-open">Espaço para resposta aberta…</div>
+        </div>
+        <div class="avalia-item" style="grid-column: span 2;">
+          <div class="avalia-q">6. O que você mais gostou desta UC? O que definitivamente deve permanecer?</div>
+          <div class="avalia-open">Espaço para resposta aberta…</div>
+        </div>
+      </div>
+      <div class="nota-enc" style="margin-top:6px;">
+        📌 <strong>Alternativa digital:</strong> substituir o papel por um Google Forms compartilhado no grupo da turma — facilita a análise posterior. O formulário deve ter o anonimato garantido (desmarcar "Coletar endereços de e-mail" no Google Forms).
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICADO SIMBÓLICO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏅</span>
+      <span class="section-title">Certificado Simbólico de Conclusão</span>
+      <span class="section-tag section-tag-gold">Opcional · imprimir e assinar individualmente</span>
+    </div>
+    <div class="section-body">
+      <div class="cert-wrapper">
+        <div class="cert-titulo">Certificado de Conclusão</div>
+        <div class="cert-sub">Certificamos que o(a) aluno(a)</div>
+        <div class="cert-nome"></div>
+        <div class="cert-uc">concluiu com êxito a UC</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:17px;color:var(--enc-dark);margin:4px 0 2px;"><strong>Fundamentos de Banco de Dados</strong></div>
+        <div class="cert-periodo">2ª Série · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026</div>
+        <div style="font-size:12px;color:var(--gray);margin-bottom:16px;">Do modelo conceitual ao SQL avançado documentado</div>
+        <div class="cert-assin">
+          <div class="cert-assin-item">
+            <div class="cert-assin-line"></div>
+            <div class="cert-assin-txt">Prof. Julio Cesar</div>
+          </div>
+          <div class="cert-assin-item">
+            <div class="cert-assin-line"></div>
+            <div class="cert-assin-txt">Data: 16/12/2026</div>
+          </div>
+        </div>
+      </div>
+      <div class="nota-gold">
+        ★ <strong>Como usar:</strong> imprimir uma cópia por aluno, preencher o nome à mão ou personalizar o HTML. Entregar ao final da aula como reconhecimento simbólico da jornada — um gesto pequeno com impacto desproporcional no clima de encerramento.
+      </div>
+    </div>
+  </section>
+
+  <!-- CONEXÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag section-tag-gray">Encerramento da jornada</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant">
+          <div class="conn-label">← Aula anterior — SA 39</div>
+          <div style="font-size:13.5px;color:var(--dark);">Revisão e correção comentada das provas do 3º trimestre · Síntese do ano · 09/12/2026</div>
+        </div>
+        <div class="conn-card conn-prox">
+          <div class="conn-label">Próximo ciclo →</div>
+          <div style="font-size:13.5px;color:var(--dark);">UC Fundamentos de Banco de Dados concluída. O próximo passo: SQL avançado, integração com aplicações e os desafios do mercado de desenvolvimento de sistemas.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag section-tag-gray">Preparar com antecedência</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid">
+        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor para quiz e mapa da UC</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📄</span><span>Folhas A4 para "Carta para o Futuro"</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Formulário de avaliação da UC (papel ou link)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🏅</span><span>Certificados impressos e assinados (opcional)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🖊️</span><span>Canetas para cada aluno</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📷</span><span>Câmera ou celular para foto da turma</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSERVAÇÕES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag section-tag-gray">Opcional</span>
+    </div>
+    <div class="section-body">
+      <div class="obs-box"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Plano de Aula · <span>SA 40 — Encerramento da UC · Fundamentos de Banco de Dados</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF = () => {
+    const t = document.title;
+    document.title = 'Plano_Aula_SA40_Encerramento_UC_Banco_de_Dados';
+    window.print();
+    setTimeout(() => { document.title = t; }, 1000);
+  };
+  const btn = document.getElementById('btn-topo');
+  window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 400); });
+  if (btn) btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
