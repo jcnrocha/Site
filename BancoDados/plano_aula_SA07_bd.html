@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 07 — Ferramentas de Banco de Dados</title>
+<meta name="description" content="Plano de aula SA 07 — Ferramentas de Banco de Dados · UC: Fundamentos de Banco de Dados · SENAI Umuarama">
+<meta name="theme-color" content="#0D1A2B">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uc-main:  #185FA5;
+    --uc-light: #E6F1FB;
+    --uc-tx:    #042C53;
+    --dark:     #0D1A2B;
+    --yellow:   #F9C74F;
+    --gold:     #C49A00;
+    --gray:     #64748B;
+    --light:    #F2F5F8;
+    --white:    #FFFFFF;
+    --text:     #1A2635;
+    --green:    #15803D;
+    --green-light:#DCFCE7;
+    --amber:    #D97706;
+    --amber-light:#FEF3C7;
+    --purple:   #7C3AED;
+    --purple-light:#F3E8FF;
+    --teal:     #0F766E;
+    --teal-light:#CCFBF1;
+    --red:      #DC2626;
+    --red-light:#FEE2E2;
+    --border:   #D4DCE4;
+    --warn-bg:  #FFF8E7;
+  }
+
+  html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(24,95,165,0.18); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-sub .uc-nome { white-space:nowrap; display:block; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; flex-shrink:0; align-self:flex-start; margin-top:4px; }
+
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag      { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
+  .section-tag-blue { background:var(--uc-light); color:var(--uc-main); }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); }
+  .section-body  { padding:24px 26px; }
+
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .tema-box span { color:var(--uc-main); }
+  .hab-row { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(24,95,165,0.2); }
+
+  .obj-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  .sub-titulo { font-size:12.5px; font-weight:700; color:var(--dark); margin:20px 0 10px; text-transform:uppercase; letter-spacing:0.8px; font-family:'DM Mono',monospace; padding-bottom:6px; border-bottom:2px solid var(--border); }
+  .sub-titulo:first-child { margin-top:0; }
+
+  /* GUI × CLI */
+  .guicli-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px; }
+  .guicli-card { border-radius:10px; overflow:hidden; border:2px solid; }
+  .gc-gui { border-color:var(--uc-main); }
+  .gc-cli { border-color:#475569; }
+  .guicli-header { padding:14px 18px; display:flex; align-items:center; gap:12px; }
+  .gc-gui .guicli-header { background:var(--uc-main); }
+  .gc-cli .guicli-header { background:#334155; }
+  .guicli-sigla { font-family:'DM Mono',monospace; font-size:22px; font-weight:700; color:var(--white); }
+  .guicli-nome  { font-size:12px; color:rgba(255,255,255,0.8); line-height:1.3; }
+  .guicli-body  { padding:14px 18px; background:var(--white); }
+  .guicli-body ul { list-style:none; }
+  .guicli-body ul li { font-size:13px; color:var(--text); padding-left:16px; position:relative; margin-bottom:5px; line-height:1.5; }
+  .guicli-body ul li::before { content:'▸'; position:absolute; left:0; font-size:10px; top:4px; }
+  .gc-gui .guicli-body ul li::before { color:var(--uc-main); }
+  .gc-cli .guicli-body ul li::before { color:#64748B; }
+
+  /* FERRAMENTAS GRID */
+  .ferramentas-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
+  .ferr-card { border-radius:10px; overflow:hidden; border:1px solid var(--border); }
+  .ferr-header { padding:12px 14px; display:flex; align-items:center; gap:10px; }
+  .ferr-icon   { font-size:22px; }
+  .ferr-nome   { font-size:13.5px; font-weight:700; color:var(--white); line-height:1.2; }
+  .ferr-body   { padding:12px 14px 14px; background:var(--light); }
+  .ferr-sgbd   { font-family:'DM Mono',monospace; font-size:10.5px; font-weight:600; padding:2px 8px; border-radius:6px; display:inline-block; margin-bottom:8px; }
+  .ferr-tipo   { font-size:10px; font-weight:600; padding:2px 7px; border-radius:6px; display:inline-block; margin-left:4px; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px; }
+  .ft-gui   { background:var(--uc-light); color:var(--uc-main); }
+  .ft-multi { background:var(--green-light); color:var(--green); }
+  .ft-web   { background:var(--purple-light); color:var(--purple); }
+  .ferr-body ul { list-style:none; }
+  .ferr-body ul li { font-size:12px; color:var(--gray); padding-left:12px; position:relative; margin-bottom:3px; line-height:1.5; }
+  .ferr-body ul li::before { content:'·'; position:absolute; left:0; font-weight:700; }
+  .fc-mysql  .ferr-header { background:#D97706; } .fc-mysql  .ferr-sgbd { background:var(--amber-light); color:var(--amber); }
+  .fc-pg     .ferr-header { background:#336791; } .fc-pg     .ferr-sgbd { background:#E0EEF8; color:#336791; }
+  .fc-mongo  .ferr-header { background:var(--green); } .fc-mongo  .ferr-sgbd { background:var(--green-light); color:var(--green); }
+  .fc-dbeav  .ferr-header { background:#3B4C5A; } .fc-dbeav  .ferr-sgbd { background:#F1F5F9; color:#475569; }
+  .fc-tp     .ferr-header { background:var(--teal); } .fc-tp     .ferr-sgbd { background:var(--teal-light); color:var(--teal); }
+  .fc-sqlite .ferr-header { background:#5C8DBE; } .fc-sqlite .ferr-sgbd { background:#EBF4FB; color:#5C8DBE; }
+
+  /* CONEXÃO PARÂMETROS */
+  .conn-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-bottom:20px; }
+  .conn-table thead tr { background:var(--dark); }
+  .conn-table th { color:var(--white); padding:10px 16px; text-align:left; font-size:12.5px; }
+  .conn-table td { padding:10px 16px; border-bottom:1px solid var(--border); vertical-align:middle; }
+  .conn-table tr:last-child td { border-bottom:none; }
+  .conn-table tr:nth-child(even) td { background:#F7FAFC; }
+  .conn-table td:first-child { font-weight:600; color:var(--dark); }
+  .porta-badge { font-family:'DM Mono',monospace; font-size:12px; font-weight:700; background:var(--uc-light); color:var(--uc-main); padding:2px 10px; border-radius:8px; }
+  .porta-badge.pb-local { background:var(--amber-light); color:var(--amber); }
+
+  .nota-box { background:var(--uc-light); border:1px solid rgba(24,95,165,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); line-height:1.6; margin-top:0; }
+
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:last-child td { border-bottom:none; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; }
+  .ep-abertura { background:#E0F2FE; color:#0369A1; }
+  .ep-retomada { background:#FEF9C3; color:#854D0E; }
+  .ep-expl     { background:#DCFCE7; color:#166534; }
+  .ep-dinamica { background:#F3E8FF; color:#6B21A8; }
+  .ep-quest    { background:#FFE4E6; color:#9F1239; }
+  .ep-fecha    { background:#F1F5F9; color:#475569; }
+
+  .dinamica-box    { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body   { padding:18px; }
+  .dinamica-meta   { display:flex; gap:16px; margin-bottom:16px; flex-wrap:wrap; }
+  .dinamica-meta-item { font-size:12.5px; color:var(--gray); display:flex; align-items:center; gap:6px; }
+  .dinamica-meta-item strong { color:var(--dark); }
+  .dinamica-step   { display:flex; gap:14px; padding:10px 0; border-bottom:1px solid var(--border); font-size:13.5px; }
+  .dinamica-step:last-child { border-bottom:none; }
+  .step-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  .pistas-table { width:100%; border-collapse:collapse; font-size:12px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-top:14px; }
+  .pistas-table thead tr { background:var(--uc-tx); }
+  .pistas-table th { color:var(--white); padding:10px 12px; text-align:left; font-size:11.5px; }
+  .pistas-table td { padding:9px 12px; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.5; }
+  .pistas-table tr:last-child td { border-bottom:none; }
+  .pistas-table tr:nth-child(even) td { background:#F7FAFC; }
+  .pts-badge { font-size:11px; font-family:'DM Mono',monospace; color:var(--gray); background:var(--light); border:1px solid var(--border); padding:1px 6px; border-radius:6px; white-space:nowrap; margin-left:4px; }
+  .resp-ferr { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; padding:3px 9px; border-radius:8px; white-space:nowrap; display:inline-block; }
+  .rf-mysql  { background:var(--amber-light); color:var(--amber); }
+  .rf-dbeav  { background:#F1F5F9; color:#334155; }
+  .rf-mongo  { background:var(--green-light); color:var(--green); }
+  .rf-sqlite { background:#EBF4FB; color:#336791; }
+  .rf-pg     { background:#E0EEF8; color:#336791; }
+
+  .aval-parts { display:flex; flex-direction:column; gap:12px; }
+  .aval-part  { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .aval-part-header { padding:11px 18px; font-size:13.5px; font-weight:700; }
+  .aph-uc   { background:var(--uc-main); color:var(--white); }
+  .aph-dark { background:var(--dark); color:var(--white); }
+  .aph-gray { background:var(--gray); color:var(--white); }
+  .aval-part-body { padding:14px 18px; background:var(--white); }
+  .aval-part-body ul { list-style:none; }
+  .aval-part-body ul li { padding:5px 0 5px 18px; font-size:13.5px; position:relative; color:var(--text); border-bottom:1px solid var(--border); }
+  .aval-part-body ul li:last-child { border-bottom:none; }
+  .aval-part-body ul li::before { content:'•'; position:absolute; left:0; color:var(--uc-main); font-weight:700; }
+
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  .recurso-icon  { font-size:20px; }
+  .obs-box { background:var(--light); border:1px dashed var(--border); border-radius:8px; padding:16px 20px; min-height:80px; }
+
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  footer span { color:var(--uc-main); }
+
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; background:var(--dark); color:var(--white); }
+  .btn-action:hover { background:#1a3d66; box-shadow:0 4px 12px rgba(10,35,66,0.4); }
+  .btn-action:active { transform:scale(0.97); }
+  button:focus, a:focus { outline:3px solid var(--yellow); outline-offset:2px; }
+
+  @media print {
+    @page { size:A4 portrait; margin:18mm 14mm 16mm 14mm; }
+    * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    body { background:white !important; font-size:11.5px; }
+    .btn-group { display:none !important; }
+    .page-header { background:var(--dark) !important; }
+    .header-inner { padding:16px 24px 16px 30px !important; gap:16px !important; }
+    .header-title { font-size:22px !important; }
+    .container { padding:10px 0 !important; }
+    .section { box-shadow:none !important; break-inside:avoid; margin-bottom:12px !important; }
+    .section-body { padding:14px 20px !important; }
+    .section-header { padding:10px 20px !important; }
+    table { break-inside:avoid; }
+    a[href]::after { content:none !important; }
+    a { text-decoration:none !important; color:inherit !important; }
+    .obs-box { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
+    .guicli-grid      { grid-template-columns:1fr 1fr !important; }
+    .ferramentas-grid { grid-template-columns:repeat(3,1fr) !important; }
+    .connection-row   { grid-template-columns:1fr 1fr !important; }
+    .recursos-grid    { grid-template-columns:repeat(3,1fr) !important; }
+    footer { background:var(--dark) !important; padding:12px !important; font-size:10.5px !important; }
+    #btn-topo { display:none !important; }
+  }
+
+  @media (max-width:960px) {
+    .header-inner { padding:36px 32px 36px 44px; }
+    .container    { padding:28px 32px; }
+    .header-title { font-size:28px; }
+    .ferramentas-grid { grid-template-columns:1fr 1fr; }
+    .recursos-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:768px) {
+    .header-inner  { flex-direction:column; padding:28px 20px 28px 28px; gap:14px; }
+    .container     { padding:20px 16px; }
+    .header-title  { font-size:22px; }
+    .uc-nome       { white-space:normal; }
+    .section-header { padding:14px 18px; }
+    .section-body  { padding:18px; }
+    .guicli-grid      { grid-template-columns:1fr; }
+    .ferramentas-grid { grid-template-columns:1fr 1fr; }
+    .connection-row   { grid-template-columns:1fr; }
+    .recursos-grid    { grid-template-columns:1fr 1fr; }
+    .time-table    { display:block; overflow-x:auto; }
+    .pistas-table  { display:block; overflow-x:auto; }
+    .btn-group { top:auto; bottom:20px; right:16px; flex-direction:row; }
+    .btn-action { padding:9px 14px; font-size:12px; }
+  }
+  @media (max-width:480px) {
+    .page-header::before { width:4px; }
+    .page-header::after  { left:4px; width:2px; }
+    .header-inner  { padding:20px 14px 20px 18px; }
+    .container     { padding:14px 12px; }
+    .header-title  { font-size:18px; }
+    .ferramentas-grid { grid-template-columns:1fr; }
+    .recursos-grid { grid-template-columns:1fr; }
+    .section-body  { padding:14px; }
+    footer         { padding:16px; font-size:11px; }
+  }
+
+  #btn-topo { position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--dark); color:var(--white); border:none; font-size:18px; font-weight:700; cursor:pointer; z-index:999; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:all 0.2s ease; }
+  #btn-topo.visible { display:flex; }
+  #btn-topo:hover   { background:var(--uc-main); transform:translateY(-2px); }
+  @media print { #btn-topo { display:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action" onclick="window.print()">🖨️ Imprimir</button>
+  <button class="btn-action" onclick="salvarPDF()">📄 Exportar PDF</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 07</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">1º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">01/04/2026</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">Quarta-feira</span>
+      </div>
+      <h1 class="header-title">Ferramentas de <span>Banco de Dados</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Banco de Dados · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">H07</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- TEMA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidades</span>
+      <span class="section-tag section-tag-blue">1º Trimestre · Aula 7</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">
+        Ferramentas de Banco de Dados
+        <span>— GUI × CLI, ferramentas por SGBD e parâmetros de conexão</span>
+      </div>
+      <div class="hab-row">
+        <span class="hab-tag">H07 — Identificar ferramentas de manipulação de banco de dados</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag section-tag-blue">5 objetivos</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+      <ul class="obj-list">
+        <li><span class="obj-num">1</span>Identificar as principais ferramentas de administração e manipulação de bancos de dados do mercado</li>
+        <li><span class="obj-num">2</span>Reconhecer a função de cada ferramenta e com qual SGBD ela se relaciona</li>
+        <li><span class="obj-num">3</span>Diferenciar ferramentas de interface gráfica (GUI) de ferramentas de linha de comando (CLI)</li>
+        <li><span class="obj-num">4</span>Compreender como as ferramentas se conectam ao SGBD: host, porta, usuário e senha</li>
+        <li><span class="obj-num">5</span>Relacionar a escolha da ferramenta ao contexto do projeto e ao SGBD utilizado</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo da Aula</span>
+      <span class="section-tag section-tag-blue">Ferramentas · Conexão · Mercado</span>
+    </div>
+    <div class="section-body">
+
+      <div class="sub-titulo">GUI × CLI — Duas Formas de Interagir com o Banco</div>
+      <div class="guicli-grid">
+        <div class="guicli-card gc-gui">
+          <div class="guicli-header">
+            <div>
+              <div class="guicli-sigla">GUI</div>
+              <div class="guicli-nome">Interface Gráfica</div>
+            </div>
+          </div>
+          <div class="guicli-body">
+            <ul>
+              <li>Interface visual com menus, botões e formulários</li>
+              <li>Visualização de tabelas, dados e estrutura do banco</li>
+              <li>Ideal para desenvolvedores e DBAs no dia a dia</li>
+              <li>Facilita modelagem, diagramas e exportação de dados</li>
+              <li>Exemplos: MySQL Workbench, DBeaver, pgAdmin</li>
+            </ul>
+          </div>
+        </div>
+        <div class="guicli-card gc-cli">
+          <div class="guicli-header">
+            <div>
+              <div class="guicli-sigla">CLI</div>
+              <div class="guicli-nome">Linha de Comando</div>
+            </div>
+          </div>
+          <div class="guicli-body">
+            <ul>
+              <li>Interação por comandos digitados no terminal</li>
+              <li>Essencial em servidores sem interface gráfica</li>
+              <li>Permite automação via scripts e agendamentos</li>
+              <li>Mais rápido para tarefas repetitivas e em lote</li>
+              <li>Exemplos: <code style="font-family:'DM Mono',monospace;font-size:12px;background:var(--light);padding:1px 5px;border-radius:4px;">mysql</code>, <code style="font-family:'DM Mono',monospace;font-size:12px;background:var(--light);padding:1px 5px;border-radius:4px;">psql</code>, <code style="font-family:'DM Mono',monospace;font-size:12px;background:var(--light);padding:1px 5px;border-radius:4px;">mongosh</code></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-titulo">Principais Ferramentas do Mercado</div>
+      <div class="ferramentas-grid">
+        <div class="ferr-card fc-mysql">
+          <div class="ferr-header">
+            <div class="ferr-icon">🐬</div>
+            <div class="ferr-nome">MySQL Workbench</div>
+          </div>
+          <div class="ferr-body">
+            <span class="ferr-sgbd">MySQL</span>
+            <span class="ferr-tipo ft-gui">GUI Oficial</span>
+            <ul>
+              <li>Modelagem visual e diagramas ER</li>
+              <li>Editor SQL com syntax highlighting</li>
+              <li>Administração do servidor MySQL</li>
+              <li>Importação e exportação de dados</li>
+            </ul>
+          </div>
+        </div>
+        <div class="ferr-card fc-pg">
+          <div class="ferr-header">
+            <div class="ferr-icon">🐘</div>
+            <div class="ferr-nome">pgAdmin</div>
+          </div>
+          <div class="ferr-body">
+            <span class="ferr-sgbd">PostgreSQL</span>
+            <span class="ferr-tipo ft-web">Web / GUI</span>
+            <ul>
+              <li>Interface web rodando no navegador</li>
+              <li>Gerenciamento de objetos do banco</li>
+              <li>Editor de queries com plano de execução</li>
+              <li>Monitoramento de atividade e conexões</li>
+            </ul>
+          </div>
+        </div>
+        <div class="ferr-card fc-mongo">
+          <div class="ferr-header">
+            <div class="ferr-icon">🌿</div>
+            <div class="ferr-nome">MongoDB Compass</div>
+          </div>
+          <div class="ferr-body">
+            <span class="ferr-sgbd">MongoDB</span>
+            <span class="ferr-tipo ft-gui">GUI Oficial</span>
+            <ul>
+              <li>Visualização e edição de documentos JSON</li>
+              <li>Editor de queries e agregações</li>
+              <li>Análise de índices e performance</li>
+              <li>Exportação de dados em CSV e JSON</li>
+            </ul>
+          </div>
+        </div>
+        <div class="ferr-card fc-dbeav">
+          <div class="ferr-header">
+            <div class="ferr-icon">🦫</div>
+            <div class="ferr-nome">DBeaver</div>
+          </div>
+          <div class="ferr-body">
+            <span class="ferr-sgbd">Multi-SGBD</span>
+            <span class="ferr-tipo ft-multi">Gratuita</span>
+            <ul>
+              <li>Suporte a mais de 80 SGBDs diferentes</li>
+              <li>Editor SQL avançado com autocomplete</li>
+              <li>Visualização e edição de dados em grade</li>
+              <li>Preferida por desenvolvedores no dia a dia</li>
+            </ul>
+          </div>
+        </div>
+        <div class="ferr-card fc-tp">
+          <div class="ferr-header">
+            <div class="ferr-icon">📋</div>
+            <div class="ferr-nome">TablePlus</div>
+          </div>
+          <div class="ferr-body">
+            <span class="ferr-sgbd">Multi-SGBD</span>
+            <span class="ferr-tipo ft-multi">Freemium</span>
+            <ul>
+              <li>Interface moderna e intuitiva</li>
+              <li>Conexão rápida com múltiplos bancos</li>
+              <li>Edição inline de registros</li>
+              <li>Versão gratuita com funcionalidades limitadas</li>
+            </ul>
+          </div>
+        </div>
+        <div class="ferr-card fc-sqlite">
+          <div class="ferr-header">
+            <div class="ferr-icon">📦</div>
+            <div class="ferr-nome">DB Browser for SQLite</div>
+          </div>
+          <div class="ferr-body">
+            <span class="ferr-sgbd">SQLite</span>
+            <span class="ferr-tipo ft-gui">Gratuita</span>
+            <ul>
+              <li>Leve e simples — ideal para iniciantes</li>
+              <li>Abre arquivos .db e .sqlite diretamente</li>
+              <li>Sem necessidade de servidor</li>
+              <li>Muito usada em projetos mobile e desktop</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-titulo">Parâmetros de Conexão — Portas Padrão dos SGBDs</div>
+      <table class="conn-table">
+        <thead>
+          <tr>
+            <th style="width:18%">SGBD</th>
+            <th style="width:15%">Porta padrão</th>
+            <th style="width:20%">Host local</th>
+            <th style="width:20%">Usuário padrão</th>
+            <th>Observação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MySQL</td>
+            <td><span class="porta-badge">3306</span></td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:12px;">127.0.0.1</code></td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:12px;">root</code></td>
+            <td>Requer servidor MySQL em execução</td>
+          </tr>
+          <tr>
+            <td>PostgreSQL</td>
+            <td><span class="porta-badge">5432</span></td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:12px;">127.0.0.1</code></td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:12px;">postgres</code></td>
+            <td>Requer servidor PostgreSQL em execução</td>
+          </tr>
+          <tr>
+            <td>MongoDB</td>
+            <td><span class="porta-badge">27017</span></td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:12px;">127.0.0.1</code></td>
+            <td>—</td>
+            <td>Sem autenticação por padrão no desenvolvimento</td>
+          </tr>
+          <tr>
+            <td>SQLite</td>
+            <td><span class="porta-badge pb-local">Arquivo local</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td>Sem servidor — conecta diretamente ao arquivo <code style="font-family:'DM Mono',monospace;font-size:12px;">.db</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="nota-box">
+        💡 <strong>Para o desenvolvedor:</strong> ao configurar uma conexão em qualquer ferramenta GUI, os campos necessários são sempre os mesmos — <strong>host</strong> (endereço do servidor), <strong>porta</strong>, <strong>usuário</strong>, <strong>senha</strong> e <strong>nome do banco</strong>. O SQLite é a exceção: basta apontar para o arquivo.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ORGANIZAÇÃO DO TEMPO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag section-tag-blue">6 etapas · 90 min</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+        <thead>
+          <tr><th style="width:28%">Etapa</th><th>Atividade</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="etapa-pill ep-abertura">Abertura</span></td>
+            <td>Chamada e retomada rápida da SA 06 — pergunta oral: <em>"Quais são as quatro categorias da linguagem SQL?"</em></td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-retomada">Problematização</span></td>
+            <td>Professor pergunta: <em>"Se vocês fossem trabalhar hoje como desenvolvedores e precisassem abrir e visualizar um banco de dados, o que usariam?"</em> — alunos respondem livremente para mapear o que já conhecem</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-expl">Explicação</span></td>
+            <td>Slides — por que usar ferramentas, GUI × CLI, as 6 ferramentas por SGBD com capturas de tela das interfaces, parâmetros de conexão e portas padrão</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-dinamica">Dinâmica</span></td>
+            <td>"Quem Sou Eu? — Round Ferramentas" — grupos identificam ferramentas a partir de 3 pistas em ordem crescente de especificidade · sistema de pontuação (3-2-1)</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-quest">Questionário</span></td>
+            <td>5 questões objetivas + 5 questões discursivas sobre o conteúdo da aula</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-fecha">Fechamento</span></td>
+            <td>Resumo: cada SGBD tem sua ferramenta oficial · DBeaver é a opção multi-SGBD mais usada por desenvolvedores · Próxima aula: SQL DDL — CREATE TABLE (SA 08 · 08/04)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DINÂMICA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica</span>
+      <span class="section-tag section-tag-blue">Quem Sou Eu? — Round Ferramentas</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box">
+        <div class="dinamica-header">🔍 Quem Sou Eu? — Identificação por Pistas</div>
+        <div class="dinamica-body">
+          <div class="dinamica-meta">
+            <div class="dinamica-meta-item">⏱️ <strong>Duração:</strong> 15 minutos</div>
+            <div class="dinamica-meta-item">👥 <strong>Agrupamento:</strong> grupos de 4 a 5 alunos</div>
+            <div class="dinamica-meta-item">🏆 <strong>Pontuação:</strong> 3 pts na 1ª pista · 2 pts na 2ª · 1 pt na 3ª</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">1</div>
+            <div><strong>Leitura das pistas</strong> <em>(1 min/rodada)</em> — Professor lê as pistas em ordem crescente de especificidade. Grupos tentam identificar a ferramenta após cada pista.</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">2</div>
+            <div><strong>Resposta em grupo</strong> <em>(1 min)</em> — O grupo que identificar primeiro levanta a mão. Pontuação conforme a pista em que acertou.</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">3</div>
+            <div><strong>Consolidação</strong> <em>(1 min)</em> — Professor confirma a resposta e reforça as características da ferramenta identificada.</div>
+          </div>
+        </div>
+      </div>
+
+      <table class="pistas-table">
+        <thead>
+          <tr>
+            <th style="width:4%">#</th>
+            <th style="width:28%">Pista 1 <span class="pts-badge">3 pts</span></th>
+            <th style="width:28%">Pista 2 <span class="pts-badge">2 pts</span></th>
+            <th style="width:28%">Pista 3 <span class="pts-badge">1 pt</span></th>
+            <th>Resposta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td>Sou uma ferramenta gráfica oficial de um dos SGBDs mais usados no mundo</td>
+            <td>Permito modelar visualmente o banco de dados e criar diagramas ER</td>
+            <td>Sou da Oracle e meu nome tem a ver com o banco que gerencio e com uma bancada de trabalho</td>
+            <td><span class="resp-ferr rf-mysql">MySQL Workbench</span></td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td>Sou gratuita e consigo me conectar a quase qualquer banco de dados do mercado</td>
+            <td>Tenho suporte a mais de 80 SGBDs diferentes em uma única interface</td>
+            <td>Meu nome vem de um personagem dos desenhos animados e meu logo é um castor</td>
+            <td><span class="resp-ferr rf-dbeav">DBeaver</span></td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td>Sou a ferramenta oficial de um banco de dados que guarda documentos JSON</td>
+            <td>Permito visualizar, filtrar e editar documentos diretamente pela interface</td>
+            <td>Meu nome tem a ver com a palavra "bússola" e sou feita pela mesma empresa do meu SGBD</td>
+            <td><span class="resp-ferr rf-mongo">MongoDB Compass</span></td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td>Sou leve, simples e não preciso de servidor para funcionar</td>
+            <td>Sou ideal para projetos de aplicativos mobile que precisam de um banco local</td>
+            <td>Meu nome tem a ver com navegar em um banco de dados que cabe em um arquivo</td>
+            <td><span class="resp-ferr rf-sqlite">DB Browser for SQLite</span></td>
+          </tr>
+          <tr>
+            <td><strong>5</strong></td>
+            <td>Sou a ferramenta oficial de administração de um banco de dados open source muito robusto</td>
+            <td>Funciono como uma aplicação web que roda no navegador</td>
+            <td>Meu nome começa com "pg" — a sigla do banco de dados que gerencio</td>
+            <td><span class="resp-ferr rf-pg">pgAdmin</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="nota-box" style="margin-top:14px;">
+        💡 Ao final da dinâmica, projetar a tabela resumo com as 5 ferramentas, seus SGBDs correspondentes e casos de uso — reforçando a associação que será necessária nas próximas aulas práticas.
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag section-tag-blue">Questionário · 10 questões</span>
+    </div>
+    <div class="section-body">
+      <div class="aval-parts">
+        <div class="aval-part">
+          <div class="aval-part-header aph-uc">Parte 1 — Questões Objetivas (5 questões)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Nível alto · 4 alternativas: A) B) C) D) · Gabarito alternado, sem repetição consecutiva</li>
+              <li>Temas: ferramentas por SGBD, GUI × CLI, parâmetros de conexão, contexto de uso</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header aph-dark">Parte 2 — Questões Discursivas (5 questões)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Cada questão possui título explicativo antes do enunciado</li>
+              <li>Sem linhas — apenas espaço em branco com <code style="font-family:'DM Mono',monospace;font-size:12px;background:rgba(24,95,165,0.1);color:var(--uc-tx);padding:1px 5px;border-radius:4px;">R:</code></li>
+              <li>Temas: diferença GUI × CLI, por que usar DBeaver, configurar conexão, escolha de ferramenta por projeto</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header aph-gray">Gabarito</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Em página separada — uso exclusivo do professor</li>
+              <li>Objetivas: letra correta + justificativa · Discursivas: resposta esperada com critérios</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONEXÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag section-tag-gray">Continuidade</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant">
+          <div class="conn-label">← Aula anterior — SA 06</div>
+          <div style="font-size:13.5px;color:var(--dark);">SQL e NoSQL · 25/03/2026</div>
+        </div>
+        <div class="conn-card conn-prox">
+          <div class="conn-label">Próxima aula → SA 08</div>
+          <div style="font-size:13.5px;color:var(--dark);">SQL DDL — CREATE TABLE · 08/04/2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag section-tag-gray">Verificar antes da aula</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid">
+        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor ou TV</span></div>
+        <div class="recurso-item"><span class="recurso-icon">💻</span><span>Computador com HDMI</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📊</span><span>Apresentação com slides</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Questionário impresso ou digital</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🃏</span><span>Cartões com pistas (1 conjunto/grupo) ou slide</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🖊️</span><span>Quadro branco (pontuação dos grupos)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSERVAÇÕES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag section-tag-gray">Opcional</span>
+    </div>
+    <div class="section-body">
+      <div class="obs-box"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Plano de Aula · <span>SA 07 — Ferramentas de Banco de Dados</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF = () => {
+    const t = document.title;
+    document.title = 'Plano_Aula_SA07_Ferramentas_BD';
+    window.print();
+    setTimeout(() => { document.title = t; }, 1000);
+  };
+  const btn = document.getElementById('btn-topo');
+  window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 400); });
+  if (btn) btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>

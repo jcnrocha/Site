@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 10 — SQL DCL · Revisão Geral · Apresentação dos Trabalhos</title>
+<meta name="description" content="Plano de aula SA 10 — SQL DCL + Revisão Geral + Apresentação dos Trabalhos · UC: Fundamentos de Banco de Dados · SENAI Umuarama">
+<meta name="theme-color" content="#0D1A2B">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uc-main:  #185FA5;
+    --uc-light: #E6F1FB;
+    --uc-tx:    #042C53;
+    --dark:     #0D1A2B;
+    --yellow:   #F9C74F;
+    --gold:     #C49A00;
+    --gray:     #64748B;
+    --light:    #F2F5F8;
+    --white:    #FFFFFF;
+    --text:     #1A2635;
+    --green:    #15803D;
+    --green-light:#DCFCE7;
+    --amber:    #D97706;
+    --amber-light:#FEF3C7;
+    --purple:   #7C3AED;
+    --purple-light:#F3E8FF;
+    --teal:     #0F766E;
+    --teal-light:#CCFBF1;
+    --red:      #DC2626;
+    --red-light:#FEE2E2;
+    --border:   #D4DCE4;
+    --warn-bg:  #FFF8E7;
+  }
+
+  html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(24,95,165,0.18); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:32px; line-height:1.2; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-sub .uc-nome { white-space:nowrap; display:block; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; flex-shrink:0; align-self:flex-start; margin-top:4px; }
+
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag      { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
+  .section-tag-blue { background:var(--uc-light); color:var(--uc-main); }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); }
+  .section-tag-purple { background:var(--purple-light); color:var(--purple); }
+  .section-body  { padding:24px 26px; }
+
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .tema-box span { color:var(--uc-main); }
+  .hab-row { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(24,95,165,0.2); }
+
+  .obj-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  .sub-titulo { font-size:12.5px; font-weight:700; color:var(--dark); margin:20px 0 10px; text-transform:uppercase; letter-spacing:0.8px; font-family:'DM Mono',monospace; padding-bottom:6px; border-bottom:2px solid var(--border); }
+  .sub-titulo:first-child { margin-top:0; }
+
+  /* CODE BLOCKS */
+  .code-block { background:var(--dark); border-radius:8px; padding:16px 20px; font-family:'DM Mono',monospace; font-size:12.5px; line-height:2; margin-bottom:12px; overflow-x:auto; }
+  .cb-comment { color:#475569; }
+  .cb-kw  { color:#93C5FD; font-weight:600; }
+  .cb-tbl { color:var(--yellow); }
+  .cb-col { color:#86EFAC; }
+  .cb-str { color:#86EFAC; }
+  .cb-val { color:#FCD34D; }
+  .cb-usr { color:#FCA5A5; }
+
+  /* DCL COMPARE */
+  .dcl-compare { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+  .dcl-card { border-radius:10px; overflow:hidden; border:1px solid var(--border); }
+  .dcl-header { padding:11px 16px; font-size:13px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dcl-grant  { background:var(--green); color:var(--white); }
+  .dcl-revoke { background:var(--red); color:var(--white); }
+  .dcl-body   { background:var(--dark); padding:14px 16px; font-family:'DM Mono',monospace; font-size:12px; line-height:1.9; }
+  .dcl-note   { padding:10px 16px; font-size:12.5px; color:var(--text); line-height:1.5; background:var(--white); }
+
+  /* PERMISSÕES */
+  .perm-grid { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+  .perm-badge { font-family:'DM Mono',monospace; font-size:12px; font-weight:600; padding:4px 12px; border-radius:6px; border:1px solid; }
+  .pb-ddl  { background:#EFF6FF; color:#1D4ED8; border-color:#BFDBFE; }
+  .pb-dml  { background:var(--teal-light); color:var(--teal); border-color:#99F6E4; }
+  .pb-dest { background:var(--red-light); color:var(--red); border-color:#FECACA; }
+
+  /* PERFIS DE ACESSO */
+  .perfis-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
+  .perfil-card { border-radius:10px; overflow:hidden; border:1px solid var(--border); }
+  .perfil-header { padding:12px 16px; font-size:13px; font-weight:700; color:var(--white); }
+  .ph-leitura { background:var(--teal); }
+  .ph-app     { background:var(--uc-main); }
+  .ph-admin   { background:#1E1B4B; }
+  .perfil-icon { font-size:18px; margin-right:8px; }
+  .perfil-body { padding:12px 16px; background:var(--white); }
+  .perfil-desc { font-size:12.5px; color:var(--gray); margin-bottom:10px; line-height:1.5; }
+  .perfil-perms { display:flex; flex-wrap:wrap; gap:5px; }
+  .pp { font-family:'DM Mono',monospace; font-size:11px; font-weight:600; padding:2px 8px; border-radius:5px; }
+  .pp-ok  { background:var(--green-light); color:var(--green); }
+  .pp-no  { background:var(--light); color:var(--gray); text-decoration:line-through; }
+
+  /* REVISÃO GERAL */
+  .revisao-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:16px; }
+  .rev-item { border-radius:8px; padding:10px 14px; border-left:3px solid var(--uc-main); background:var(--light); border:1px solid var(--border); border-left:3px solid var(--uc-main); }
+  .rev-sa   { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:var(--uc-main); margin-bottom:3px; }
+  .rev-tema { font-size:12.5px; font-weight:600; color:var(--dark); line-height:1.4; }
+  .rev-data { font-size:11px; color:var(--gray); margin-top:2px; }
+
+  /* TIME TABLE */
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:last-child td { border-bottom:none; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; }
+  .ep-abertura { background:#E0F2FE; color:#0369A1; }
+  .ep-dcl      { background:var(--teal-light); color:var(--teal); }
+  .ep-revisao  { background:var(--amber-light); color:#92400E; }
+  .ep-apres    { background:var(--purple-light); color:#6B21A8; }
+  .ep-fecha    { background:#F1F5F9; color:#475569; }
+
+  /* GRUPOS */
+  .grupos-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+  .grupo-card  { border-radius:10px; overflow:hidden; border:1px solid var(--border); }
+  .gc-header   { padding:10px 16px; display:flex; align-items:center; gap:10px; }
+  .gc-num      { font-family:'DM Mono',monospace; font-size:13px; font-weight:700; color:var(--white); background:var(--uc-main); width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .gc-tema     { font-size:13px; font-weight:700; color:var(--dark); line-height:1.4; }
+  .gc-body     { padding:10px 16px; background:var(--white); font-size:12.5px; color:var(--gray); line-height:1.5; }
+
+  /* CRITÉRIOS */
+  .criterios-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .criterios-table thead tr { background:var(--dark); }
+  .criterios-table th { color:var(--white); padding:10px 16px; text-align:left; font-size:12.5px; }
+  .criterios-table td { padding:10px 16px; border-bottom:1px solid var(--border); }
+  .criterios-table tr:last-child td { font-weight:700; background:var(--uc-light); color:var(--uc-tx); }
+  .criterios-table tr:nth-child(even):not(:last-child) td { background:#F7FAFC; }
+  .pts-badge { font-family:'DM Mono',monospace; font-size:12px; font-weight:700; background:var(--uc-light); color:var(--uc-main); padding:2px 10px; border-radius:6px; }
+  .pts-total { font-family:'DM Mono',monospace; font-size:13px; font-weight:700; background:var(--uc-main); color:var(--white); padding:3px 12px; border-radius:6px; }
+
+  .orientacoes-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .or-item { display:flex; align-items:flex-start; gap:10px; padding:10px 14px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .or-icon { font-size:15px; flex-shrink:0; }
+
+  /* AVALIAÇÃO ESPECIAL */
+  .aval-destaque { background:var(--purple-light); border:1px solid rgba(124,58,237,0.25); border-left:4px solid var(--purple); border-radius:10px; padding:18px 22px; }
+  .ad-title  { font-size:14px; font-weight:700; color:var(--purple); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+  .ad-body   { font-size:13.5px; color:#3B1F6C; line-height:1.7; }
+
+  /* FICHA DE AVALIAÇÃO */
+  .ficha-box { background:var(--light); border:1px dashed var(--border); border-radius:10px; padding:20px; }
+  .ficha-title { font-size:13px; font-weight:700; color:var(--dark); margin-bottom:12px; font-family:'DM Mono',monospace; letter-spacing:0.5px; }
+  .ficha-group { font-size:12.5px; color:var(--gray); margin-bottom:14px; }
+  .ficha-crit  { width:100%; border-collapse:collapse; font-size:12.5px; }
+  .ficha-crit th { text-align:left; padding:6px 10px; border-bottom:2px solid var(--border); font-size:12px; color:var(--dark); }
+  .ficha-crit td { padding:8px 10px; border-bottom:1px solid var(--border); }
+  .ficha-crit tr:last-child td { font-weight:700; }
+  .nota-campo { width:80px; height:24px; border:1px solid var(--border); border-radius:4px; background:var(--white); display:inline-block; }
+
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  .recurso-icon  { font-size:20px; }
+  .obs-box { background:var(--light); border:1px dashed var(--border); border-radius:8px; padding:16px 20px; min-height:80px; }
+
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  footer span { color:var(--uc-main); }
+
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; background:var(--dark); color:var(--white); }
+  .btn-action:hover { background:#1a3d66; box-shadow:0 4px 12px rgba(10,35,66,0.4); }
+  .btn-action:active { transform:scale(0.97); }
+  button:focus, a:focus { outline:3px solid var(--yellow); outline-offset:2px; }
+
+  @media print {
+    @page { size:A4 portrait; margin:18mm 14mm 16mm 14mm; }
+    * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    body { background:white !important; font-size:11.5px; }
+    .btn-group { display:none !important; }
+    .page-header { background:var(--dark) !important; }
+    .header-inner { padding:16px 24px 16px 30px !important; gap:16px !important; }
+    .header-title { font-size:20px !important; }
+    .container { padding:10px 0 !important; }
+    .section { box-shadow:none !important; break-inside:avoid; margin-bottom:12px !important; }
+    .section-body { padding:14px 20px !important; }
+    .section-header { padding:10px 20px !important; }
+    table { break-inside:avoid; }
+    a[href]::after { content:none !important; }
+    a { text-decoration:none !important; color:inherit !important; }
+    .obs-box { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
+    .dcl-compare  { grid-template-columns:1fr 1fr !important; }
+    .perfis-grid  { grid-template-columns:repeat(3,1fr) !important; }
+    .revisao-grid { grid-template-columns:repeat(3,1fr) !important; }
+    .grupos-grid  { grid-template-columns:1fr 1fr !important; }
+    .connection-row { grid-template-columns:1fr 1fr !important; }
+    .recursos-grid  { grid-template-columns:repeat(3,1fr) !important; }
+    .dcl-body, .code-block { font-size:11px !important; }
+    footer { background:var(--dark) !important; padding:12px !important; font-size:10.5px !important; }
+    #btn-topo { display:none !important; }
+  }
+
+  @media (max-width:960px) {
+    .header-inner { padding:36px 32px 36px 44px; }
+    .container    { padding:28px 32px; }
+    .header-title { font-size:26px; }
+    .perfis-grid  { grid-template-columns:1fr 1fr; }
+    .revisao-grid { grid-template-columns:repeat(3,1fr); }
+    .recursos-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:768px) {
+    .header-inner  { flex-direction:column; padding:28px 20px 28px 28px; gap:14px; }
+    .container     { padding:20px 16px; }
+    .header-title  { font-size:20px; }
+    .uc-nome       { white-space:normal; }
+    .section-header { padding:14px 18px; }
+    .section-body  { padding:18px; }
+    .dcl-compare   { grid-template-columns:1fr; }
+    .perfis-grid   { grid-template-columns:1fr; }
+    .revisao-grid  { grid-template-columns:1fr 1fr; }
+    .grupos-grid   { grid-template-columns:1fr; }
+    .connection-row { grid-template-columns:1fr; }
+    .recursos-grid { grid-template-columns:1fr 1fr; }
+    .time-table    { display:block; overflow-x:auto; }
+    .btn-group { top:auto; bottom:20px; right:16px; flex-direction:row; }
+    .btn-action { padding:9px 14px; font-size:12px; }
+  }
+  @media (max-width:480px) {
+    .page-header::before { width:4px; }
+    .page-header::after  { left:4px; width:2px; }
+    .header-inner  { padding:20px 14px 20px 18px; }
+    .container     { padding:14px 12px; }
+    .header-title  { font-size:17px; }
+    .revisao-grid  { grid-template-columns:1fr 1fr; }
+    .recursos-grid { grid-template-columns:1fr; }
+    .section-body  { padding:14px; }
+    footer         { padding:16px; font-size:11px; }
+  }
+
+  #btn-topo { position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--dark); color:var(--white); border:none; font-size:18px; font-weight:700; cursor:pointer; z-index:999; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:all 0.2s ease; }
+  #btn-topo.visible { display:flex; }
+  #btn-topo:hover   { background:var(--uc-main); transform:translateY(-2px); }
+  @media print { #btn-topo { display:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action" onclick="window.print()">🖨️ Imprimir</button>
+  <button class="btn-action" onclick="salvarPDF()">📄 Exportar PDF</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 10</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">1º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">22/04/2026</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">Quarta-feira</span>
+      </div>
+      <h1 class="header-title">SQL DCL · <span>Revisão Geral</span> · Apresentação dos Trabalhos</h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Banco de Dados · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">H06</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- TEMA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidades</span>
+      <span class="section-tag section-tag-blue">1º Trimestre · Aula 10</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">
+        SQL DCL + Revisão Geral
+        <span>· Apresentação dos Trabalhos em Grupo — encerramento do 1º trimestre</span>
+      </div>
+      <div class="hab-row">
+        <span class="hab-tag">H06 — Identificar linguagem de banco de dados relacionais e não-relacionais</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag section-tag-blue">5 objetivos</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+      <ul class="obj-list">
+        <li><span class="obj-num">1</span>Compreender o papel do DCL dentro das categorias SQL e a importância do controle de acesso em bancos de dados</li>
+        <li><span class="obj-num">2</span>Aplicar os comandos <code style="font-family:'DM Mono',monospace;font-size:12.5px;background:var(--green-light);color:var(--green);padding:1px 6px;border-radius:4px;">GRANT</code> e <code style="font-family:'DM Mono',monospace;font-size:12.5px;background:var(--red-light);color:var(--red);padding:1px 6px;border-radius:4px;">REVOKE</code> para conceder e revogar permissões a usuários do banco</li>
+        <li><span class="obj-num">3</span>Revisar os principais conteúdos do 1º trimestre de forma integrada — conectando BD, SGBD, SQL e Normalização</li>
+        <li><span class="obj-num">4</span>Apresentar oralmente o trabalho de pesquisa desenvolvido ao longo do trimestre com clareza e domínio do conteúdo</li>
+        <li><span class="obj-num">5</span>Avaliar as apresentações dos colegas com base nos critérios definidos no enunciado do trabalho</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO DCL -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔐</span>
+      <span class="section-title">Conteúdo — SQL DCL</span>
+      <span class="section-tag section-tag-blue">Data Control Language</span>
+    </div>
+    <div class="section-body">
+
+      <div class="sub-titulo">O que é DCL e por que importa</div>
+      <p style="font-size:13.5px;margin-bottom:16px;line-height:1.7;">DCL — <strong>Data Control Language</strong> — é a categoria SQL responsável pelo controle de acesso ao banco de dados. Enquanto DDL define estrutura e DML manipula dados, o DCL define <strong>quem pode fazer o quê</strong> — aplicando o princípio do menor privilégio: cada usuário acessa apenas o que precisa para sua função.</p>
+
+      <div class="sub-titulo">Permissões disponíveis</div>
+      <div class="perm-grid">
+        <span class="perm-badge pb-ddl">SELECT</span>
+        <span class="perm-badge pb-dml">INSERT</span>
+        <span class="perm-badge pb-dml">UPDATE</span>
+        <span class="perm-badge pb-dml">DELETE</span>
+        <span class="perm-badge pb-dest">CREATE</span>
+        <span class="perm-badge pb-dest">DROP</span>
+        <span class="perm-badge pb-dest">ALTER</span>
+      </div>
+
+      <div class="sub-titulo">GRANT vs REVOKE</div>
+      <div class="dcl-compare">
+        <div class="dcl-card">
+          <div class="dcl-header dcl-grant">✅ GRANT — Conceder permissão</div>
+          <div class="dcl-body">
+            <span class="cb-comment">-- conceder SELECT e INSERT</span><br>
+            <span class="cb-kw">GRANT</span> <span class="cb-col">SELECT, INSERT</span><br>
+            <span class="cb-kw">ON</span> <span class="cb-tbl">loja.produto</span><br>
+            <span class="cb-kw">TO</span> <span class="cb-usr">'app_user'@'localhost'</span>;
+          </div>
+          <div class="dcl-note">Concede as permissões listadas ao usuário especificado no banco/tabela indicado.</div>
+        </div>
+        <div class="dcl-card">
+          <div class="dcl-header dcl-revoke">🚫 REVOKE — Revogar permissão</div>
+          <div class="dcl-body">
+            <span class="cb-comment">-- revogar apenas INSERT</span><br>
+            <span class="cb-kw">REVOKE</span> <span class="cb-col">INSERT</span><br>
+            <span class="cb-kw">ON</span> <span class="cb-tbl">loja.produto</span><br>
+            <span class="cb-kw">FROM</span> <span class="cb-usr">'app_user'@'localhost'</span>;
+          </div>
+          <div class="dcl-note">Remove permissões específicas do usuário — as demais permissões permanecem intactas.</div>
+        </div>
+      </div>
+
+      <div class="sub-titulo">Perfis de acesso em sistemas reais</div>
+      <div class="perfis-grid">
+        <div class="perfil-card">
+          <div class="perfil-header ph-leitura"><span class="perfil-icon">📊</span>Usuário de Leitura</div>
+          <div class="perfil-body">
+            <p class="perfil-desc">Usado em dashboards, relatórios e consultas analíticas. Não pode modificar dados.</p>
+            <div class="perfil-perms">
+              <span class="pp pp-ok">SELECT</span>
+              <span class="pp pp-no">INSERT</span>
+              <span class="pp pp-no">UPDATE</span>
+              <span class="pp pp-no">DELETE</span>
+              <span class="pp pp-no">DROP</span>
+            </div>
+          </div>
+        </div>
+        <div class="perfil-card">
+          <div class="perfil-header ph-app"><span class="perfil-icon">⚙️</span>Usuário de Aplicação</div>
+          <div class="perfil-body">
+            <p class="perfil-desc">Usado pelo sistema em produção. Opera dados sem poder alterar estrutura.</p>
+            <div class="perfil-perms">
+              <span class="pp pp-ok">SELECT</span>
+              <span class="pp pp-ok">INSERT</span>
+              <span class="pp pp-ok">UPDATE</span>
+              <span class="pp pp-ok">DELETE</span>
+              <span class="pp pp-no">DROP</span>
+              <span class="pp pp-no">ALTER</span>
+            </div>
+          </div>
+        </div>
+        <div class="perfil-card">
+          <div class="perfil-header ph-admin"><span class="perfil-icon">🔑</span>Administrador</div>
+          <div class="perfil-body">
+            <p class="perfil-desc">Acesso total ao banco. Responsável pela estrutura, backup e segurança.</p>
+            <div class="perfil-perms">
+              <span class="pp pp-ok">SELECT</span>
+              <span class="pp pp-ok">INSERT</span>
+              <span class="pp pp-ok">UPDATE</span>
+              <span class="pp pp-ok">DELETE</span>
+              <span class="pp pp-ok">CREATE</span>
+              <span class="pp pp-ok">DROP</span>
+              <span class="pp pp-ok">ALTER</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- REVISÃO GERAL -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔄</span>
+      <span class="section-title">Revisão Geral — 1º Trimestre</span>
+      <span class="section-tag section-tag-blue">SA 01 → SA 09</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:13.5px;color:var(--gray);margin-bottom:14px;">Professor percorre cada SA em sequência, conectando os conceitos — de BD até INSERT INTO.</p>
+      <div class="revisao-grid">
+        <div class="rev-item">
+          <div class="rev-sa">SA 01</div>
+          <div class="rev-tema">Introdução a Banco de Dados</div>
+          <div class="rev-data">04/02/2026</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-sa">SA 02</div>
+          <div class="rev-tema">Tipos e Arquitetura de BD</div>
+          <div class="rev-data">25/02/2026</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-sa">SA 03</div>
+          <div class="rev-tema">Normalização Parte 1 · 1FN</div>
+          <div class="rev-data">04/03/2026</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-sa">SA 04</div>
+          <div class="rev-tema">Normalização Parte 2 · 2FN e 3FN</div>
+          <div class="rev-data">11/03/2026</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-sa">SA 05</div>
+          <div class="rev-tema">SGBD — Sistemas de Gerenciamento</div>
+          <div class="rev-data">18/03/2026</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-sa">SA 06</div>
+          <div class="rev-tema">SQL e NoSQL</div>
+          <div class="rev-data">25/03/2026</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-sa">SA 07</div>
+          <div class="rev-tema">Ferramentas de BD</div>
+          <div class="rev-data">01/04/2026</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-sa">SA 08</div>
+          <div class="rev-tema">SQL DDL — CREATE TABLE</div>
+          <div class="rev-data">08/04/2026</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-sa">SA 09</div>
+          <div class="rev-tema">SQL DML — INSERT INTO</div>
+          <div class="rev-data">15/04/2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORGANIZAÇÃO DO TEMPO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag section-tag-blue">5 etapas · 90 min</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+        <thead>
+          <tr><th style="width:28%">Etapa</th><th>Atividade</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="etapa-pill ep-abertura">Abertura</span></td>
+            <td>Chamada · Organização da sala para as apresentações · Apresentação da agenda da aula</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-dcl">Explicação DCL</span></td>
+            <td>Slides — o que é DCL, por que o controle de acesso importa, GRANT e REVOKE com exemplos práticos e perfis de acesso em sistemas reais</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-revisao">Revisão Geral</span></td>
+            <td>Síntese rápida dos conteúdos do trimestre — professor percorre os temas de SA 01 a SA 09 em sequência, conectando os conceitos</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-apres">Apresentações</span></td>
+            <td>Cada grupo apresenta seu trabalho dentro do tempo definido (10–15 min) · 2 min de perguntas após cada apresentação · Professor e turma avaliam com base nos critérios do enunciado</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-fecha">Fechamento</span></td>
+            <td>Feedback geral sobre as apresentações · Orientação sobre a SA 11 (prova) — conteúdo, formato e data: <strong>29/04/2026</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- APRESENTAÇÕES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎤</span>
+      <span class="section-title">Apresentação dos Trabalhos em Grupo</span>
+      <span class="section-tag section-tag-purple">4 grupos · 10–15 min cada</span>
+    </div>
+    <div class="section-body">
+
+      <div class="sub-titulo">Temas por grupo</div>
+      <div class="grupos-grid">
+        <div class="grupo-card">
+          <div class="gc-header"><div class="gc-num">1</div><div class="gc-tema">Arquitetura Relacional de Banco de Dados</div></div>
+          <div class="gc-body">Modelos relacionais, tabelas, chaves, relacionamentos e como os dados são organizados em SGBDs relacionais.</div>
+        </div>
+        <div class="grupo-card">
+          <div class="gc-header"><div class="gc-num">2</div><div class="gc-tema">Arquitetura Não Relacional de Banco de Dados</div></div>
+          <div class="gc-body">Tipos de NoSQL (documento, chave-valor, coluna, grafo), casos de uso e comparação com o modelo relacional.</div>
+        </div>
+        <div class="grupo-card">
+          <div class="gc-header"><div class="gc-num">3</div><div class="gc-tema">Modelagem de Dados — Modelo Conceitual e ER</div></div>
+          <div class="gc-body">Diagrama entidade-relacionamento, entidades, atributos, relacionamentos e cardinalidade.</div>
+        </div>
+        <div class="grupo-card">
+          <div class="gc-header"><div class="gc-num">4</div><div class="gc-tema">Modelo Lógico e Físico de Banco de Dados</div></div>
+          <div class="gc-body">Transição do modelo conceitual para o lógico e físico — tabelas, colunas, tipos de dados e SQL.</div>
+        </div>
+      </div>
+
+      <div class="sub-titulo">Critérios de avaliação</div>
+      <table class="criterios-table">
+        <thead>
+          <tr><th>Critério</th><th style="width:100px;text-align:center;">Pontos</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Clareza e organização dos slides</td>
+            <td style="text-align:center;"><span class="pts-badge">4</span></td>
+          </tr>
+          <tr>
+            <td>Domínio do conteúdo na apresentação oral</td>
+            <td style="text-align:center;"><span class="pts-badge">4</span></td>
+          </tr>
+          <tr>
+            <td>Participação de todos os integrantes do grupo</td>
+            <td style="text-align:center;"><span class="pts-badge">4</span></td>
+          </tr>
+          <tr>
+            <td>Uso de exemplos práticos</td>
+            <td style="text-align:center;"><span class="pts-badge">4</span></td>
+          </tr>
+          <tr>
+            <td>Criatividade e qualidade visual</td>
+            <td style="text-align:center;"><span class="pts-badge">2</span></td>
+          </tr>
+          <tr>
+            <td>Citação das fontes consultadas</td>
+            <td style="text-align:center;"><span class="pts-badge">2</span></td>
+          </tr>
+          <tr>
+            <td><strong>Total</strong></td>
+            <td style="text-align:center;"><span class="pts-total">20</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sub-titulo">Orientações para os grupos</div>
+      <ul class="orientacoes-list">
+        <li class="or-item"><span class="or-icon">⏱️</span>Tempo por grupo: <strong>10 a 15 minutos</strong> de apresentação + 2 minutos para perguntas</li>
+        <li class="or-item"><span class="or-icon">🎙️</span><strong>Todos os integrantes</strong> devem falar — critério avaliado separadamente</li>
+        <li class="or-item"><span class="or-icon">📊</span>Mínimo de <strong>8 slides</strong> — sem limite máximo</li>
+        <li class="or-item"><span class="or-icon">📚</span>Citar as fontes consultadas ao final da apresentação</li>
+      </ul>
+
+      <div style="margin-top:20px;">
+        <div class="sub-titulo">Ficha de avaliação — professor</div>
+        <div class="ficha-box">
+          <div class="ficha-title">FICHA DE AVALIAÇÃO — TRABALHO EM GRUPO · SA 03 a SA 10</div>
+          <div class="ficha-group">Grupo: ______________________ &nbsp; Tema: ______________________ &nbsp; Data: 22/04/2026</div>
+          <table class="ficha-crit">
+            <thead>
+              <tr>
+                <th>Critério</th>
+                <th style="width:80px;text-align:center;">Máx.</th>
+                <th style="width:80px;text-align:center;">Nota</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Clareza e organização dos slides</td><td style="text-align:center;">4</td><td style="text-align:center;"><div class="nota-campo"></div></td></tr>
+              <tr><td>Domínio do conteúdo</td><td style="text-align:center;">4</td><td style="text-align:center;"><div class="nota-campo"></div></td></tr>
+              <tr><td>Participação de todos os integrantes</td><td style="text-align:center;">4</td><td style="text-align:center;"><div class="nota-campo"></div></td></tr>
+              <tr><td>Uso de exemplos práticos</td><td style="text-align:center;">4</td><td style="text-align:center;"><div class="nota-campo"></div></td></tr>
+              <tr><td>Criatividade e qualidade visual</td><td style="text-align:center;">2</td><td style="text-align:center;"><div class="nota-campo"></div></td></tr>
+              <tr><td>Citação das fontes</td><td style="text-align:center;">2</td><td style="text-align:center;"><div class="nota-campo"></div></td></tr>
+              <tr><td><strong>Total</strong></td><td style="text-align:center;"><strong>20</strong></td><td style="text-align:center;"><div class="nota-campo"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag section-tag-purple">Trabalho em Grupo · 20 pontos</span>
+    </div>
+    <div class="section-body">
+      <div class="aval-destaque">
+        <div class="ad-title">🎤 Avaliação formal: Trabalho em Grupo</div>
+        <div class="ad-body">
+          Esta aula <strong>não possui questionário individual</strong>. A avaliação formal é o Trabalho em Grupo com peso <strong>20 pontos</strong>, conforme os critérios definidos no enunciado entregue na SA 03. A participação oral durante a revisão geral pode ser registrada como atividade de sala pelo professor.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONEXÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag section-tag-gray">Continuidade</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant">
+          <div class="conn-label">← Aula anterior — SA 09</div>
+          <div style="font-size:13.5px;color:var(--dark);">SQL DML — INSERT INTO · 15/04/2026</div>
+        </div>
+        <div class="conn-card conn-prox">
+          <div class="conn-label">Próxima aula → SA 11</div>
+          <div style="font-size:13.5px;color:var(--dark);">Prova — 1ª Avaliação Trimestral · 29/04/2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag section-tag-gray">Verificar antes da aula</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid">
+        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor ou TV</span></div>
+        <div class="recurso-item"><span class="recurso-icon">💻</span><span>Computador com HDMI</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📊</span><span>Slides do professor (DCL + revisão)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🔌</span><span>Cabo HDMI para notebook dos grupos</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Ficha de avaliação impressa (1 por grupo)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSERVAÇÕES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag section-tag-gray">Opcional</span>
+    </div>
+    <div class="section-body">
+      <div class="obs-box"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Plano de Aula · <span>SA 10 — SQL DCL · Revisão Geral · Apresentação dos Trabalhos</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF = () => {
+    const t = document.title;
+    document.title = 'Plano_Aula_SA10_DCL_Revisao_Apresentacoes';
+    window.print();
+    setTimeout(() => { document.title = t; }, 1000);
+  };
+  const btn = document.getElementById('btn-topo');
+  window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 400); });
+  if (btn) btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>

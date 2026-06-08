@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 27 — SQL DQL · SELECT Básico</title>
+<meta name="description" content="Plano de aula SA 27 — SQL DQL: SELECT Básico · UC: Fundamentos de Banco de Dados · SENAI Umuarama">
+<meta name="theme-color" content="#0D1A2B">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uc-main:  #185FA5;
+    --uc-light: #E6F1FB;
+    --uc-tx:    #042C53;
+    --dark:     #0D1A2B;
+    --yellow:   #F9C74F;
+    --gold:     #C49A00;
+    --gray:     #64748B;
+    --light:    #F2F5F8;
+    --white:    #FFFFFF;
+    --text:     #1A2635;
+    --green:    #15803D;
+    --green-light:#DCFCE7;
+    --amber:    #D97706;
+    --amber-light:#FEF3C7;
+    --purple:   #7C3AED;
+    --purple-light:#F3E8FF;
+    --teal:     #0F766E;
+    --teal-light:#CCFBF1;
+    --red:      #DC2626;
+    --red-light:#FEE2E2;
+    --border:   #D4DCE4;
+    --warn-bg:  #FFF8E7;
+  }
+
+  html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(24,95,165,0.18); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-sub .uc-nome { white-space:nowrap; display:block; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; flex-shrink:0; align-self:flex-start; margin-top:4px; }
+
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag      { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
+  .section-tag-blue { background:var(--uc-light); color:var(--uc-main); }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); }
+  .section-body  { padding:24px 26px; }
+
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .tema-box span { color:var(--uc-main); }
+  .hab-row { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(24,95,165,0.2); }
+
+  .obj-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  .sub-titulo { font-size:12.5px; font-weight:700; color:var(--dark); margin:20px 0 10px; text-transform:uppercase; letter-spacing:0.8px; font-family:'DM Mono',monospace; padding-bottom:6px; border-bottom:2px solid var(--border); }
+  .sub-titulo:first-child { margin-top:0; }
+
+  /* CODE BLOCKS */
+  .code-block { background:var(--dark); border-radius:8px; padding:16px 20px; font-family:'DM Mono',monospace; font-size:12.5px; line-height:2; margin-bottom:14px; overflow-x:auto; }
+  .cb-comment { color:#475569; }
+  .cb-kw  { color:#93C5FD; font-weight:600; }
+  .cb-tbl { color:var(--yellow); }
+  .cb-col { color:#86EFAC; }
+  .cb-str { color:#86EFAC; }
+  .cb-num { color:#FDA4AF; }
+  .cb-op  { color:#FCA5A5; }
+  .cb-val { color:#FCD34D; }
+
+  /* BANCO LOCADORA */
+  .locadora-schema { background:var(--dark); border-radius:10px; overflow:hidden; border:1px solid #1E3A5F; margin-bottom:20px; }
+  .ls-header { background:#0A1628; padding:10px 18px; font-size:12px; font-family:'DM Mono',monospace; color:#64748B; display:flex; align-items:center; gap:8px; }
+  .ls-dot    { width:10px; height:10px; border-radius:50%; }
+  .ls-tables { display:grid; grid-template-columns:repeat(3,1fr); gap:0; }
+  .ls-table  { padding:14px 18px; border-right:1px solid #1E2D40; }
+  .ls-table:last-child { border-right:none; }
+  .ls-tname  { font-family:'DM Mono',monospace; font-size:12px; font-weight:700; color:var(--yellow); margin-bottom:8px; }
+  .ls-col    { font-family:'DM Mono',monospace; font-size:11.5px; line-height:1.8; }
+  .ls-pk     { color:#FCA5A5; }
+  .ls-fk     { color:#C4B5FD; }
+  .ls-reg    { color:#86EFAC; }
+
+  /* OPERADORES */
+  .op-groups { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
+  .op-group  { border-radius:10px; overflow:hidden; border:1px solid var(--border); }
+  .og-header { padding:10px 14px; font-size:13px; font-weight:700; color:var(--white); }
+  .og-comp   { background:#1D4ED8; }
+  .og-logic  { background:var(--teal); }
+  .og-spec   { background:var(--purple); }
+  .og-body   { padding:10px 14px 12px; background:var(--white); }
+  .op-item   { margin-bottom:8px; display:flex; align-items:flex-start; gap:8px; }
+  .op-badge  { font-family:'DM Mono',monospace; font-size:12px; font-weight:700; padding:2px 8px; border-radius:5px; white-space:nowrap; flex-shrink:0; }
+  .ob-comp   { background:#EFF6FF; color:#1D4ED8; }
+  .ob-logic  { background:var(--teal-light); color:var(--teal); }
+  .ob-spec   { background:var(--purple-light); color:var(--purple); }
+  .op-desc   { font-size:12px; color:var(--gray); line-height:1.4; }
+  .op-ex     { font-family:'DM Mono',monospace; font-size:11px; color:var(--gray); background:var(--light); padding:1px 6px; border-radius:4px; display:block; margin-top:2px; }
+
+  /* ORDEM DE ESCRITA vs EXECUÇÃO */
+  .ordem-compare { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+  .ord-card  { border-radius:10px; overflow:hidden; border:1px solid var(--border); }
+  .ord-header { padding:10px 16px; font-size:13px; font-weight:700; }
+  .oh-escrita { background:var(--uc-main); color:var(--white); }
+  .oh-exec    { background:var(--green); color:var(--white); }
+  .ord-body  { padding:12px 16px; background:var(--white); }
+  .ord-step  { display:flex; align-items:center; gap:10px; padding:5px 0; border-bottom:1px solid var(--border); font-size:13.5px; }
+  .ord-step:last-child { border-bottom:none; }
+  .ord-n     { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--white); }
+  .on-esc    { background:var(--uc-main); }
+  .on-exe    { background:var(--green); }
+  .ord-kw    { font-family:'DM Mono',monospace; font-size:12.5px; font-weight:700; }
+  .ord-obs   { font-size:12px; color:var(--gray); }
+
+  /* TIME TABLE */
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:last-child td { border-bottom:none; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; }
+  .ep-abertura { background:#E0F2FE; color:#0369A1; }
+  .ep-retomada { background:var(--amber-light); color:#92400E; }
+  .ep-expl     { background:var(--green-light); color:#166534; }
+  .ep-dinamica { background:var(--purple-light); color:#6B21A8; }
+  .ep-quest    { background:var(--red-light); color:#9F1239; }
+  .ep-fecha    { background:#F1F5F9; color:#475569; }
+
+  /* DINÂMICA */
+  .dinamica-box    { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:20px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body   { padding:18px; }
+  .dinamica-meta   { display:flex; gap:16px; margin-bottom:14px; flex-wrap:wrap; }
+  .dm-item { font-size:12.5px; color:var(--gray); display:flex; align-items:center; gap:6px; }
+  .dm-item strong { color:var(--dark); }
+  .dinamica-step   { display:flex; gap:14px; padding:10px 0; border-bottom:1px solid var(--border); font-size:13.5px; }
+  .dinamica-step:last-child { border-bottom:none; }
+  .step-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  /* RODADAS */
+  .rodada-wrap  { margin-bottom:14px; border-radius:10px; overflow:hidden; border:1px solid var(--border); }
+  .rodada-top   { display:flex; align-items:flex-start; gap:10px; padding:10px 16px; background:var(--light); border-bottom:1px solid var(--border); }
+  .rodada-num   { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; background:var(--uc-main); color:var(--white); width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  .rodada-enun  { font-size:13px; color:var(--dark); flex:1; line-height:1.5; }
+  .rodada-code  { background:var(--dark); padding:12px 18px; font-family:'DM Mono',monospace; font-size:12px; line-height:1.9; overflow-x:auto; }
+  .rod-label    { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--green); margin-bottom:4px; padding:10px 16px 0; }
+
+  .nota-box { background:var(--uc-light); border:1px solid rgba(24,95,165,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); line-height:1.6; margin-top:14px; }
+
+  .aval-parts { display:flex; flex-direction:column; gap:12px; }
+  .aval-part  { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .aval-part-header { padding:11px 18px; font-size:13.5px; font-weight:700; }
+  .aph-uc   { background:var(--uc-main); color:var(--white); }
+  .aph-dark { background:var(--dark); color:var(--white); }
+  .aph-gray { background:var(--gray); color:var(--white); }
+  .aval-part-body { padding:14px 18px; background:var(--white); }
+  .aval-part-body ul { list-style:none; }
+  .aval-part-body ul li { padding:5px 0 5px 18px; font-size:13.5px; position:relative; color:var(--text); border-bottom:1px solid var(--border); }
+  .aval-part-body ul li:last-child { border-bottom:none; }
+  .aval-part-body ul li::before { content:'•'; position:absolute; left:0; color:var(--uc-main); font-weight:700; }
+
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  .recurso-icon  { font-size:20px; }
+  .obs-box { background:var(--light); border:1px dashed var(--border); border-radius:8px; padding:16px 20px; min-height:80px; }
+
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  footer span { color:var(--uc-main); }
+
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; background:var(--dark); color:var(--white); }
+  .btn-action:hover { background:#1a3d66; box-shadow:0 4px 12px rgba(10,35,66,0.4); }
+  .btn-action:active { transform:scale(0.97); }
+  button:focus, a:focus { outline:3px solid var(--yellow); outline-offset:2px; }
+
+  @media print {
+    @page { size:A4 portrait; margin:18mm 14mm 16mm 14mm; }
+    * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    body { background:white !important; font-size:11.5px; }
+    .btn-group { display:none !important; }
+    .page-header { background:var(--dark) !important; }
+    .header-inner { padding:16px 24px 16px 30px !important; gap:16px !important; }
+    .header-title { font-size:22px !important; }
+    .container { padding:10px 0 !important; }
+    .section { box-shadow:none !important; break-inside:avoid; margin-bottom:12px !important; }
+    .section-body { padding:14px 20px !important; }
+    .section-header { padding:10px 20px !important; }
+    table { break-inside:avoid; }
+    a[href]::after { content:none !important; }
+    a { text-decoration:none !important; color:inherit !important; }
+    .obs-box { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
+    .op-groups    { grid-template-columns:repeat(3,1fr) !important; }
+    .ls-tables    { grid-template-columns:repeat(3,1fr) !important; }
+    .ordem-compare { grid-template-columns:1fr 1fr !important; }
+    .connection-row { grid-template-columns:1fr 1fr !important; }
+    .recursos-grid  { grid-template-columns:repeat(3,1fr) !important; }
+    .code-block, .rodada-code, .ls-col { font-size:11px !important; }
+    footer { background:var(--dark) !important; padding:12px !important; font-size:10.5px !important; }
+    #btn-topo { display:none !important; }
+  }
+
+  @media (max-width:960px) {
+    .header-inner { padding:36px 32px 36px 44px; }
+    .container    { padding:28px 32px; }
+    .header-title { font-size:28px; }
+    .op-groups    { grid-template-columns:1fr 1fr; }
+    .recursos-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:768px) {
+    .header-inner  { flex-direction:column; padding:28px 20px 28px 28px; gap:14px; }
+    .container     { padding:20px 16px; }
+    .header-title  { font-size:22px; }
+    .uc-nome       { white-space:normal; }
+    .section-header { padding:14px 18px; }
+    .section-body  { padding:18px; }
+    .op-groups     { grid-template-columns:1fr; }
+    .ls-tables     { grid-template-columns:1fr; }
+    .ordem-compare { grid-template-columns:1fr; }
+    .connection-row { grid-template-columns:1fr; }
+    .recursos-grid { grid-template-columns:1fr 1fr; }
+    .time-table    { display:block; overflow-x:auto; }
+    .btn-group { top:auto; bottom:20px; right:16px; flex-direction:row; }
+    .btn-action { padding:9px 14px; font-size:12px; }
+  }
+  @media (max-width:480px) {
+    .page-header::before { width:4px; }
+    .page-header::after  { left:4px; width:2px; }
+    .header-inner  { padding:20px 14px 20px 18px; }
+    .container     { padding:14px 12px; }
+    .header-title  { font-size:18px; }
+    .op-groups     { grid-template-columns:1fr; }
+    .recursos-grid { grid-template-columns:1fr; }
+    .section-body  { padding:14px; }
+    footer         { padding:16px; font-size:11px; }
+  }
+
+  #btn-topo { position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--dark); color:var(--white); border:none; font-size:18px; font-weight:700; cursor:pointer; z-index:999; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:all 0.2s ease; }
+  #btn-topo.visible { display:flex; }
+  #btn-topo:hover   { background:var(--uc-main); transform:translateY(-2px); }
+  @media print { #btn-topo { display:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action" onclick="window.print()">🖨️ Imprimir</button>
+  <button class="btn-action" onclick="salvarPDF()">📄 Exportar PDF</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 27</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">3º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">09/09/2026</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">Quarta-feira</span>
+      </div>
+      <h1 class="header-title">SQL DQL — <span>SELECT Básico</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Banco de Dados · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">H06 · H07</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- TEMA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidades</span>
+      <span class="section-tag section-tag-blue">3º Trimestre · Aula 27</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">
+        SQL DQL — SELECT Básico
+        <span>— estrutura, cláusulas, operadores e consultas sobre o banco da locadora</span>
+      </div>
+      <div class="hab-row">
+        <span class="hab-tag">H06 — Identificar linguagem de banco de dados relacionais e não-relacionais</span>
+        <span class="hab-tag">H07 — Identificar ferramentas de manipulação de banco de dados</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag section-tag-blue">5 objetivos</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+      <ul class="obj-list">
+        <li><span class="obj-num">1</span>Compreender o papel do DQL dentro das categorias SQL e o que o comando <code style="font-family:'DM Mono',monospace;font-size:12.5px;background:var(--uc-light);color:var(--uc-tx);padding:1px 6px;border-radius:4px;">SELECT</code> realiza</li>
+        <li><span class="obj-num">2</span>Escrever consultas básicas utilizando <code style="font-family:'DM Mono',monospace;font-size:12.5px;background:var(--uc-light);color:var(--uc-tx);padding:1px 6px;border-radius:4px;">SELECT</code>, <code style="font-family:'DM Mono',monospace;font-size:12.5px;background:var(--uc-light);color:var(--uc-tx);padding:1px 6px;border-radius:4px;">FROM</code>, <code style="font-family:'DM Mono',monospace;font-size:12.5px;background:var(--uc-light);color:var(--uc-tx);padding:1px 6px;border-radius:4px;">WHERE</code>, <code style="font-family:'DM Mono',monospace;font-size:12.5px;background:var(--uc-light);color:var(--uc-tx);padding:1px 6px;border-radius:4px;">ORDER BY</code> e <code style="font-family:'DM Mono',monospace;font-size:12.5px;background:var(--uc-light);color:var(--uc-tx);padding:1px 6px;border-radius:4px;">DISTINCT</code></li>
+        <li><span class="obj-num">3</span>Aplicar operadores de comparação e operadores lógicos para filtrar registros com precisão</li>
+        <li><span class="obj-num">4</span>Diferenciar a ordem de escrita das cláusulas da ordem de execução do <code style="font-family:'DM Mono',monospace;font-size:12.5px;background:var(--uc-light);color:var(--uc-tx);padding:1px 6px;border-radius:4px;">SELECT</code></li>
+        <li><span class="obj-num">5</span>Construir consultas progressivamente mais complexas sobre o banco da locadora</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo da Aula</span>
+      <span class="section-tag section-tag-blue">SELECT · WHERE · ORDER BY · DISTINCT · Operadores</span>
+    </div>
+    <div class="section-body">
+
+      <div class="sub-titulo">Banco de referência — Locadora</div>
+      <div class="locadora-schema">
+        <div class="ls-header">
+          <div class="ls-dot" style="background:#FF5F56;"></div>
+          <div class="ls-dot" style="background:#FFBD2E;"></div>
+          <div class="ls-dot" style="background:#27C93F;"></div>
+          <span style="margin-left:8px;">banco_locadora — esquema de referência</span>
+        </div>
+        <div class="ls-tables">
+          <div class="ls-table">
+            <div class="ls-tname">CLIENTE</div>
+            <div class="ls-col">
+              <span class="ls-pk">cpf</span> — PK, CHAR(11)<br>
+              <span class="ls-reg">nome</span> — VARCHAR(150)<br>
+              <span class="ls-reg">email</span> — VARCHAR(100)<br>
+              <span class="ls-reg">cidade_cliente</span> — VARCHAR(80)
+            </div>
+          </div>
+          <div class="ls-table">
+            <div class="ls-tname">FILME</div>
+            <div class="ls-col">
+              <span class="ls-pk">id_filme</span> — PK, INT AUTO_INC<br>
+              <span class="ls-reg">titulo</span> — VARCHAR(150)<br>
+              <span class="ls-reg">genero</span> — VARCHAR(50)<br>
+              <span class="ls-reg">ano</span> — INT
+            </div>
+          </div>
+          <div class="ls-table">
+            <div class="ls-tname">LOCACAO</div>
+            <div class="ls-col">
+              <span class="ls-pk">id_locacao</span> — PK, INT AUTO_INC<br>
+              <span class="ls-fk">cpf_cliente</span> — FK → CLIENTE<br>
+              <span class="ls-fk">id_filme</span> — FK → FILME<br>
+              <span class="ls-reg">data_locacao</span> — DATE
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-titulo">Estrutura básica do SELECT</div>
+      <div class="code-block">
+        <span class="cb-comment">-- sintaxe completa — ordem de escrita</span><br>
+        <span class="cb-kw">SELECT</span> &nbsp;&nbsp;&nbsp;<span class="cb-col">coluna1</span>, <span class="cb-col">coluna2</span> &nbsp;&nbsp;&nbsp;<span class="cb-comment">-- quais colunas retornar</span><br>
+        <span class="cb-kw">FROM</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="cb-tbl">tabela</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cb-comment">-- de qual tabela</span><br>
+        <span class="cb-kw">WHERE</span> &nbsp;&nbsp;&nbsp;<span class="cb-col">coluna</span> <span class="cb-op">=</span> <span class="cb-val">valor</span> &nbsp;&nbsp;<span class="cb-comment">-- filtro de linhas</span><br>
+        <span class="cb-kw">ORDER BY</span> <span class="cb-col">coluna</span> <span class="cb-kw">ASC</span>; &nbsp;&nbsp;&nbsp;<span class="cb-comment">-- ordenação (ASC = padrão)</span><br>
+        <br>
+        <span class="cb-comment">-- exemplo: filmes de ação ordenados por ano</span><br>
+        <span class="cb-kw">SELECT</span> <span class="cb-col">titulo</span>, <span class="cb-col">ano</span><br>
+        <span class="cb-kw">FROM</span>   <span class="cb-tbl">filme</span><br>
+        <span class="cb-kw">WHERE</span>  <span class="cb-col">genero</span> <span class="cb-op">=</span> <span class="cb-str">'Ação'</span><br>
+        <span class="cb-kw">ORDER BY</span> <span class="cb-col">ano</span> <span class="cb-kw">DESC</span>;
+      </div>
+
+      <div class="sub-titulo">Operadores</div>
+      <div class="op-groups">
+        <div class="op-group">
+          <div class="og-header og-comp">🔢 Comparação</div>
+          <div class="og-body">
+            <div class="op-item"><span class="op-badge ob-comp">=</span><div class="op-desc">Igual a<span class="op-ex">WHERE ano = 2023</span></div></div>
+            <div class="op-item"><span class="op-badge ob-comp">&lt;&gt;</span><div class="op-desc">Diferente de<span class="op-ex">WHERE genero &lt;&gt; 'Terror'</span></div></div>
+            <div class="op-item"><span class="op-badge ob-comp">&gt; &lt;</span><div class="op-desc">Maior / menor<span class="op-ex">WHERE ano &gt; 2020</span></div></div>
+            <div class="op-item"><span class="op-badge ob-comp">&gt;= &lt;=</span><div class="op-desc">Maior ou igual / menor ou igual<span class="op-ex">WHERE ano &lt;= 2015</span></div></div>
+          </div>
+        </div>
+        <div class="op-group">
+          <div class="og-header og-logic">🔗 Lógicos</div>
+          <div class="og-body">
+            <div class="op-item"><span class="op-badge ob-logic">AND</span><div class="op-desc">Ambas as condições verdadeiras<span class="op-ex">WHERE genero = 'Ação' AND ano &gt; 2018</span></div></div>
+            <div class="op-item"><span class="op-badge ob-logic">OR</span><div class="op-desc">Pelo menos uma condição verdadeira<span class="op-ex">WHERE cidade = 'SP' OR cidade = 'RJ'</span></div></div>
+            <div class="op-item"><span class="op-badge ob-logic">NOT</span><div class="op-desc">Nega a condição<span class="op-ex">WHERE NOT genero = 'Terror'</span></div></div>
+          </div>
+        </div>
+        <div class="op-group">
+          <div class="og-header og-spec">✨ Especiais</div>
+          <div class="og-body">
+            <div class="op-item"><span class="op-badge ob-spec">BETWEEN</span><div class="op-desc">Intervalo inclusivo de valores<span class="op-ex">WHERE ano BETWEEN 2015 AND 2023</span></div></div>
+            <div class="op-item"><span class="op-badge ob-spec">LIKE</span><div class="op-desc">Padrão em texto — % = qualquer texto, _ = 1 char<span class="op-ex">WHERE nome LIKE 'A%'</span></div></div>
+            <div class="op-item"><span class="op-badge ob-spec">IN</span><div class="op-desc">Lista de valores possíveis<span class="op-ex">WHERE cidade IN ('Curitiba', 'São Paulo')</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-titulo">Ordem de escrita vs. ordem de execução</div>
+      <div class="ordem-compare">
+        <div class="ord-card">
+          <div class="ord-header oh-escrita">✍️ Como você escreve</div>
+          <div class="ord-body">
+            <div class="ord-step"><span class="ord-n on-esc">1</span><span class="ord-kw" style="color:#1D4ED8;">SELECT</span><span class="ord-obs">— quais colunas exibir</span></div>
+            <div class="ord-step"><span class="ord-n on-esc">2</span><span class="ord-kw" style="color:#1D4ED8;">FROM</span><span class="ord-obs">— de qual tabela</span></div>
+            <div class="ord-step"><span class="ord-n on-esc">3</span><span class="ord-kw" style="color:#1D4ED8;">WHERE</span><span class="ord-obs">— condição de filtro</span></div>
+            <div class="ord-step"><span class="ord-n on-esc">4</span><span class="ord-kw" style="color:#1D4ED8;">ORDER BY</span><span class="ord-obs">— como ordenar</span></div>
+          </div>
+        </div>
+        <div class="ord-card">
+          <div class="ord-header oh-exec">⚙️ Como o banco executa</div>
+          <div class="ord-body">
+            <div class="ord-step"><span class="ord-n on-exe">1</span><span class="ord-kw" style="color:var(--green);">FROM</span><span class="ord-obs">— carrega a tabela</span></div>
+            <div class="ord-step"><span class="ord-n on-exe">2</span><span class="ord-kw" style="color:var(--green);">WHERE</span><span class="ord-obs">— filtra as linhas</span></div>
+            <div class="ord-step"><span class="ord-n on-exe">3</span><span class="ord-kw" style="color:var(--green);">SELECT</span><span class="ord-obs">— seleciona as colunas</span></div>
+            <div class="ord-step"><span class="ord-n on-exe">4</span><span class="ord-kw" style="color:var(--green);">ORDER BY</span><span class="ord-obs">— ordena o resultado</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-titulo">DISTINCT — eliminar duplicatas</div>
+      <div class="code-block" style="margin-bottom:8px;">
+        <span class="cb-comment">-- sem DISTINCT: pode retornar 'Ação' várias vezes</span><br>
+        <span class="cb-kw">SELECT</span> <span class="cb-col">genero</span> <span class="cb-kw">FROM</span> <span class="cb-tbl">filme</span>;<br>
+        <br>
+        <span class="cb-comment">-- com DISTINCT: cada gênero aparece uma única vez</span><br>
+        <span class="cb-kw">SELECT DISTINCT</span> <span class="cb-col">genero</span> <span class="cb-kw">FROM</span> <span class="cb-tbl">filme</span>;
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ORGANIZAÇÃO DO TEMPO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag section-tag-blue">6 etapas · 90 min</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+        <thead>
+          <tr><th style="width:28%">Etapa</th><th>Atividade</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="etapa-pill ep-abertura">Abertura</span></td>
+            <td>Chamada · Abertura formal do 3º trimestre · Conexão com a SA 26: <em>"Na aula anterior aprendemos a ler um SELECT. Hoje vamos aprender a escrever."</em></td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-retomada">Retomada</span></td>
+            <td>Professor exibe o script SQL completo do banco da locadora e pergunta: <em>"Sabemos criar e popular esse banco. Agora: como fazemos perguntas específicas a ele?"</em></td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-expl">Explicação</span></td>
+            <td>Slides — estrutura do SELECT, cláusulas fundamentais, operadores de comparação e lógicos, ORDER BY, DISTINCT — com exemplos sobre o banco da locadora</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-dinamica">Dinâmica</span></td>
+            <td>"Escreve o SELECT" — grupos de 3 a 4 alunos traduzem enunciados em português para código SQL, apresentam ao professor e recebem feedback</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-quest">Questionário</span></td>
+            <td>5 questões objetivas + 5 questões discursivas sobre o conteúdo da aula</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-fecha">Fechamento</span></td>
+            <td>Resumo: SELECT + FROM + WHERE + ORDER BY + DISTINCT · Próxima aula: Funções de Agregação (SA 28 · 16/09)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DINÂMICA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica</span>
+      <span class="section-tag section-tag-blue">Escreve o SELECT · 4 rodadas</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box">
+        <div class="dinamica-header">✍️ Escreve o SELECT — Tradução de Enunciado para SQL</div>
+        <div class="dinamica-body">
+          <div class="dinamica-meta">
+            <div class="dm-item">⏱️ <strong>Duração:</strong> 15 minutos</div>
+            <div class="dm-item">👥 <strong>Grupos:</strong> 3 a 4 alunos</div>
+            <div class="dm-item">📄 <strong>Material:</strong> folha A4 por grupo + slide com esquema do banco</div>
+            <div class="dm-item">🎯 <strong>Objetivo:</strong> traduzir necessidades de negócio em código SQL</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">1</div>
+            <div><strong>Leitura do enunciado</strong> <em>(1 min)</em> — Professor lê o enunciado em voz alta e projeta no slide.</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">2</div>
+            <div><strong>Escrita em grupo</strong> <em>(2 min)</em> — O grupo escreve o comando SELECT correspondente na folha A4.</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">3</div>
+            <div><strong>Apresentação e correção</strong> <em>(1 min)</em> — Um grupo apresenta. Professor compara com o gabarito e discute diferenças de sintaxe.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RODADA 1 -->
+      <div class="rodada-wrap">
+        <div class="rodada-top">
+          <div class="rodada-num">1</div>
+          <div class="rodada-enun">Mostre o <strong>título</strong> e o <strong>ano</strong> de todos os filmes cadastrados, ordenados do mais recente para o mais antigo</div>
+        </div>
+        <div class="rod-label">Gabarito esperado</div>
+        <div class="rodada-code">
+          <span class="cb-kw">SELECT</span> <span class="cb-col">titulo</span>, <span class="cb-col">ano</span><br>
+          <span class="cb-kw">FROM</span> <span class="cb-tbl">filme</span><br>
+          <span class="cb-kw">ORDER BY</span> <span class="cb-col">ano</span> <span class="cb-kw">DESC</span>;
+        </div>
+      </div>
+
+      <!-- RODADA 2 -->
+      <div class="rodada-wrap">
+        <div class="rodada-top">
+          <div class="rodada-num">2</div>
+          <div class="rodada-enun">Mostre o <strong>nome</strong> e o <strong>e-mail</strong> dos clientes que moram em <strong>Curitiba</strong></div>
+        </div>
+        <div class="rod-label">Gabarito esperado</div>
+        <div class="rodada-code">
+          <span class="cb-kw">SELECT</span> <span class="cb-col">nome</span>, <span class="cb-col">email</span><br>
+          <span class="cb-kw">FROM</span> <span class="cb-tbl">cliente</span><br>
+          <span class="cb-kw">WHERE</span> <span class="cb-col">cidade_cliente</span> <span class="cb-op">=</span> <span class="cb-str">'Curitiba'</span>;
+        </div>
+      </div>
+
+      <!-- RODADA 3 -->
+      <div class="rodada-wrap">
+        <div class="rodada-top">
+          <div class="rodada-num">3</div>
+          <div class="rodada-enun">Mostre os <strong>gêneros de filmes</strong> disponíveis no catálogo, <strong>sem repetição</strong></div>
+        </div>
+        <div class="rod-label">Gabarito esperado</div>
+        <div class="rodada-code">
+          <span class="cb-kw">SELECT DISTINCT</span> <span class="cb-col">genero</span><br>
+          <span class="cb-kw">FROM</span> <span class="cb-tbl">filme</span>;
+        </div>
+      </div>
+
+      <!-- RODADA 4 -->
+      <div class="rodada-wrap">
+        <div class="rodada-top">
+          <div class="rodada-num">4</div>
+          <div class="rodada-enun">Mostre o <strong>título</strong> dos filmes de <strong>ação</strong> lançados <strong>entre 2015 e 2023</strong></div>
+        </div>
+        <div class="rod-label">Gabarito esperado</div>
+        <div class="rodada-code">
+          <span class="cb-kw">SELECT</span> <span class="cb-col">titulo</span><br>
+          <span class="cb-kw">FROM</span> <span class="cb-tbl">filme</span><br>
+          <span class="cb-kw">WHERE</span> <span class="cb-col">genero</span> <span class="cb-op">=</span> <span class="cb-str">'Ação'</span> <span class="cb-kw">AND</span> <span class="cb-col">ano</span> <span class="cb-kw">BETWEEN</span> <span class="cb-num">2015</span> <span class="cb-kw">AND</span> <span class="cb-num">2023</span>;
+        </div>
+      </div>
+
+      <div class="nota-box">
+        💡 <strong>Ponto pedagógico:</strong> valorizar a lógica correta mesmo que a sintaxe varie em detalhes não essenciais — maiúsculas, espaçamento ou uso de aspas simples em vez de duplas. O objetivo é desenvolver o raciocínio de tradução, não a memorização mecânica.
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag section-tag-blue">Questionário · 10 questões</span>
+    </div>
+    <div class="section-body">
+      <div class="aval-parts">
+        <div class="aval-part">
+          <div class="aval-part-header aph-uc">Parte 1 — Questões Objetivas (5 questões)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Nível alto · 4 alternativas: A) B) C) D) · Gabarito alternado, sem repetição consecutiva</li>
+              <li>Temas: papel do DQL, cláusulas do SELECT, operadores, ORDER BY, DISTINCT, ordem de execução</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header aph-dark">Parte 2 — Questões Discursivas (5 questões)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Cada questão com título explicativo antes do enunciado</li>
+              <li>Sem linhas — apenas espaço em branco com <code style="font-family:'DM Mono',monospace;font-size:12px;background:rgba(24,95,165,0.1);color:var(--uc-tx);padding:1px 5px;border-radius:4px;">R:</code></li>
+              <li>Temas: escrever um SELECT com WHERE e ORDER BY, diferença entre LIKE e =, uso de DISTINCT, BETWEEN vs AND combinado</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header aph-gray">Gabarito</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Em página separada — uso exclusivo do professor</li>
+              <li>Objetivas: letra correta + justificativa · Discursivas: resposta esperada com critérios</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONEXÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag section-tag-gray">Continuidade</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant">
+          <div class="conn-label">← Aula anterior — SA 26</div>
+          <div style="font-size:13.5px;color:var(--dark);">Conexão com o 3º Trimestre — Introdução ao SELECT · 02/09/2026</div>
+        </div>
+        <div class="conn-card conn-prox">
+          <div class="conn-label">Próxima aula → SA 28</div>
+          <div style="font-size:13.5px;color:var(--dark);">SQL DQL — Funções de Agregação · 16/09/2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag section-tag-gray">Verificar antes da aula</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid">
+        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor ou TV</span></div>
+        <div class="recurso-item"><span class="recurso-icon">💻</span><span>Computador com HDMI</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📊</span><span>Apresentação com 20 slides</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Questionário impresso ou digital</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📄</span><span>Folha A4 por grupo (dinâmica)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🖊️</span><span>Quadro branco e marcador</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSERVAÇÕES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag section-tag-gray">Opcional</span>
+    </div>
+    <div class="section-body">
+      <div class="obs-box"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Plano de Aula · <span>SA 27 — SQL DQL · SELECT Básico</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF = () => {
+    const t = document.title;
+    document.title = 'Plano_Aula_SA27_DQL_SELECT_Basico';
+    window.print();
+    setTimeout(() => { document.title = t; }, 1000);
+  };
+  const btn = document.getElementById('btn-topo');
+  window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 400); });
+  if (btn) btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>

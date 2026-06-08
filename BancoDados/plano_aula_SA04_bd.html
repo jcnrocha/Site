@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 04 — Normalização Parte 2 · 2FN e 3FN</title>
+<meta name="description" content="Plano de aula SA 04 — Normalização Parte 2: 2FN e 3FN · UC: Fundamentos de Banco de Dados · SENAI Umuarama">
+<meta name="theme-color" content="#0D1A2B">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uc-main:  #185FA5;
+    --uc-light: #E6F1FB;
+    --uc-tx:    #042C53;
+    --dark:     #0D1A2B;
+    --yellow:   #F9C74F;
+    --gold:     #C49A00;
+    --gray:     #64748B;
+    --light:    #F2F5F8;
+    --white:    #FFFFFF;
+    --text:     #1A2635;
+    --red:      #DC2626;
+    --red-light:#FEE2E2;
+    --green:    #15803D;
+    --green-light:#DCFCE7;
+    --amber:    #D97706;
+    --amber-light:#FEF3C7;
+    --purple:   #7C3AED;
+    --purple-light:#F3E8FF;
+    --teal:     #0F766E;
+    --teal-light:#CCFBF1;
+    --border:   #D4DCE4;
+    --warn-bg:  #FFF8E7;
+  }
+
+  html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(24,95,165,0.18); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-sub .uc-nome { white-space:nowrap; display:block; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; flex-shrink:0; align-self:flex-start; margin-top:4px; }
+
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag      { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
+  .section-tag-blue { background:var(--uc-light); color:var(--uc-main); }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); }
+  .section-body  { padding:24px 26px; }
+
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .tema-box span { color:var(--uc-main); }
+  .hab-row { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(24,95,165,0.2); }
+
+  .obj-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  .sub-titulo { font-size:12.5px; font-weight:700; color:var(--dark); margin:20px 0 10px; text-transform:uppercase; letter-spacing:0.8px; font-family:'DM Mono',monospace; padding-bottom:6px; border-bottom:2px solid var(--border); }
+
+  /* DEPENDÊNCIA FUNCIONAL */
+  .dep-box { background:var(--uc-light); border:1px solid rgba(24,95,165,0.25); border-radius:10px; padding:18px 22px; margin-bottom:20px; }
+  .dep-conceito { font-size:14px; color:var(--uc-tx); line-height:1.6; margin-bottom:14px; }
+  .dep-formula { text-align:center; padding:14px 20px; background:var(--white); border:2px solid var(--uc-main); border-radius:8px; margin-bottom:14px; }
+  .dep-formula .formula-txt { font-family:'DM Mono',monospace; font-size:20px; font-weight:700; color:var(--uc-main); letter-spacing:2px; }
+  .dep-formula .formula-desc { font-size:12px; color:var(--gray); margin-top:4px; }
+  .dep-exemplos { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .dep-ex { background:var(--white); border:1px solid var(--border); border-radius:8px; padding:10px 14px; font-size:12.5px; }
+  .dep-ex .dep-ex-label { font-family:'DM Mono',monospace; font-size:11px; color:var(--uc-main); text-transform:uppercase; letter-spacing:0.5px; font-weight:600; margin-bottom:4px; }
+  .dep-ex code { font-family:'DM Mono',monospace; font-size:12px; color:var(--uc-tx); background:var(--uc-light); padding:2px 6px; border-radius:4px; }
+
+  /* 2FN e 3FN CARDS */
+  .fn-cards { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
+  .fn-card { border-radius:10px; overflow:hidden; border:2px solid; }
+  .fnc-2fn { border-color:var(--teal); }
+  .fnc-3fn { border-color:var(--purple); }
+  .fn-card-header { padding:14px 18px; display:flex; align-items:center; gap:12px; }
+  .fnc-2fn .fn-card-header { background:var(--teal); }
+  .fnc-3fn .fn-card-header { background:var(--purple); }
+  .fn-sigla { font-family:'DM Mono',monospace; font-size:24px; font-weight:700; color:var(--white); }
+  .fn-nome  { font-size:12px; color:rgba(255,255,255,0.85); line-height:1.3; }
+  .fn-card-body { padding:16px 18px; background:var(--white); }
+  .fn-prereq { font-size:12px; color:var(--gray); background:var(--light); border-radius:6px; padding:6px 10px; margin-bottom:10px; font-style:italic; }
+  .fn-regra-txt { font-size:13.5px; color:var(--text); line-height:1.6; margin-bottom:10px; }
+  .fn-regra-txt strong { color:var(--dark); }
+  .fn-como { font-size:12.5px; color:var(--gray); border-top:1px solid var(--border); padding-top:10px; line-height:1.6; }
+  .fn-como strong { color:var(--text); }
+
+  /* DIFERENÇA TABELA */
+  .diff-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-bottom:20px; }
+  .diff-table thead tr { background:var(--dark); }
+  .diff-table th { color:var(--white); padding:10px 16px; text-align:left; font-size:12.5px; }
+  .diff-table td { padding:10px 16px; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.6; }
+  .diff-table tr:last-child td { border-bottom:none; }
+  .diff-table tr:nth-child(even) td { background:#F7FAFC; }
+
+  /* FRASE DE OURO */
+  .frase-ouro { background:linear-gradient(135deg,var(--uc-tx) 0%,var(--uc-main) 100%); border-radius:10px; padding:20px 26px; text-align:center; margin-bottom:20px; }
+  .frase-ouro blockquote { font-family:'DM Serif Display',serif; font-size:17px; color:var(--white); line-height:1.6; font-style:italic; }
+  .frase-ouro .frase-attr { font-size:11px; color:rgba(255,255,255,0.6); margin-top:8px; font-family:'DM Mono',monospace; }
+
+  /* PROCESSO COMPLETO */
+  .processo-flow { display:flex; align-items:flex-start; gap:0; margin-bottom:16px; }
+  .pf-step { flex:1; border-radius:10px; overflow:hidden; border:1px solid var(--border); }
+  .pf-step-header { padding:10px 12px; text-align:center; }
+  .pf-step-badge  { font-family:'DM Mono',monospace; font-size:13px; font-weight:700; color:var(--white); }
+  .pf-step-nome   { font-size:11.5px; color:rgba(255,255,255,0.8); margin-top:2px; }
+  .pf-step-body   { padding:10px 12px; background:var(--light); font-size:11.5px; color:var(--gray); line-height:1.5; }
+  .pf-step-body ul { list-style:none; }
+  .pf-step-body li { padding-left:12px; position:relative; margin-bottom:3px; }
+  .pf-step-body li::before { content:'▸'; position:absolute; left:0; font-size:9px; top:4px; color:var(--uc-main); }
+  .pfs-1fn .pf-step-header { background:#1D4ED8; }
+  .pfs-2fn .pf-step-header { background:var(--teal); }
+  .pfs-3fn .pf-step-header { background:var(--purple); }
+  .pf-arrow { display:flex; align-items:center; justify-content:center; padding:0 8px; font-size:20px; color:#CBD5E1; flex-shrink:0; margin-top:30px; }
+
+  /* MINI TABLE DESNORMALIZADA */
+  .mini-wrap { overflow-x:auto; margin-bottom:12px; }
+  .dn-table { border-collapse:collapse; font-size:11px; font-family:'DM Mono',monospace; border:1px solid var(--border); border-radius:6px; overflow:hidden; white-space:nowrap; }
+  .dn-table th { background:var(--uc-tx); color:var(--white); padding:6px 10px; text-align:left; }
+  .dn-table td { padding:5px 10px; border-bottom:1px solid var(--border); color:var(--text); }
+  .dn-table tr:last-child td { border-bottom:none; }
+  .dn-table tr:nth-child(even) td { background:#F7FAFC; }
+  .dn-table .cell-pk  { background:var(--uc-light) !important; color:var(--uc-main) !important; font-weight:700; }
+  .dn-table .cell-par { background:var(--teal-light) !important; color:var(--teal) !important; }
+  .dn-table .cell-tra { background:var(--purple-light) !important; color:var(--purple) !important; }
+
+  .schema-box { background:var(--dark); border-radius:8px; padding:16px 20px; font-family:'DM Mono',monospace; font-size:12.5px; color:#94A3B8; line-height:1.9; margin-top:14px; }
+  .schema-box .sk-table  { color:var(--yellow); font-weight:600; }
+  .schema-box .sk-pk     { color:#86EFAC; }
+  .schema-box .sk-fk     { color:#93C5FD; }
+  .schema-box .sk-attr   { color:#E2E8F0; }
+  .schema-box .sk-comment { color:#475569; font-style:italic; }
+
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:last-child td { border-bottom:none; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; }
+  .ep-abertura { background:#E0F2FE; color:#0369A1; }
+  .ep-retomada { background:#FEF9C3; color:#854D0E; }
+  .ep-expl     { background:#DCFCE7; color:#166534; }
+  .ep-dinamica { background:#F3E8FF; color:#6B21A8; }
+  .ep-quest    { background:#FFE4E6; color:#9F1239; }
+  .ep-fecha    { background:#F1F5F9; color:#475569; }
+
+  .dinamica-box    { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body   { padding:18px; }
+  .dinamica-meta   { display:flex; gap:16px; margin-bottom:16px; flex-wrap:wrap; }
+  .dinamica-meta-item { font-size:12.5px; color:var(--gray); display:flex; align-items:center; gap:6px; }
+  .dinamica-meta-item strong { color:var(--dark); }
+  .dinamica-step   { display:flex; gap:14px; padding:10px 0; border-bottom:1px solid var(--border); font-size:13.5px; }
+  .dinamica-step:last-child { border-bottom:none; }
+  .step-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  .legenda-row { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
+  .leg-item { font-size:11.5px; display:flex; align-items:center; gap:6px; }
+  .leg-dot  { width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+
+  .nota-box { background:var(--uc-light); border:1px solid rgba(24,95,165,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); line-height:1.6; margin-top:12px; }
+
+  .aval-parts { display:flex; flex-direction:column; gap:12px; }
+  .aval-part  { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .aval-part-header { padding:11px 18px; font-size:13.5px; font-weight:700; }
+  .aph-uc   { background:var(--uc-main); color:var(--white); }
+  .aph-dark { background:var(--dark); color:var(--white); }
+  .aph-gray { background:var(--gray); color:var(--white); }
+  .aval-part-body { padding:14px 18px; background:var(--white); }
+  .aval-part-body ul { list-style:none; }
+  .aval-part-body ul li { padding:5px 0 5px 18px; font-size:13.5px; position:relative; color:var(--text); border-bottom:1px solid var(--border); }
+  .aval-part-body ul li:last-child { border-bottom:none; }
+  .aval-part-body ul li::before { content:'•'; position:absolute; left:0; color:var(--uc-main); font-weight:700; }
+
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  .recurso-icon  { font-size:20px; }
+  .obs-box { background:var(--light); border:1px dashed var(--border); border-radius:8px; padding:16px 20px; min-height:80px; font-size:13.5px; color:var(--gray); }
+
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  footer span { color:var(--uc-main); }
+
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; }
+  .btn-action:active { transform:scale(0.97); }
+  .btn-imprimir { background:var(--dark); color:var(--white); }
+  .btn-imprimir:hover { background:#1a3d66; box-shadow:0 4px 12px rgba(10,35,66,0.4); }
+  .btn-pdf { background:var(--dark); color:var(--white); }
+  .btn-pdf:hover { background:#1a3d66; box-shadow:0 4px 12px rgba(10,35,66,0.4); }
+  button:focus, a:focus { outline:3px solid var(--yellow); outline-offset:2px; }
+
+  @media print {
+    @page { size:A4 portrait; margin:18mm 14mm 16mm 14mm; }
+    * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    body { background:white !important; font-size:11.5px; }
+    .btn-group { display:none !important; }
+    .page-header { background:var(--dark) !important; }
+    .header-inner { padding:16px 24px 16px 30px !important; gap:16px !important; }
+    .header-title { font-size:22px !important; }
+    .container { padding:10px 0 !important; }
+    .section { box-shadow:none !important; break-inside:avoid; margin-bottom:12px !important; }
+    .section-body { padding:14px 20px !important; }
+    .section-header { padding:10px 20px !important; }
+    table { break-inside:avoid; }
+    a[href]::after { content:none !important; }
+    a { text-decoration:none !important; color:inherit !important; }
+    .obs-box { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
+    .fn-cards { grid-template-columns:1fr 1fr !important; }
+    .dep-exemplos { grid-template-columns:1fr 1fr !important; }
+    .connection-row { grid-template-columns:1fr 1fr !important; }
+    .recursos-grid { grid-template-columns:repeat(3,1fr) !important; }
+    .processo-flow { flex-wrap:nowrap !important; }
+    footer { background:var(--dark) !important; padding:12px !important; font-size:10.5px !important; }
+    #btn-topo { display:none !important; }
+  }
+
+  @media (max-width:960px) {
+    .header-inner { padding:36px 32px 36px 44px; }
+    .container    { padding:28px 32px; }
+    .header-title { font-size:28px; }
+    .recursos-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:768px) {
+    .header-inner   { flex-direction:column; padding:28px 20px 28px 28px; gap:14px; }
+    .container      { padding:20px 16px; }
+    .header-title   { font-size:22px; }
+    .uc-nome        { white-space:normal; }
+    .section-header { padding:14px 18px; }
+    .section-body   { padding:18px; }
+    .fn-cards       { grid-template-columns:1fr; }
+    .dep-exemplos   { grid-template-columns:1fr; }
+    .processo-flow  { flex-direction:column; }
+    .pf-arrow       { transform:rotate(90deg); padding:4px 0; margin:0 auto; margin-top:0; }
+    .connection-row { grid-template-columns:1fr; }
+    .recursos-grid  { grid-template-columns:1fr 1fr; }
+    .time-table     { display:block; overflow-x:auto; }
+    .btn-group  { top:auto; bottom:20px; right:16px; flex-direction:row; }
+    .btn-action { padding:9px 14px; font-size:12px; }
+  }
+  @media (max-width:480px) {
+    .page-header::before { width:4px; }
+    .page-header::after  { left:4px; width:2px; }
+    .header-inner  { padding:20px 14px 20px 18px; }
+    .container     { padding:14px 12px; }
+    .header-title  { font-size:18px; }
+    .recursos-grid { grid-template-columns:1fr; }
+    .section-body  { padding:14px; }
+    footer         { padding:16px; font-size:11px; }
+  }
+
+  #btn-topo { position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--dark); color:var(--white); border:none; font-size:18px; font-weight:700; cursor:pointer; z-index:999; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:all 0.2s ease; }
+  #btn-topo.visible { display:flex; }
+  #btn-topo:hover   { background:var(--uc-main); transform:translateY(-2px); }
+  @media print { #btn-topo { display:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action btn-imprimir" onclick="window.print()">🖨️ Imprimir</button>
+  <button class="btn-action btn-pdf" onclick="salvarPDF()">📄 Exportar PDF</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 04</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">1º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">11/03/2026</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">Quarta-feira</span>
+      </div>
+      <h1 class="header-title">Normalização — <span>Parte 2</span><br>2FN e 3FN · Processo Completo</h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Banco de Dados · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">H04</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- TEMA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidades</span>
+      <span class="section-tag section-tag-blue">1º Trimestre · Aula 4</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">
+        Normalização — Parte 2
+        <span>— dependência funcional, 2FN, 3FN e processo completo 1FN → 2FN → 3FN</span>
+      </div>
+      <div class="hab-row">
+        <span class="hab-tag">H04 — Identificar métodos de normalização</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag section-tag-blue">5 objetivos</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+      <ul class="obj-list">
+        <li><span class="obj-num">1</span>Compreender o conceito de dependência funcional como base para a aplicação da 2FN e da 3FN</li>
+        <li><span class="obj-num">2</span>Aplicar a Segunda Forma Normal (2FN) eliminando dependências parciais da chave primária</li>
+        <li><span class="obj-num">3</span>Aplicar a Terceira Forma Normal (3FN) eliminando dependências transitivas entre atributos</li>
+        <li><span class="obj-num">4</span>Executar o processo completo de normalização — 1FN → 2FN → 3FN — sobre uma tabela desnormalizada</li>
+        <li><span class="obj-num">5</span>Reconhecer as anomalias que cada forma normal resolve e justificar a necessidade de cada etapa</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo da Aula</span>
+      <span class="section-tag section-tag-blue">2FN · 3FN · Processo Completo</span>
+    </div>
+    <div class="section-body">
+
+      <div class="sub-titulo">Base Conceitual — Dependência Funcional</div>
+      <div class="dep-box">
+        <p class="dep-conceito">A dependência funcional é o conceito que fundamenta toda a normalização. Dizemos que <strong>A determina B</strong> quando, ao conhecer o valor de A, conseguimos determinar de forma única o valor de B.</p>
+        <div class="dep-formula">
+          <div class="formula-txt">A  →  B</div>
+          <div class="formula-desc">"A determina B" — se soubermos A, sabemos B</div>
+        </div>
+        <div class="dep-exemplos">
+          <div class="dep-ex">
+            <div class="dep-ex-label">Dependência total</div>
+            <code>id_produto → nome_produto</code><br>
+            <span style="font-size:12px;color:var(--gray);">Dado o id do produto, sabemos seu nome</span>
+          </div>
+          <div class="dep-ex">
+            <div class="dep-ex-label">Dependência parcial (viola 2FN)</div>
+            <code>id_produto → nome_produto</code><br>
+            <span style="font-size:12px;color:var(--gray);">Quando PK é composta e o atributo depende só de parte dela</span>
+          </div>
+          <div class="dep-ex">
+            <div class="dep-ex-label">Dependência transitiva (viola 3FN)</div>
+            <code>id_vendedor → cidade_vendedor</code><br>
+            <span style="font-size:12px;color:var(--gray);">cidade depende de vendedor, que depende da PK — transitiva</span>
+          </div>
+          <div class="dep-ex">
+            <div class="dep-ex-label">Dependência composta</div>
+            <code>(id_venda, id_produto) → qtd</code><br>
+            <span style="font-size:12px;color:var(--gray);">qtd depende dos dois — chave composta completa</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-titulo">Segunda e Terceira Forma Normal</div>
+      <div class="fn-cards">
+        <div class="fn-card fnc-2fn">
+          <div class="fn-card-header">
+            <div>
+              <div class="fn-sigla">2FN</div>
+              <div class="fn-nome">Segunda Forma Normal</div>
+            </div>
+          </div>
+          <div class="fn-card-body">
+            <div class="fn-prereq">Pré-requisito: a tabela já deve estar em 1FN</div>
+            <div class="fn-regra-txt">Todos os atributos não-chave devem depender da chave primária <strong>inteira</strong>. Não pode haver <strong>dependência parcial</strong> — quando um atributo depende apenas de parte de uma chave composta.</div>
+            <div class="fn-como"><strong>Aplicável quando:</strong> a chave primária é composta.<br><strong>Como corrigir:</strong> identificar atributos que dependem de parte da chave e movê-los para uma nova tabela com aquela parte da chave como PK.</div>
+          </div>
+        </div>
+        <div class="fn-card fnc-3fn">
+          <div class="fn-card-header">
+            <div>
+              <div class="fn-sigla">3FN</div>
+              <div class="fn-nome">Terceira Forma Normal</div>
+            </div>
+          </div>
+          <div class="fn-card-body">
+            <div class="fn-prereq">Pré-requisito: a tabela já deve estar em 2FN</div>
+            <div class="fn-regra-txt">Nenhum atributo não-chave pode depender de <strong>outro atributo não-chave</strong>. Não pode haver <strong>dependência transitiva</strong> — quando B depende de C, e C depende da chave.</div>
+            <div class="fn-como"><strong>Como identificar:</strong> atributo que "descreve" outro atributo, não a entidade principal.<br><strong>Como corrigir:</strong> mover o grupo dependente para uma nova tabela própria, mantendo a FK.</div>
+          </div>
+        </div>
+      </div>
+
+      <table class="diff-table">
+        <thead><tr><th style="width:20%">Forma Normal</th><th style="width:40%">O que elimina</th><th>Exemplo de problema</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>1FN</strong></td>
+            <td>Atributos não atômicos e grupos repetitivos</td>
+            <td>Coluna <code style="font-family:'DM Mono',monospace;font-size:11.5px;background:var(--uc-light);padding:1px 5px;border-radius:4px;">telefone1, telefone2, telefone3</code> — grupo repetitivo</td>
+          </tr>
+          <tr>
+            <td><strong>2FN</strong></td>
+            <td>Dependência parcial da chave primária composta</td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11.5px;background:var(--teal-light);padding:1px 5px;border-radius:4px;">nome_produto</code> depende só de <code style="font-family:'DM Mono',monospace;font-size:11.5px;background:var(--teal-light);padding:1px 5px;border-radius:4px;">id_produto</code>, não da chave composta inteira</td>
+          </tr>
+          <tr>
+            <td><strong>3FN</strong></td>
+            <td>Dependência transitiva entre atributos não-chave</td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11.5px;background:var(--purple-light);padding:1px 5px;border-radius:4px;">cidade_vendedor</code> depende de <code style="font-family:'DM Mono',monospace;font-size:11.5px;background:var(--purple-light);padding:1px 5px;border-radius:4px;">id_vendedor</code>, não da PK diretamente</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sub-titulo">Processo Completo — 1FN → 2FN → 3FN</div>
+      <div class="processo-flow">
+        <div class="pf-step pfs-1fn">
+          <div class="pf-step-header">
+            <div class="pf-step-badge">1FN</div>
+            <div class="pf-step-nome">Primeira Forma Normal</div>
+          </div>
+          <div class="pf-step-body">
+            <ul>
+              <li>Atributos atômicos</li>
+              <li>Sem grupos repetitivos</li>
+              <li>Definir chave primária</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-step pfs-2fn">
+          <div class="pf-step-header">
+            <div class="pf-step-badge">2FN</div>
+            <div class="pf-step-nome">Segunda Forma Normal</div>
+          </div>
+          <div class="pf-step-body">
+            <ul>
+              <li>Eliminar dependências parciais</li>
+              <li>Criar tabelas para cada parte da chave</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-step pfs-3fn">
+          <div class="pf-step-header">
+            <div class="pf-step-badge">3FN</div>
+            <div class="pf-step-nome">Terceira Forma Normal</div>
+          </div>
+          <div class="pf-step-body">
+            <ul>
+              <li>Eliminar dependências transitivas</li>
+              <li>Criar tabelas para grupos dependentes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="frase-ouro">
+        <blockquote>"Cada atributo não-chave deve depender da chave, de toda a chave, e de nada mais além da chave."</blockquote>
+        <div class="frase-attr">— definição popular da 3FN (William Kent, 1983)</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ORGANIZAÇÃO DO TEMPO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag section-tag-blue">6 etapas · 90 min</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+        <thead>
+          <tr><th style="width:28%">Etapa</th><th>Atividade</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="etapa-pill ep-abertura">Abertura</span></td>
+            <td>Chamada e retomada rápida da SA 03 — pergunta oral: <em>"O que a 1FN exige de uma tabela para que ela esteja normalizada?"</em></td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-retomada">Retomada</span></td>
+            <td>Professor reapresenta a tabela desnormalizada da SA 03 já corrigida para 1FN e pergunta: <em>"Está tudo certo agora? Ainda pode ter algum problema?"</em> — alunos analisam livremente</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-expl">Explicação</span></td>
+            <td>Slides — dependência funcional, 2FN com exemplo de separação de tabelas, 3FN com eliminação de dependências transitivas, processo completo 1FN → 2FN → 3FN</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-dinamica">Dinâmica</span></td>
+            <td>"Completa a Normalização" — grupos normalizam a tabela VENDA passo a passo da 1FN até a 3FN e apresentam o esquema final</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-quest">Questionário</span></td>
+            <td>5 questões objetivas + 5 questões discursivas sobre o conteúdo da aula</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-fecha">Fechamento</span></td>
+            <td>Resumo com a "frase de ouro" da 3FN · Próxima aula: SGBD — Sistemas de Gerenciamento de BD (SA 05 · 18/03)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DINÂMICA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica</span>
+      <span class="section-tag section-tag-blue">Completa a Normalização</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box">
+        <div class="dinamica-header">🗃️ Completa a Normalização — Sistema de Vendas</div>
+        <div class="dinamica-body">
+          <div class="dinamica-meta">
+            <div class="dinamica-meta-item">⏱️ <strong>Duração:</strong> 15 minutos</div>
+            <div class="dinamica-meta-item">👥 <strong>Agrupamento:</strong> grupos de 3 a 4 alunos</div>
+            <div class="dinamica-meta-item">📄 <strong>Material:</strong> folha A4 por grupo para registrar as etapas</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">1</div>
+            <div><strong>Apresentação da tabela</strong> <em>(2 min)</em> — Professor projeta a tabela VENDA desnormalizada abaixo</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">2</div>
+            <div><strong>Normalização em três etapas</strong> <em>(10 min)</em> — Cada grupo anota na folha A4: 1FN (verificar atomicidade e PK) → 2FN (eliminar dependências parciais, chave composta é <code style="font-family:'DM Mono',monospace;font-size:12px;background:var(--uc-light);padding:1px 5px;border-radius:4px;">id_venda + id_produto</code>) → 3FN (eliminar transitivas)</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">3</div>
+            <div><strong>Apresentação e correção</strong> <em>(3 min)</em> — Um grupo apresenta o esquema final; professor consolida o gabarito</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-titulo" style="margin-top:0;">Tabela VENDA — Desnormalizada</div>
+      <div class="legenda-row">
+        <div class="leg-item"><div class="leg-dot" style="background:var(--uc-light);border:1px solid var(--uc-main);"></div><span style="font-size:12px;color:var(--gray);">Chave composta</span></div>
+        <div class="leg-item"><div class="leg-dot" style="background:var(--teal-light);border:1px solid var(--teal);"></div><span style="font-size:12px;color:var(--gray);">Dependência parcial (viola 2FN)</span></div>
+        <div class="leg-item"><div class="leg-dot" style="background:var(--purple-light);border:1px solid var(--purple);"></div><span style="font-size:12px;color:var(--gray);">Dependência transitiva (viola 3FN)</span></div>
+      </div>
+      <div class="mini-wrap">
+        <table class="dn-table">
+          <thead>
+            <tr>
+              <th class="cell-pk">id_venda</th>
+              <th class="cell-pk">id_produto</th>
+              <th class="cell-par">nome_produto</th>
+              <th class="cell-par">id_categoria</th>
+              <th class="cell-par">nome_categoria</th>
+              <th>qtd</th>
+              <th class="cell-pk" style="background:#3B1F6B !important;color:#D8B4FE !important;">id_vendedor</th>
+              <th class="cell-tra">nome_vendedor</th>
+              <th class="cell-tra">cidade_vendedor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cell-pk">1</td><td class="cell-pk">10</td>
+              <td class="cell-par">Teclado</td><td class="cell-par">3</td><td class="cell-par">Periféricos</td>
+              <td>2</td>
+              <td style="background:#3B1F6B !important;color:#D8B4FE !important;">5</td>
+              <td class="cell-tra">Ana</td><td class="cell-tra">Curitiba</td>
+            </tr>
+            <tr>
+              <td class="cell-pk">1</td><td class="cell-pk">12</td>
+              <td class="cell-par">Mouse</td><td class="cell-par">3</td><td class="cell-par">Periféricos</td>
+              <td>1</td>
+              <td style="background:#3B1F6B !important;color:#D8B4FE !important;">5</td>
+              <td class="cell-tra">Ana</td><td class="cell-tra">Curitiba</td>
+            </tr>
+            <tr>
+              <td class="cell-pk">2</td><td class="cell-pk">10</td>
+              <td class="cell-par">Teclado</td><td class="cell-par">3</td><td class="cell-par">Periféricos</td>
+              <td>3</td>
+              <td style="background:#3B1F6B !important;color:#D8B4FE !important;">7</td>
+              <td class="cell-tra">Carlos</td><td class="cell-tra">Londrina</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-titulo">Gabarito Esperado — Esquema Final (3FN)</div>
+      <div class="schema-box">
+        <span class="sk-table">CATEGORIA</span> (<span class="sk-pk">id_categoria PK</span>, <span class="sk-attr">nome_categoria</span>)<br>
+        <br>
+        <span class="sk-table">PRODUTO</span> (<span class="sk-pk">id_produto PK</span>, <span class="sk-attr">nome_produto</span>, <span class="sk-fk">id_categoria FK → CATEGORIA</span>)<br>
+        <br>
+        <span class="sk-table">VENDEDOR</span> (<span class="sk-pk">id_vendedor PK</span>, <span class="sk-attr">nome_vendedor</span>, <span class="sk-attr">cidade_vendedor</span>)<br>
+        <br>
+        <span class="sk-table">VENDA_ITEM</span> (<span class="sk-pk">id_venda</span>, <span class="sk-fk">id_produto FK → PRODUTO</span>, <span class="sk-fk">id_vendedor FK → VENDEDOR</span>, <span class="sk-attr">qtd</span>)<br>
+        <span class="sk-comment">    -- chave primária composta: (id_venda, id_produto)</span>
+      </div>
+
+      <div class="nota-box">
+        💡 <strong>Ponto pedagógico:</strong> saímos de 1 tabela com 9 colunas e chegamos a 4 tabelas, cada uma descrevendo apenas um conceito do negócio. Isso é o princípio da responsabilidade única aplicado ao banco de dados.
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag section-tag-blue">Questionário · 10 questões</span>
+    </div>
+    <div class="section-body">
+      <div class="aval-parts">
+        <div class="aval-part">
+          <div class="aval-part-header aph-uc">Parte 1 — Questões Objetivas (5 questões)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Nível alto · 4 alternativas: A) B) C) D) · Gabarito alternado, sem repetição consecutiva</li>
+              <li>Temas: dependência funcional, 2FN, 3FN, identificação de violações, processo completo</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header aph-dark">Parte 2 — Questões Discursivas (5 questões)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Cada questão possui título explicativo antes do enunciado</li>
+              <li>Sem linhas — apenas espaço em branco com <code style="font-family:'DM Mono',monospace;font-size:12px;background:rgba(24,95,165,0.1);color:var(--uc-tx);padding:1px 5px;border-radius:4px;">R:</code></li>
+              <li>Temas: diferença 2FN × 3FN, justificativa de normalização, correção de tabela com anomalias</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header aph-gray">Gabarito</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Em página separada — uso exclusivo do professor</li>
+              <li>Objetivas: letra correta + justificativa · Discursivas: resposta esperada com critérios</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONEXÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag section-tag-gray">Continuidade</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant">
+          <div class="conn-label">← Aula anterior — SA 03</div>
+          <div style="font-size:13.5px;color:var(--dark);">Normalização Parte 1 · 1FN · 04/03/2026</div>
+        </div>
+        <div class="conn-card conn-prox">
+          <div class="conn-label">Próxima aula → SA 05</div>
+          <div style="font-size:13.5px;color:var(--dark);">SGBD — Sistemas de Gerenciamento de BD · 18/03/2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag section-tag-gray">Verificar antes da aula</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid">
+        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor ou TV</span></div>
+        <div class="recurso-item"><span class="recurso-icon">💻</span><span>Computador com HDMI</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📊</span><span>Apresentação com slides</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Questionário impresso ou digital</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📄</span><span>Folha A4 por grupo (etapas)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🖊️</span><span>Quadro branco e marcador</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSERVAÇÕES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag section-tag-gray">Opcional</span>
+    </div>
+    <div class="section-body">
+      <div class="obs-box"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Plano de Aula · <span>SA 04 — Normalização Parte 2 · 2FN e 3FN</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF = () => {
+    const t = document.title;
+    document.title = 'Plano_Aula_SA04_Normalizacao_2FN_3FN';
+    window.print();
+    setTimeout(() => { document.title = t; }, 1000);
+  };
+  const btn = document.getElementById('btn-topo');
+  window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 400); });
+  if (btn) btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
