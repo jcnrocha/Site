@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plano de Aula SA 24 — Prova — 2ª Avaliação Trimestral · Redes</title>
-<meta name="description" content="Plano de aula SA 24 — Prova — 2ª Avaliação Trimestral · UC: Fundamentos de Redes de Computadores · SENAI Umuarama">
+<title>Plano de Aula SA 24 — Prova 2ª Avaliação Trimestral · Redes</title>
+<meta name="description" content="Plano de aula SA 24 — Prova 2ª Avaliação Trimestral · UC: Fundamentos de Redes de Computadores · SENAI Umuarama">
 <meta name="theme-color" content="#0D1A2B">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --uc-main:  #0F6E56;
-    --uc-light: #E1F5EE;
-    --uc-tx:    #04342C;
+    --uc-main:  #A32D2D;
+    --uc-light: #FFF0F0;
+    --uc-tx:    #5E1A1A;
     --dark:     #0D1A2B;
     --yellow:   #F9C74F;
     --gold:     #C49A00;
@@ -21,6 +21,7 @@
     --text:     #1A2635;
     --border:   #D4DCE4;
     --warn-bg:  #FFF8E7;
+    --green:    #0F6E56;
   }
 
   html { scroll-behavior: smooth; }
@@ -31,9 +32,9 @@
   .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
   .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
   .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
-  .header-label { font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
   .header-label .hl-sep  { color:#475569; font-weight:300; }
-  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(15,110,86,0.18); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(163,45,45,0.18); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
   .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
   .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
   .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
@@ -49,20 +50,21 @@
   .section-icon  { font-size:20px; }
   .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
   .section-tag      { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
-  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
   .section-body  { padding:24px 26px; }
 
   .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
   .tema-box span { color:var(--uc-main); }
   .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
-  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(15,110,86,0.2); }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(163,45,45,0.2); }
 
-  .obj-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
-  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
-  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
-  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  /* O QUE ESTA PROVA VERIFICA */
+  .verif-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
+  .verif-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .verif-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .verif-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
 
-  /* HIERARQUIA: ESTRUTURA → TÓPICOS → CORREÇÃO */
+  /* HIERARQUIA: ESTRUTURA | CONTEÚDOS | CORREÇÃO */
   .hierarquia-wrap { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-radius:12px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
   .hier-item { display:flex; flex-direction:column; }
   .hier-item:not(:last-child) { border-right:1px solid var(--border); }
@@ -74,15 +76,30 @@
   .hier-body ul { list-style:none; display:flex; flex-direction:column; gap:4px; }
   .hier-body ul li { font-size:12px; color:var(--gray); padding-left:12px; position:relative; line-height:1.5; }
   .hier-body ul li::before { content:'▸'; position:absolute; left:0; font-size:9px; top:3px; color:var(--uc-main); }
-  .hi-estru  .hier-header { background:#A32D2D; } /* Red for exam */
-  .hi-topico .hier-header { background:var(--uc-main); }
+  .hi-estru  .hier-header { background:var(--uc-main); }
+  .hi-topico .hier-header { background:#7A2020; }
   .hi-correc .hier-header { background:var(--dark); }
 
-  /* TABELAS */
+  /* GRID TÓPICOS DE MAIOR PESO */
+  .caract-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:16px; }
+  .caract-card { border-radius:10px; overflow:hidden; border:1px solid var(--border); }
+  .caract-card-header { padding:12px 8px 8px; text-align:center; background:var(--uc-main); }
+  .caract-icon { font-size:22px; margin-bottom:4px; }
+  .caract-nome { font-size:12px; font-weight:700; color:var(--white); line-height:1.2; }
+  .caract-sub  { font-family:'DM Mono',monospace; font-size:10px; color:rgba(255,255,255,0.75); margin-top:2px; }
+  .caract-body { padding:10px 8px; background:var(--light); }
+  .caract-desc { font-size:11.5px; color:var(--gray); line-height:1.4; }
+  .cc-t1 .caract-card-header { background:var(--uc-main); }
+  .cc-t2 .caract-card-header { background:#7A2020; }
+  .cc-t3 .caract-card-header { background:#0A5C7A; }
+  .cc-t4 .caract-card-header { background:var(--uc-tx); }
+  .cc-t5 .caract-card-header { background:#3C3489; }
+
+  /* TABELA MATRIZ */
   .classes-table { width:100%; border-collapse:collapse; font-size:12.5px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-bottom:4px; }
   .classes-table thead tr { background:var(--dark); }
   .classes-table th { color:var(--white); padding:10px 12px; text-align:left; font-size:12px; }
-  .classes-table td { padding:9px 12px; border-bottom:1px solid var(--border); vertical-align:middle; font-family:'DM Sans',sans-serif; }
+  .classes-table td { padding:9px 12px; border-bottom:1px solid var(--border); vertical-align:middle; }
   .classes-table tr:last-child td { border-bottom:none; }
   .classes-table tr:nth-child(even) td { background:#F7FAFC; }
   .cls-badge { font-family:'DM Mono',monospace; font-size:12px; font-weight:700; padding:2px 10px; border-radius:8px; display:inline-block; }
@@ -100,18 +117,41 @@
   .time-table tr:nth-child(even) td { background:#F7FAFC; }
   .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; }
   .ep-abertura { background:#E0F2FE; color:#0369A1; }
-  .ep-expl     { background:#DCFCE7; color:#166534; }
+  .ep-prova    { background:#FFE4E6; color:#9F1239; }
   .ep-fecha    { background:#F1F5F9; color:#475569; }
 
-  /* PROVA STYLING */
-  .prova-box { border: 1px solid var(--border); border-radius: 8px; padding: 20px; background: #F8FAFC; margin-bottom: 20px; }
-  .prova-subtitulo { font-size: 15px; font-weight: 700; color: var(--dark); border-bottom: 2px solid var(--uc-main); padding-bottom: 6px; margin: 18px 0 12px; }
-  .prova-questao { padding: 14px 0; border-bottom: 1px dashed var(--border); }
-  .prova-questao:last-child { border-bottom: none; }
-  .pq-enunciado { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 10px; line-height: 1.6; }
-  .pq-opcoes { list-style: none; padding-left: 10px; display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; }
-  .pq-opcao { padding: 6px 12px; background: var(--white); border: 1px solid var(--border); border-radius: 6px; }
-  .pq-respostabox { margin-top: 10px; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--gray); background: var(--white); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; min-height: 80px; }
+  /* CADERNO DE PROVA */
+  .prova-box { border:1px solid var(--border); border-radius:8px; padding:20px; background:#F8FAFC; margin-bottom:20px; }
+  .prova-subtitulo { font-size:15px; font-weight:700; color:var(--dark); border-bottom:2px solid var(--uc-main); padding-bottom:6px; margin:18px 0 12px; }
+  .prova-questao { padding:14px 0; border-bottom:1px dashed var(--border); }
+  .prova-questao:last-child { border-bottom:none; }
+  .pq-enunciado { font-size:13px; font-weight:600; color:var(--text); margin-bottom:10px; line-height:1.6; }
+  .pq-opcoes { list-style:none; padding-left:10px; display:flex; flex-direction:column; gap:6px; font-size:12.5px; }
+  .pq-opcao { padding:6px 12px; background:var(--white); border:1px solid var(--border); border-radius:6px; }
+  .pq-respostabox { margin-top:10px; font-family:'DM Mono',monospace; font-size:13px; color:var(--gray); background:var(--white); border:1px solid var(--border); border-radius:6px; padding:12px 16px; min-height:80px; }
+
+  /* GABARITO (AVAL-PARTS) */
+  .aval-parts { display:flex; flex-direction:column; gap:12px; }
+  .aval-part  { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .aval-part-header { padding:11px 18px; font-size:13.5px; font-weight:700; }
+  .aph-uc   { background:var(--uc-main); color:var(--white); }
+  .aph-dark { background:var(--dark); color:var(--white); }
+  .aph-gray { background:var(--gray); color:var(--white); }
+  .aval-part-body { padding:14px 18px; background:var(--white); font-size:12.5px; }
+  .aval-part-body ul { list-style:none; }
+  .aval-part-body ul li { padding:5px 0 5px 18px; font-size:13.5px; position:relative; color:var(--text); border-bottom:1px solid var(--border); }
+  .aval-part-body ul li:last-child { border-bottom:none; }
+  .aval-part-body ul li::before { content:'•'; position:absolute; left:0; color:var(--uc-main); font-weight:700; }
+
+  .nota-box { background:var(--uc-light); border:1px solid rgba(163,45,45,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); line-height:1.6; margin-top:16px; }
+
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:#E1F5EE; border-left:4px solid #0F6E56; }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:#0F6E56; }
+  .conn-prox .conn-label { color:var(--gold); }
 
   .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
   .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
@@ -125,9 +165,9 @@
   .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; }
   .btn-action:active { transform:scale(0.97); }
   .btn-imprimir { background:var(--dark); color:var(--white); }
-  .btn-imprimir:hover { background:#0A3D2E; box-shadow:0 4px 12px rgba(4,52,44,0.4); }
+  .btn-imprimir:hover { background:#3D0E0E; box-shadow:0 4px 12px rgba(93,26,26,0.4); }
   .btn-pdf { background:var(--dark); color:var(--white); }
-  .btn-pdf:hover { background:#0A3D2E; box-shadow:0 4px 12px rgba(4,52,44,0.4); }
+  .btn-pdf:hover { background:#3D0E0E; box-shadow:0 4px 12px rgba(93,26,26,0.4); }
   button:focus, a:focus { outline:3px solid var(--yellow); outline-offset:2px; }
 
   @media print {
@@ -149,11 +189,12 @@
     a[href]::after { content:none !important; }
     a { text-decoration:none !important; color:inherit !important; }
     .obs-box { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
+    .pq-respostabox { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
+    .prova-box       { background:white !important; }
     .connection-row  { grid-template-columns:1fr 1fr !important; }
     .recursos-grid   { grid-template-columns:repeat(3,1fr) !important; }
     .hierarquia-wrap { grid-template-columns:repeat(3,1fr) !important; }
-    .prova-box       { background:white !important; }
-    .pq-respostabox   { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
+    .caract-grid     { grid-template-columns:repeat(5,1fr) !important; }
     footer { background:var(--dark) !important; margin-top:8px !important; padding:12px !important; font-size:10.5px !important; }
     #btn-topo { display:none !important; }
   }
@@ -162,6 +203,7 @@
     .header-inner  { padding:36px 32px 36px 44px; gap:24px; }
     .container     { padding:28px 32px; }
     .header-title  { font-size:28px; }
+    .caract-grid   { grid-template-columns:repeat(3,1fr); }
     .recursos-grid { grid-template-columns:1fr 1fr; }
   }
   @media (max-width:768px) {
@@ -173,6 +215,7 @@
     .section-body    { padding:18px; }
     .hierarquia-wrap { grid-template-columns:1fr; }
     .hier-item:not(:last-child) { border-right:none; border-bottom:1px solid var(--border); }
+    .caract-grid     { grid-template-columns:repeat(3,1fr); }
     .connection-row  { grid-template-columns:1fr; }
     .recursos-grid   { grid-template-columns:1fr 1fr; }
     .time-table      { display:block; overflow-x:auto; }
@@ -186,6 +229,7 @@
     .header-inner  { padding:20px 14px 20px 18px; }
     .container     { padding:14px 12px; }
     .header-title  { font-size:18px; }
+    .caract-grid   { grid-template-columns:repeat(2,1fr); }
     .recursos-grid { grid-template-columns:1fr; }
     .section-body  { padding:14px; }
     footer         { padding:16px; font-size:11px; }
@@ -194,7 +238,7 @@
   #btn-topo { position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--dark); color:var(--white); border:none; font-size:18px; font-weight:700; cursor:pointer; z-index:999; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:all 0.2s ease; }
   #btn-topo.visible { display:flex; }
   #btn-topo:hover   { background:var(--uc-main); transform:translateY(-2px); }
-  #btn-topo:focus   { outline:3px solid var(--uc-light); outline-offset:2px; }
+  #btn-topo:focus   { outline:3px solid var(--yellow); outline-offset:2px; }
   @media print { #btn-topo { display:none !important; } }
 </style>
 </head>
@@ -225,7 +269,7 @@
         SENAI Umuarama · Prof. Julio Cesar
       </p>
     </div>
-    <div class="header-badge">Avaliação Trimestral</div>
+    <div class="header-badge">H3 · H4 — Prova</div>
   </div>
 </header>
 
@@ -241,43 +285,44 @@
     <div class="section-body">
       <div class="tema-box">
         Prova — 2ª Avaliação Trimestral
-        <span>— Aplicação individual da avaliação teórica · Verificação do rendimento e retenção de conteúdos trabalhados nas SAs 14 a 22 · Sem consulta</span>
+        <span>— Avaliação individual · 10 questões · 5 objetivas + 5 discursivas · cobertura integral do 2º trimestre: meios de transmissão, tecnologias de conexão, endereçamento IP, protocolos, segurança e modelo OSI · sem consulta</span>
       </div>
       <div class="hab-row">
-        <span class="hab-tag">H3 — Reconhecer componentes e ativos de redes</span>
+        <span class="hab-tag">H3 — Reconhecer componentes e ativos de redes de computadores</span>
         <span class="hab-tag">H4 — Identificar tipos e tecnologias de conexão a redes de computadores</span>
       </div>
     </div>
   </section>
 
-  <!-- OBJETIVOS -->
+  <!-- O QUE ESTA PROVA VERIFICA -->
   <section class="section">
     <div class="section-header">
-      <span class="section-icon">🏆</span>
-      <span class="section-title">Objetivos de Aprendizagem</span>
-      <span class="section-tag">4 objetivos</span>
+      <span class="section-icon">🔍</span>
+      <span class="section-title">O Que Esta Prova Verifica</span>
+      <span class="section-tag">SAs 14 a 22</span>
     </div>
     <div class="section-body">
-      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
-      <ul class="obj-list">
-        <li><span class="obj-num">1</span>Demonstrar domínio dos conteúdos trabalhados ao longo do 2º trimestre: meios de transmissão, tecnologias de conexão, endereçamento IP, protocolos de rede e aplicação, segurança e modelo OSI</li>
-        <li><span class="obj-num">2</span>Responder questões objetivas e discursivas com clareza, precisão e fundamentação técnica</li>
-        <li><span class="obj-num">3</span>Aplicar o raciocínio de escolha de tecnologia, identificação de protocolos e diagnóstico de problemas em situações práticas</li>
-        <li><span class="obj-num">4</span>Demonstrar as habilidades H3 e H4 desenvolvidas ao longo do trimestre</li>
+      <p class="verif-intro">Esta avaliação verifica se o aluno consolidou as seguintes competências ao longo do 2º trimestre:</p>
+      <ul class="verif-list">
+        <li><span class="verif-num">1</span>Identificar e comparar meios de transmissão guiados (par trançado, fibra monomodo/multimodo, coaxial) e não guiados (Wi-Fi 2,4/5 GHz, Bluetooth, satélite), selecionando o mais adequado para cada cenário de infraestrutura</li>
+        <li><span class="verif-num">2</span>Distinguir tecnologias de conexão à internet — ADSL, VDSL, HFC, FTTH, 4G, 5G, Rádio WISP, PLC, satélite LEO — quanto ao meio físico, velocidade típica e adequação residencial ou corporativa</li>
+        <li><span class="verif-num">3</span>Compreender o endereçamento IPv4 e IPv6: estrutura, classes, faixas privadas RFC 1918, papel do NAT, conceito de sub-rede, gateway e atribuição de endereços via DHCP ou IP fixo</li>
+        <li><span class="verif-num">4</span>Diferenciar TCP e UDP quanto ao mecanismo de entrega, handshake de três vias e uso típico; e identificar os principais protocolos de aplicação — HTTP/HTTPS, DNS, DHCP (processo DORA), FTP/SFTP — com suas portas e funções</li>
+        <li><span class="verif-num">5</span>Aplicar os conceitos de segurança em redes (tríade CIA, tipos de firewall, VPN, principais ameaças) e do modelo OSI (7 camadas, dispositivos e diagnóstico de falhas por camada) em situações práticas de suporte e projeto</li>
       </ul>
     </div>
   </section>
 
-  <!-- CONTEÚDO -->
+  <!-- ORGANIZAÇÃO DA AVALIAÇÃO -->
   <section class="section">
     <div class="section-header">
       <span class="section-icon">📚</span>
       <span class="section-title">Organização da Avaliação</span>
-      <span class="section-tag">2º Trimestre</span>
+      <span class="section-tag">2º Trimestre · H3 · H4</span>
     </div>
     <div class="section-body">
 
-      <!-- HIERARQUIA: ESTRUTURA → TÓPICOS → CORREÇÃO -->
+      <!-- HIERARQUIA: ESTRUTURA | CONTEÚDOS | CORREÇÃO -->
       <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin-bottom:10px;">Planejamento Geral da Aplicação</p>
       <div class="hierarquia-wrap">
         <div class="hier-item hi-estru">
@@ -286,12 +331,13 @@
             <div class="hier-nome">Estrutura da Prova</div>
           </div>
           <div class="hier-body">
-            <div class="hier-def">"10 questões distribuídas em duas partes com pesos iguais"</div>
+            <div class="hier-def">"10 questões em duas partes — objetivas com 4 alternativas e discursivas com espaço para resposta"</div>
             <ul>
-              <li>5 Questões Objetivas (1,0 ponto cada)</li>
-              <li>5 Questões Discursivas (1,0 ponto cada)</li>
-              <li>Valor total da prova: 10,0 pontos</li>
-              <li>Tempo para resolução: 75 minutos</li>
+              <li>5 questões objetivas · 1,0 ponto cada = 5,0 pontos</li>
+              <li>5 questões discursivas · 1,0 ponto cada = 5,0 pontos</li>
+              <li>Valor total: 10,0 pontos · Peso: 1ª avaliação do 2º trimestre</li>
+              <li>Tempo de resolução: 75 minutos · sem consulta de qualquer material</li>
+              <li>Identificação obrigatória: nome, turma e data no cabeçalho</li>
             </ul>
           </div>
         </div>
@@ -301,81 +347,153 @@
             <div class="hier-nome">Conteúdos Avaliados</div>
           </div>
           <div class="hier-body">
-            <div class="hier-def">"Consolidação de todas as habilidades desenvolvidas no trimestre"</div>
+            <div class="hier-def">"Abrange integralmente as SAs 14 a 22 do 2º trimestre"</div>
             <ul>
-              <li>Transmissão e conexões (SAs 14 a 17)</li>
-              <li>IP e Protocolos TCP/UDP (SAs 18 e 19)</li>
-              <li>Protocolos de Aplicação (SA 20)</li>
-              <li>Segurança e OSI (SAs 21 e 22)</li>
+              <li>Meios de transmissão guiados e não guiados (SA 14 e 15)</li>
+              <li>Tecnologias de conexão à internet (SA 16 e 17)</li>
+              <li>Endereçamento IPv4 e IPv6 (SA 18)</li>
+              <li>Protocolos TCP/UDP e camada de transporte (SA 19)</li>
+              <li>Protocolos de aplicação: HTTP, DNS, DHCP, FTP (SA 20)</li>
+              <li>Segurança em redes: CIA, firewall, VPN (SA 21)</li>
+              <li>Modelo OSI: 7 camadas, dispositivos e diagnóstico (SA 22)</li>
             </ul>
           </div>
         </div>
         <div class="hier-item hi-correc">
           <div class="hier-header">
             <div class="hier-icon">⚖️</div>
-            <div class="hier-nome">Critérios & Feedbacks</div>
+            <div class="hier-nome">Critérios e Pós-Prova</div>
           </div>
           <div class="hier-body">
-            <div class="hier-def">"Correção estruturada com pontuação gradual nas discursivas"</div>
+            <div class="hier-def">"Correção com gabarito detalhado e pontuação gradual nas discursivas"</div>
             <ul>
-              <li>Gabarito detalhado para uso do professor</li>
-              <li>Identificação de falhas e refino de conceitos</li>
-              <li>Recuperação agendada para a Aula 25</li>
-              <li>Devolução comentada na Aula 26</li>
+              <li>Gabarito oficial com justificativas — uso exclusivo do professor</li>
+              <li>Discursivas: pontuação gradual por critério (ver seção de gabarito)</li>
+              <li>Alunos abaixo da média: encaminhados para Recuperação (SA 25)</li>
+              <li>Correção comentada devolvida na SA 26</li>
+              <li>Critério de recuperação: nota abaixo da média trimestral definida pela instituição</li>
             </ul>
           </div>
         </div>
       </div>
 
-      <!-- TABELA DE MATRIZ DE CONTEÚDO -->
-      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Matriz de Distribuição dos Conteúdos da Prova</p>
+      <!-- GRID: TÓPICOS DE MAIOR PESO -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Tópicos de Maior Peso na Prova</p>
+      <div class="caract-grid">
+        <div class="caract-card cc-t1">
+          <div class="caract-card-header">
+            <div class="caract-icon">📡</div>
+            <div class="caract-nome">Meios de Transmissão</div>
+            <div class="caract-sub">SA 14 · SA 15</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Fibra vs par trançado · frequências Wi-Fi · Bluetooth · escolha por cenário</div>
+          </div>
+        </div>
+        <div class="caract-card cc-t2">
+          <div class="caract-card-header">
+            <div class="caract-icon">🌐</div>
+            <div class="caract-nome">Tecnologias de Conexão</div>
+            <div class="caract-sub">SA 16 · SA 17</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">ADSL vs FTTH · 4G/5G · HFC · comparativo técnico e adequação corporativa</div>
+          </div>
+        </div>
+        <div class="caract-card cc-t3">
+          <div class="caract-card-header">
+            <div class="caract-icon">🔢</div>
+            <div class="caract-nome">Endereçamento IP</div>
+            <div class="caract-sub">SA 18</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">IPv4 · RFC 1918 · NAT · gateway · DHCP vs IP fixo · noções de IPv6</div>
+          </div>
+        </div>
+        <div class="caract-card cc-t4">
+          <div class="caract-card-header">
+            <div class="caract-icon">🔄</div>
+            <div class="caract-nome">TCP/UDP e Protocolos</div>
+            <div class="caract-sub">SA 19 · SA 20</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">TCP vs UDP · handshake · HTTP/HTTPS · DNS · processo DORA · FTP vs SFTP</div>
+          </div>
+        </div>
+        <div class="caract-card cc-t5">
+          <div class="caract-card-header">
+            <div class="caract-icon">🛡️</div>
+            <div class="caract-nome">Segurança e OSI</div>
+            <div class="caract-sub">SA 21 · SA 22</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Tríade CIA · firewall · VPN · ameaças · 7 camadas OSI · diagnóstico por camada</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MATRIZ DE DISTRIBUIÇÃO -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Matriz de Distribuição dos Conteúdos</p>
       <table class="classes-table">
         <thead>
           <tr>
             <th style="width:25%;">Bloco Temático</th>
             <th style="width:55%;">Subtemas Avaliados</th>
-            <th style="width:20%;">Aulas de Referência</th>
+            <th style="width:20%;">SAs de Referência</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Meios de Transmissão</strong></td>
-            <td>Par trançado, fibra óptica (monomodo/multimodo), coaxial, Wi-Fi, Bluetooth, satélite.</td>
-            <td>Aulas 14 e 15</td>
+            <td><strong>Meios de Transmissão Guiados</strong></td>
+            <td>Par trançado Cat5e/6/6A, fibra monomodo e multimodo, coaxial — distância, velocidade e imunidade EM</td>
+            <td>SA 14</td>
           </tr>
           <tr>
-            <td><strong>Tecnologias de Conexão</strong></td>
-            <td>ADSL, VDSL, HFC, fibra FTTH, 4G, 5G, Rádio WISP, PLC, satélite LEO.</td>
-            <td>Aulas 16 e 17</td>
+            <td><strong>Meios Não Guiados</strong></td>
+            <td>Wi-Fi 2,4 GHz vs 5 GHz, padrões 802.11, Bluetooth, satélite LEO vs GEO</td>
+            <td>SA 15</td>
+          </tr>
+          <tr>
+            <td><strong>Tecnologias de Conexão I</strong></td>
+            <td>ADSL, VDSL, HFC (cabo coaxial), FTTH — meio físico, velocidade, adequação residencial/corporativa</td>
+            <td>SA 16</td>
+          </tr>
+          <tr>
+            <td><strong>Tecnologias de Conexão II</strong></td>
+            <td>4G, 5G, Rádio WISP, PLC, satélite LEO (Starlink) — mobilidade, cobertura rural e urbana</td>
+            <td>SA 17</td>
           </tr>
           <tr>
             <td><strong>Endereçamento IP</strong></td>
-            <td>Estrutura IPv4 e IPv6, classes, faixa privada RFC 1918, NAT, sub-rede, gateway, DHCP/IP fixo.</td>
-            <td>Aula 18</td>
+            <td>Estrutura IPv4 e IPv6, faixas privadas RFC 1918, NAT, sub-rede, gateway, DHCP vs IP fixo</td>
+            <td>SA 18</td>
           </tr>
           <tr>
             <td><strong>Protocolos TCP/UDP</strong></td>
-            <td>Camadas do TCP/IP, TCP (conexão, handshake) vs. UDP (latência), portas principais.</td>
-            <td>Aula 19</td>
+            <td>Camadas do modelo TCP/IP, TCP (handshake 3 vias, garantia de entrega) vs UDP (latência), portas comuns</td>
+            <td>SA 19</td>
           </tr>
           <tr>
             <td><strong>Protocolos de Aplicação</strong></td>
-            <td>HTTP/HTTPS, métodos (GET/POST), códigos de status, DNS, DHCP (DORA), FTP vs. SFTP.</td>
-            <td>Aula 20</td>
+            <td>HTTP/HTTPS (métodos GET/POST, códigos de status), DNS (resolução), DHCP (DORA), FTP vs SFTP</td>
+            <td>SA 20</td>
           </tr>
           <tr>
             <td><strong>Segurança em Redes</strong></td>
-            <td>Tríade CIA, firewall (Packet/Stateful/NGFW), VPN (túnel), ameaças, boas práticas.</td>
-            <td>Aula 21</td>
+            <td>Tríade CIA (Confidencialidade, Integridade, Disponibilidade), firewall (Packet/Stateful/NGFW), VPN, ameaças (DDoS, phishing, ransomware)</td>
+            <td>SA 21</td>
           </tr>
           <tr>
             <td><strong>Modelo OSI</strong></td>
-            <td>As 7 camadas (C1-C7), funções, dispositivos e uso do modelo no diagnóstico de falhas.</td>
-            <td>Aula 22</td>
+            <td>As 7 camadas (C1–C7), função de cada camada, dispositivos associados, uso no diagnóstico de falhas</td>
+            <td>SA 22</td>
           </tr>
         </tbody>
       </table>
 
+      <div class="nota-box">
+        ⚠️ <strong>Atenção — critério de recuperação:</strong> alunos que obtiverem nota abaixo da média trimestral definida pela instituição participarão da Prova de Recuperação na SA 25 (19/08/2026). A recuperação cobre os mesmos conteúdos, com questões diferentes. Durante a aplicação desta prova, alunos que já atingiram a média podem realizar atividade complementar silenciosa indicada pelo professor.
+      </div>
     </div>
   </section>
 
@@ -389,48 +507,51 @@
     <div class="section-body">
       <table class="time-table">
         <thead>
-          <tr><th style="width:20%">Tempo</th><th>Atividade</th></tr>
+          <tr><th style="width:26%">Etapa</th><th>Atividade</th></tr>
         </thead>
         <tbody>
           <tr>
-            <td><span class="etapa-pill ep-abertura">10 minutos</span></td>
-            <td>Chamada · Organização das carteiras na sala · Distribuição dos cadernos de provas · Instruções gerais sobre preenchimento e tempo total</td>
+            <td><span class="etapa-pill ep-abertura">Abertura · 10 min</span></td>
+            <td>Chamada · Organização das carteiras em fileiras individuais · Distribuição dos cadernos de prova (virados para baixo) · Instruções gerais: preenchimento do cabeçalho, uso de caneta azul ou preta, proibição de consulta, prazo de entrega e regras de saída da sala</td>
           </tr>
           <tr>
-            <td><span class="etapa-pill ep-expl">75 minutos</span></td>
-            <td>Aplicação silenciosa da prova. Alunos respondem individualmente sem nenhum tipo de consulta. Professor realiza vigilância da sala</td>
+            <td><span class="etapa-pill ep-prova">Aplicação · 75 min</span></td>
+            <td>Alunos viram o caderno e iniciam a resolução individual e silenciosa · Professor realiza vigilância ativa · Cronômetro visível na TV/projetor · Avisos nos marcos de 30 min e 10 min restantes · Alunos que terminarem antes do prazo aguardam sentados até o encerramento</td>
           </tr>
           <tr>
-            <td><span class="etapa-pill ep-fecha">5 minutos</span></td>
-            <td>Recolhimento dos cadernos de prova · Chamada final de entrega · Orientações iniciais sobre a Recuperação (Aula 25) e previsão de devolução com feedbacks</td>
+            <td><span class="etapa-pill ep-fecha">Encerramento · 5 min</span></td>
+            <td>Recolhimento dos cadernos em ordem de chamada · Confirmação de identificação em cada caderno · Orientações sobre a Recuperação (SA 25 — 19/08) e previsão de devolução comentada (SA 26)</td>
           </tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- O CADERNO DE PROVA -->
+  <!-- CADERNO DE PROVA -->
   <section class="section">
     <div class="section-header">
       <span class="section-icon">📝</span>
-      <span class="section-title">Visualização do Caderno de Prova</span>
-      <span class="section-tag">Visualização do Aluno</span>
+      <span class="section-title">Caderno de Prova — Visualização do Aluno</span>
+      <span class="section-tag">Para impressão · 1 via por aluno</span>
     </div>
     <div class="section-body">
       <div class="prova-box">
-        
-        <!-- HEADER INTERNO DA PROVA -->
-        <div style="border-bottom:2px solid var(--dark); padding-bottom:10px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; font-size:12.5px;">
-          <div><strong>SENAI Umuarama</strong> · TDS 2º Ano</div>
+
+        <div style="border-bottom:2px solid var(--dark); padding-bottom:10px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; font-size:12.5px;">
+          <div><strong>SENAI Umuarama</strong> · TDS 2º Ano · 2026</div>
           <div><strong>Disciplina:</strong> Fundamentos de Redes de Computadores</div>
-          <div><strong>Valor:</strong> 10,0 pontos · <strong>Nota:</strong> _____</div>
+          <div><strong>Valor:</strong> 10,0 pts &nbsp;|&nbsp; <strong>Nota:</strong> _______</div>
+        </div>
+        <div style="font-size:12px; margin-bottom:16px; display:flex; gap:24px; flex-wrap:wrap;">
+          <span><strong>Nome:</strong> _______________________________________________</span>
+          <span><strong>Turma:</strong> __________</span>
+          <span><strong>Data:</strong> ____/____/______</span>
         </div>
 
         <div class="prova-subtitulo">PARTE 1 — Questões Objetivas (5,0 pontos)</div>
 
-        <!-- Q1 -->
         <div class="prova-questao">
-          <div class="pq-enunciado"><strong>Questão 1 (1,0 ponto) — Meios de Transmissão</strong><br>Uma empresa precisa interligar dois prédios separados por 1.200 metros com alta velocidade e imunidade completa a interferências eletromagnéticas de motores industriais do local. Qual meio de transmissão é o mais indicado para este cenário?</div>
+          <div class="pq-enunciado"><strong>Questão 1 (1,0 ponto) — Meios de Transmissão</strong><br>Uma empresa precisa interligar dois prédios separados por 1.200 metros com alta velocidade e imunidade completa a interferências eletromagnéticas de motores industriais no local. Qual meio de transmissão é o mais indicado para este cenário?</div>
           <ul class="pq-opcoes">
             <li class="pq-opcao">A) Cabo Cat6A UTP</li>
             <li class="pq-opcao">B) Cabo coaxial RG-6</li>
@@ -439,9 +560,8 @@
           </ul>
         </div>
 
-        <!-- Q2 -->
         <div class="prova-questao">
-          <div class="pq-enunciado"><strong>Questão 2 (1,0 ponto) — Endereçamento IP</strong><br>Analise os endereços IP descritos abaixo e identifique qual deles representa um endereço IP privado reservado para uso interno em redes locais, em conformidade com a RFC 1918:</div>
+          <div class="pq-enunciado"><strong>Questão 2 (1,0 ponto) — Endereçamento IP</strong><br>Analise os endereços IP abaixo e identifique qual representa um endereço privado reservado para uso interno em redes locais, em conformidade com a RFC 1918:</div>
           <ul class="pq-opcoes">
             <li class="pq-opcao">A) 200.150.10.5</li>
             <li class="pq-opcao">B) 172.20.5.100</li>
@@ -450,20 +570,18 @@
           </ul>
         </div>
 
-        <!-- Q3 -->
         <div class="prova-questao">
-          <div class="pq-enunciado"><strong>Questão 3 (1,0 ponto) — Protocolos TCP e UDP</strong><br>Um desenvolvedor está programando um serviço de streaming de áudio/vídeo ao vivo. Na camada de transporte do protocolo TCP/IP, qual protocolo é o mais recomendado para a aplicação de transmissão em tempo real e qual a justificativa técnica principal?</div>
+          <div class="pq-enunciado"><strong>Questão 3 (1,0 ponto) — Protocolos TCP e UDP</strong><br>Um desenvolvedor está programando um serviço de streaming de áudio e vídeo ao vivo. Na camada de transporte do modelo TCP/IP, qual protocolo é o mais recomendado e qual a principal justificativa técnica?</div>
           <ul class="pq-opcoes">
             <li class="pq-opcao">A) TCP — porque assegura a entrega em ordem de todos os frames</li>
             <li class="pq-opcao">B) FTP — porque possui canais separados e otimizados para fluxo de mídia</li>
             <li class="pq-opcao">C) UDP — porque garante baixa latência no envio, tolerando pequenas perdas de pacotes</li>
-            <li class="pq-opcao">D) HTTPS — porque assegura a criptografia total dos frames em trânsito no tempo de execução</li>
+            <li class="pq-opcao">D) HTTPS — porque assegura a criptografia total dos frames em trânsito</li>
           </ul>
         </div>
 
-        <!-- Q4 -->
         <div class="prova-questao">
-          <div class="pq-enunciado"><strong>Questão 4 (1,0 ponto) — Modelo OSI</strong><br>Durante um atendimento de suporte corporativo, o técnico de redes detecta que a máquina do usuário está com o LED traseiro da placa de rede apagado e o cabo de par trançado desconectado. Em qual camada do modelo de referência OSI essa falha de conexão está ocorrendo?</div>
+          <div class="pq-enunciado"><strong>Questão 4 (1,0 ponto) — Modelo OSI</strong><br>Durante um atendimento de suporte, o técnico detecta que o LED da placa de rede está apagado e o cabo de par trançado está desconectado. Em qual camada do modelo OSI essa falha está ocorrendo?</div>
           <ul class="pq-opcoes">
             <li class="pq-opcao">A) Camada 3 — Rede</li>
             <li class="pq-opcao">B) Camada 2 — Enlace de Dados</li>
@@ -472,9 +590,8 @@
           </ul>
         </div>
 
-        <!-- Q5 -->
         <div class="prova-questao">
-          <div class="pq-enunciado"><strong>Questão 5 (1,0 ponto) — Segurança em Redes</strong><br>Uma equipe de TI detecta que o site institucional ficou fora do ar após receber uma enxurrada de milhões de requisições simultâneas vindas de milhares de origens distribuídas na internet em poucos minutos. Qual tipo de ataque ou ameaça descreve essa situação?</div>
+          <div class="pq-enunciado"><strong>Questão 5 (1,0 ponto) — Segurança em Redes</strong><br>Uma equipe de TI detecta que o site institucional ficou fora do ar após receber milhões de requisições simultâneas vindas de milhares de origens distribuídas na internet em poucos minutos. Qual tipo de ataque descreve essa situação?</div>
           <ul class="pq-opcoes">
             <li class="pq-opcao">A) Phishing</li>
             <li class="pq-opcao">B) Ransomware</li>
@@ -485,33 +602,28 @@
 
         <div class="prova-subtitulo">PARTE 2 — Questões Discursivas (5,0 pontos)</div>
 
-        <!-- Q6 -->
         <div class="prova-questao">
-          <div class="pq-enunciado"><strong>Questão 6 (1,0 ponto) — Meios de Transmissão Não Guiados</strong><br><strong>Wi-Fi: Frequências e Padrões</strong><br>Explique a diferença entre as frequências 2,4 GHz e 5 GHz no padrão Wi-Fi. Em qual situação cada uma é mais indicada? Cite ao menos um padrão IEEE 802.11 associado a cada frequência.</div>
+          <div class="pq-enunciado"><strong>Questão 6 (1,0 ponto) — Meios Não Guiados</strong><br><strong>Wi-Fi: Frequências e Padrões</strong><br>Explique a diferença entre as frequências 2,4 GHz e 5 GHz no padrão Wi-Fi. Em qual situação cada uma é mais indicada? Cite ao menos um padrão IEEE 802.11 associado a cada frequência.</div>
           <div class="pq-respostabox">R:</div>
         </div>
 
-        <!-- Q7 -->
         <div class="prova-questao">
-          <div class="pq-enunciado"><strong>Questão 7 (1,0 ponto) — Tecnologias de Conexão à Internet</strong><br><strong>FTTH vs. ADSL: Uma Comparação Técnica</strong><br>Compare as tecnologias ADSL e FTTH quanto ao meio físico utilizado, velocidade típica e adequação para uso corporativo de alta performance. Justifique por que o FTTH é considerado o padrão atual para novos projetos de infraestrutura de conectividade residencial e empresarial.</div>
+          <div class="pq-enunciado"><strong>Questão 7 (1,0 ponto) — Tecnologias de Conexão</strong><br><strong>FTTH vs. ADSL: Uma Comparação Técnica</strong><br>Compare as tecnologias ADSL e FTTH quanto ao meio físico utilizado, velocidade típica e adequação para uso corporativo de alta performance. Justifique por que o FTTH é considerado o padrão atual para novos projetos de infraestrutura.</div>
           <div class="pq-respostabox">R:</div>
         </div>
 
-        <!-- Q8 -->
         <div class="prova-questao">
-          <div class="pq-enunciado"><strong>Questão 8 (1,0 ponto) — Protocolos de Aplicação</strong><br><strong>O Processo DORA do DHCP</strong><br>Descreva as quatro etapas do processo DORA do protocolo DHCP, explicando resumidamente o que acontece em cada uma delas e qual o papel do cliente e do servidor na rede.</div>
+          <div class="pq-enunciado"><strong>Questão 8 (1,0 ponto) — Protocolos de Aplicação</strong><br><strong>O Processo DORA do DHCP</strong><br>Descreva as quatro etapas do processo DORA do protocolo DHCP, explicando o que acontece em cada uma delas e qual o papel do cliente e do servidor na rede.</div>
           <div class="pq-respostabox">R:</div>
         </div>
 
-        <!-- Q9 -->
         <div class="prova-questao">
-          <div class="pq-enunciado"><strong>Questão 9 (1,0 ponto) — Segurança em Redes</strong><br><strong>VPN: Conceito e Aplicação</strong><br>Explique o que é uma VPN, como ela funciona na transmissão de dados e cite dois cenários reais em que o uso de VPN é recomendado. Por que a VPN é especialmente importante para colaboradores realizando trabalho remoto (home office)?</div>
+          <div class="pq-enunciado"><strong>Questão 9 (1,0 ponto) — Segurança em Redes</strong><br><strong>VPN: Conceito e Aplicação</strong><br>Explique o que é uma VPN, como ela funciona na transmissão de dados e cite dois cenários reais em que o uso de VPN é recomendado. Por que a VPN é especialmente importante para colaboradores em home office?</div>
           <div class="pq-respostabox">R:</div>
         </div>
 
-        <!-- Q10 -->
         <div class="prova-questao">
-          <div class="pq-enunciado"><strong>Questão 10 (1,0 ponto) — Modelo OSI</strong><br><strong>OSI como Ferramenta de Diagnóstico</strong><br>Um técnico de TI recebe um chamado: o computador do usuário consegue fazer ping para o servidor corporativo com sucesso (retorna pacotes), mas não consegue abrir nenhuma página web no navegador. Com base no modelo de camadas OSI, em qual camada o problema provavelmente está ocorrendo? Justifique sua resposta explicando por que as camadas inferiores podem ser descartadas nesse diagnóstico.</div>
+          <div class="pq-enunciado"><strong>Questão 10 (1,0 ponto) — Modelo OSI como Ferramenta de Diagnóstico</strong><br><strong>Isolando a Camada com Problema</strong><br>Um técnico recebe o chamado: o computador do usuário faz ping para o servidor corporativo com sucesso, mas não abre nenhuma página web no navegador. Com base no modelo OSI, em qual camada o problema provavelmente está? Justifique explicando por que as camadas inferiores podem ser descartadas.</div>
           <div class="pq-respostabox">R:</div>
         </div>
 
@@ -519,98 +631,93 @@
     </div>
   </section>
 
-  <!-- GABARITO (PARA PROFESSOR) -->
+  <!-- GABARITO OFICIAL -->
   <section class="section">
     <div class="section-header">
       <span class="section-icon">🔑</span>
-      <span class="section-title">Gabarito Oficial — Exclusivo do Professor</span>
-      <span class="section-tag">Gabarito e Critérios</span>
+      <span class="section-title">Gabarito Oficial — Uso Exclusivo do Professor</span>
+      <span class="section-tag">Gabarito · Critérios de Correção</span>
     </div>
     <div class="section-body">
-      
-      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin-bottom:10px;">Gabarito da Parte 1 (Objetivas)</p>
+
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin-bottom:10px;">Gabarito da Parte 1 — Questões Objetivas</p>
       <table class="classes-table">
         <thead>
-          <tr>
-            <th style="width:15%;">Questão</th>
-            <th style="width:15%;">Gabarito</th>
-            <th style="width:70%;">Justificativa Conceitual</th>
-          </tr>
+          <tr><th style="width:15%;">Questão</th><th style="width:15%;">Gabarito</th><th>Justificativa conceitual</th></tr>
         </thead>
         <tbody>
           <tr>
             <td>Questão 1</td>
             <td><span class="cls-badge cls-c">C</span></td>
-            <td>A fibra monomodo suporta longas distâncias (acima de 1 km) com alta velocidade e tem imunidade eletromagnética total por transmitir luz em vez de impulsos elétricos. Nenhum cabo de par trançado de cobre ( Cat6/Cat5e) ou coaxial funciona acima de 100m sem perdas e ruídos nessa distância.</td>
+            <td>A fibra monomodo suporta longas distâncias (acima de 1 km) com alta velocidade e tem imunidade eletromagnética total por transmitir luz em vez de impulsos elétricos. Nenhum cabo de cobre (Cat6A ou Cat5e) alcança 1.200 m sem repetidores, e o coaxial também não atinge essa distância com desempenho adequado.</td>
           </tr>
           <tr>
             <td>Questão 2</td>
             <td><span class="cls-badge cls-b">B</span></td>
-            <td>Conforme a RFC 1918, a faixa 172.16.0.0 a 172.31.255.255 é reservada para endereços privados de classe B. 172.20.5.100 se enquadra nessa regra. Os demais IPs são públicos.</td>
+            <td>Conforme a RFC 1918, a faixa 172.16.0.0–172.31.255.255 é reservada para endereços privados de classe B. O IP 172.20.5.100 se enquadra nessa faixa. Os demais (200.x, 8.8.8.8, 177.x) são endereços públicos roteáveis na internet.</td>
           </tr>
           <tr>
             <td>Questão 3</td>
             <td><span class="cls-badge cls-c">C</span></td>
-            <td>O UDP é ideal para streaming ao vivo pois preza pela rapidez da transmissão e baixa latência (não há controle de entrega lenta como no TCP). Pequenas perdas de quadros resultam apenas em quedas momentâneas de frames, sem causar congelamento da tela.</td>
+            <td>O UDP é ideal para streaming ao vivo pois não possui controle de entrega garantida (sem handshake, sem retransmissão), priorizando baixa latência. Pequenas perdas de pacotes resultam em leve degradação da qualidade do vídeo, não em congelamento como ocorreria com TCP esperando a retransmissão.</td>
           </tr>
           <tr>
             <td>Questão 4</td>
             <td><span class="cls-badge cls-d">D</span></td>
-            <td>O cabo desconectado e o LED apagado indicam que não há conexão física, transmissão de sinal ou portadora física ativa. O problema está na Camada 1 (Física), que trata dos conectores, sinais de cabo e meios de transmissão.</td>
+            <td>Cabo desconectado e LED apagado indicam ausência de sinal físico na interface. O problema está na Camada 1 — Física, responsável por cabos, conectores, sinalização elétrica e óptica. Sem Camada 1 funcional, nenhuma camada superior opera.</td>
           </tr>
           <tr>
             <td>Questão 5</td>
             <td><span class="cls-badge cls-d">D</span></td>
-            <td>O ataque DDoS (Denial of Service Distribuído) baseia-se no envio massivo e simultâneo de conexões a partir de milhares de origens distintas (botnets) a fim de exaurir os recursos do servidor e derrubar o serviço.</td>
+            <td>O ataque DDoS (Distributed Denial of Service) consiste no envio massivo e simultâneo de requisições a partir de milhares de origens distribuídas (botnet), exaurindo os recursos do servidor e tornando o serviço indisponível. A característica "distribuído" distingue de um simples DoS de origem única.</td>
           </tr>
         </tbody>
       </table>
 
-      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Critérios de Correção da Parte 2 (Discursivas)</p>
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:22px 0 10px;">Critérios de Correção da Parte 2 — Questões Discursivas</p>
       <div class="aval-parts">
-        
+
         <div class="aval-part">
-          <div class="aval-part-header aph-uc">Questão 6 — Wi-Fi: Frequências e Padrões</div>
-          <div class="aval-part-body" style="font-size:12.5px;">
-            <strong>Resposta Esperada:</strong> A frequência de 2,4 GHz tem maior alcance, melhor penetração de obstáculos, mas menor velocidade e maior interferência (ex: 802.11b/g/n). A de 5 GHz tem menor alcance, menor penetração, mas velocidade muito maior e menor interferência (ex: 802.11a/ac/ax). A de 2,4 GHz é indicada quando há paredes entre os pontos; a de 5 GHz é ideal para velocidade e latência próximas ao roteador.<br>
-            <strong>Critérios de Pontuação:</strong> Explicar diferença física/alcance (0,3 pt) · Diferença de velocidade (0,3 pt) · Situação de indicação (0,2 pt) · Citar padrões corretos (0,2 pt).
+          <div class="aval-part-header aph-uc">Questão 6 — Wi-Fi: Frequências e Padrões (1,0 ponto)</div>
+          <div class="aval-part-body">
+            <strong>Resposta esperada:</strong> 2,4 GHz — maior alcance, melhor penetração de paredes e obstáculos, menor velocidade, mais interferência (micro-ondas, outros dispositivos), padrões 802.11b/g/n. 5 GHz — menor alcance, pior penetração, velocidade muito maior, menos interferência, padrões 802.11a/ac (Wi-Fi 5)/ax (Wi-Fi 6). A de 2,4 GHz é indicada quando há obstáculos e maior distância; a de 5 GHz é ideal para velocidade e latência quando o dispositivo está próximo ao AP.<br><br>
+            <strong>Critérios:</strong> diferença de alcance e penetração (0,3 pt) · diferença de velocidade e interferência (0,3 pt) · situação de uso indicada para cada uma (0,2 pt) · ao menos um padrão IEEE correto para cada frequência (0,2 pt).
           </div>
         </div>
 
         <div class="aval-part">
-          <div class="aval-part-header aph-uc">Questão 7 — FTTH vs. ADSL</div>
-          <div class="aval-part-body" style="font-size:12.5px;">
-            <strong>Resposta Esperada:</strong> O ADSL utiliza fios de cobre da telefonia, possui velocidades baixas (até ~8-24 Mbps) e forte atenuação com a distância (assimétrico), sendo inadequado para empresas modernas. O FTTH utiliza cabos de fibra óptica dedicados direta na casa/empresa, oferecendo velocidades simétricas altíssimas (100 Mbps a 1 Gbps+), baixa latência e total imunidade a ruídos eletromagnéticos. O FTTH é padrão pela confiabilidade, escalabilidade e menor manutenção do meio óptico.<br>
-            <strong>Critérios de Pontuação:</strong> Meio físico correto de cada uma (0,3 pt) · Comparação de velocidades (0,3 pt) · Adequação corporativa (0,2 pt) · Justificativa do padrão da fibra (0,2 pt).
+          <div class="aval-part-header aph-uc">Questão 7 — FTTH vs. ADSL (1,0 ponto)</div>
+          <div class="aval-part-body">
+            <strong>Resposta esperada:</strong> ADSL usa par trançado de cobre da rede telefônica, com velocidades assimétricas baixas (download 8–24 Mbps, upload menor), forte atenuação com a distância e inadequação para empresas modernas. FTTH usa fibra óptica dedicada diretamente no imóvel, com velocidades simétricas de 100 Mbps a 1 Gbps+, baixíssima latência e imunidade total a ruídos eletromagnéticos. O FTTH é padrão atual pela confiabilidade, escalabilidade, simetria e menor custo de manutenção do meio óptico.<br><br>
+            <strong>Critérios:</strong> meio físico correto de cada tecnologia (0,3 pt) · comparação de velocidades com simetria (0,3 pt) · adequação ou inadequação para uso corporativo (0,2 pt) · justificativa do FTTH como padrão (0,2 pt).
           </div>
         </div>
 
         <div class="aval-part">
-          <div class="aval-part-header aph-uc">Questão 8 — Processo DORA</div>
-          <div class="aval-part-body" style="font-size:12.5px;">
-            <strong>Resposta Esperada:</strong> 1) <strong>Discover:</strong> cliente envia broadcast procurando um servidor DHCP. 2) <strong>Offer:</strong> servidor responde oferecendo um IP disponível. 3) <strong>Request:</strong> cliente responde solicitando a reserva formal do IP oferecido. 4) <strong>Acknowledge (ACK):</strong> servidor confirma, registra a concessão (lease) e o host configura sua interface.<br>
-            <strong>Critérios de Pontuação:</strong> 0,25 ponto por etapa com descrição correta e fluxo lógico preservado (total 1,0 ponto).
+          <div class="aval-part-header aph-uc">Questão 8 — Processo DORA do DHCP (1,0 ponto)</div>
+          <div class="aval-part-body">
+            <strong>Resposta esperada:</strong> <strong>D — Discover:</strong> cliente envia broadcast na rede procurando servidores DHCP disponíveis. <strong>O — Offer:</strong> servidor(es) respondem oferecendo um endereço IP disponível com configurações de rede. <strong>R — Request:</strong> cliente aceita a oferta e envia uma solicitação formal ao servidor escolhido. <strong>A — Acknowledge:</strong> servidor confirma a concessão (lease), registra o vínculo IP–MAC e o cliente configura sua interface.<br><br>
+            <strong>Critérios:</strong> 0,25 ponto por etapa descrita corretamente com o papel de cliente e servidor (total 1,0 ponto). Perda de 0,25 pt por etapa ausente ou com definição invertida.
           </div>
         </div>
 
         <div class="aval-part">
-          <div class="aval-part-header aph-uc">Questão 9 — VPN: Conceito e Aplicação</div>
-          <div class="aval-part-body" style="font-size:12.5px;">
-            <strong>Resposta Esperada:</strong> Uma VPN cria um túnel virtual e criptografado pela internet pública para trafegar informações com segurança. Ela funciona encapsulando e cifrando os pacotes no host de origem e decifrando no destino. Cenários recomendados: Home office seguro, interconexão de filiais (site-to-site) ou segurança em redes Wi-Fi públicas. No home office, a VPN garante que dados sensíveis da empresa não trafeguem expostos na internet comum do funcionário.<br>
-            <strong>Critérios de Pontuação:</strong> Definição e funcionamento (0,4 pt) · Dois cenários válidos descritos (0,3 pt) · Justificativa de uso em home office (0,3 pt).
+          <div class="aval-part-header aph-uc">Questão 9 — VPN: Conceito e Aplicação (1,0 ponto)</div>
+          <div class="aval-part-body">
+            <strong>Resposta esperada:</strong> VPN cria um túnel virtual criptografado pela internet pública para trafegar dados com segurança. Funciona encapsulando e cifrando os pacotes no host de origem; o destino decifra e processa normalmente. Cenários recomendados: home office seguro (funcionário acessa a rede corporativa de casa), interconexão de filiais (site-to-site), uso em redes Wi-Fi públicas. No home office, a VPN garante que dados sensíveis da empresa não trafeguem expostos na internet do funcionário, protegendo confidencialidade e integridade.<br><br>
+            <strong>Critérios:</strong> conceito e funcionamento do túnel criptografado (0,4 pt) · dois cenários válidos e descritos (0,3 pt) · justificativa específica para home office (0,3 pt).
           </div>
         </div>
 
         <div class="aval-part">
-          <div class="aval-part-header aph-uc">Questão 10 — OSI como Diagnóstico</div>
-          <div class="aval-part-body" style="font-size:12.5px;">
-            <strong>Resposta Esperada:</strong> O problema provavelmente está na <strong>Camada 7 (Aplicação)</strong>. Como o teste do ping (ICMP) respondeu, significa que as Camadas 1 (Física), 2 (Enlace) e 3 (Rede) estão ativas e funcionando perfeitamente (o pacote foi e voltou fisicamente). A falha pode estar no protocolo de aplicação (erro de DNS ao resolver a URL, serviço web do HTTP/HTTPS inativo no servidor, ou bloqueio específico das portas 80 e 443).<br>
-            <strong>Critérios de Pontuação:</strong> Identificação correta da Camada 7 (0,3 pt) · Justificativa baseada no sucesso do ping (0,3 pt) · Descarte lógico das camadas baixas (0,2 pt) · Citar causas prováveis na aplicação / portas (0,2 pt).
+          <div class="aval-part-header aph-uc">Questão 10 — OSI como Diagnóstico (1,0 ponto)</div>
+          <div class="aval-part-body">
+            <strong>Resposta esperada:</strong> O problema provavelmente está na <strong>Camada 7 — Aplicação</strong>. O ping (ICMP) opera nas Camadas 1, 2 e 3; como respondeu com sucesso, sabemos que as camadas Física, Enlace e Rede estão funcionando. O problema ocorre especificamente no protocolo HTTP/HTTPS (Camada 7): pode ser falha na resolução DNS (nome não resolve para IP), serviço web inativo no servidor, ou bloqueio das portas 80 e 443 por firewall. A Camada 4 (Transporte) também poderia ser descartada se o ping chegou — pois o roteamento está OK até a Camada 3.<br><br>
+            <strong>Critérios:</strong> identificação correta da Camada 7 (0,3 pt) · justificativa baseada no sucesso do ping e descarte de C1–C3 (0,3 pt) · mencionar pelo menos uma causa provável na aplicação (DNS, portas, HTTP) (0,4 pt).
           </div>
         </div>
 
       </div>
-
     </div>
   </section>
 
@@ -625,11 +732,11 @@
       <div class="connection-row">
         <div class="conn-card conn-ant">
           <div class="conn-label">← Aula anterior — SA 23</div>
-          <div style="font-size:13.5px;color:var(--dark);">Revisão Geral — 2º Trimestre · Retomada conceitual · Simulado "Prova Relâmpago" · 05/08/2026</div>
+          <div style="font-size:13.5px;color:var(--dark);">Revisão Geral do 2º Trimestre · Retomada conceitual e simulado "Prova Relâmpago" · 05/08/2026</div>
         </div>
         <div class="conn-card conn-prox">
           <div class="conn-label">Próxima aula → SA 25</div>
-          <div style="font-size:13.5px;color:var(--dark);">Prova de Recuperação — 2º Trimestre · Avaliação de recuperação para estudantes abaixo da média trimestral · 19/08/2026</div>
+          <div style="font-size:13.5px;color:var(--dark);">Prova de Recuperação — 2º Trimestre · Somente alunos abaixo da média · Questões diferentes desta prova · 19/08/2026</div>
         </div>
       </div>
     </div>
@@ -644,10 +751,12 @@
     </div>
     <div class="section-body">
       <div class="recursos-grid">
-        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor ou TV (para cronômetro)</span></div>
-        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Caderno de Provas impresso (1 por estudante)</span></div>
-        <div class="recurso-item"><span class="recurso-icon">🔑</span><span>Gabarito impresso (uso do professor)</span></div>
-        <div class="recurso-item"><span class="recurso-icon">✏️</span><span>Canetas azul/preta extras</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor ou TV (para cronômetro visível)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Caderno de prova impresso (1 por aluno)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🔑</span><span>Gabarito impresso (uso exclusivo do professor)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">✏️</span><span>Canetas reserva (azul/preta)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📐</span><span>Lista de chamada para controle de entrega</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🪑</span><span>Carteiras organizadas em fileiras individuais</span></div>
       </div>
     </div>
   </section>
@@ -667,7 +776,7 @@
 </main>
 
 <footer>
-  Plano de Aula · <span>SA 24 — Prova — 2ª Avaliação Trimestral</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+  Plano de Aula · <span>SA 24 — Prova: 2ª Avaliação Trimestral</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
 </footer>
 
 <button id="btn-topo" aria-label="Voltar ao topo">↑</button>
@@ -675,7 +784,7 @@
 <script>
   const salvarPDF = () => {
     const t = document.title;
-    document.title = 'Plano_Aula_SA24_Redes_Prova_T2';
+    document.title = 'Plano_Aula_SA24_Redes_Prova_2T';
     window.print();
     setTimeout(() => { document.title = t; }, 1000);
   };
