@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 09 — Interfaces e Serviços de Internet · Redes</title>
+<meta name="description" content="Plano de aula SA 09 — Tipos Comuns de Interfaces e Serviços de Internet · UC: Fundamentos de Redes de Computadores · SENAI Umuarama">
+<meta name="theme-color" content="#0D1A2B">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uc-main:  #0F6E56;
+    --uc-light: #E1F5EE;
+    --uc-tx:    #04342C;
+    --dark:     #0D1A2B;
+    --yellow:   #F9C74F;
+    --gold:     #C49A00;
+    --gray:     #64748B;
+    --light:    #F2F5F8;
+    --white:    #FFFFFF;
+    --text:     #1A2635;
+    --red:      #E63946;
+    --red-light:#FFF0F0;
+    --border:   #D4DCE4;
+    --warn-bg:  #FFF8E7;
+  }
+
+  html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; font-weight:300; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(15,110,86,0.18); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-sub .uc-nome { white-space:nowrap; display:block; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; flex-shrink:0; align-self:flex-start; margin-top:4px; }
+
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag      { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
+  .section-body  { padding:24px 26px; }
+
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .tema-box span { color:var(--uc-main); }
+  .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(15,110,86,0.2); }
+
+  .obj-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  /* HIERARQUIA: CABEADA → SEM FIO → SERVIÇOS */
+  .hierarquia-wrap { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-radius:12px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .hier-item { display:flex; flex-direction:column; }
+  .hier-item:not(:last-child) { border-right:1px solid var(--border); }
+  .hier-header { padding:12px 14px 10px; text-align:center; }
+  .hier-icon   { font-size:28px; margin-bottom:4px; }
+  .hier-nome   { font-size:14px; font-weight:700; color:var(--white); line-height:1.2; }
+  .hier-body   { padding:12px 14px 14px; background:var(--light); flex:1; }
+  .hier-def    { font-size:12.5px; font-style:italic; color:var(--uc-tx); margin-bottom:8px; padding:8px 10px; background:var(--uc-light); border-radius:6px; line-height:1.5; }
+  .hier-body ul { list-style:none; display:flex; flex-direction:column; gap:4px; }
+  .hier-body ul li { font-size:12px; color:var(--gray); padding-left:12px; position:relative; line-height:1.5; }
+  .hier-body ul li::before { content:'▸'; position:absolute; left:0; font-size:9px; top:3px; color:var(--uc-main); }
+  .hi-cab  .hier-header { background:#0A5C7A; }
+  .hi-sem  .hier-header { background:var(--uc-main); }
+  .hi-serv .hier-header { background:var(--uc-tx); }
+
+  /* GRID DE SERVIÇOS DE INTERNET */
+  .caract-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:16px; }
+  .caract-card { border-radius:10px; overflow:hidden; border:1px solid var(--border); text-align:center; }
+  .caract-card-header { padding:12px 8px 8px; background:var(--uc-main); }
+  .caract-icon { font-size:22px; margin-bottom:4px; }
+  .caract-nome { font-size:12px; font-weight:700; color:var(--white); line-height:1.2; }
+  .caract-body { padding:10px 8px; background:var(--light); }
+  .caract-desc { font-size:11.5px; color:var(--gray); line-height:1.4; }
+
+  /* CABEADA × SEM FIO */
+  .compare-wrap { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .compare-card { border-radius:10px; overflow:hidden; border:2px solid; }
+  .cmp-cab { border-color:var(--uc-main); }
+  .cmp-sem { border-color:#0A5C7A; }
+  .compare-header { padding:12px 16px; display:flex; align-items:center; gap:10px; }
+  .cmp-cab .compare-header { background:var(--uc-main); }
+  .cmp-sem .compare-header { background:#0A5C7A; }
+  .compare-titulo { font-size:14px; font-weight:700; color:var(--white); }
+  .compare-body { padding:14px 16px; background:var(--white); }
+  .compare-body ul { list-style:none; display:flex; flex-direction:column; gap:5px; }
+  .compare-body ul li { font-size:12.5px; color:var(--text); padding-left:14px; position:relative; line-height:1.5; }
+  .compare-body ul li::before { content:'▸'; position:absolute; left:0; font-size:9px; top:4px; color:var(--uc-main); }
+  .cmp-sem .compare-body ul li::before { color:#0A5C7A; }
+  .compare-quando { padding:10px 16px 14px; font-size:12px; font-style:italic; color:var(--gray); background:var(--light); border-top:1px solid var(--border); }
+
+  /* TABELA COMPARATIVA DE SERVIÇOS */
+  .serv-table { width:100%; border-collapse:collapse; font-size:12.5px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .serv-table thead tr { background:var(--dark); }
+  .serv-table th { color:var(--white); padding:10px 14px; text-align:left; font-size:12px; }
+  .serv-table td { padding:9px 14px; border-bottom:1px solid var(--border); vertical-align:middle; font-size:12.5px; }
+  .serv-table tr:last-child td { border-bottom:none; }
+  .serv-table tr:nth-child(even) td { background:#F7FAFC; }
+  .serv-table td:first-child { font-weight:600; color:var(--dark); }
+  .tag-vel { font-family:'DM Mono',monospace; font-size:11px; font-weight:600; padding:2px 8px; border-radius:8px; background:var(--uc-light); color:var(--uc-tx); white-space:nowrap; }
+  .tag-lat-bom  { background:#DCFCE7; color:#166534; font-family:'DM Mono',monospace; font-size:11px; padding:2px 8px; border-radius:8px; }
+  .tag-lat-med  { background:#FEF9C3; color:#854D0E; font-family:'DM Mono',monospace; font-size:11px; padding:2px 8px; border-radius:8px; }
+  .tag-lat-ruim { background:#FCEBEB; color:#7A1F1F; font-family:'DM Mono',monospace; font-size:11px; padding:2px 8px; border-radius:8px; }
+
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:last-child td { border-bottom:none; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; }
+  .ep-abertura { background:#E0F2FE; color:#0369A1; }
+  .ep-retomada { background:#FEF9C3; color:#854D0E; }
+  .ep-expl     { background:#DCFCE7; color:#166534; }
+  .ep-dinamica { background:#F3E8FF; color:#6B21A8; }
+  .ep-revisao  { background:var(--uc-light); color:var(--uc-tx); }
+  .ep-fecha    { background:#F1F5F9; color:#475569; }
+
+  .dinamica-box    { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body   { padding:18px; }
+  .dinamica-meta   { display:flex; gap:16px; margin-bottom:16px; flex-wrap:wrap; }
+  .dinamica-meta-item { font-size:12.5px; color:var(--gray); display:flex; align-items:center; gap:6px; }
+  .dinamica-meta-item strong { color:var(--dark); }
+  .dinamica-step   { display:flex; gap:14px; padding:10px 0; border-bottom:1px solid var(--border); font-size:13.5px; }
+  .dinamica-step:last-child { border-bottom:none; }
+  .step-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  /* TABELA DE SITUAÇÕES-PROBLEMA */
+  .situ-table { width:100%; border-collapse:collapse; font-size:12.5px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-top:12px; }
+  .situ-table thead tr { background:var(--uc-tx); }
+  .situ-table th { color:var(--white); padding:10px 14px; text-align:left; font-size:12px; }
+  .situ-table td { padding:9px 14px; border-bottom:1px solid var(--border); vertical-align:middle; }
+  .situ-table tr:last-child td { border-bottom:none; }
+  .situ-table tr:nth-child(even) td { background:#F7FAFC; }
+  .situ-resp { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:var(--uc-tx); background:var(--uc-light); padding:2px 8px; border-radius:8px; white-space:nowrap; }
+
+  /* BLOCO DE REVISÃO DO TRIMESTRE */
+  .rev-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px; }
+  .rev-card { border-radius:10px; overflow:hidden; border:1px solid var(--border); }
+  .rev-card-header { padding:10px 14px; font-size:13px; font-weight:700; color:var(--white); display:flex; align-items:center; gap:8px; }
+  .rev-h1 .rev-card-header { background:#0A5C7A; }
+  .rev-h2 .rev-card-header { background:#3C3489; }
+  .rev-h3 .rev-card-header { background:#085041; }
+  .rev-card-body { padding:12px 14px; background:var(--light); }
+  .rev-card-body ul { list-style:none; }
+  .rev-card-body ul li { font-size:12px; color:var(--gray); padding:3px 0 3px 12px; position:relative; line-height:1.5; border-bottom:1px solid var(--border); }
+  .rev-card-body ul li:last-child { border-bottom:none; }
+  .rev-card-body ul li::before { content:'▸'; position:absolute; left:0; font-size:9px; top:6px; color:var(--uc-main); }
+
+  .nota-box { background:var(--uc-light); border:1px solid rgba(15,110,86,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); line-height:1.6; margin-top:16px; }
+  .nota-box-warn { background:var(--warn-bg); border:1px solid rgba(196,154,0,0.3); border-left:4px solid var(--gold); border-radius:8px; padding:12px 16px; font-size:13px; color:#5A3800; line-height:1.6; margin-top:12px; }
+
+  .aval-parts { display:flex; flex-direction:column; gap:12px; }
+  .aval-part  { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .aval-part-header { padding:11px 18px; font-size:13.5px; font-weight:700; }
+  .aph-uc   { background:var(--uc-main); color:var(--white); }
+  .aph-dark { background:var(--dark); color:var(--white); }
+  .aph-gray { background:var(--gray); color:var(--white); }
+  .aval-part-body { padding:14px 18px; background:var(--white); }
+  .aval-part-body ul { list-style:none; }
+  .aval-part-body ul li { padding:5px 0 5px 18px; font-size:13.5px; position:relative; color:var(--text); border-bottom:1px solid var(--border); }
+  .aval-part-body ul li:last-child { border-bottom:none; }
+  .aval-part-body ul li::before { content:'•'; position:absolute; left:0; color:var(--uc-main); font-weight:700; }
+
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:#FCEBEB; border-left:4px solid #A32D2D; }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:#A32D2D; }
+
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  .recurso-icon  { font-size:20px; }
+  .obs-box { background:var(--light); border:1px dashed var(--border); border-radius:8px; padding:16px 20px; min-height:80px; font-size:13.5px; color:var(--gray); }
+
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  footer span { color:var(--uc-main); }
+
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; }
+  .btn-action:active { transform:scale(0.97); }
+  .btn-imprimir { background:var(--dark); color:var(--white); }
+  .btn-imprimir:hover { background:#0A3D2E; box-shadow:0 4px 12px rgba(4,52,44,0.4); }
+  .btn-pdf { background:var(--dark); color:var(--white); }
+  .btn-pdf:hover { background:#0A3D2E; box-shadow:0 4px 12px rgba(4,52,44,0.4); }
+  button:focus, a:focus { outline:3px solid var(--yellow); outline-offset:2px; }
+
+  @media print {
+    @page { size:A4 portrait; margin:18mm 14mm 16mm 14mm; }
+    * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    body { background:white !important; font-size:11.5px; }
+    .btn-group { display:none !important; }
+    .page-header { background:var(--dark) !important; }
+    .header-inner { padding:16px 24px 16px 30px !important; gap:16px !important; }
+    .header-title { font-size:22px !important; }
+    .header-label { font-size:11px !important; margin-bottom:8px !important; gap:5px !important; }
+    .header-sub   { font-size:11px !important; }
+    .header-badge { font-size:11px !important; padding:4px 10px !important; }
+    .container { padding:10px 0 !important; }
+    .section { box-shadow:none !important; border:1px solid #ccc !important; break-inside:avoid; margin-bottom:12px !important; }
+    .section-body   { padding:14px 20px !important; }
+    .section-header { padding:10px 20px !important; }
+    table { break-inside:avoid; }
+    a[href]::after { content:none !important; }
+    a { text-decoration:none !important; color:inherit !important; }
+    .obs-box { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
+    .connection-row  { grid-template-columns:1fr 1fr !important; }
+    .recursos-grid   { grid-template-columns:repeat(3,1fr) !important; }
+    .hierarquia-wrap { grid-template-columns:repeat(3,1fr) !important; }
+    .caract-grid     { grid-template-columns:repeat(5,1fr) !important; }
+    .compare-wrap    { grid-template-columns:1fr 1fr !important; }
+    .rev-grid        { grid-template-columns:repeat(3,1fr) !important; }
+    .serv-table      { display:table !important; }
+    footer { background:var(--dark) !important; margin-top:8px !important; padding:12px !important; font-size:10.5px !important; }
+    #btn-topo { display:none !important; }
+  }
+
+  @media (max-width:960px) {
+    .header-inner  { padding:36px 32px 36px 44px; gap:24px; }
+    .container     { padding:28px 32px; }
+    .header-title  { font-size:28px; }
+    .caract-grid   { grid-template-columns:repeat(3,1fr); }
+    .recursos-grid { grid-template-columns:1fr 1fr; }
+    .rev-grid      { grid-template-columns:1fr 1fr 1fr; }
+  }
+  @media (max-width:768px) {
+    .header-inner    { flex-direction:column; padding:28px 20px 28px 28px; gap:14px; }
+    .container       { padding:20px 16px; }
+    .header-title    { font-size:22px; }
+    .uc-nome         { white-space:normal; }
+    .section-header  { padding:14px 18px; gap:10px; }
+    .section-body    { padding:18px; }
+    .hierarquia-wrap { grid-template-columns:1fr; }
+    .hier-item:not(:last-child) { border-right:none; border-bottom:1px solid var(--border); }
+    .caract-grid     { grid-template-columns:repeat(3,1fr); }
+    .compare-wrap    { grid-template-columns:1fr; }
+    .connection-row  { grid-template-columns:1fr; }
+    .recursos-grid   { grid-template-columns:1fr 1fr; }
+    .rev-grid        { grid-template-columns:1fr; }
+    .time-table      { display:block; overflow-x:auto; }
+    .situ-table      { display:block; overflow-x:auto; }
+    .serv-table      { display:block; overflow-x:auto; }
+    .btn-group  { top:auto; bottom:20px; right:16px; flex-direction:row; }
+    .btn-action { padding:9px 14px; font-size:12px; }
+  }
+  @media (max-width:480px) {
+    .page-header::before { width:4px; }
+    .page-header::after  { left:4px; width:2px; }
+    .header-inner  { padding:20px 14px 20px 18px; }
+    .container     { padding:14px 12px; }
+    .header-title  { font-size:18px; }
+    .caract-grid   { grid-template-columns:repeat(2,1fr); }
+    .recursos-grid { grid-template-columns:1fr; }
+    .section-body  { padding:14px; }
+    footer         { padding:16px; font-size:11px; }
+  }
+
+  #btn-topo { position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--dark); color:var(--white); border:none; font-size:18px; font-weight:700; cursor:pointer; z-index:999; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:all 0.2s ease; }
+  #btn-topo.visible { display:flex; }
+  #btn-topo:hover   { background:var(--uc-main); transform:translateY(-2px); }
+  #btn-topo:focus   { outline:3px solid var(--yellow); outline-offset:2px; }
+  @media print { #btn-topo { display:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action btn-imprimir" onclick="window.print()" aria-label="Imprimir plano de aula">🖨️ Imprimir</button>
+  <button class="btn-action btn-pdf" onclick="salvarPDF()" aria-label="Exportar como PDF">📄 Exportar PDF</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 09</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">1º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">15/04/2026</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">Quarta-feira</span>
+      </div>
+      <h1 class="header-title">Interfaces e <span>Serviços de Internet</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Redes de Computadores · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">H3 — Componentes</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- TEMA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidade</span>
+      <span class="section-tag">1º Trimestre · SA 09</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">
+        Tipos Comuns de Interfaces e Serviços de Internet
+        <span>— interfaces de rede: Ethernet, Wi-Fi, Fibra, USB, Bluetooth · serviços de acesso: ADSL, cabo, FTTH, 4G/5G · revisão geral do 1º trimestre</span>
+      </div>
+      <div class="hab-row">
+        <span class="hab-tag">H3 — Reconhecer componentes e ativos de redes de computadores</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag">5 objetivos</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+      <ul class="obj-list">
+        <li><span class="obj-num">1</span>Identificar e descrever as principais interfaces de rede cabeadas (Ethernet, Fibra óptica, USB) e sem fio (Wi-Fi, Bluetooth, 4G/5G) presentes em computadores e dispositivos modernos</li>
+        <li><span class="obj-num">2</span>Diferenciar os tipos de serviços de acesso à internet — ADSL, TV a Cabo, Fibra FTTH, 4G/5G e Satélite — quanto a velocidade, latência, disponibilidade e custo</li>
+        <li><span class="obj-num">3</span>Relacionar o tipo de interface com o meio físico de transmissão correspondente e com os equipamentos de rede adequados (Switch, Roteador, AP, Modem/ONU)</li>
+        <li><span class="obj-num">4</span>Escolher o serviço de internet mais adequado para diferentes perfis de usuário e contextos de uso — residência, empresa, área rural, mobilidade</li>
+        <li><span class="obj-num">5</span>Consolidar os conteúdos de H1, H2 e H3 do 1º trimestre em preparação para a avaliação trimestral (SA 10 · 22/04)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo da Aula</span>
+      <span class="section-tag">H3 — Interfaces e Serviços</span>
+    </div>
+    <div class="section-body">
+
+      <!-- HIERARQUIA: CABEADA → SEM FIO → SERVIÇOS -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin-bottom:10px;">Como o Dispositivo se Conecta à Rede: Interfaces Cabeadas · Sem Fio · Serviços de Acesso</p>
+      <div class="hierarquia-wrap">
+        <div class="hier-item hi-cab">
+          <div class="hier-header">
+            <div class="hier-icon">🔌</div>
+            <div class="hier-nome">Interfaces Cabeadas</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"Conexão física por condutor — estável, rápida e sem interferência de terceiros"</div>
+            <ul>
+              <li><strong>Ethernet (RJ-45)</strong> — padrão IEEE 802.3 · 10/100/1000 Mbps · 10 Gbps em Cat6A · conector RJ-45</li>
+              <li><strong>Fibra óptica</strong> — Gbps a Tbps · imune a EMI · conectores SC, LC, ST · NIC óptica ou SFP</li>
+              <li><strong>USB</strong> — adaptadores USB para Ethernet · prático para notebooks sem porta RJ-45 · até 1 Gbps (USB 3.0)</li>
+              <li>Menor latência e maior estabilidade que sem fio</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hier-item hi-sem">
+          <div class="hier-header">
+            <div class="hier-icon">📶</div>
+            <div class="hier-nome">Interfaces Sem Fio</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"Transmissão pelo ar — mobilidade em troca de maior latência e sujeição a interferências"</div>
+            <ul>
+              <li><strong>Wi-Fi (802.11)</strong> — b/g/n/ac (Wi-Fi 5)/ax (Wi-Fi 6) · 2,4 GHz e 5 GHz · até vários Gbps teóricos</li>
+              <li><strong>Bluetooth</strong> — curta distância (≤ 10 m) · baixo consumo · periféricos e IoT · não substitui Wi-Fi para internet</li>
+              <li><strong>4G/5G</strong> — via rede celular · mobilidade total · SIM card ou módulo integrado</li>
+              <li>Sujeitas a interferência, obstáculos e concorrência de frequência</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hier-item hi-serv">
+          <div class="hier-header">
+            <div class="hier-icon">🌐</div>
+            <div class="hier-nome">Serviços de Acesso</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"Como o sinal da internet chega até a sua casa ou empresa — a tecnologia do provedor (ISP)"</div>
+            <ul>
+              <li><strong>ADSL/VDSL</strong> — via par trançado telefônico · assimétrico · velocidade limitada pela distância</li>
+              <li><strong>TV a Cabo</strong> — via cabo coaxial · compartilhado com vizinhos · Modem DOCSIS</li>
+              <li><strong>Fibra FTTH</strong> — fibra óptica até a residência · simétrico · alta velocidade · ONU na chegada</li>
+              <li><strong>4G/5G</strong> — via torres de celular · mobilidade · latência maior que fibra</li>
+              <li><strong>Satélite</strong> — cobertura rural e remota · alta latência · Starlink reduz esse problema</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRID DE SERVIÇOS DE INTERNET -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Serviços de Acesso à Internet — Os 5 Principais Tipos</p>
+      <div class="caract-grid">
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">📞</div>
+            <div class="caract-nome">ADSL / VDSL</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Par trançado telefônico · até ~100 Mbps (VDSL) · assimétrico · alcance limitado pela distância da central</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">📺</div>
+            <div class="caract-nome">TV a Cabo</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Cabo coaxial · DOCSIS 3.1 · até 10 Gbps teórico · banda compartilhada com vizinhos</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">💡</div>
+            <div class="caract-nome">Fibra FTTH</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Fibra óptica até a casa · simétrico · 1 Gbps+ · baixa latência · ONU no ponto de chegada</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">📱</div>
+            <div class="caract-nome">4G / 5G</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Rede celular · mobilidade total · 4G: ~50 Mbps · 5G: até Gbps · latência maior que fibra</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🛰️</div>
+            <div class="caract-nome">Satélite</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Cobertura rural/remota · alta latência (GEO ~600 ms) · Starlink (LEO) reduz para ~40 ms</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABELA COMPARATIVA DE SERVIÇOS -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Comparativo de Serviços de Internet — Critérios Técnicos</p>
+      <table class="serv-table">
+        <thead>
+          <tr>
+            <th>Serviço</th>
+            <th>Meio físico</th>
+            <th>Velocidade típica</th>
+            <th>Latência</th>
+            <th>Disponibilidade</th>
+            <th>Melhor para</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ADSL/VDSL</td>
+            <td>Par trançado</td>
+            <td><span class="tag-vel">Até 100 Mbps</span></td>
+            <td><span class="tag-lat-med">Média (~20 ms)</span></td>
+            <td>Urbana e periurbana</td>
+            <td>Uso básico, baixo custo</td>
+          </tr>
+          <tr>
+            <td>TV a Cabo</td>
+            <td>Coaxial (DOCSIS)</td>
+            <td><span class="tag-vel">Até 1 Gbps</span></td>
+            <td><span class="tag-lat-bom">Boa (~10 ms)</span></td>
+            <td>Urbana (onde há rede de cabo)</td>
+            <td>Streaming, home office</td>
+          </tr>
+          <tr>
+            <td>Fibra FTTH</td>
+            <td>Fibra óptica</td>
+            <td><span class="tag-vel">1 Gbps+</span></td>
+            <td><span class="tag-lat-bom">Muito boa (&lt;5 ms)</span></td>
+            <td>Urbana (crescendo)</td>
+            <td>Empresa, gaming, 4K, VoIP</td>
+          </tr>
+          <tr>
+            <td>4G / 5G</td>
+            <td>Rádio (celular)</td>
+            <td><span class="tag-vel">50 Mbps – 1 Gbps</span></td>
+            <td><span class="tag-lat-med">Média (20–50 ms)</span></td>
+            <td>Cobertura de rede celular</td>
+            <td>Mobilidade, backup de link</td>
+          </tr>
+          <tr>
+            <td>Satélite GEO</td>
+            <td>Rádio (satélite)</td>
+            <td><span class="tag-vel">Até 100 Mbps</span></td>
+            <td><span class="tag-lat-ruim">Alta (&gt;600 ms)</span></td>
+            <td>Nacional, inclusive rural</td>
+            <td>Zonas sem outro acesso</td>
+          </tr>
+          <tr>
+            <td>Satélite LEO (Starlink)</td>
+            <td>Rádio (satélite)</td>
+            <td><span class="tag-vel">50–500 Mbps</span></td>
+            <td><span class="tag-lat-bom">Boa (~40 ms)</span></td>
+            <td>Global (em expansão)</td>
+            <td>Rural, remoto, marítimo</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- CABEADA × SEM FIO -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Interface Cabeada × Interface Sem Fio — Quando Usar Cada Uma</p>
+      <div class="compare-wrap">
+        <div class="compare-card cmp-cab">
+          <div class="compare-header">
+            <span style="font-size:22px;">🔌</span>
+            <div class="compare-titulo">Interface Cabeada (Ethernet / Fibra)</div>
+          </div>
+          <div class="compare-body">
+            <ul>
+              <li>Menor latência e maior estabilidade — sem variação por interferência</li>
+              <li>Largura de banda dedicada — não compartilhada com outros dispositivos sem fio</li>
+              <li>Ideal para desktops, servidores, switches e equipamentos fixos</li>
+              <li>Segurança física superior — acesso requer conexão física ao cabo</li>
+              <li>Exige cabeamento estruturado — investimento inicial em infraestrutura</li>
+            </ul>
+          </div>
+          <div class="compare-quando">Use quando estabilidade, velocidade e segurança são prioridade</div>
+        </div>
+        <div class="compare-card cmp-sem">
+          <div class="compare-header">
+            <span style="font-size:22px;">📶</span>
+            <div class="compare-titulo">Interface Sem Fio (Wi-Fi / 4G/5G)</div>
+          </div>
+          <div class="compare-body">
+            <ul>
+              <li>Mobilidade total — dispositivo se move sem perder a conexão</li>
+              <li>Instalação simples — sem necessidade de cabeamento</li>
+              <li>Sujeita a interferência de outros equipamentos e obstáculos físicos</li>
+              <li>Largura de banda compartilhada entre todos os dispositivos conectados ao AP</li>
+              <li>Ideal para notebooks, smartphones, tablets e dispositivos IoT</li>
+            </ul>
+          </div>
+          <div class="compare-quando">Use quando mobilidade e praticidade são prioridade — aceita menor estabilidade</div>
+        </div>
+      </div>
+
+      <div class="nota-box">
+        💡 <strong>Conexão dos conteúdos:</strong> interfaces de rede são a "porta de entrada" do dispositivo — elas definem qual cabo ou sinal sem fio ele aceita. O serviço de internet é o que o provedor entrega até o modem ou ONU. O roteador pega esse sinal e distribui pela rede local via switch (cabeado) e AP (sem fio). Entender essa cadeia conecta tudo que foi estudado em H3 nas SAs 07, 08 e 09.
+      </div>
+
+      <div class="nota-box-warn" style="margin-top:12px;">
+        ⚠️ <strong>Atenção — próxima aula é a prova (SA 10 · 22/04):</strong> esta é a última aula de conteúdo do 1º trimestre. A SA 09 também inclui uma revisão dos pontos-chave de H1, H2 e H3 para preparar a turma para a avaliação trimestral.
+      </div>
+    </div>
+  </section>
+
+  <!-- ORGANIZAÇÃO DO TEMPO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag">6 etapas · 90 min</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+        <thead>
+          <tr><th style="width:26%">Etapa</th><th>Atividade</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="etapa-pill ep-abertura">Abertura</span></td>
+            <td>Chamada · Retomada da SA 08 — ativos de rede (Hub, Switch, Roteador, AP, Modem/ONU) · Contextualização: "hoje fechamos H3 com as interfaces e os serviços que conectam tudo isso à internet"</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-retomada">Problematização</span></td>
+            <td>Professor pergunta: <em>"Qual é a diferença entre Wi-Fi e a internet? E entre a internet que chega em casa via fibra e a que chega via 4G?"</em> — alunos respondem livremente · Levantamento de hipóteses para guiar a explicação</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-expl">Explicação</span></td>
+            <td>Slides — interfaces cabeadas (Ethernet, fibra, USB) e sem fio (Wi-Fi 802.11, Bluetooth, 4G/5G) · Serviços de acesso: ADSL, cabo, FTTH, 4G/5G, satélite · Tabela comparativa de latência, velocidade e disponibilidade · Conexão entre interface, meio físico e serviço de provedor</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-dinamica">Dinâmica</span></td>
+            <td>"Qual Serviço Usar?" — grupos recebem perfis de cliente e escolhem o serviço de internet mais adequado, justificando com base nos critérios técnicos</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-revisao">Revisão do Tri.</span></td>
+            <td>Revisão rápida e estruturada dos pontos-chave de H1 (unidades), H2 (simbologias) e H3 (componentes, ativos, interfaces) · Professor faz perguntas orais · Alunos indicam dúvidas para o professor orientar o estudo em casa</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-fecha">Fechamento</span></td>
+            <td>Questionário · Orientação para a prova: SA 10 (22/04) · Conteúdo cobrado: todo o 1º trimestre (H1, H2, H3) · Dica: revisar as dinâmicas e questionários das SAs anteriores</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DINÂMICA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica</span>
+      <span class="section-tag">Qual Serviço Usar?</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box">
+        <div class="dinamica-header">🌐 Qual Serviço Usar? — Consultoria de Conectividade</div>
+        <div class="dinamica-body">
+          <div class="dinamica-meta">
+            <div class="dinamica-meta-item">⏱️ <strong>Duração:</strong> 15 minutos</div>
+            <div class="dinamica-meta-item">👥 <strong>Agrupamento:</strong> grupos de 4 a 5 alunos</div>
+            <div class="dinamica-meta-item">🎯 <strong>Objetivo:</strong> aplicar os critérios técnicos (velocidade, latência, disponibilidade, custo) para recomendar o serviço de internet ideal para diferentes perfis de clientes — consolidando H3 e desenvolvendo raciocínio de diagnóstico</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">1</div>
+            <div><strong>Distribuição dos perfis</strong> <em>(1 min)</em> — Cada grupo recebe 2 cartões com perfis de cliente. O desafio: recomendar o melhor serviço de internet e justificar com pelo menos 2 critérios técnicos</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">2</div>
+            <div><strong>Análise e recomendação</strong> <em>(8 min)</em> — O grupo discute, consulta a tabela comparativa e monta a recomendação. Deve indicar também: qual interface de rede o dispositivo precisa ter e qual equipamento fará a conexão local (Modem? ONU? Roteador? AP?)</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">3</div>
+            <div><strong>Apresentação e debate</strong> <em>(6 min)</em> — Cada grupo apresenta uma recomendação. Professor valida, discute alternativas e conecta com o conteúdo de H3 estudado nas SAs anteriores</div>
+          </div>
+        </div>
+      </div>
+
+      <table class="situ-table">
+        <thead>
+          <tr><th>Perfil do cliente</th><th>Serviço recomendado</th><th>Justificativa principal</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Família em apartamento urbano: 4 usuários, streaming em 4K, videochamadas, home office eventual</td>
+            <td><span class="situ-resp">Fibra FTTH</span></td>
+            <td>Alta velocidade simétrica, baixa latência, suporta múltiplos dispositivos simultâneos sem queda de desempenho</td>
+          </tr>
+          <tr>
+            <td>Pequena empresa com 15 funcionários: videoconferências diárias, backup em nuvem, sistema ERP online</td>
+            <td><span class="situ-resp">Fibra FTTH</span></td>
+            <td>Upload e download simétricos são essenciais para backup e videoconferência — ADSL e cabo penalizam o upload</td>
+          </tr>
+          <tr>
+            <td>Fazenda em zona rural sem cobertura de fibra ou cabo. Proprietário precisa de internet para gestão agrícola e câmeras de segurança</td>
+            <td><span class="situ-resp">Satélite LEO (Starlink) ou 4G</span></td>
+            <td>Única opção disponível na área · Starlink oferece menor latência que GEO · 4G se houver sinal de torre próxima</td>
+          </tr>
+          <tr>
+            <td>Técnico de campo que trabalha em diferentes locais ao longo do dia — acessa sistemas internos da empresa remotamente</td>
+            <td><span class="situ-resp">4G / 5G</span></td>
+            <td>Mobilidade total é o requisito principal — conexão segue o dispositivo independente da localização</td>
+          </tr>
+          <tr>
+            <td>Gamer competitivo em casa: precisa de baixíssima latência para jogos online, velocidade de download para atualizações</td>
+            <td><span class="situ-resp">Fibra FTTH + Ethernet</span></td>
+            <td>Fibra dá a menor latência possível; conectar via cabo Ethernet ao invés de Wi-Fi elimina a variação de latência sem fio</td>
+          </tr>
+          <tr>
+            <td>Escritório pequeno em bairro que só tem cobertura de ADSL — sem fibra disponível ainda</td>
+            <td><span class="situ-resp">VDSL ou 4G fixo</span></td>
+            <td>VDSL maximiza a velocidade no par trançado disponível · alternativa: roteador 4G fixo se houver boa cobertura celular</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="nota-box">
+        💡 <strong>Reforço pedagógico:</strong> a escolha do serviço de internet nunca é apenas técnica — envolve disponibilidade na localização, custo e perfil de uso. O técnico de redes precisa saber diagnosticar o contexto antes de recomendar. Esta dinâmica simula exatamente esse processo de consultoria que acontece na vida real — diferencial de um profissional que apenas instala equipamentos para um que entende e recomenda a solução certa.
+      </div>
+    </div>
+  </section>
+
+  <!-- REVISÃO DO TRIMESTRE -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔁</span>
+      <span class="section-title">Revisão do 1º Trimestre</span>
+      <span class="section-tag">Preparação para SA 10</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:13.5px;color:var(--gray);margin-bottom:14px;">Mapa rápido dos pontos mais importantes de cada habilidade — referência para o estudo em casa antes da prova.</p>
+      <div class="rev-grid">
+        <div class="rev-card rev-h1">
+          <div class="rev-card-header">📏 H1 — Unidades de Medida</div>
+          <div class="rev-card-body">
+            <ul>
+              <li>1 Byte = 8 bits (sempre)</li>
+              <li>Armazenamento: KB → MB → GB → TB → PB (×1.024 binário, ×1.000 decimal)</li>
+              <li>Velocidade: bps → Kbps → Mbps → Gbps (×1.000)</li>
+              <li>100 Mbps ÷ 8 = 12,5 MB/s de download real</li>
+              <li>HD de 1 TB aparece como ~931 GB no SO</li>
+              <li>NAS, SAN, DAS — tipos de armazenamento em rede</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rev-card rev-h2">
+          <div class="rev-card-header">🗺️ H2 — Simbologias</div>
+          <div class="rev-card-body">
+            <ul>
+              <li>Padrão ANSI/ISO para diagramas de rede</li>
+              <li>Roteador: cilindro com setas curvas</li>
+              <li>Switch: retângulo com portas numeradas</li>
+              <li>Firewall: retângulo com chama ou cadeado</li>
+              <li>Nuvem: símbolo de nuvem = internet / WAN</li>
+              <li>Link sem fio: linha pontilhada ou ondulada</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rev-card rev-h3">
+          <div class="rev-card-header">🖥️ H3 — Componentes</div>
+          <div class="rev-card-body">
+            <ul>
+              <li>Passivo: Cat5e/6/6A, fibra, coaxial, RJ-45, SC, LC, patch panel, rack</li>
+              <li>Hub (L1): broadcast total · Switch (L2): por MAC · Roteador (L3): por IP</li>
+              <li>AP: Wi-Fi 802.11 (b/g/n/ac/ax) · 2,4 GHz e 5 GHz</li>
+              <li>Modem (DSL/cabo) / ONU (fibra FTTH)</li>
+              <li>Interfaces: Ethernet, Wi-Fi, Fibra, USB, Bluetooth</li>
+              <li>Serviços: ADSL, cabo, FTTH, 4G/5G, satélite</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag">Questionário · 10 questões</span>
+    </div>
+    <div class="section-body">
+      <div class="aval-parts">
+        <div class="aval-part">
+          <div class="aval-part-header aph-uc">Parte 1 — Questões Objetivas (5 questões)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Nível alto · 4 alternativas: A) B) C) D)</li>
+              <li>Gabarito alternado, sem repetição consecutiva de letras</li>
+              <li>Temas: interfaces cabeadas × sem fio, comparativo de serviços de internet, escolha do serviço por cenário, NIC e conectores, FTTH × ADSL</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header aph-dark">Parte 2 — Questões Discursivas (5 questões)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Cada questão com título explicativo antes do enunciado</li>
+              <li>Sem linhas — espaço em branco com <code style="font-family:'DM Mono',monospace;font-size:12px;background:rgba(15,110,86,0.1);color:var(--uc-tx);padding:1px 5px;border-radius:4px;">R:</code></li>
+              <li>Temas: diferença Wi-Fi × internet, cadeia ISP → ONU → Roteador → AP, escolha de serviço com justificativa técnica, latência e por que importa, Ethernet × Wi-Fi para gaming</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header aph-gray">Gabarito</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Em página separada — uso exclusivo do professor</li>
+              <li>Objetivas: letra correta + justificativa completa</li>
+              <li>Discursivas: resposta esperada com critérios de correção</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONEXÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag section-tag-gray">Continuidade</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant">
+          <div class="conn-label">← Aula anterior — SA 08</div>
+          <div style="font-size:13.5px;color:var(--dark);">Componentes de Rede — Ativos e Interfaces · 08/04/2026</div>
+        </div>
+        <div class="conn-card conn-prox">
+          <div class="conn-label">→ Próxima aula — SA 10 · PROVA</div>
+          <div style="font-size:13.5px;color:var(--dark);">1ª Avaliação Trimestral — H1, H2 e H3 · 22/04/2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag section-tag-gray">Verificar antes da aula</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid">
+        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor ou TV</span></div>
+        <div class="recurso-item"><span class="recurso-icon">💻</span><span>Computador com HDMI</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📊</span><span>Apresentação com slides (≈ 22 slides)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Questionário impresso ou digital</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🃏</span><span>Cartões com perfis de cliente para a dinâmica (1 conjunto por grupo)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📌</span><span>Mapa de revisão do trimestre impresso (opcional) para os alunos levarem para casa</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSERVAÇÕES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag section-tag-gray">Opcional</span>
+    </div>
+    <div class="section-body">
+      <div class="obs-box"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Plano de Aula · <span>SA 09 — Interfaces e Serviços de Internet</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF = () => {
+    const t = document.title;
+    document.title = 'Plano_Aula_SA09_Redes_Interfaces_Servicos_Internet';
+    window.print();
+    setTimeout(() => { document.title = t; }, 1000);
+  };
+  const btn = document.getElementById('btn-topo');
+  window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 400); });
+  if (btn) btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
