@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 01 — Apresentação da UC · Programação de Aplicativos</title>
+<meta name="description" content="Plano de aula SA 01 — Apresentação da UC e Introdução ao Ambiente de Desenvolvimento · UC: Programação de Aplicativos · Colégio Neiva Pavan">
+<meta name="theme-color" content="#0D1A2B">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uc-main:  #1A7A4A;
+    --uc-light: #EAF3DE;
+    --uc-tx:    #173404;
+    --dark:     #0D1A2B;
+    --yellow:   #F9C74F;
+    --gold:     #C49A00;
+    --gray:     #64748B;
+    --light:    #F2F5F8;
+    --white:    #FFFFFF;
+    --text:     #1A2635;
+    --red:      #E63946;
+    --red-light:#FFF0F0;
+    --green:    #1A7A4A;
+    --green-light:#EAF3DE;
+    --border:   #D4DCE4;
+    --warn-bg:  #FFF8E7;
+  }
+
+  html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; font-weight:300; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(26,122,74,0.18); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-sub .uc-nome { white-space:nowrap; display:block; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; flex-shrink:0; align-self:flex-start; margin-top:4px; }
+
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag      { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
+  .section-body  { padding:24px 26px; }
+
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .tema-box span { color:var(--uc-main); }
+  .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(26,122,74,0.2); }
+
+  .obj-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  /* HIERARQUIA: AMBIENTE → CÓDIGO → APLICATIVO */
+  .hierarquia-wrap { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-radius:12px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .hier-item { display:flex; flex-direction:column; }
+  .hier-item:not(:last-child) { border-right:1px solid var(--border); }
+  .hier-header { padding:12px 14px 10px; text-align:center; }
+  .hier-icon   { font-size:28px; margin-bottom:4px; }
+  .hier-nome   { font-size:14px; font-weight:700; color:var(--white); line-height:1.2; }
+  .hier-body   { padding:12px 14px 14px; background:var(--light); flex:1; }
+  .hier-def    { font-size:12.5px; font-style:italic; color:var(--uc-tx); margin-bottom:8px; padding:8px 10px; background:var(--uc-light); border-radius:6px; line-height:1.5; }
+  .hier-body ul { list-style:none; display:flex; flex-direction:column; gap:4px; }
+  .hier-body ul li { font-size:12px; color:var(--gray); padding-left:12px; position:relative; line-height:1.5; }
+  .hier-body ul li::before { content:'▸'; position:absolute; left:0; font-size:9px; top:3px; color:var(--uc-main); }
+  .hi-amb  .hier-header { background:var(--uc-main); }
+  .hi-cod  .hier-header { background:#0A5C7A; }
+  .hi-app  .hier-header { background:var(--uc-tx); }
+
+  /* POR QUE PROGRAMAR */
+  .caract-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:16px; }
+  .caract-card { border-radius:10px; overflow:hidden; border:1px solid var(--border); text-align:center; }
+  .caract-card-header { padding:12px 8px 8px; background:var(--uc-main); }
+  .caract-icon { font-size:22px; margin-bottom:4px; }
+  .caract-nome { font-size:12px; font-weight:700; color:var(--white); line-height:1.2; }
+  .caract-body { padding:10px 8px; background:var(--light); }
+  .caract-desc { font-size:11.5px; color:var(--gray); line-height:1.4; }
+
+  /* IDE PROFISSIONAL × EDITOR SIMPLES */
+  .compare-wrap { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .compare-card { border-radius:10px; overflow:hidden; border:2px solid; }
+  .cmp-pro  { border-color:var(--uc-main); }
+  .cmp-sem  { border-color:var(--gray); }
+  .compare-header { padding:12px 16px; display:flex; align-items:center; gap:10px; }
+  .cmp-pro .compare-header { background:var(--uc-main); }
+  .cmp-sem .compare-header { background:#64748B; }
+  .compare-titulo { font-size:14px; font-weight:700; color:var(--white); }
+  .compare-body { padding:14px 16px; background:var(--white); }
+  .compare-body ul { list-style:none; display:flex; flex-direction:column; gap:5px; }
+  .compare-body ul li { font-size:12.5px; color:var(--text); padding-left:14px; position:relative; line-height:1.5; }
+  .compare-body ul li::before { content:'▸'; position:absolute; left:0; font-size:9px; top:4px; color:var(--uc-main); }
+  .cmp-sem .compare-body ul li::before { color:var(--gray); }
+  .compare-quando { padding:10px 16px 14px; font-size:12px; font-style:italic; color:var(--gray); background:var(--light); border-top:1px solid var(--border); }
+
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:last-child td { border-bottom:none; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; }
+  .ep-abertura { background:#E0F2FE; color:#0369A1; }
+  .ep-probl    { background:#FEF9C3; color:#854D0E; }
+  .ep-expl     { background:#DCFCE7; color:#166534; }
+  .ep-dinamica { background:#F3E8FF; color:#6B21A8; }
+  .ep-fecha    { background:#F1F5F9; color:#475569; }
+
+  .dinamica-box    { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body   { padding:18px; }
+  .dinamica-meta   { display:flex; gap:16px; margin-bottom:16px; flex-wrap:wrap; }
+  .dinamica-meta-item { font-size:12.5px; color:var(--gray); display:flex; align-items:center; gap:6px; }
+  .dinamica-meta-item strong { color:var(--dark); }
+  .dinamica-step   { display:flex; gap:14px; padding:10px 0; border-bottom:1px solid var(--border); font-size:13.5px; }
+  .dinamica-step:last-child { border-bottom:none; }
+  .step-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  .situ-table { width:100%; border-collapse:collapse; font-size:12.5px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-top:12px; }
+  .situ-table thead tr { background:var(--uc-tx); }
+  .situ-table th { color:var(--white); padding:10px 14px; text-align:left; font-size:12px; }
+  .situ-table td { padding:9px 14px; border-bottom:1px solid var(--border); vertical-align:middle; }
+  .situ-table tr:last-child td { border-bottom:none; }
+  .situ-table tr:nth-child(even) td { background:#F7FAFC; }
+  .situ-sim { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:#1A7A4A; background:#EAF3DE; padding:2px 8px; border-radius:8px; }
+  .situ-nao { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:#E63946; background:#FFF0F0; padding:2px 8px; border-radius:8px; }
+
+  .nota-box { background:var(--uc-light); border:1px solid rgba(26,122,74,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); line-height:1.6; margin-top:16px; }
+
+  .aval-parts { display:flex; flex-direction:column; gap:12px; }
+  .aval-part  { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .aval-part-header { padding:11px 18px; font-size:13.5px; font-weight:700; }
+  .aph-uc   { background:var(--uc-main); color:var(--white); }
+  .aph-dark { background:var(--dark); color:var(--white); }
+  .aval-part-body { padding:14px 18px; background:var(--white); }
+  .aval-part-body ul { list-style:none; }
+  .aval-part-body ul li { padding:5px 0 5px 18px; font-size:13.5px; position:relative; color:var(--text); border-bottom:1px solid var(--border); }
+  .aval-part-body ul li:last-child { border-bottom:none; }
+  .aval-part-body ul li::before { content:'•'; position:absolute; left:0; color:var(--uc-main); font-weight:700; }
+
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  .recurso-icon  { font-size:20px; }
+  .obs-box { background:var(--light); border:1px dashed var(--border); border-radius:8px; padding:16px 20px; min-height:80px; font-size:13.5px; color:var(--gray); }
+
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  footer span { color:var(--uc-main); }
+
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; }
+  .btn-action:active { transform:scale(0.97); }
+  .btn-imprimir { background:var(--dark); color:var(--white); }
+  .btn-imprimir:hover { background:#0A3520; box-shadow:0 4px 12px rgba(23,52,4,0.4); }
+  .btn-pdf { background:var(--dark); color:var(--white); }
+  .btn-pdf:hover { background:#0A3520; box-shadow:0 4px 12px rgba(23,52,4,0.4); }
+  button:focus, a:focus { outline:3px solid var(--yellow); outline-offset:2px; }
+
+  @media print {
+    @page { size:A4 portrait; margin:18mm 14mm 16mm 14mm; }
+    * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    body { background:white !important; font-size:11.5px; }
+    .btn-group { display:none !important; }
+    .page-header { background:var(--dark) !important; }
+    .header-inner { padding:16px 24px 16px 30px !important; gap:16px !important; }
+    .header-title { font-size:22px !important; }
+    .header-label { font-size:11px !important; margin-bottom:8px !important; gap:5px !important; }
+    .header-sub   { font-size:11px !important; }
+    .header-badge { font-size:11px !important; padding:4px 10px !important; }
+    .container { padding:10px 0 !important; }
+    .section { box-shadow:none !important; border:1px solid #ccc !important; break-inside:avoid; margin-bottom:12px !important; }
+    .section-body   { padding:14px 20px !important; }
+    .section-header { padding:10px 20px !important; }
+    table { break-inside:avoid; }
+    a[href]::after { content:none !important; }
+    a { text-decoration:none !important; color:inherit !important; }
+    .obs-box { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
+    .connection-row  { grid-template-columns:1fr 1fr !important; }
+    .recursos-grid   { grid-template-columns:repeat(3,1fr) !important; }
+    .hierarquia-wrap { grid-template-columns:repeat(3,1fr) !important; }
+    .caract-grid     { grid-template-columns:repeat(5,1fr) !important; }
+    .compare-wrap    { grid-template-columns:1fr 1fr !important; }
+    footer { background:var(--dark) !important; margin-top:8px !important; padding:12px !important; font-size:10.5px !important; }
+    #btn-topo { display:none !important; }
+  }
+
+  @media (max-width:960px) {
+    .header-inner  { padding:36px 32px 36px 44px; gap:24px; }
+    .container     { padding:28px 32px; }
+    .header-title  { font-size:28px; }
+    .caract-grid   { grid-template-columns:repeat(3,1fr); }
+    .recursos-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:768px) {
+    .header-inner    { flex-direction:column; padding:28px 20px 28px 28px; gap:14px; }
+    .container       { padding:20px 16px; }
+    .header-title    { font-size:22px; }
+    .uc-nome         { white-space:normal; }
+    .section-header  { padding:14px 18px; gap:10px; }
+    .section-body    { padding:18px; }
+    .hierarquia-wrap { grid-template-columns:1fr; }
+    .hier-item:not(:last-child) { border-right:none; border-bottom:1px solid var(--border); }
+    .caract-grid     { grid-template-columns:repeat(3,1fr); }
+    .compare-wrap    { grid-template-columns:1fr; }
+    .connection-row  { grid-template-columns:1fr; }
+    .recursos-grid   { grid-template-columns:1fr 1fr; }
+    .time-table      { display:block; overflow-x:auto; }
+    .situ-table      { display:block; overflow-x:auto; }
+    .btn-group  { top:auto; bottom:20px; right:16px; flex-direction:row; }
+    .btn-action { padding:9px 14px; font-size:12px; }
+  }
+  @media (max-width:480px) {
+    .page-header::before { width:4px; }
+    .page-header::after  { left:4px; width:2px; }
+    .header-inner  { padding:20px 14px 20px 18px; }
+    .container     { padding:14px 12px; }
+    .header-title  { font-size:18px; }
+    .caract-grid   { grid-template-columns:repeat(2,1fr); }
+    .recursos-grid { grid-template-columns:1fr; }
+    .section-body  { padding:14px; }
+    footer         { padding:16px; font-size:11px; }
+  }
+
+  #btn-topo { position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--dark); color:var(--white); border:none; font-size:18px; font-weight:700; cursor:pointer; z-index:999; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:all 0.2s ease; }
+  #btn-topo.visible { display:flex; }
+  #btn-topo:hover   { background:var(--uc-main); transform:translateY(-2px); }
+  #btn-topo:focus   { outline:3px solid var(--yellow); outline-offset:2px; }
+  @media print { #btn-topo { display:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action btn-imprimir" onclick="window.print()" aria-label="Imprimir plano de aula">🖨️ Imprimir</button>
+  <button class="btn-action btn-pdf" onclick="salvarPDF()" aria-label="Exportar como PDF">📄 Exportar PDF</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 01</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">1º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">11/02/2026</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">Quarta-feira</span>
+      </div>
+      <h1 class="header-title">Apresentação da UC<br><span>Introdução ao Ambiente de Desenvolvimento</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Programação de Aplicativos · 1ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        Colégio Neiva Pavan · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">Introdutória — base B2 a B10</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- TEMA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidade</span>
+      <span class="section-tag">1º Trimestre · SA 01</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">
+        Apresentação da UC e Introdução ao Ambiente de Desenvolvimento
+        <span>— o que é programação de aplicativos, o papel do desenvolvedor no mercado, ferramentas utilizadas e visão geral dos blocos da matriz curricular</span>
+      </div>
+      <div class="hab-row">
+        <span class="hab-tag">Aula introdutória — base para B2, B3, B4, B5, B6, B7, B8, B9 e B10</span>
+        <span class="hab-tag">Reconhecer ferramentas para o desenvolvimento de atividades</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag">5 objetivos</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+      <ul class="obj-list">
+        <li><span class="obj-num">1</span>Compreender o que é programação de aplicativos e qual é o papel do desenvolvedor de sistemas no mercado de trabalho de TI</li>
+        <li><span class="obj-num">2</span>Identificar as principais ferramentas utilizadas no ciclo de desenvolvimento de software: IDE, repositório, controle de versão, linguagem e banco de dados</li>
+        <li><span class="obj-num">3</span>Reconhecer o fluxo de trabalho de um desenvolvedor — do ambiente configurado ao produto final entregue ao usuário</li>
+        <li><span class="obj-num">4</span>Diferenciar os paradigmas de programação que serão estudados ao longo do ano: estruturado e orientado a objetos</li>
+        <li><span class="obj-num">5</span>Compreender a estrutura geral da UC: blocos da matriz, avaliações e como esta disciplina se conecta com as demais UCs do curso de Desenvolvimento de Sistemas</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo da Aula</span>
+      <span class="section-tag">Fundamentos</span>
+    </div>
+    <div class="section-body">
+
+      <!-- HIERARQUIA: AMBIENTE → CÓDIGO → APLICATIVO -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin-bottom:10px;">Do Ambiente de Desenvolvimento ao Aplicativo Final</p>
+      <div class="hierarquia-wrap">
+        <div class="hier-item hi-amb">
+          <div class="hier-header">
+            <div class="hier-icon">🛠️</div>
+            <div class="hier-nome">Ambiente de Desenvolvimento</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"O conjunto de ferramentas que o desenvolvedor usa para escrever, testar e versionar código"</div>
+            <ul>
+              <li>IDE: editor inteligente com debug e extensões</li>
+              <li>Compilador/Interpretador: executa o código</li>
+              <li>Repositório Git: controla versões do projeto</li>
+              <li>Terminal integrado: executa comandos diretos</li>
+              <li>Ex: VS Code, IntelliJ IDEA, Eclipse</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hier-item hi-cod">
+          <div class="hier-header">
+            <div class="hier-icon">💻</div>
+            <div class="hier-nome">Código-Fonte</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"As instruções escritas pelo desenvolvedor para resolver um problema ou automatizar uma tarefa"</div>
+            <ul>
+              <li>Paradigma estruturado: lógica sequencial</li>
+              <li>Paradigma OO: classes, objetos e herança</li>
+              <li>Conexão com banco de dados: persistência de dados</li>
+              <li>Técnicas: formatação, testes e documentação</li>
+              <li>Ex: Python, Java, PHP, JavaScript</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hier-item hi-app">
+          <div class="hier-header">
+            <div class="hier-icon">📱</div>
+            <div class="hier-nome">Aplicativo Final</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"O produto final — entregue ao usuário — resultado da junção do ambiente, do código e dos dados"</div>
+            <ul>
+              <li>Aplicativo web: sistemas e portais no navegador</li>
+              <li>Aplicativo desktop: software instalado</li>
+              <li>Aplicativo mobile: Android e iOS</li>
+              <li>API: serviço consumido por outros sistemas</li>
+              <li>Ex: sistema de cadastro, app de vendas</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- POR QUE APRENDER A PROGRAMAR -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Por Que Aprender Programação de Aplicativos?</p>
+      <div class="caract-grid">
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">💼</div>
+            <div class="caract-nome">Empregabilidade</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Mercado aquecido e crescente para desenvolvedores — uma das carreiras mais demandadas em TI</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🔨</div>
+            <div class="caract-nome">Criação</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Transformar ideias em produtos reais que resolvem problemas de pessoas e organizações</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🤖</div>
+            <div class="caract-nome">Automação</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Escrever código que executa tarefas repetitivas com precisão, velocidade e sem erros humanos</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🌐</div>
+            <div class="caract-nome">Integração</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Conectar sistemas, APIs e bancos de dados para criar soluções completas e integradas</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🚀</div>
+            <div class="caract-nome">Inovação</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Criar novas soluções que impactam o mercado — startups, produtos digitais e sistemas modernos</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IDE PROFISSIONAL × EDITOR SIMPLES -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">IDE Profissional × Editor de Texto Simples</p>
+      <div class="compare-wrap">
+        <div class="compare-card cmp-pro">
+          <div class="compare-header">
+            <span style="font-size:22px;">🛠️</span>
+            <div class="compare-titulo">IDE Profissional (VS Code, IntelliJ…)</div>
+          </div>
+          <div class="compare-body">
+            <ul>
+              <li>Autocomplete inteligente e sugestões de código em tempo real</li>
+              <li>Depurador integrado: breakpoints, inspeção de variáveis</li>
+              <li>Terminal embutido: executa comandos sem sair do editor</li>
+              <li>Controle de versão Git integrado com interface visual</li>
+              <li>Extensões: suporte a múltiplas linguagens e frameworks</li>
+              <li>Realce de sintaxe avançado e detecção de erros em tempo real</li>
+            </ul>
+          </div>
+          <div class="compare-quando">Use sempre: o ambiente de desenvolvimento profissional aumenta produtividade e reduz erros</div>
+        </div>
+        <div class="compare-card cmp-sem">
+          <div class="compare-header">
+            <span style="font-size:22px;">📝</span>
+            <div class="compare-titulo">Editor de Texto Simples (Bloco de Notas…)</div>
+          </div>
+          <div class="compare-body">
+            <ul>
+              <li>Sem autocomplete — o desenvolvedor precisa lembrar tudo</li>
+              <li>Sem depurador — encontrar erros é manual e demorado</li>
+              <li>Sem terminal — é necessário abrir outra janela para executar</li>
+              <li>Sem controle de versão — risco de perder código ou sobrescrever</li>
+              <li>Sem extensões — suporte apenas ao arquivo aberto</li>
+              <li>Erros de sintaxe só aparecem ao tentar executar o código</li>
+            </ul>
+          </div>
+          <div class="compare-quando">Evite para projetos reais: adequado apenas para anotações rápidas, não para desenvolvimento</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ORGANIZAÇÃO DO TEMPO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag">5 etapas · 50 min</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+        <thead>
+          <tr><th style="width:26%">Etapa</th><th>Atividade</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="etapa-pill ep-abertura">Abertura · 5 min</span></td>
+            <td>Chamada · Apresentação do professor e da UC · Visão geral do que será aprendido ao longo do ano e de como a disciplina se conecta com as demais UCs do curso de Desenvolvimento de Sistemas</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-probl">Problematização · 5 min</span></td>
+            <td>Primeira aula do ano — sem retomada · Professor abre com a pergunta: <em>"Quem aqui já instalou um aplicativo, usou um sistema de cadastro ou fez uma compra online? Alguém sabe como esse software foi criado?"</em> — alunos respondem livremente; professor contextualiza o papel do desenvolvedor</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-expl">Explicação · 20 min</span></td>
+            <td>Slides — o que é programação de aplicativos, fluxo do ambiente ao produto final, por que aprender a programar, IDE vs editor simples, visão geral dos blocos da matriz (B2–B10), estrutura das avaliações e conexão com as próximas UCs do curso</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-dinamica">Dinâmica · 15 min</span></td>
+            <td>"Já Vi Isso Antes?" — grupos identificam ferramentas de desenvolvimento a partir de descrições de uso e discutem o papel de cada uma no ciclo de criação de um aplicativo</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-fecha">Fechamento · 5 min</span></td>
+            <td>Resumo: desenvolver um aplicativo = ambiente configurado + código bem escrito + dados persistidos · Próxima SA: Ferramentas de Desenvolvimento — Funções e Repositórios (SA 02 · 25/02)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DINÂMICA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica</span>
+      <span class="section-tag">Já Vi Isso Antes?</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box">
+        <div class="dinamica-header">🛠️ Já Vi Isso Antes?</div>
+        <div class="dinamica-body">
+          <div class="dinamica-meta">
+            <div class="dinamica-meta-item">⏱️ <strong>Duração:</strong> 15 minutos</div>
+            <div class="dinamica-meta-item">👥 <strong>Agrupamento:</strong> grupos de 4 a 5 alunos</div>
+            <div class="dinamica-meta-item">🎯 <strong>Objetivo:</strong> levantar o conhecimento prévio da turma sobre ferramentas de desenvolvimento e contextualizar a jornada do ano</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">1</div>
+            <div><strong>Distribuição das ferramentas</strong> <em>(1 min)</em> — Cada grupo recebe 6 cartões (ou vê os slides projetados) com descrições de uso de ferramentas de desenvolvimento. O desafio: <em>"Já vi isso antes? O que é e para que serve essa ferramenta?"</em></div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">2</div>
+            <div><strong>Discussão em grupo</strong> <em>(7 min)</em> — O grupo decide: JÁ VI ou NUNCA VI, e tenta nomear a ferramenta e descrever sua função no ciclo de desenvolvimento de um aplicativo</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">3</div>
+            <div><strong>Compartilhamento e gabarito</strong> <em>(7 min)</em> — Cada grupo apresenta uma ferramenta; professor revela o nome correto, explica a função e conecta ao bloco da matriz onde ela será aprofundada</div>
+          </div>
+        </div>
+      </div>
+
+      <table class="situ-table">
+        <thead>
+          <tr><th>Descrição de uso da ferramenta</th><th>Ferramenta</th><th>Bloco da UC</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>"Escrevo meu código aqui, com destaque de cores, sugestões automáticas e clico F5 para executar"</td>
+            <td><span class="situ-sim">IDE</span></td>
+            <td>B2 — Ambiente</td>
+          </tr>
+          <tr>
+            <td>"Quando termino uma funcionalidade, faço um commit e envio para o servidor remoto com git push"</td>
+            <td><span class="situ-sim">Git / GitHub</span></td>
+            <td>B2 — Repositório</td>
+          </tr>
+          <tr>
+            <td>"Defino uma classe Produto com atributos nome e preço, depois crio objetos a partir dela"</td>
+            <td><span class="situ-sim">OO / Linguagem</span></td>
+            <td>B4 — OO</td>
+          </tr>
+          <tr>
+            <td>"Executo um INSERT INTO na minha aplicação para salvar o cadastro do usuário no banco"</td>
+            <td><span class="situ-sim">BD / SQL</span></td>
+            <td>B5 — Banco de Dados</td>
+          </tr>
+          <tr>
+            <td>"Coloco um breakpoint na linha 42, executo em modo debug e inspeciono o valor da variável"</td>
+            <td><span class="situ-sim">Depurador</span></td>
+            <td>B6 — Depuração</td>
+          </tr>
+          <tr>
+            <td>"Escrevo um método de teste que verifica se o cálculo do desconto retorna o valor esperado"</td>
+            <td><span class="situ-nao">Teste Unitário</span></td>
+            <td>B6 — Testes</td>
+          </tr>
+          <tr>
+            <td>"Preencho os 9 blocos do Canvas do meu aplicativo: proposta de valor, clientes, canais e receita"</td>
+            <td><span class="situ-nao">Canvas</span></td>
+            <td>B10 — Modelagem</td>
+          </tr>
+          <tr>
+            <td>"Não compartilho senha de cliente nem dado pessoal de usuário — sigilo é princípio inegociável"</td>
+            <td><span class="situ-nao">Ética em TI</span></td>
+            <td>B7 — Ética</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="nota-box">
+        💡 <strong>Reforço pedagógico:</strong> o objetivo não é que o aluno já conheça todas as ferramentas, mas perceber que elas formam um ecossistema integrado. <em>"Cada bloco da UC que você estudar este ano vai preencher um espaço nesse mapa de ferramentas."</em> Reforçar que programar bem vai muito além de saber a sintaxe — é sobre ambiente, qualidade, ética e entrega.
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag">Questionário · 10 questões</span>
+    </div>
+    <div class="section-body">
+      <div class="aval-parts">
+        <div class="aval-part">
+          <div class="aval-part-header aph-uc">Parte 1 — Questões Objetivas (5 questões)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Nível introdutório · 4 alternativas: A) B) C) D)</li>
+              <li>Gabarito alternado, sem repetição consecutiva de letras</li>
+              <li>Temas: o que é um aplicativo, papel do desenvolvedor, ferramentas do ciclo de dev, IDE vs editor simples, blocos da matriz</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header aph-dark">Parte 2 — Questões Discursivas (5 questões)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Cada questão possui título explicativo antes do enunciado</li>
+              <li>Sem linhas — apenas espaço em branco com <code style="font-family:'DM Mono',monospace;font-size:12px;background:rgba(26,122,74,0.1);color:var(--uc-tx);padding:1px 5px;border-radius:4px;">R:</code></li>
+              <li>Temas: situações práticas do desenvolvedor, vantagens da IDE, fluxo ambiente → produto, papel da ética em TI, expectativas do aluno para o ano</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header" style="background:var(--gray);color:var(--white);">Gabarito</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Em página separada — uso exclusivo do professor</li>
+              <li>Objetivas: letra correta + justificativa completa</li>
+              <li>Discursivas: resposta esperada com critérios de correção</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONEXÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag section-tag-gray">Continuidade</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant">
+          <div class="conn-label">← Aula anterior</div>
+          <div style="font-size:13.5px;color:var(--dark);">Primeira aula do ano — sem aula anterior</div>
+        </div>
+        <div class="conn-card conn-prox">
+          <div class="conn-label">Próxima aula → SA 02</div>
+          <div style="font-size:13.5px;color:var(--dark);">Ferramentas de Desenvolvimento — Funções e Repositórios · 25/02/2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag section-tag-gray">Verificar antes da aula</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid">
+        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor ou TV</span></div>
+        <div class="recurso-item"><span class="recurso-icon">💻</span><span>Computador com HDMI</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📊</span><span>Apresentação com slides (≈ 18 slides)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Questionário impresso ou digital</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🃏</span><span>Cartões da dinâmica impressos (1 conjunto por grupo) ou slide com as ferramentas</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSERVAÇÕES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag section-tag-gray">Opcional</span>
+    </div>
+    <div class="section-body">
+      <div class="obs-box"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Plano de Aula · <span>SA 01 — Apresentação da UC · Introdução ao Ambiente de Desenvolvimento</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · Colégio Neiva Pavan · 2026
+</footer>
+
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF = () => {
+    const t = document.title;
+    document.title = 'Plano_Aula_SA01_PA_Introducao';
+    window.print();
+    setTimeout(() => { document.title = t; }, 1000);
+  };
+  const btn = document.getElementById('btn-topo');
+  window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 400); });
+  if (btn) btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
