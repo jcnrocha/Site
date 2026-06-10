@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 13 — Ponte: Conexão com o 2º Trimestre · Redes</title>
+<meta name="description" content="Plano de aula SA 13 — Ponte: Conexão com o 2º Trimestre · UC: Fundamentos de Redes de Computadores · SENAI Umuarama">
+<meta name="theme-color" content="#0D1A2B">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uc-main:  #0F6E56;
+    --uc-light: #E1F5EE;
+    --uc-tx:    #04342C;
+    --dark:     #0D1A2B;
+    --yellow:   #F9C74F;
+    --gold:     #C49A00;
+    --amber:    #BA7517;
+    --amber-bg: #FFF3DC;
+    --gray:     #64748B;
+    --light:    #F2F5F8;
+    --white:    #FFFFFF;
+    --text:     #1A2635;
+    --red:      #E63946;
+    --red-light:#FFF0F0;
+    --green:    #1A7A4A;
+    --green-light:#EBF8F2;
+    --border:   #D4DCE4;
+    --warn-bg:  #FFF8E7;
+  }
+
+  html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--amber); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; font-weight:300; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--amber); background:rgba(186,117,23,0.18); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-sub .uc-nome { white-space:nowrap; display:block; }
+  .header-badge { background:var(--amber); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; flex-shrink:0; align-self:flex-start; margin-top:4px; }
+
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag      { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
+  .section-tag-amber { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--amber-bg); color:var(--amber); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; border:1px solid rgba(186,117,23,0.25); }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
+  .section-body  { padding:24px 26px; }
+
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--amber); }
+  .tema-box span { color:var(--amber); }
+  .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(15,110,86,0.2); }
+  .hab-tag-amber { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--amber-bg); color:var(--amber); padding:4px 12px; border-radius:12px; border:1px solid rgba(186,117,23,0.25); }
+
+  .obj-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  /* HIERARQUIA: PASSIVO → ATIVO → PRÓXIMO TRI */
+  .hierarquia-wrap { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-radius:12px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .hier-item { display:flex; flex-direction:column; }
+  .hier-item:not(:last-child) { border-right:1px solid var(--border); }
+  .hier-header { padding:12px 14px 10px; text-align:center; }
+  .hier-icon   { font-size:28px; margin-bottom:4px; }
+  .hier-nome   { font-size:14px; font-weight:700; color:var(--white); }
+  .hier-body   { padding:12px 14px 14px; background:var(--light); flex:1; }
+  .hier-def    { font-size:12.5px; font-style:italic; color:var(--uc-tx); margin-bottom:8px; padding:8px 10px; background:var(--uc-light); border-radius:6px; line-height:1.5; }
+  .hier-body ul { list-style:none; display:flex; flex-direction:column; gap:4px; }
+  .hier-body ul li { font-size:12px; color:var(--gray); padding-left:12px; position:relative; line-height:1.5; }
+  .hier-body ul li::before { content:'▸'; position:absolute; left:0; font-size:9px; top:3px; color:var(--uc-main); }
+  .hi-passivo .hier-header { background:#0A5C7A; }
+  .hi-ativo   .hier-header { background:var(--uc-main); }
+  .hi-ponte   .hier-header { background:var(--amber); }
+
+  /* GRID DE ATIVOS DE REDE */
+  .caract-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:16px; }
+  .caract-card { border-radius:10px; overflow:hidden; border:1px solid var(--border); text-align:center; }
+  .caract-card-header { padding:12px 8px 8px; background:var(--uc-main); }
+  .caract-icon { font-size:22px; margin-bottom:4px; }
+  .caract-nome { font-size:12px; font-weight:700; color:var(--white); line-height:1.2; }
+  .caract-body { padding:10px 8px; background:var(--light); }
+  .caract-desc { font-size:11.5px; color:var(--gray); line-height:1.4; }
+
+  /* REVISÃO × PRÓXIMO TRIMESTRE */
+  .compare-wrap { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .compare-card { border-radius:10px; overflow:hidden; border:2px solid; }
+  .cmp-rev   { border-color:var(--uc-main); }
+  .cmp-prox  { border-color:var(--amber); }
+  .compare-header { padding:12px 16px; display:flex; align-items:center; gap:10px; }
+  .cmp-rev .compare-header  { background:var(--uc-main); }
+  .cmp-prox .compare-header { background:var(--amber); }
+  .compare-titulo { font-size:14px; font-weight:700; color:var(--white); }
+  .compare-body { padding:14px 16px; background:var(--white); }
+  .compare-body ul { list-style:none; display:flex; flex-direction:column; gap:5px; }
+  .compare-body ul li { font-size:12.5px; color:var(--text); padding-left:14px; position:relative; line-height:1.5; }
+  .compare-body ul li::before { content:'▸'; position:absolute; left:0; font-size:9px; top:4px; color:var(--uc-main); }
+  .cmp-prox .compare-body ul li::before { color:var(--amber); }
+  .compare-quando { padding:10px 16px 14px; font-size:12px; font-style:italic; color:var(--gray); background:var(--light); border-top:1px solid var(--border); }
+
+  /* MAPA DO 2º TRIMESTRE */
+  .mapa-tri { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
+  .mapa-card { border-radius:10px; overflow:hidden; border:1px solid var(--border); text-align:center; }
+  .mapa-card-header { padding:10px 8px 8px; background:var(--dark); }
+  .mapa-sa   { font-family:'DM Mono',monospace; font-size:11px; font-weight:600; color:var(--amber); margin-bottom:3px; }
+  .mapa-data { font-family:'DM Mono',monospace; font-size:10px; color:#64748B; }
+  .mapa-body { padding:10px 8px; background:var(--light); }
+  .mapa-titulo { font-size:11.5px; font-weight:600; color:var(--dark); line-height:1.4; margin-bottom:4px; }
+  .mapa-hab { font-family:'DM Mono',monospace; font-size:10px; color:var(--uc-main); }
+
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:last-child td { border-bottom:none; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; }
+  .ep-abertura { background:#E0F2FE; color:#0369A1; }
+  .ep-retomada { background:#FEF9C3; color:#854D0E; }
+  .ep-expl     { background:#DCFCE7; color:#166534; }
+  .ep-ponte    { background:var(--amber-bg); color:var(--amber); }
+  .ep-dinamica { background:#F3E8FF; color:#6B21A8; }
+  .ep-fecha    { background:#F1F5F9; color:#475569; }
+
+  .dinamica-box    { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--amber); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body   { padding:18px; }
+  .dinamica-meta   { display:flex; gap:16px; margin-bottom:16px; flex-wrap:wrap; }
+  .dinamica-meta-item { font-size:12.5px; color:var(--gray); display:flex; align-items:center; gap:6px; }
+  .dinamica-meta-item strong { color:var(--dark); }
+  .dinamica-step   { display:flex; gap:14px; padding:10px 0; border-bottom:1px solid var(--border); font-size:13.5px; }
+  .dinamica-step:last-child { border-bottom:none; }
+  .step-num { background:var(--amber); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  /* TABELA DE CARTÕES DIAGNÓSTICO */
+  .situ-table { width:100%; border-collapse:collapse; font-size:12.5px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-top:12px; }
+  .situ-table thead tr { background:var(--dark); }
+  .situ-table th { color:var(--white); padding:10px 14px; text-align:left; font-size:12px; }
+  .situ-table td { padding:9px 14px; border-bottom:1px solid var(--border); vertical-align:middle; }
+  .situ-table tr:last-child td { border-bottom:none; }
+  .situ-table tr:nth-child(even) td { background:#F7FAFC; }
+  .situ-resp { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:var(--uc-tx); background:var(--uc-light); padding:2px 8px; border-radius:8px; white-space:nowrap; }
+
+  .nota-box { background:var(--amber-bg); border:1px solid rgba(186,117,23,0.25); border-left:4px solid var(--amber); border-radius:8px; padding:12px 16px; font-size:13px; color:#5A3800; line-height:1.6; margin-top:16px; }
+  .nota-box-green { background:var(--uc-light); border:1px solid rgba(15,110,86,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); line-height:1.6; margin-top:16px; }
+
+  .aval-parts { display:flex; flex-direction:column; gap:12px; }
+  .aval-part  { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .aval-part-header { padding:11px 18px; font-size:13.5px; font-weight:700; }
+  .aph-amber { background:var(--amber); color:var(--white); }
+  .aph-dark  { background:var(--dark); color:var(--white); }
+  .aval-part-body { padding:14px 18px; background:var(--white); }
+  .aval-part-body ul { list-style:none; }
+  .aval-part-body ul li { padding:5px 0 5px 18px; font-size:13.5px; position:relative; color:var(--text); border-bottom:1px solid var(--border); }
+  .aval-part-body ul li:last-child { border-bottom:none; }
+  .aval-part-body ul li::before { content:'•'; position:absolute; left:0; color:var(--uc-main); font-weight:700; }
+
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  .recurso-icon  { font-size:20px; }
+  .obs-box { background:var(--light); border:1px dashed var(--border); border-radius:8px; padding:16px 20px; min-height:80px; font-size:13.5px; color:var(--gray); }
+
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--amber); }
+  footer span { color:var(--amber); }
+
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; }
+  .btn-action:active { transform:scale(0.97); }
+  .btn-imprimir { background:var(--dark); color:var(--white); }
+  .btn-imprimir:hover { background:#0A3D2E; box-shadow:0 4px 12px rgba(4,52,44,0.4); }
+  .btn-pdf { background:var(--dark); color:var(--white); }
+  .btn-pdf:hover { background:#0A3D2E; box-shadow:0 4px 12px rgba(4,52,44,0.4); }
+  button:focus, a:focus { outline:3px solid var(--yellow); outline-offset:2px; }
+
+  @media print {
+    @page { size:A4 portrait; margin:18mm 14mm 16mm 14mm; }
+    * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    body { background:white !important; font-size:11.5px; }
+    .btn-group { display:none !important; }
+    .page-header { background:var(--dark) !important; }
+    .header-inner { padding:16px 24px 16px 30px !important; gap:16px !important; }
+    .header-title { font-size:22px !important; }
+    .header-label { font-size:11px !important; margin-bottom:8px !important; gap:5px !important; }
+    .header-sub   { font-size:11px !important; }
+    .header-badge { font-size:11px !important; padding:4px 10px !important; }
+    .container { padding:10px 0 !important; }
+    .section { box-shadow:none !important; border:1px solid #ccc !important; break-inside:avoid; margin-bottom:12px !important; }
+    .section-body   { padding:14px 20px !important; }
+    .section-header { padding:10px 20px !important; }
+    table { break-inside:avoid; }
+    a[href]::after { content:none !important; }
+    a { text-decoration:none !important; color:inherit !important; }
+    .obs-box { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
+    .connection-row { grid-template-columns:1fr 1fr !important; }
+    .recursos-grid  { grid-template-columns:repeat(3,1fr) !important; }
+    .hierarquia-wrap { grid-template-columns:repeat(3,1fr) !important; }
+    .caract-grid     { grid-template-columns:repeat(5,1fr) !important; }
+    .compare-wrap    { grid-template-columns:1fr 1fr !important; }
+    .mapa-tri        { grid-template-columns:repeat(4,1fr) !important; }
+    footer { background:var(--dark) !important; margin-top:8px !important; padding:12px !important; font-size:10.5px !important; }
+    #btn-topo { display:none !important; }
+  }
+
+  @media (max-width:960px) {
+    .header-inner  { padding:36px 32px 36px 44px; gap:24px; }
+    .container     { padding:28px 32px; }
+    .header-title  { font-size:28px; }
+    .caract-grid   { grid-template-columns:repeat(3,1fr); }
+    .recursos-grid { grid-template-columns:1fr 1fr; }
+    .mapa-tri      { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:768px) {
+    .header-inner    { flex-direction:column; padding:28px 20px 28px 28px; gap:14px; }
+    .container       { padding:20px 16px; }
+    .header-title    { font-size:22px; }
+    .uc-nome         { white-space:normal; }
+    .section-header  { padding:14px 18px; gap:10px; }
+    .section-body    { padding:18px; }
+    .hierarquia-wrap { grid-template-columns:1fr; }
+    .hier-item:not(:last-child) { border-right:none; border-bottom:1px solid var(--border); }
+    .caract-grid     { grid-template-columns:repeat(3,1fr); }
+    .compare-wrap    { grid-template-columns:1fr; }
+    .connection-row  { grid-template-columns:1fr; }
+    .recursos-grid   { grid-template-columns:1fr 1fr; }
+    .mapa-tri        { grid-template-columns:1fr 1fr; }
+    .time-table      { display:block; overflow-x:auto; }
+    .situ-table      { display:block; overflow-x:auto; }
+    .btn-group  { top:auto; bottom:20px; right:16px; flex-direction:row; }
+    .btn-action { padding:9px 14px; font-size:12px; }
+  }
+  @media (max-width:480px) {
+    .page-header::before { width:4px; }
+    .page-header::after  { left:4px; width:2px; }
+    .header-inner  { padding:20px 14px 20px 18px; }
+    .container     { padding:14px 12px; }
+    .header-title  { font-size:18px; }
+    .caract-grid   { grid-template-columns:repeat(2,1fr); }
+    .recursos-grid { grid-template-columns:1fr; }
+    .mapa-tri      { grid-template-columns:1fr 1fr; }
+    .section-body  { padding:14px; }
+    footer         { padding:16px; font-size:11px; }
+  }
+
+  #btn-topo { position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--dark); color:var(--white); border:none; font-size:18px; font-weight:700; cursor:pointer; z-index:999; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:all 0.2s ease; }
+  #btn-topo.visible { display:flex; }
+  #btn-topo:hover   { background:var(--amber); transform:translateY(-2px); }
+  #btn-topo:focus   { outline:3px solid var(--yellow); outline-offset:2px; }
+  @media print { #btn-topo { display:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action btn-imprimir" onclick="window.print()" aria-label="Imprimir plano de aula">🖨️ Imprimir</button>
+  <button class="btn-action btn-pdf" onclick="salvarPDF()" aria-label="Exportar como PDF">📄 Exportar PDF</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 13</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">Aula Ponte · 1º → 2º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">13/05/2026</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">Quarta-feira</span>
+      </div>
+      <h1 class="header-title">Ponte — <span>Conexão com o 2º Trimestre</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Redes de Computadores · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">H3 · H4 — Aula Ponte</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- TEMA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🌉</span>
+      <span class="section-title">Tema e Habilidades</span>
+      <span class="section-tag-amber">Aula Ponte · SA 13</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">
+        Ponte — Conexão com o 2º Trimestre
+        <span>— retomada de componentes e ativos de rede (H3) · introdução às tecnologias de conexão e meios de transmissão (H4) · visão do 2º trimestre</span>
+      </div>
+      <div class="hab-row">
+        <span class="hab-tag">H3 — Reconhecer componentes e ativos de redes de computadores</span>
+        <span class="hab-tag-amber">H4 — Identificar tipos e tecnologias de conexão a redes (introdução)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag">5 objetivos</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+      <ul class="obj-list">
+        <li><span class="obj-num">1</span>Retomar e consolidar os conceitos de hardware passivo (cabos, conectores, patch panel) e ativo (Hub, Switch, Roteador, AP, Modem) estudados no 1º trimestre</li>
+        <li><span class="obj-num">2</span>Relacionar os componentes de rede com os meios físicos pelos quais os dados trafegam, estabelecendo a ligação natural entre H3 e H4</li>
+        <li><span class="obj-num">3</span>Compreender o conceito de meio de transmissão guiado e não guiado como extensão lógica do estudo de cabos e componentes</li>
+        <li><span class="obj-num">4</span>Conhecer o mapa de conteúdos do 2º trimestre: meios de transmissão, tecnologias de conexão, endereçamento IP e protocolos</li>
+        <li><span class="obj-num">5</span>Identificar a relevância do 2º trimestre para a prática profissional em infraestrutura e desenvolvimento de sistemas conectados</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo da Aula</span>
+      <span class="section-tag-amber">H3 Revisão · H4 Introdução</span>
+    </div>
+    <div class="section-body">
+
+      <!-- HIERARQUIA: PASSIVO → ATIVO → PRÓXIMO TRI -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin-bottom:10px;">Do Que Já Sabemos ao Que Vem por Aí: Passivo → Ativo → Meios de Transmissão</p>
+      <div class="hierarquia-wrap">
+        <div class="hier-item hi-passivo">
+          <div class="hier-header">
+            <div class="hier-icon">🔌</div>
+            <div class="hier-nome">Hardware Passivo</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"Componentes que conduzem o sinal sem processá-lo — a infraestrutura física da rede"</div>
+            <ul>
+              <li>Cabos: par trançado Cat5e/6/6A, fibra óptica, coaxial</li>
+              <li>Conectores: RJ-45, RJ-11, SC, LC</li>
+              <li>Patch panel e organizador de cabos</li>
+              <li>Rack e armário de telecomunicações</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hier-item hi-ativo">
+          <div class="hier-header">
+            <div class="hier-icon">⚙️</div>
+            <div class="hier-nome">Hardware Ativo</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"Dispositivos que processam, amplificam ou encaminham o sinal — inteligência da rede"</div>
+            <ul>
+              <li>Hub: distribui o sinal para todas as portas</li>
+              <li>Switch: encaminha quadros por endereço MAC</li>
+              <li>Roteador: conecta redes distintas, roteia pacotes IP</li>
+              <li>Access Point: ponto de acesso sem fio (Wi-Fi)</li>
+              <li>Modem/ONU: converte sinais para o meio físico do ISP</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hier-item hi-ponte">
+          <div class="hier-header">
+            <div class="hier-icon">🌉</div>
+            <div class="hier-nome">2º Trimestre (H4)</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"Como os dados realmente viajam — meios de transmissão, tecnologias e protocolos"</div>
+            <ul>
+              <li>Meios guiados: par trançado, fibra óptica, coaxial</li>
+              <li>Meios não guiados: Wi-Fi, Bluetooth, satélite</li>
+              <li>Tecnologias de acesso: ADSL, fibra FTTH, 4G/5G</li>
+              <li>Endereçamento IP, protocolos TCP/IP, modelo OSI</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRID DE ATIVOS DE REDE -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Ativos de Rede — Revisão Rápida dos 5 Principais Equipamentos</p>
+      <div class="caract-grid">
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🔀</div>
+            <div class="caract-nome">Hub</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Distribuição de sinal sem inteligência · Todos recebem tudo · Camada 1 do OSI</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🔁</div>
+            <div class="caract-nome">Switch</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Encaminha por MAC · Segmenta colisões · Camada 2 · Padrão em redes locais</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🌐</div>
+            <div class="caract-nome">Roteador</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Conecta redes distintas · Endereça por IP · Camada 3 · Gateway da internet</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">📡</div>
+            <div class="caract-nome">Access Point</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Ponto de acesso Wi-Fi · Estende a rede cabeada para o ar · Padrões 802.11</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">📶</div>
+            <div class="caract-nome">Modem / ONU</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Converte sinal do ISP · Modem (DSL/cabo) · ONU (fibra óptica FTTH)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVISÃO × PRÓXIMO TRIMESTRE -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">O que já dominamos × O que vem no 2º Trimestre</p>
+      <div class="compare-wrap">
+        <div class="compare-card cmp-rev">
+          <div class="compare-header">
+            <span style="font-size:22px;">✅</span>
+            <div class="compare-titulo">1º Trimestre — O que já sabemos (H1, H2, H3)</div>
+          </div>
+          <div class="compare-body">
+            <ul>
+              <li><strong>H1</strong> — Bits, bytes, unidades de medida de armazenamento e velocidade</li>
+              <li><strong>H2</strong> — Simbologias ANSI/ISO para diagramas de rede</li>
+              <li><strong>H3</strong> — Hardware passivo: cabos, conectores, patch panel, rack</li>
+              <li><strong>H3</strong> — Hardware ativo: Hub, Switch, Roteador, AP, Modem/ONU</li>
+              <li><strong>H3</strong> — Interfaces e serviços de internet (Ethernet, Wi-Fi, fibra, 4G)</li>
+            </ul>
+          </div>
+          <div class="compare-quando">Base sólida — esses conceitos serão retomados e aprofundados ao longo do ano</div>
+        </div>
+        <div class="compare-card cmp-prox">
+          <div class="compare-header">
+            <span style="font-size:22px;">🚀</span>
+            <div class="compare-titulo">2º Trimestre — O que vem por aí (H3 e H4)</div>
+          </div>
+          <div class="compare-body">
+            <ul>
+              <li><strong>H4</strong> — Meios de transmissão guiados: par trançado, fibra, coaxial</li>
+              <li><strong>H4</strong> — Meios não guiados: Wi-Fi 802.11, Bluetooth, satélite</li>
+              <li><strong>H4</strong> — Tecnologias de acesso: ADSL, FTTH, 3G/4G/5G, PLC</li>
+              <li><strong>H4</strong> — Endereçamento IP, TCP/IP, UDP, HTTP, DNS, DHCP</li>
+              <li><strong>H4/H5</strong> — Modelo OSI, segurança básica em redes</li>
+            </ul>
+          </div>
+          <div class="compare-quando">Foco em "como os dados viajam" — da camada física aos protocolos de aplicação</div>
+        </div>
+      </div>
+
+      <!-- MAPA DO 2º TRIMESTRE -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Mapa do 2º Trimestre — 14 SAs · 20/05 a 02/09/2026</p>
+      <div class="mapa-tri">
+        <div class="mapa-card">
+          <div class="mapa-card-header">
+            <div class="mapa-sa">SA 14</div>
+            <div class="mapa-data">20/05</div>
+          </div>
+          <div class="mapa-body">
+            <div class="mapa-titulo">Meios de Transmissão Guiados</div>
+            <div class="mapa-hab">H3 · H4</div>
+          </div>
+        </div>
+        <div class="mapa-card">
+          <div class="mapa-card-header">
+            <div class="mapa-sa">SA 15</div>
+            <div class="mapa-data">27/05</div>
+          </div>
+          <div class="mapa-body">
+            <div class="mapa-titulo">Meios de Transmissão Não Guiados</div>
+            <div class="mapa-hab">H4</div>
+          </div>
+        </div>
+        <div class="mapa-card">
+          <div class="mapa-card-header">
+            <div class="mapa-sa">SA 16</div>
+            <div class="mapa-data">03/06</div>
+          </div>
+          <div class="mapa-body">
+            <div class="mapa-titulo">Tecnologias de Conexão — Parte 1</div>
+            <div class="mapa-hab">H4</div>
+          </div>
+        </div>
+        <div class="mapa-card">
+          <div class="mapa-card-header">
+            <div class="mapa-sa">SA 17</div>
+            <div class="mapa-data">10/06</div>
+          </div>
+          <div class="mapa-body">
+            <div class="mapa-titulo">Tecnologias de Conexão — Parte 2</div>
+            <div class="mapa-hab">H4</div>
+          </div>
+        </div>
+        <div class="mapa-card">
+          <div class="mapa-card-header">
+            <div class="mapa-sa">SA 18</div>
+            <div class="mapa-data">17/06</div>
+          </div>
+          <div class="mapa-body">
+            <div class="mapa-titulo">Endereçamento IP</div>
+            <div class="mapa-hab">H4</div>
+          </div>
+        </div>
+        <div class="mapa-card">
+          <div class="mapa-card-header">
+            <div class="mapa-sa">SA 19</div>
+            <div class="mapa-data">24/06</div>
+          </div>
+          <div class="mapa-body">
+            <div class="mapa-titulo">Protocolos TCP/IP e UDP</div>
+            <div class="mapa-hab">H4</div>
+          </div>
+        </div>
+        <div class="mapa-card">
+          <div class="mapa-card-header">
+            <div class="mapa-sa">SA 20</div>
+            <div class="mapa-data">01/07</div>
+          </div>
+          <div class="mapa-body">
+            <div class="mapa-titulo">Protocolos de Aplicação</div>
+            <div class="mapa-hab">H4</div>
+          </div>
+        </div>
+        <div class="mapa-card">
+          <div class="mapa-card-header">
+            <div class="mapa-sa">SA 22</div>
+            <div class="mapa-data">29/07</div>
+          </div>
+          <div class="mapa-body">
+            <div class="mapa-titulo">Modelo OSI — 7 Camadas</div>
+            <div class="mapa-hab">H4 · H5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nota-box">
+        🌉 <strong>Por que esta aula é uma "Ponte"?</strong> A SA 13 encerra o 1º trimestre e abre o 2º — não é revisão de prova nem aula nova. É o momento de conectar o que o aluno já sabe (componentes físicos) com o que vai aprender (como esses componentes se comunicam). O conceito de "meio de transmissão" é, na prática, a continuação direta do estudo de cabos e interfaces.
+      </div>
+    </div>
+  </section>
+
+  <!-- ORGANIZAÇÃO DO TEMPO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag">6 etapas · 90 min</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+        <thead>
+          <tr><th style="width:26%">Etapa</th><th>Atividade</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="etapa-pill ep-abertura">Abertura</span></td>
+            <td>Chamada · Contextualização: "Hoje fechamos um ciclo e abrimos outro" · Explicação do que é uma aula Ponte e o que os alunos podem esperar desta SA</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-retomada">Retomada H3</span></td>
+            <td>Revisão interativa dos componentes do 1º trimestre — professor apresenta imagens de equipamentos, alunos identificam e descrevem função · Destaque para os pontos mais cobrados na prova</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-dinamica">Dinâmica</span></td>
+            <td>"Conecta Certo!" — grupos recebem cartões com componentes e casos de uso; tarefa: montar pares corretos e justificar a escolha (ex: "fibra óptica → link de data center")</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-ponte">Ponte H3 → H4</span></td>
+            <td>Professor conduz a transição: "Você conhece o Switch — mas por qual fio o dado viaja até ele?" — introdução ao conceito de meios de transmissão como próxima camada de conhecimento</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-expl">Visão do 2º Tri</span></td>
+            <td>Apresentação do mapa de conteúdos do 2º trimestre (SA 14 a SA 27) · Destaque para os tópicos mais relevantes para o mercado · Apresentação da proposta de avaliação do trimestre</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-fecha">Fechamento</span></td>
+            <td>Resumo: H3 consolidado · conexão natural com meios de transmissão · Próxima SA (14): Meios de Transmissão Guiados — 20/05/2026 · Orientação de revisão para quem ficou com dúvidas do 1º trimestre</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DINÂMICA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica</span>
+      <span class="section-tag-amber">Conecta Certo!</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box">
+        <div class="dinamica-header">🔗 Conecta Certo! — Componentes × Cenários de Uso</div>
+        <div class="dinamica-body">
+          <div class="dinamica-meta">
+            <div class="dinamica-meta-item">⏱️ <strong>Duração:</strong> 15 minutos</div>
+            <div class="dinamica-meta-item">👥 <strong>Agrupamento:</strong> grupos de 4 a 5 alunos</div>
+            <div class="dinamica-meta-item">🎯 <strong>Objetivo:</strong> revisar componentes de rede (H3) associando cada equipamento ou cabo ao cenário de uso mais adequado — consolidando o 1º trimestre e abrindo para o 2º</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">1</div>
+            <div><strong>Distribuição dos cartões</strong> <em>(2 min)</em> — Cada grupo recebe dois conjuntos: um com nomes de componentes/equipamentos e outro com cenários de uso (frases descrevendo uma situação real de TI). A tarefa: montar pares corretos</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">2</div>
+            <div><strong>Montagem e justificativa</strong> <em>(8 min)</em> — O grupo discute, monta os pares e escreve uma frase curta justificando cada combinação. Não basta acertar o par — é preciso saber explicar por quê</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">3</div>
+            <div><strong>Compartilhamento e transição</strong> <em>(5 min)</em> — Cada grupo apresenta um par. O professor aproveita para fazer a transição natural: "esse cabo que vocês identificaram é justamente o que vamos estudar como meio de transmissão na SA 14"</div>
+          </div>
+        </div>
+      </div>
+
+      <table class="situ-table">
+        <thead>
+          <tr><th>Cenário de uso</th><th>Componente correto</th><th>Justificativa</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Conectar 20 computadores em uma sala de aula com endereçamento inteligente por porta</td>
+            <td><span class="situ-resp">Switch</span></td>
+            <td>Switch encaminha quadros por endereço MAC, isolando domínios de colisão — ideal para LANs</td>
+          </tr>
+          <tr>
+            <td>Fornecer acesso sem fio aos alunos em um corredor do SENAI</td>
+            <td><span class="situ-resp">Access Point</span></td>
+            <td>AP estende a rede cabeada para o ambiente sem fio via padrão 802.11 (Wi-Fi)</td>
+          </tr>
+          <tr>
+            <td>Interligar a rede local da empresa com a internet fornecida pelo provedor</td>
+            <td><span class="situ-resp">Roteador</span></td>
+            <td>O roteador conecta redes distintas (LAN ↔ WAN), atuando como gateway da internet</td>
+          </tr>
+          <tr>
+            <td>Receber o sinal de fibra óptica do provedor e disponibilizá-lo na rede interna</td>
+            <td><span class="situ-resp">Modem / ONU</span></td>
+            <td>ONU (Optical Network Unit) converte o sinal óptico do provedor em sinal elétrico para a rede local</td>
+          </tr>
+          <tr>
+            <td>Organizar e centralizar as conexões de cabos de rede em um rack de telecom</td>
+            <td><span class="situ-resp">Patch Panel</span></td>
+            <td>Patch panel centraliza todas as chegadas de cabeamento estruturado, facilitando organização e manutenção</td>
+          </tr>
+          <tr>
+            <td>Conectar dois computadores próximos com velocidade de 1 Gbps via cabo</td>
+            <td><span class="situ-resp">Cat6 (RJ-45)</span></td>
+            <td>Cabo par trançado Cat6 suporta até 1 Gbps em distâncias de até 100 metros com conector RJ-45</td>
+          </tr>
+          <tr>
+            <td>Realizar link de backbone entre dois andares de um prédio sem interferência eletromagnética</td>
+            <td><span class="situ-resp">Fibra Óptica</span></td>
+            <td>Fibra óptica é imune a EMI, ideal para backbones internos e links de longa distância</td>
+          </tr>
+          <tr>
+            <td>Distribuir sinal de rede para todos os dispositivos sem qualquer filtragem ou seleção</td>
+            <td><span class="situ-resp">Hub</span></td>
+            <td>Hub opera na Camada 1 (física) e broadcast o sinal para todas as portas — tecnologia legada, raramente usada hoje</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="nota-box-green">
+        💡 <strong>Reforço pedagógico:</strong> a dinâmica "Conecta Certo!" serve como diagnóstico informal — o professor percebe quais conceitos do 1º trimestre ficaram mais frágeis e pode reforçá-los antes de iniciar os novos conteúdos. Alunos que associam componentes a cenários com segurança estão prontos para entender <em>por que</em> meios de transmissão importam.
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag-amber">Diagnóstica · Sem nota</span>
+    </div>
+    <div class="section-body">
+      <div class="aval-parts">
+        <div class="aval-part">
+          <div class="aval-part-header aph-amber">Avaliação Diagnóstica — Caráter Formativo (sem nota)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Observação participativa durante a dinâmica "Conecta Certo!" — o professor registra informalmente quais conceitos precisam ser retomados</li>
+              <li>Questões orais durante a etapa de retomada H3 — o professor provoca respostas e verifica o nível de retenção da turma</li>
+              <li>Não há questionário formal nesta aula — a SA 13 é uma aula ponte, não avaliativa</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header aph-dark">O Que Observar na Turma</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Alunos conseguem diferenciar Hub × Switch × Roteador com clareza?</li>
+              <li>A distinção entre hardware passivo e ativo está consolidada?</li>
+              <li>Os alunos relacionam o cabo ao conector correto (ex: Cat6 → RJ-45, fibra → SC/LC)?</li>
+              <li>Há curiosidade natural sobre "como os dados viajam" — sinal positivo para o 2º trimestre</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONEXÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag section-tag-gray">Continuidade</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant">
+          <div class="conn-label">← Aula anterior — SA 12</div>
+          <div style="font-size:13.5px;color:var(--dark);">Revisão e Correção Comentada das Provas do 1º Trimestre · 06/05/2026</div>
+        </div>
+        <div class="conn-card conn-prox">
+          <div class="conn-label">Próxima aula → SA 14</div>
+          <div style="font-size:13.5px;color:var(--dark);">Meios de Transmissão Guiados — Par Trançado, Fibra e Coaxial · 20/05/2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag section-tag-gray">Verificar antes da aula</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid">
+        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor ou TV</span></div>
+        <div class="recurso-item"><span class="recurso-icon">💻</span><span>Computador com HDMI</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📊</span><span>Apresentação com slides (≈ 18 slides)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🃏</span><span>Cartões impressos com componentes e cenários (1 conjunto por grupo)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🖼️</span><span>Imagens de equipamentos para identificação oral (Hub, Switch, Roteador, AP, ONU)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Cronograma do 2º trimestre para distribuição (opcional)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSERVAÇÕES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag section-tag-gray">Opcional</span>
+    </div>
+    <div class="section-body">
+      <div class="obs-box"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Plano de Aula · <span>SA 13 — Ponte: Conexão com o 2º Trimestre</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF = () => {
+    const t = document.title;
+    document.title = 'Plano_Aula_SA13_Redes_Ponte_2o_Trimestre';
+    window.print();
+    setTimeout(() => { document.title = t; }, 1000);
+  };
+  const btn = document.getElementById('btn-topo');
+  window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 400); });
+  if (btn) btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>

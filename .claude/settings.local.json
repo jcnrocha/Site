@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Rename-Item -Path \"c:\\\\Users\\\\julio310036\\\\OneDrive - Sistema Fiep\\\\Site\\\\idpsst\\\\plano_aula_SA13.html\" -NewName \"plano_aula_SA13_SST.html\")"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\julio310036\\OneDrive - Sistema Fiep\\Site\\redes"
+    ]
+  }
+}
