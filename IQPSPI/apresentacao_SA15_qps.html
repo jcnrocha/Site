@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Apresentação sobre Diagrama de Pareto e Diagrama de Ishikawa aplicados ao desenvolvimento de sistemas.">
+<meta name="theme-color" content="#0A2342">
+<meta name="color-scheme" content="dark">
+<meta name="author" content="Prof. Julio Cesar">
+<title>SA 15 — Pareto e Ishikawa</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ── VARIÁVEIS ── */
+:root {
+  --teal:         #02B4CC;
+  --teal-d:       #028090;
+  --yellow:       #F9C74F;
+  --dark:         #0A2342;
+  --purple:       #7C3AED;
+  --green:        #10B981;
+  --red:          #EF4444;
+  --orange:       #F97316;
+  --white:        #FFFFFF;
+  --gray:         #CBD5E1;
+  --light:        #F8FAFC;
+  --glass-bg:     rgba(255,255,255,0.05);
+  --glass-border: rgba(255,255,255,0.10);
+  --radius:       12px;
+  --transition:   0.25s ease;
+}
+
+/* ── UTILITIES ── */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(6px);
+}
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.text-muted  { color: var(--gray); }
+.transition  { transition: var(--transition); }
+
+/* ── ACCENT CLASSES ── */
+.accent-teal   { background: var(--teal); }
+.accent-yellow { background: var(--yellow); }
+.accent-green  { background: var(--green); }
+.accent-red    { background: var(--red); }
+.accent-orange { background: var(--orange); }
+.accent-purple { background: var(--purple); }
+
+/* ── BASE ── */
+html, body {
+  background: #06101E !important;
+  margin: 0; padding: 0;
+}
+
+/* Moldura do slide — aparência de PowerPoint */
+.reveal .slides {
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 1px rgba(2,180,204,0.25),
+    0 8px 32px rgba(0,0,0,0.6),
+    0 2px 8px rgba(0,0,0,0.4);
+}
+
+.reveal { font-family: 'DM Sans', sans-serif; }
+.reveal .slides section { height: 100%; text-align: left; overflow: hidden; }
+.reveal h1,.reveal h2,.reveal h3,.reveal h4,.reveal h5,.reveal h6 {
+  text-transform: none; font-family: 'DM Sans', sans-serif; margin: 0;
+}
+.reveal p  { margin: 0; }
+.reveal ul,.reveal ol { margin: 0; padding: 0; }
+
+/* ── CAPA ── */
+.slide-capa {
+  background: linear-gradient(135deg,#0A2342 0%,#0E3A6E 60%,#0A2342 100%) !important;
+  position: relative; overflow: hidden;
+}
+.slide-capa::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:8px; background:var(--teal);
+}
+.slide-capa::after {
+  content:''; position:absolute; left:8px; top:0; bottom:0; width:4px; background:var(--yellow);
+}
+.capa-inner {
+  height:100%; max-height:720px; display:flex; flex-direction:column;
+  justify-content:center; padding:36px 40px 36px 48px;
+  overflow:hidden; box-sizing:border-box;
+}
+.capa-kicker {
+  font-family:'DM Mono',monospace; font-size:0.5em; color:var(--teal);
+  letter-spacing:3px; text-transform:uppercase; margin-bottom:16px;
+}
+.capa-title {
+  font-size:2em !important; line-height:1.15; color:var(--white);
+  margin-bottom:12px; font-weight:700;
+}
+.capa-title span { color:var(--yellow); }
+.capa-sub {
+  font-size:0.52em; color:var(--gray); margin-bottom:28px;
+  max-width:65%; line-height:1.6;
+}
+.capa-badges { display:flex; gap:10px; flex-wrap:wrap; }
+.capa-badge {
+  font-size:0.42em; padding:5px 14px; border-radius:20px;
+  font-weight:600; font-family:'DM Mono',monospace;
+}
+.cb-teal   { background:var(--teal);   color:var(--dark); }
+.cb-yellow { background:var(--yellow); color:var(--dark); }
+.cb-dark   { background:rgba(255,255,255,0.1); color:var(--white); border:1px solid rgba(255,255,255,0.2); }
+.capa-deco {
+  position:absolute; right:-60px; bottom:-60px; width:280px; height:280px;
+  border-radius:50%; background:rgba(2,180,204,0.08); border:2px solid rgba(2,180,204,0.12);
+}
+.capa-deco2 {
+  position:absolute; right:40px; bottom:40px; width:140px; height:140px;
+  border-radius:50%; background:rgba(249,199,79,0.06); border:2px solid rgba(249,199,79,0.1);
+}
+
+/* ── SLIDE PADRÃO ── */
+.slide-std { background:#0D1F35 !important; padding:0 !important; }
+.slide-enc { background:linear-gradient(135deg,#0A2342 0%,#0D1F35 100%) !important; padding:0 !important; }
+
+.slide-content {
+  height:100%; max-height:720px; display:flex; flex-direction:column;
+  padding:32px 44px; justify-content:flex-start; gap:12px;
+  overflow:hidden; box-sizing:border-box;
+}
+.slide-label {
+  font-family:'DM Mono',monospace; font-size:0.38em; color:var(--teal);
+  letter-spacing:2px; text-transform:uppercase;
+}
+.slide-title {
+  font-size:1.15em !important; color:var(--white); line-height:1.2; font-weight:700;
+  border-bottom:2px solid var(--teal); padding-bottom:10px; margin-bottom:0;
+}
+.slide-title span { color:var(--teal); }
+
+/* ── CARDS ── */
+.cards-grid { display:grid; gap:10px; }
+.cards-2 { grid-template-columns:1fr 1fr; }
+.cards-3 { grid-template-columns:1fr 1fr 1fr; }
+
+.card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  position: relative; overflow: hidden;
+  transition: transform var(--transition), border-color var(--transition), background var(--transition);
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(2,180,204,0.4);
+  background: rgba(255,255,255,0.08);
+}
+.card-accent {
+  position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:12px 0 0 12px;
+}
+.card-num  { font-family:'DM Mono',monospace; font-size:0.38em; font-weight:700; margin-bottom:6px; display:block; }
+.card-title { font-size:0.58em !important; font-weight:700; color:var(--white); margin-bottom:5px; line-height:1.3; display:block; }
+.card-text  { font-size:0.46em !important; color:var(--gray); line-height:1.6; }
+
+.card-title-red    { color:var(--red); }
+.card-title-yellow { color:var(--yellow); }
+.card-title-green  { color:var(--green); }
+.card-title-orange { color:var(--orange); }
+.card-title-teal   { color:var(--teal); }
+
+/* ── BULLET LIST ── */
+.bullet-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.bullet-list li {
+  display:flex; align-items:flex-start; gap:12px; font-size:0.52em !important;
+  color:#CBD5E1; line-height:1.5; padding:8px 12px;
+  background:rgba(255,255,255,0.04); border-radius:8px; border-left:3px solid var(--teal);
+}
+.bullet-list li strong { color:var(--white); }
+
+/* ── HIGHLIGHT BOX ── */
+.highlight-box {
+  background:rgba(2,180,204,0.1); border:1px solid rgba(2,180,204,0.3); border-radius:10px; padding:10px 14px;
+}
+.highlight-box p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box strong { color:var(--teal); }
+
+/* ── QUOTE BOX ── */
+.quote-box {
+  background:rgba(249,199,79,0.08); border-left:4px solid var(--yellow);
+  border-radius:0 10px 10px 0; padding:14px 18px;
+}
+.quote-box p    { font-size:0.5em !important; color:#E2E8F0; font-style:italic; line-height:1.7; margin:0; }
+.quote-box cite { font-size:0.38em !important; color:var(--yellow); font-style:normal; display:block; margin-top:6px; font-family:'DM Mono',monospace; }
+
+/* ── FLOW STEPS ── */
+.exemplo-flow { display:flex; flex-direction:column; gap:7px; }
+.flow-step {
+  background:rgba(255,255,255,0.04); border-radius:8px; padding:11px 14px;
+  display:flex; gap:14px; align-items:flex-start; border-left:3px solid;
+}
+.flow-step.fs-t  { border-color:var(--teal); }
+.flow-step.fs-y  { border-color:var(--yellow); }
+.flow-step.fs-g  { border-color:var(--green); }
+.flow-step.fs-r  { border-color:var(--red); }
+.flow-step.fs-o  { border-color:var(--orange); }
+.flow-step.fs-p  { border-color:#A78BFA; }
+.flow-label { font-family:'DM Mono',monospace; font-size:0.44em !important; font-weight:700; flex-shrink:0; min-width:28px; }
+.fs-t .flow-label { color:var(--teal); }
+.fs-y .flow-label { color:var(--yellow); }
+.fs-g .flow-label { color:var(--green); }
+.fs-r .flow-label { color:var(--red); }
+.fs-o .flow-label { color:var(--orange); }
+.fs-p .flow-label { color:#A78BFA; }
+.flow-text        { font-size:0.44em !important; color:#CBD5E1; line-height:1.6; }
+.flow-text strong { color:var(--white); }
+
+/* ── DINÂMICA ── */
+.din-header {
+  background:rgba(124,58,237,0.2); border:1px solid rgba(124,58,237,0.4);
+  border-radius:10px; padding:12px 18px; display:flex; align-items:center; gap:12px;
+}
+.din-header-text { font-size:0.55em !important; font-weight:700; color:#A78BFA; }
+.din-meta         { display:flex; gap:20px; flex-wrap:wrap; }
+.din-meta-item    { font-size:0.42em !important; color:var(--gray); }
+.din-meta-item strong { color:var(--white); }
+
+/* ── ENCERRAMENTO ── */
+.enc-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.enc-card { border-radius:10px; padding:12px 16px; }
+.enc-prox { background:rgba(249,199,79,0.1);  border:1px solid rgba(249,199,79,0.3); }
+.enc-rev  { background:rgba(2,180,204,0.1);   border:1px solid rgba(2,180,204,0.3); }
+.enc-card-label { font-family:'DM Mono',monospace; font-size:0.36em !important; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; display:block; }
+.enc-prox .enc-card-label { color:var(--yellow); }
+.enc-rev  .enc-card-label { color:var(--teal); }
+.enc-card-text { font-size:0.46em !important; color:var(--white); line-height:1.5; }
+
+/* ── TABELA PARETO ── */
+.pareto-table { width:100%; border-collapse:collapse; font-size:0.44em !important; }
+.pareto-table th {
+  background:rgba(2,180,204,0.2); color:var(--teal);
+  font-family:'DM Mono',monospace; font-size:0.85em; text-transform:uppercase;
+  letter-spacing:1px; padding:8px 10px; border-bottom:2px solid rgba(2,180,204,0.4);
+  text-align:left;
+}
+.pareto-table td {
+  padding:7px 10px; color:var(--gray); border-bottom:1px solid rgba(255,255,255,0.06);
+  vertical-align:middle;
+}
+.pareto-table tr:hover td { background:rgba(255,255,255,0.03); }
+.pareto-table .row-dest td { color:var(--white); font-weight:700; }
+.pareto-table .row-dest td:first-child { color:var(--teal); }
+.pareto-bar-wrap { background:rgba(255,255,255,0.08); border-radius:4px; height:10px; width:100%; }
+.pareto-bar      { height:10px; border-radius:4px; background:var(--teal); }
+.pareto-bar.bar-yellow { background:var(--yellow); }
+.pareto-bar.bar-orange { background:var(--orange); }
+.pareto-bar.bar-gray   { background:rgba(255,255,255,0.3); }
+.pareto-acum { font-family:'DM Mono',monospace; font-size:0.85em; font-weight:700; color:var(--yellow); }
+.pareto-acum.over80 { color:var(--red); }
+.pareto-80-line {
+  background:rgba(239,68,68,0.15); border:1px dashed rgba(239,68,68,0.5);
+  border-radius:6px; padding:6px 12px; text-align:center;
+  font-size:0.42em !important; color:var(--red); font-family:'DM Mono',monospace;
+  font-weight:700; letter-spacing:1px;
+}
+
+/* ── ISHIKAWA VISUAL ── */
+.ishi-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
+.ishi-cat {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+  border-radius:8px; padding:10px 12px;
+}
+.ishi-cat-header {
+  display:flex; align-items:center; gap:8px; margin-bottom:6px;
+}
+.ishi-dot {
+  width:10px; height:10px; border-radius:50%; flex-shrink:0;
+}
+.ishi-cat-title {
+  font-size:0.48em !important; font-weight:700; color:var(--white);
+}
+.ishi-item {
+  font-size:0.38em !important; color:var(--gray); line-height:1.6;
+  padding:2px 0; border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.ishi-item:last-child { border-bottom:none; }
+.ishi-efeito {
+  background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4);
+  border-radius:8px; padding:10px 14px; text-align:center;
+  grid-column: 1 / -1;
+}
+.ishi-efeito-label { font-family:'DM Mono',monospace; font-size:0.36em !important; color:var(--red); text-transform:uppercase; letter-spacing:1px; display:block; margin-bottom:3px; }
+.ishi-efeito-text  { font-size:0.48em !important; color:var(--white); font-weight:700; }
+
+/* ── COMPARATIVO ── */
+.comp-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.comp-col  { border-radius:10px; padding:14px; }
+.comp-pareto  { background:rgba(2,180,204,0.1);  border:1px solid rgba(2,180,204,0.25); }
+.comp-ishi    { background:rgba(249,199,79,0.1);  border:1px solid rgba(249,199,79,0.25); }
+.comp-header  { font-size:0.6em !important; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.comp-pareto .comp-header { color:var(--teal); }
+.comp-ishi   .comp-header { color:var(--yellow); }
+.comp-item {
+  font-size:0.42em !important; color:#CBD5E1; padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,0.06); line-height:1.5; display:flex; gap:8px;
+}
+.comp-item:last-child { border-bottom:none; }
+
+/* ── PROGRESS / SLIDE NUMBER ── */
+.reveal .progress               { color:var(--teal); height:3px; }
+.reveal .slide-number           { font-family:'DM Mono',monospace; font-size:12px; color:var(--gray); background:rgba(0,0,0,0.4); border-radius:6px; padding:4px 8px; }
+
+/* ── RESPONSIVIDADE ── */
+@media (max-width:768px) {
+  .cards-grid, .comp-grid, .ishi-grid, .enc-grid { grid-template-columns:1fr !important; }
+  .slide-content { padding:24px; gap:14px; }
+  .slide-title   { font-size:0.9em !important; }
+  .card-title, .ishi-cat-title { font-size:0.55em !important; }
+  .card-text, .flow-text, .bullet-list li { font-size:0.52em !important; line-height:1.7; }
+  .capa-title { font-size:1.3em !important; }
+  .capa-sub   { max-width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 1 — CAPA                         -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-capa" data-transition="zoom">
+  <div class="capa-deco"></div>
+  <div class="capa-deco2"></div>
+  <div class="capa-inner">
+    <div class="capa-kicker">SA 15 · 2º Trimestre · Qualidade, Produtividade e Sustentabilidade</div>
+    <h1 class="capa-title">Pareto e Ishikawa<br><span>Ferramentas da Qualidade II</span></h1>
+    <p class="capa-sub">Priorização de problemas com o princípio 80/20 e investigação de causas com a Espinha de Peixe, aplicados ao desenvolvimento de sistemas</p>
+    <div class="capa-badges">
+      <span class="capa-badge cb-dark">Prof. Julio Cesar</span>
+      <span class="capa-badge cb-dark">SENAI Umuarama</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 2 — OBJETIVOS                    -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O que você vai aprender hoje</div>
+    <h2 class="slide-title">🏆 Objetivos da Aula</h2>
+    <ul class="bullet-list">
+      <li><strong>Princípio 80/20:</strong> Entender a origem e como ele orienta a priorização de problemas</li>
+      <li><strong>Pareto:</strong> Construir e interpretar um Diagrama de Pareto a partir de dados reais</li>
+      <li><strong>Ishikawa:</strong> Compreender a estrutura da Espinha de Peixe e as categorias dos 6M</li>
+      <li><strong>6M na prática:</strong> Classificar causas de falhas em sistemas dentro de cada categoria</li>
+      <li><strong>Uso combinado:</strong> Aplicar Pareto e Ishikawa em sequência para resolver problemas reais</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 3 — CONEXÃO COM AULA ANTERIOR    -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Retomando o que já vimos</div>
+    <h2 class="slide-title">🔗 De onde <span>viemos</span>?</h2>
+    <div class="highlight-box">
+      <p>Na SA 14 aprendemos a <strong>mapear processos</strong> com Histograma, Brainstorming e Fluxograma. Hoje damos um passo adiante: <strong>priorizar</strong> o problema certo e <strong>investigar</strong> suas causas com método.</p>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">SA 14 — O que foi</span>
+        <div class="card-text">Histograma para distribuição · Brainstorming para ideias · Fluxograma para mapear processos</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-teal"></div>
+        <span class="card-title card-title-teal">SA 15 — Hoje</span>
+        <div class="card-text">Pareto para priorizar · Ishikawa para investigar causas · Uso combinado das duas</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">SA 16 — O que vem</span>
+        <div class="card-text">CEP · 5W2H · Folha de verificação · Dispersão</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 4 — PRINCÍPIO 80/20              -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">A base do Diagrama de Pareto</div>
+    <h2 class="slide-title">📊 O Princípio <span>80/20</span></h2>
+    <div class="quote-box">
+      <p>"80% das consequências vêm de 20% das causas."</p>
+      <cite>— Vilfredo Pareto, economista italiano (1897)</cite>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-teal"></div>
+        <span class="card-num" style="color:var(--teal);">Origem</span>
+        <span class="card-title">Vilfredo Pareto</span>
+        <div class="card-text">Observou que 80% das terras da Itália pertenciam a 20% da população. O padrão se repetiu em outros contextos.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">Aplicação na Qualidade</span>
+        <span class="card-title">Joseph Juran</span>
+        <div class="card-text">Adaptou o princípio para a gestão da qualidade: 80% dos defeitos são causados por 20% dos problemas. Foque neles.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 5 — O QUE É O DIAGRAMA DE PARETO -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Ferramenta de priorização</div>
+    <h2 class="slide-title">📉 O que é o <span>Diagrama de Pareto</span>?</h2>
+    <div class="highlight-box">
+      <p>O Diagrama de Pareto é um <strong>gráfico de barras ordenadas</strong> — do mais frequente para o menos frequente — combinado com uma <strong>curva de frequência acumulada</strong>. Ele responde: <strong>"Em qual problema devo focar meus esforços primeiro?"</strong></p>
+    </div>
+    <ul class="bullet-list">
+      <li>📋 <strong>Coleta de dados:</strong> Registre a frequência de cada tipo de problema em um período</li>
+      <li>🔢 <strong>Ordenação:</strong> Liste os problemas do mais frequente para o menos frequente</li>
+      <li>📈 <strong>% Acumulada:</strong> Calcule o percentual acumulado item a item</li>
+      <li>🎯 <strong>Linha dos 80%:</strong> Trace a linha e identifique os poucos problemas vitais</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 6 — PARETO NA PRÁTICA (TABELA)   -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Lendo um Pareto</div>
+    <h2 class="slide-title">🔢 Pareto na Prática — <span>Chamados de Suporte</span></h2>
+    <table class="pareto-table">
+      <thead>
+        <tr>
+          <th>Tipo de Falha</th>
+          <th>Frequência</th>
+          <th>Freq. Relativa</th>
+          <th>Freq. Acumulada</th>
+          <th>Distribuição</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-dest">
+          <td>Lentidão</td>
+          <td>42</td>
+          <td>44,2%</td>
+          <td class="pareto-acum">44,2%</td>
+          <td><div class="pareto-bar-wrap"><div class="pareto-bar" style="width:100%"></div></div></td>
+        </tr>
+        <tr class="row-dest">
+          <td>Erro de login</td>
+          <td>18</td>
+          <td>18,9%</td>
+          <td class="pareto-acum">63,2%</td>
+          <td><div class="pareto-bar-wrap"><div class="pareto-bar" style="width:43%"></div></div></td>
+        </tr>
+        <tr class="row-dest">
+          <td>Tela em branco</td>
+          <td>15</td>
+          <td>15,8%</td>
+          <td class="pareto-acum">78,9%</td>
+          <td><div class="pareto-bar-wrap"><div class="pareto-bar bar-yellow" style="width:36%"></div></div></td>
+        </tr>
+        <tr>
+          <td>Timeout</td>
+          <td>12</td>
+          <td>12,6%</td>
+          <td class="pareto-acum over80">91,6%</td>
+          <td><div class="pareto-bar-wrap"><div class="pareto-bar bar-orange" style="width:28%"></div></div></td>
+        </tr>
+        <tr>
+          <td>Outros</td>
+          <td>8</td>
+          <td>8,4%</td>
+          <td class="pareto-acum over80">100%</td>
+          <td><div class="pareto-bar-wrap"><div class="pareto-bar bar-gray" style="width:19%"></div></div></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pareto-80-line">⚠ LINHA DOS 80% — Lentidão + Erro de login + Tela em branco = 78,9% dos chamados</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 7 — O QUE O PARETO REVELA        -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Interpretando os resultados</div>
+    <h2 class="slide-title">🎯 O que o <span>Pareto revela</span>?</h2>
+    <div class="highlight-box">
+      <p>Apenas <strong>3 tipos de falha</strong> (lentidão, erro de login e tela em branco) respondem por quase <strong>79% de todos os chamados</strong>. Se a equipe resolver esses 3, o volume de problemas cai drasticamente.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">✅ Com Pareto</span>
+        <div class="card-text">A equipe sabe exatamente onde concentrar energia. Decisão baseada em dados, não em intuição.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">❌ Sem Pareto</span>
+        <div class="card-text">A equipe trata todos os problemas igualmente. Gasta tempo com "Outros" enquanto a lentidão destrói a experiência do usuário.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-teal"></div>
+        <span class="card-title card-title-teal">💡 Regra prática</span>
+        <div class="card-text">Identifique os itens que ficam <strong>abaixo da linha dos 80%</strong>. Esses são os "poucos vitais" — foque neles primeiro.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">⚠️ Atenção</span>
+        <div class="card-text">O Pareto diz <strong>o quê</strong> priorizar. Ele não diz <strong>por quê</strong> o problema acontece. Para isso, usamos o Ishikawa.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 8 — O QUE É O ISHIKAWA           -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Ferramenta de investigação de causas</div>
+    <h2 class="slide-title">🐟 O que é o Diagrama de <span>Ishikawa</span>?</h2>
+    <div class="quote-box">
+      <p>"Um problema bem definido já está metade resolvido. O Ishikawa nos ajuda a definir o problema pela raiz."</p>
+      <cite>— Kaoru Ishikawa, engenheiro japonês (1943)</cite>
+    </div>
+    <ul class="bullet-list">
+      <li>🐟 <strong>Espinha de Peixe:</strong> A forma visual lembra um peixe — o efeito (problema) fica na cabeça e as causas nas espinhas</li>
+      <li>🔍 <strong>Causa e Efeito:</strong> Permite visualizar todas as possíveis causas de um problema de forma organizada</li>
+      <li>👥 <strong>Trabalho em equipe:</strong> Usado em grupo para garantir que nenhuma causa seja esquecida</li>
+      <li>🗂️ <strong>Categorias 6M:</strong> As causas são agrupadas em seis grandes categorias chamadas de 6M</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 9 — OS 6M                        -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">As seis categorias do Ishikawa</div>
+    <h2 class="slide-title">🗂️ Os <span>6M</span> — Categorias de Causas</h2>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-teal"></div>
+        <span class="card-title card-title-teal">Método</span>
+        <div class="card-text">Processos, procedimentos e formas de trabalho. Como a tarefa é executada?</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">Material</span>
+        <div class="card-text">Insumos, matéria-prima, componentes de software, bibliotecas e dependências.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">Mão de obra</span>
+        <div class="card-text">Pessoas envolvidas, habilidades, treinamento e comportamento da equipe.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">Máquina</span>
+        <div class="card-text">Equipamentos, servidores, infraestrutura e ferramentas tecnológicas utilizadas.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent" style="background:#A78BFA;"></div>
+        <span class="card-title" style="color:#A78BFA;">Meio ambiente</span>
+        <div class="card-text">Condições externas: rede, temperatura, ambiente organizacional, conectividade.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">Medição</span>
+        <div class="card-text">Indicadores, métricas, instrumentos de monitoramento e forma de medir resultados.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 10 — ISHIKAWA APLICADO           -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">6M na prática</div>
+    <h2 class="slide-title">🔍 Ishikawa: <span>Lentidão do Sistema</span></h2>
+    <div class="ishi-grid">
+      <div class="ishi-cat">
+        <div class="ishi-cat-header">
+          <div class="ishi-dot" style="background:var(--teal);"></div>
+          <span class="ishi-cat-title">Método</span>
+        </div>
+        <div class="ishi-item">Consultas ao banco sem otimização</div>
+        <div class="ishi-item">Ausência de cache nas requisições</div>
+        <div class="ishi-item">Processos em loop desnecessário</div>
+      </div>
+      <div class="ishi-cat">
+        <div class="ishi-cat-header">
+          <div class="ishi-dot" style="background:var(--yellow);"></div>
+          <span class="ishi-cat-title">Material</span>
+        </div>
+        <div class="ishi-item">Biblioteca desatualizada</div>
+        <div class="ishi-item">Dependências com vulnerabilidade</div>
+        <div class="ishi-item">Framework mal configurado</div>
+      </div>
+      <div class="ishi-cat">
+        <div class="ishi-cat-header">
+          <div class="ishi-dot" style="background:var(--orange);"></div>
+          <span class="ishi-cat-title">Mão de obra</span>
+        </div>
+        <div class="ishi-item">Código sem boas práticas de performance</div>
+        <div class="ishi-item">Falta de revisão de código (code review)</div>
+        <div class="ishi-item">Dev sem treinamento em banco de dados</div>
+      </div>
+      <div class="ishi-cat">
+        <div class="ishi-cat-header">
+          <div class="ishi-dot" style="background:var(--green);"></div>
+          <span class="ishi-cat-title">Máquina</span>
+        </div>
+        <div class="ishi-item">Servidor com RAM insuficiente</div>
+        <div class="ishi-item">CPU sobrecarregada</div>
+        <div class="ishi-item">Disco lento (HDD sem SSD)</div>
+      </div>
+      <div class="ishi-cat">
+        <div class="ishi-cat-header">
+          <div class="ishi-dot" style="background:#A78BFA;"></div>
+          <span class="ishi-cat-title">Meio ambiente</span>
+        </div>
+        <div class="ishi-item">Rede instável com alta latência</div>
+        <div class="ishi-item">Pico de acessos simultâneos</div>
+        <div class="ishi-item">Falta de ambiente de homologação</div>
+      </div>
+      <div class="ishi-cat">
+        <div class="ishi-cat-header">
+          <div class="ishi-dot" style="background:var(--red);"></div>
+          <span class="ishi-cat-title">Medição</span>
+        </div>
+        <div class="ishi-item">Sem monitoramento de tempo de resposta</div>
+        <div class="ishi-item">Alertas de performance não configurados</div>
+        <div class="ishi-item">Ausência de testes de carga</div>
+      </div>
+    </div>
+    <div class="ishi-efeito">
+      <span class="ishi-efeito-label">Efeito (problema priorizado pelo Pareto)</span>
+      <span class="ishi-efeito-text">🐟 Lentidão do sistema — 44,2% dos chamados de suporte</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 11 — COMO CONSTRUIR O ISHIKAWA   -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Passo a passo</div>
+    <h2 class="slide-title">🛠️ Como Construir o <span>Ishikawa</span></h2>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-t">
+        <span class="flow-label">1</span>
+        <div class="flow-text"><strong>Defina o efeito (problema).</strong> Escreva o problema na cabeça do peixe. Seja preciso: "Lentidão do sistema nos horários de pico" é melhor que "sistema ruim".</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">2</span>
+        <div class="flow-text"><strong>Desenhe as espinhas principais.</strong> Cada espinha representa uma categoria dos 6M: Método, Material, Mão de obra, Máquina, Meio ambiente, Medição.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">3</span>
+        <div class="flow-text"><strong>Identifique as causas em grupo.</strong> Para cada categoria, o time levanta causas possíveis. Use o brainstorming — sem julgamentos nesta etapa.</div>
+      </div>
+      <div class="flow-step fs-o">
+        <span class="flow-label">4</span>
+        <div class="flow-text"><strong>Aprofunde com subcausas.</strong> Para cada causa, pergunte "por quê?" ao menos uma vez. Quanto mais fundo, mais perto da causa raiz.</div>
+      </div>
+      <div class="flow-step fs-r">
+        <span class="flow-label">5</span>
+        <div class="flow-text"><strong>Priorize as causas raízes.</strong> Com o diagrama completo, identifique quais causas têm maior impacto e que podem ser eliminadas primeiro.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 12 — PARETO x ISHIKAWA           -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Entendendo a diferença</div>
+    <h2 class="slide-title">⚖️ <span>Pareto</span> vs <span style="color:var(--yellow);">Ishikawa</span></h2>
+    <div class="comp-grid">
+      <div class="comp-col comp-pareto">
+        <div class="comp-header">📊 Diagrama de Pareto</div>
+        <div class="comp-item">🎯 Responde: <strong>O quê priorizar?</strong></div>
+        <div class="comp-item">📋 Base: dados de frequência de ocorrências</div>
+        <div class="comp-item">📈 Resultado: ranking visual dos problemas</div>
+        <div class="comp-item">🔢 Usa o princípio 80/20 para identificar o foco</div>
+        <div class="comp-item">🚦 Diz onde concentrar os esforços da equipe</div>
+      </div>
+      <div class="comp-col comp-ishi">
+        <div class="comp-header">🐟 Diagrama de Ishikawa</div>
+        <div class="comp-item">🔍 Responde: <strong>Por quê o problema ocorre?</strong></div>
+        <div class="comp-item">👥 Base: análise em equipe por categorias 6M</div>
+        <div class="comp-item">🌿 Resultado: mapa visual de causas e subcausas</div>
+        <div class="comp-item">🧠 Estimula raciocínio sistêmico da equipe</div>
+        <div class="comp-item">🔬 Chega à causa raiz para eliminação definitiva</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p><strong>Regra de ouro:</strong> Use o <strong>Pareto primeiro</strong> para saber em qual problema focar. Depois use o <strong>Ishikawa</strong> para descobrir por que aquele problema acontece.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 13 — USO EM SEQUÊNCIA            -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Como usar as duas ferramentas juntas</div>
+    <h2 class="slide-title">🔗 Pareto + Ishikawa: <span>Sequência Lógica</span></h2>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-t">
+        <span class="flow-label">PASSO 1</span>
+        <div class="flow-text"><strong>Colete os dados.</strong> Registre todas as ocorrências de problemas em um período. Quantidade, tipo e frequência.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">PASSO 2</span>
+        <div class="flow-text"><strong>Monte o Pareto.</strong> Ordene os problemas por frequência, calcule os percentuais acumulados e trace a linha dos 80%. Identifique o problema prioritário.</div>
+      </div>
+      <div class="flow-step fs-o">
+        <span class="flow-label">PASSO 3</span>
+        <div class="flow-text"><strong>Monte o Ishikawa.</strong> Com o problema prioritário definido, o time usa o Ishikawa para mapear todas as causas possíveis em cada categoria dos 6M.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">PASSO 4</span>
+        <div class="flow-text"><strong>Identifique a causa raiz.</strong> Priorize as causas mais prováveis e vá ao fundo com "por quê?". Agora sim: ação cirúrgica, não tentativa e erro.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 14 — EXEMPLO PRÁTICO INTEGRADO   -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Caso real — equipe de desenvolvimento</div>
+    <h2 class="slide-title">💻 Exemplo Integrado: <span>Bugs no Deploy</span></h2>
+    <div class="highlight-box">
+      <p><strong>Situação:</strong> Equipe com falhas recorrentes em deploy. Dados levantados em 30 dias. Vamos usar Pareto + Ishikawa.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-teal"></div>
+        <span class="card-title card-title-teal">📊 Resultado do Pareto</span>
+        <div class="card-text">Configuração (35) · Dependências (25) · Banco de dados (20) · Rede (10) · Outros (5)<br><br>→ Configuração + Dependências = <strong style="color:var(--teal);">63,2% das falhas</strong> — foco aqui!</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">🐟 Ishikawa: Configuração</span>
+        <div class="card-text"><strong>Método:</strong> Sem checklist de deploy · <strong>Mão de obra:</strong> Dev junior fazendo deploy sozinho · <strong>Máquina:</strong> Variáveis de ambiente diferentes entre dev e produção</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">✅ Causa raiz identificada</span>
+        <div class="card-text">Ausência de processo padronizado de deploy + variáveis de ambiente não versionadas no repositório.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">🔧 Ação tomada</span>
+        <div class="card-text">Criação de pipeline CI/CD automatizado com validação de variáveis. Falhas de configuração: <strong style="color:var(--green);">zero</strong> no mês seguinte.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 15 — PARETO EM TI               -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Pareto no seu dia a dia como dev</div>
+    <h2 class="slide-title">💡 Pareto aplicado ao <span>Desenvolvimento</span></h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-teal"></div>
+        <span class="card-title card-title-teal">🐛 Bugs por módulo</span>
+        <div class="card-text">Qual módulo do sistema gera mais bugs? Monte um Pareto. Provavelmente 1 ou 2 módulos concentram 80% dos problemas. Refatore esses primeiro.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">🎫 Chamados de suporte</span>
+        <div class="card-text">Quais funcionalidades geram mais chamados? O Pareto mostra onde o usuário mais sofre. Priorize a correção por impacto real.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">⏱️ Atrasos nas entregas</span>
+        <div class="card-text">Quais causas geram mais atrasos nas sprints? Com dados de 3 ou 4 sprints já é possível montar um Pareto e agir.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">🔄 Retrabalho</span>
+        <div class="card-text">Em qual etapa do processo o retrabalho mais acontece? Desenvolvimento? Testes? Requisitos? O Pareto revela o gargalo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 16 — ISHIKAWA EM TI             -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Ishikawa no seu dia a dia como dev</div>
+    <h2 class="slide-title">🐟 Ishikawa aplicado ao <span>Desenvolvimento</span></h2>
+    <div class="highlight-box">
+      <p>Toda vez que um problema se repete, o Ishikawa é a ferramenta certa para parar de <strong>apagar incêndio</strong> e começar a <strong>eliminar a causa</strong>.</p>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-r">
+        <span class="flow-label">Bug recorrente</span>
+        <div class="flow-text">O mesmo bug volta toda semana. Método: processo de testes inadequado. Mão de obra: critérios de aceite mal definidos. Máquina: ambiente de homologação diferente da produção.</div>
+      </div>
+      <div class="flow-step fs-o">
+        <span class="flow-label">Sprint atrasada</span>
+        <div class="flow-text">Sprints nunca entregam no prazo. Método: planejamento sem estimativa técnica. Mão de obra: dev com acúmulo de tarefas. Material: requisitos incompletos na entrada da sprint.</div>
+      </div>
+      <div class="flow-step fs-p">
+        <span class="flow-label">Código sem padrão</span>
+        <div class="flow-text">Cada desenvolvedor usa um estilo diferente. Método: ausência de guia de estilo (style guide). Mão de obra: sem cultura de code review. Máquina: sem linter configurado no repositório.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 17 — ERROS COMUNS               -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Cuidado com isso</div>
+    <h2 class="slide-title">⚠️ Erros Comuns com <span>Pareto e Ishikawa</span></h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">❌ Pareto sem dados reais</span>
+        <div class="card-text">Montar o Pareto com base em opinião ou memória. Sem dados registrados, o resultado é um gráfico de achismos.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">❌ Ishikawa sem foco</span>
+        <div class="card-text">Abrir o Ishikawa sem ter definido claramente o efeito (problema). Sem foco, o diagrama vira uma lista genérica sem utilidade.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">⚠️ Pular o Pareto</span>
+        <div class="card-text">Ir direto ao Ishikawa sem priorizar. Risco de gastar energia investigando causas de um problema de baixo impacto.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">⚠️ Parar no diagrama</span>
+        <div class="card-text">Montar o Ishikawa e não agir sobre as causas identificadas. A ferramenta é um meio, não um fim. O objetivo é eliminar a causa raiz.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 18 — DINÂMICA                   -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Mão na massa!</div>
+    <h2 class="slide-title">🎮 Dinâmica: <span>Caça às Causas</span></h2>
+    <div class="din-header">
+      <span style="font-size:1.4em;">🎯</span>
+      <div class="din-header-text">Construir o Pareto, identificar o problema prioritário e montar o Ishikawa com pelo menos 3 causas por categoria dos 6M</div>
+    </div>
+    <div class="din-meta">
+      <div class="din-meta-item">⏱️ <strong>10 a 15 minutos</strong></div>
+      <div class="din-meta-item">👥 <strong>5 grupos de 5 alunos</strong></div>
+      <div class="din-meta-item">📋 <strong>1 cartão de dados por grupo</strong></div>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-teal"></div>
+        <span class="card-title card-title-teal">Grupo A</span>
+        <div class="card-text">Chamados de suporte: Lentidão (42) · Erro de login (18) · Tela em branco (15) · Timeout (12) · Outros (8)</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">Grupo B</span>
+        <div class="card-text">Bugs por módulo: Relatórios (38) · Autenticação (22) · Dashboard (16) · API (14) · Outros (5)</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-purple"></div>
+        <span class="card-title" style="color:#A78BFA;">Grupo C</span>
+        <div class="card-text">Falhas em deploy: Configuração (35) · Dependências (25) · Banco de dados (20) · Rede (10) · Outros (5)</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">Grupo D</span>
+        <div class="card-text">Retrabalho por etapa: Desenvolvimento (40) · Testes (28) · Requisitos (18) · Integração (9) · Outros (5)</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">Grupo E</span>
+        <div class="card-text">Atrasos por causa: Escopo mal definido (44) · Falta de recursos (20) · Falhas técnicas (16) · Comunicação (12) · Outros (8)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 19 — RESUMO                     -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O que vimos hoje</div>
+    <h2 class="slide-title">📌 Resumo da Aula</h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-teal"></div>
+        <span class="card-title card-title-teal">📊 Diagrama de Pareto</span>
+        <div class="card-text">Baseado no princípio 80/20. Ordena problemas por frequência e identifica os "poucos vitais". Responde: <strong style="color:var(--teal);">o quê priorizar?</strong></div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">🐟 Diagrama de Ishikawa</span>
+        <div class="card-text">Espinha de Peixe com 6 categorias (6M). Mapeia causas de um problema de forma visual. Responde: <strong style="color:var(--yellow);">por quê acontece?</strong></div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">🗂️ Os 6M</span>
+        <div class="card-text">Método · Material · Mão de obra · Máquina · Meio ambiente · Medição. Todas as causas se encaixam em alguma dessas seis categorias.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">🔗 Sequência certa</span>
+        <div class="card-text">Pareto → identifica o problema prioritário. Ishikawa → investiga as causas desse problema. Juntos formam uma análise completa.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 20 — ENCERRAMENTO               -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-enc" data-transition="zoom">
+  <div class="slide-content">
+    <div class="slide-label">Até a próxima</div>
+    <h2 class="slide-title">🚀 O que vem a seguir</h2>
+    <div class="enc-grid">
+      <div class="enc-card enc-prox">
+        <span class="enc-card-label">→ Próxima aula — SA 16</span>
+        <div class="enc-card-text">Ferramentas da Qualidade III — CEP, 5W2H, Folha de verificação e Diagrama de Dispersão</div>
+      </div>
+      <div class="enc-card enc-rev">
+        <span class="enc-card-label">📝 Avaliação desta aula</span>
+        <div class="enc-card-text">5 Questões Objetivas + 5 Questões Discursivas sobre Pareto e Ishikawa</div>
+      </div>
+    </div>
+    <div class="quote-box">
+      <p>"Não basta trabalhar duro. É preciso trabalhar na coisa certa."</p>
+      <cite>— Peter Drucker</cite>
+    </div>
+    <div style="text-align:center;margin-top:12px;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.36em;color:var(--gray);letter-spacing:2px;text-transform:uppercase;">SA 15 · Pareto e Ishikawa · Prof. Julio Cesar · SENAI Umuarama · 2026</div>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    progress: true,
+    controls: true,
+    controlsTutorial: true,
+    transition: 'slide',
+    transitionSpeed: 'default',
+    backgroundTransition: 'fade',
+    center: true,
+    width: 1280,
+    height: 720,
+    margin: 0.08,
+    minScale: 0.2,
+    maxScale: 1.0,
+    plugins: []
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercícios SA 15 — Pareto e Ishikawa · QPS</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --uc:    #BA7517; --uc-lt: #FAEEDA; --uc-dk: #7A4A08; --uc-mid:#D4901E;
+  --dark:  #0D1A2B; --text:  #1A2635; --gray:  #5A6A7A; --lgray: #8A9AAA;
+  --bg:    #F5F2EE; --white: #FFFFFF; --border:#DDD0BC; --yellow:#F9C74F;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.55;font-size:14px;}
+
+/* ── buttons ── */
+.btn-group{position:fixed;top:20px;right:24px;z-index:999;display:flex;flex-direction:column;gap:8px;}
+.btn-action{border:none;border-radius:8px;padding:10px 18px;font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s;}
+.btn-imp{background:var(--dark);color:var(--white);}
+.btn-imp:hover{background:#1a3a10;box-shadow:0 4px 12px rgba(0,0,0,.3);}
+.btn-pdf{background:var(--uc);color:var(--white);}
+.btn-pdf:hover{background:var(--uc-dk);box-shadow:0 4px 12px rgba(186,117,23,.4);}
+button:focus{outline:3px solid var(--yellow);outline-offset:2px;}
+
+/* ── page cards (screen) ── */
+.pagina{background:var(--white);max-width:800px;margin:28px auto;padding:32px 40px;border:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,.09);}
+.sep{max-width:800px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:0 40px;color:var(--lgray);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;}
+.sep::before,.sep::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ── institutional header ── */
+.cab{border:1.5px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:14px;}
+.cab-top{background:var(--dark);display:flex;align-items:center;gap:12px;padding:8px 14px;position:relative;overflow:hidden;}
+.cab-top::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--uc);}
+.snb{background:var(--uc);color:var(--white);font-family:'IBM Plex Serif',serif;font-size:15px;font-weight:600;padding:3px 10px;border-radius:4px;letter-spacing:1px;margin-left:5px;flex-shrink:0;}
+.cab-info{color:#9A7A50;font-size:11px;line-height:1.3;}
+.cab-info strong{color:var(--uc-mid);display:block;font-size:11.5px;}
+.cab-body{padding:10px 14px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;background:var(--uc-lt);}
+.cab-tit{font-family:'IBM Plex Serif',serif;font-size:14.5px;color:var(--dark);font-weight:600;line-height:1.2;}
+.cab-tema{font-size:11px;color:var(--uc-dk);margin-top:2px;}
+.cab-badge{background:var(--uc);color:var(--white);font-family:'IBM Plex Mono',monospace;font-size:10px;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+
+/* ── identification ── */
+.ident{display:grid;grid-template-columns:2fr 1fr 1fr;gap:9px;margin-bottom:16px;}
+.ic{display:flex;flex-direction:column;gap:3px;}
+.il{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--gray);text-transform:uppercase;letter-spacing:1px;}
+.il-linha{border-bottom:1.5px solid var(--text);height:22px;}
+
+/* ── mini header (p2/p3) ── */
+.mini{display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:var(--dark);border-radius:6px;margin-bottom:14px;position:relative;overflow:hidden;}
+.mini::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--uc);}
+.mini-t{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8A6A40;padding-left:5px;}
+.mini-b{background:var(--uc);color:var(--white);font-family:'IBM Plex Mono',monospace;font-size:9.5px;padding:2px 8px;border-radius:12px;white-space:nowrap;}
+
+/* ── parte heading ── */
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:9px;padding-bottom:6px;border-bottom:2px solid var(--uc);}
+.ph-nome{font-family:'IBM Plex Serif',serif;font-size:13.5px;font-weight:600;color:var(--dark);}
+.ph-tag{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--uc);background:var(--uc-lt);padding:2px 8px;border-radius:10px;margin-left:auto;}
+.ph-intro{font-size:11.5px;color:var(--gray);font-style:italic;margin-bottom:11px;}
+
+/* ── question ── */
+.q{margin-bottom:12px;}
+.qh{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;}
+.qn{background:var(--uc);color:var(--white);font-family:'IBM Plex Mono',monospace;font-size:10.5px;min-width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.qt{font-size:12.5px;line-height:1.5;}
+.qt strong{color:var(--dark);}
+.qt em{font-style:italic;color:var(--uc-dk);}
+
+/* ── tables ── */
+.dt,.ft,.ct{width:calc(100% - 30px);margin:0 0 8px 30px;border-collapse:collapse;border-radius:6px;overflow:hidden;border:1px solid var(--border);}
+.dt thead tr,.ft thead tr,.ct thead tr{background:var(--uc);}
+.dt th,.ft th,.ct th{color:var(--white);padding:5px 9px;text-align:left;font-size:11px;font-weight:600;}
+.dt td{padding:5px 9px;border-bottom:1px solid var(--border);font-size:12px;}
+.dt tr:last-child td{border-bottom:none;font-weight:700;background:var(--uc-lt);}
+.dt tr:nth-child(even) td{background:#F9F6F0;}
+.ft td{padding:5px 7px;border-bottom:1px solid var(--border);font-size:11px;}
+.ft tr:last-child td{border-bottom:none;font-weight:700;background:var(--uc-lt);}
+.ft td.vz{background:#FDFBF7;}
+.ct td{padding:7px 9px;border-bottom:1px solid var(--border);font-size:12px;vertical-align:top;}
+.ct tr:last-child td{border-bottom:none;}
+.ct tr:nth-child(even) td{background:#F9F6F0;}
+.ct td.cc{background:#FDFBF7;min-height:24px;}
+.cn{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:var(--uc-dk);}
+
+/* ── options ── */
+.ops{list-style:none;margin:4px 0 0 30px;display:flex;flex-direction:column;gap:3px;}
+.op{display:flex;align-items:flex-start;gap:6px;font-size:12.5px;}
+.opc{width:15px;height:15px;border-radius:50%;border:1.5px solid var(--uc);flex-shrink:0;margin-top:2px;}
+.opl{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--uc-dk);font-weight:500;min-width:17px;}
+
+/* ── assertions ── */
+.afs{margin:4px 0 6px 30px;display:flex;flex-direction:column;gap:2px;}
+.af{display:flex;gap:6px;font-size:12.5px;}
+.afn{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--uc);min-width:17px;}
+
+/* ── answer lines ── */
+.ar{margin:4px 0 0 30px;}
+.rl{font-size:10.5px;font-style:italic;color:var(--gray);margin-bottom:2px;}
+.ln{background-image:repeating-linear-gradient(transparent,transparent 25px,var(--border) 25px,var(--border) 26px);}
+.l1{height:26px;} .l2{height:52px;} .l3{height:78px;} .l4{height:104px;}
+
+/* ── sub-question ── */
+.sq{margin:7px 0 0 30px;}
+.sql{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--uc);margin-bottom:2px;}
+.sqt{font-size:12.5px;margin-bottom:3px;}
+
+/* ── divider ── */
+.dq{height:1px;background:var(--border);margin:10px 0;}
+
+/* ── gabarito ── */
+.gh{background:var(--dark);border-radius:6px;padding:12px 16px 12px 22px;margin-bottom:14px;position:relative;overflow:hidden;}
+.gh::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--uc);}
+.gex{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--uc-mid);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;}
+.gtit{font-family:'IBM Plex Serif',serif;font-size:18px;color:var(--white);margin-bottom:2px;}
+.gtit span{color:var(--uc-mid);}
+.gsub{font-size:11px;color:#7A6A50;}
+.gs{margin-bottom:14px;}
+.gst{font-family:'IBM Plex Serif',serif;font-size:13px;font-weight:600;color:var(--dark);border-bottom:2px solid var(--uc);padding-bottom:5px;margin-bottom:9px;display:flex;align-items:center;gap:8px;}
+.gst em{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--uc);font-style:normal;}
+.go{width:100%;border-collapse:collapse;font-size:12px;border-radius:6px;overflow:hidden;border:1px solid var(--border);margin-bottom:9px;}
+.go thead tr{background:var(--uc);}
+.go th{color:var(--white);padding:6px 11px;text-align:left;font-size:11px;}
+.go td{padding:6px 11px;border-bottom:1px solid var(--border);}
+.go tr:last-child td{border-bottom:none;}
+.go tr:nth-child(even) td{background:#F9F6F0;}
+.gl{font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:700;color:var(--uc-dk);background:var(--uc-lt);padding:2px 8px;border-radius:5px;display:inline-block;}
+.gd{display:flex;flex-direction:column;gap:8px;}
+.gq{border:1px solid var(--border);border-radius:7px;overflow:hidden;}
+.gqh{background:var(--uc-lt);padding:6px 11px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);}
+.gqn{background:var(--uc);color:var(--white);font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 7px;border-radius:12px;}
+.gqt{font-size:12px;font-weight:600;color:var(--dark);}
+.gqb{padding:9px 11px;font-size:11.5px;color:var(--text);line-height:1.55;}
+.gqb ul{list-style:none;display:flex;flex-direction:column;gap:2px;margin:4px 0;}
+.gqb ul li{padding-left:11px;position:relative;}
+.gqb ul li::before{content:'▸';position:absolute;left:0;color:var(--uc);font-size:8px;top:4px;}
+.gqb strong{color:var(--dark);}
+.gf{width:100%;border-collapse:collapse;font-size:11px;border-radius:6px;overflow:hidden;border:1px solid var(--border);margin:5px 0;}
+.gf thead tr{background:var(--uc);}
+.gf th{color:var(--white);padding:4px 8px;text-align:left;font-size:10.5px;}
+.gf td{padding:4px 8px;border-bottom:1px solid var(--border);}
+.gf tr:last-child td{border-bottom:none;}
+.gf tr:nth-child(even) td{background:#F9F6F0;}
+
+.pf{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--lgray);margin-top:16px;padding-top:9px;border-top:1px solid var(--border);}
+
+#bt{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--dark);color:var(--white);border:none;font-size:18px;font-weight:700;cursor:pointer;z-index:999;display:none;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.2);transition:all .2s;}
+#bt.v{display:flex;} #bt:hover{background:var(--uc);transform:translateY(-2px);}
+
+/* ════════════════════════════
+   PRINT — compact 3 pages
+════════════════════════════ */
+@media print {
+  @page { size:A4 portrait; margin:0; }
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;}
+  body{font-size:9pt !important;line-height:1.38 !important;background:white !important;}
+
+  .btn-group,#bt,.sep,.pf,.ph-tag{display:none !important;}
+  .pagina{max-width:100% !important;margin:0 !important;padding:9mm 10mm !important;border:none !important;box-shadow:none !important;border-radius:0 !important;}
+  .pagina:not(:first-child){break-before:page !important;}
+  .q{break-inside:avoid !important;}
+  .gq{break-inside:avoid !important;}
+  a[href]::after{content:none !important;}
+
+  /* header */
+  .cab{margin-bottom:5pt !important;}
+  .cab-top{padding:3pt 9pt !important;}
+  .snb{font-size:11pt !important;padding:2pt 6pt !important;}
+  .cab-info{font-size:7pt !important;}
+  .cab-body{padding:4pt 9pt !important;}
+  .cab-tit{font-size:10pt !important;}
+  .cab-tema{font-size:7pt !important;margin-top:0 !important;}
+  .cab-badge{font-size:7pt !important;padding:1pt 5pt !important;}
+
+  /* ident */
+  .ident{margin-bottom:5pt !important;gap:5pt !important;}
+  .il{font-size:6.5pt !important;}
+  .il-linha{height:13pt !important;}
+
+  /* headings */
+  .ph{margin-bottom:2pt !important;padding-bottom:2pt !important;}
+  .ph-nome{font-size:9pt !important;}
+  .ph-tag{font-size:6.5pt !important;padding:1pt 5pt !important;}
+  .ph-intro{font-size:7pt !important;margin-bottom:3pt !important;}
+
+  /* questions */
+  .q{margin-bottom:4pt !important;}
+  .qh{gap:4pt !important;margin-bottom:2pt !important;}
+  .qn{min-width:15pt !important;height:15pt !important;font-size:7.5pt !important;}
+  .qt{font-size:8.5pt !important;line-height:1.32 !important;}
+
+  /* tables */
+  .dt,.ft,.ct{margin-left:20pt !important;width:calc(100% - 20pt) !important;margin-bottom:3pt !important;}
+  .dt th,.dt td{padding:2pt 6pt !important;font-size:7.5pt !important;}
+  .ft th,.ft td{padding:1.5pt 5pt !important;font-size:7pt !important;}
+  .ct th,.ct td{padding:2pt 6pt !important;font-size:7.5pt !important;}
+  .ct td.cc{min-height:13pt !important;}
+
+  /* options */
+  .ops{gap:1pt !important;margin-top:2pt !important;margin-left:20pt !important;}
+  .op{font-size:8.5pt !important;gap:4pt !important;}
+  .opc{width:10pt !important;height:10pt !important;margin-top:1pt !important;}
+  .opl{font-size:7.5pt !important;min-width:13pt !important;}
+
+  /* assertions */
+  .afs{margin-left:20pt !important;gap:0 !important;margin-bottom:2pt !important;}
+  .af{font-size:8.5pt !important;gap:4pt !important;}
+  .afn{font-size:7.5pt !important;min-width:13pt !important;}
+
+  /* answer lines */
+  .ar{margin-left:20pt !important;margin-top:2pt !important;}
+  .rl{font-size:6.5pt !important;margin-bottom:1pt !important;}
+  .ln{background-image:repeating-linear-gradient(transparent,transparent 16pt,#bbb 16pt,#bbb 16.5pt) !important;}
+  .l1{height:16.5pt !important;}
+  .l2{height:33pt !important;}
+  .l3{height:49.5pt !important;}
+  .l4{height:66pt !important;}
+
+  /* sub-question */
+  .sq{margin-left:20pt !important;margin-top:4pt !important;}
+  .sql{font-size:7.5pt !important;margin-bottom:1pt !important;}
+  .sqt{font-size:8.5pt !important;margin-bottom:2pt !important;}
+
+  /* dividers */
+  .dq{margin:3pt 0 !important;}
+
+  /* mini header */
+  .mini{padding:3pt 9pt !important;margin-bottom:5pt !important;border-radius:2pt !important;}
+  .mini-t{font-size:7pt !important;}
+  .mini-b{font-size:6.5pt !important;padding:1pt 5pt !important;}
+
+  /* gabarito */
+  .gh{padding:6pt 11pt 6pt 15pt !important;margin-bottom:6pt !important;border-radius:2pt !important;}
+  .gex{font-size:6.5pt !important;}
+  .gtit{font-size:12pt !important;}
+  .gsub{font-size:7pt !important;}
+  .gs{margin-bottom:5pt !important;}
+  .gst{font-size:9pt !important;padding-bottom:2pt !important;margin-bottom:4pt !important;}
+  .go th,.go td{padding:2.5pt 7pt !important;font-size:7.5pt !important;}
+  .gl{font-size:8.5pt !important;padding:1pt 5pt !important;}
+  .gd{gap:3pt !important;}
+  .gqh{padding:3pt 8pt !important;}
+  .gqn{font-size:7pt !important;padding:1pt 5pt !important;}
+  .gqt{font-size:8pt !important;}
+  .gqb{padding:4pt 8pt !important;font-size:7.5pt !important;line-height:1.38 !important;}
+  .gqb ul li{font-size:7.5pt !important;}
+  .gf th,.gf td{padding:1.5pt 5pt !important;font-size:6.5pt !important;}
+}
+
+@media(max-width:840px){.pagina{margin:16px;padding:24px 20px;}}
+@media(max-width:600px){.ident{grid-template-columns:1fr;}.cab-body{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action btn-imp" onclick="window.print()">🖨️ Imprimir</button>
+  <button class="btn-action btn-pdf" onclick="salvarPDF()">📄 Exportar PDF</button>
+</div>
+
+<!-- ══════════════════════════════
+     PÁGINA 1 — QUESTÕES OBJETIVAS
+══════════════════════════════ -->
+<div class="pagina" id="p1">
+
+  <div class="cab">
+    <div class="cab-top">
+      <span class="snb">SENAI</span>
+      <div class="cab-info">
+        <strong>Unidade Curricular</strong>
+        Introdução à Qualidade, Produtividade e Sustentabilidade nos Processos Industriais
+      </div>
+    </div>
+    <div class="cab-body">
+      <div>
+        <div class="cab-tit">Exercícios — Ferramentas da Qualidade II</div>
+        <div class="cab-tema">Diagrama de Pareto e Diagrama de Ishikawa · SA 15 · 2º Trimestre · Prof. Julio Cesar</div>
+      </div>
+      <span class="cab-badge">SA 15 · QPS</span>
+    </div>
+  </div>
+
+  <div class="ident">
+    <div class="ic"><span class="il">Aluno(a)</span><div class="il-linha"></div></div>
+    <div class="ic"><span class="il">Turma</span><div class="il-linha"></div></div>
+    <div class="ic"><span class="il">Data</span><div class="il-linha"></div></div>
+  </div>
+
+  <div class="ph">
+    <span class="ph-nome">Parte I — Questões Objetivas</span>
+    <span class="ph-tag">Q 1 a 5</span>
+  </div>
+  <p class="ph-intro">Leia cada questão com atenção e marque a alternativa <strong style="color:var(--dark)">correta</strong>.</p>
+
+  <!-- Q1 -->
+  <div class="q">
+    <div class="qh"><span class="qn">1</span>
+      <p class="qt">Uma equipe registrou os dados de falhas abaixo. Ao construir o Diagrama de Pareto, qual é a <strong>frequência acumulada (%)</strong> após os dois primeiros itens (Lentidão e Erro de login)?</p>
+    </div>
+    <table class="dt">
+      <thead><tr><th>Tipo de Falha</th><th>Frequência</th></tr></thead>
+      <tbody>
+        <tr><td>Lentidão</td><td>42</td></tr>
+        <tr><td>Erro de login</td><td>18</td></tr>
+        <tr><td>Tela em branco</td><td>15</td></tr>
+        <tr><td>Timeout</td><td>12</td></tr>
+        <tr><td>Outros</td><td>8</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>95</strong></td></tr>
+      </tbody>
+    </table>
+    <ul class="ops">
+      <li class="op"><span class="opc"></span><span class="opl">a)</span><span>44,2%</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">b)</span><span>78,9%</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">c)</span><span>91,6%</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">d)</span><span>55,8%</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">e)</span><span>63,2%</span></li>
+    </ul>
+  </div>
+  <div class="dq"></div>
+
+  <!-- Q2 -->
+  <div class="q">
+    <div class="qh"><span class="qn">2</span>
+      <p class="qt">O Diagrama de Ishikawa organiza as causas em seis categorias (<strong>6M</strong>). Em um projeto de software, a causa <em>"ausência de testes automatizados antes do deploy"</em> se enquadra em qual categoria?</p>
+    </div>
+    <ul class="ops">
+      <li class="op"><span class="opc"></span><span class="opl">a)</span><span>Máquina</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">b)</span><span>Método</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">c)</span><span>Material</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">d)</span><span>Medição</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">e)</span><span>Meio ambiente</span></li>
+    </ul>
+  </div>
+  <div class="dq"></div>
+
+  <!-- Q3 -->
+  <div class="q">
+    <div class="qh"><span class="qn">3</span>
+      <p class="qt">Sobre a correta aplicação do princípio 80/20 na gestão da qualidade, assinale a alternativa <strong>correta</strong>:</p>
+    </div>
+    <ul class="ops">
+      <li class="op"><span class="opc"></span><span class="opl">a)</span><span>O princípio indica que 80% das causas são responsáveis por 80% dos problemas identificados.</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">b)</span><span>O princípio determina que apenas 20% dos problemas devem ser monitorados pela equipe.</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">c)</span><span>O princípio afirma que, para eliminar todos os problemas, é necessário tratar 100% das causas.</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">d)</span><span>O princípio sugere que aproximadamente 80% dos efeitos são gerados por cerca de 20% das causas.</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">e)</span><span>O princípio foi criado por Ishikawa e aprimorado por Pareto para uso exclusivo na indústria.</span></li>
+    </ul>
+  </div>
+  <div class="dq"></div>
+
+  <!-- Q4 -->
+  <div class="q">
+    <div class="qh"><span class="qn">4</span>
+      <p class="qt">Uma equipe identificou que bugs no módulo de relatórios representam 38% de todos os chamados. Para investigar <strong>por que</strong> esse problema ocorre com tanta frequência, qual ferramenta deve ser utilizada?</p>
+    </div>
+    <ul class="ops">
+      <li class="op"><span class="opc"></span><span class="opl">a)</span><span>Diagrama de Pareto, pois ordena as falhas por frequência de ocorrência.</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">b)</span><span>Histograma, pois mostra a distribuição dos bugs ao longo do tempo.</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">c)</span><span>Folha de verificação, pois registra sistematicamente cada ocorrência de bug.</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">d)</span><span>Fluxograma, pois mapeia o caminho percorrido pelo dado até o relatório.</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">e)</span><span>Diagrama de Ishikawa, pois estrutura e investiga as causas raízes do problema.</span></li>
+    </ul>
+  </div>
+  <div class="dq"></div>
+
+  <!-- Q5 -->
+  <div class="q">
+    <div class="qh"><span class="qn">5</span>
+      <p class="qt">Analise as afirmações sobre o uso combinado de Pareto e Ishikawa e assinale a alternativa <strong>correta</strong>:</p>
+    </div>
+    <div class="afs">
+      <div class="af"><span class="afn">I.</span><span>O Pareto é utilizado para identificar e priorizar o problema mais relevante.</span></div>
+      <div class="af"><span class="afn">II.</span><span>O Ishikawa é utilizado para investigar as causas do problema já priorizado.</span></div>
+      <div class="af"><span class="afn">III.</span><span>Usar as duas ferramentas em sequência é uma prática ineficiente, pois duplica o trabalho da equipe.</span></div>
+    </div>
+    <ul class="ops">
+      <li class="op"><span class="opc"></span><span class="opl">a)</span><span>Apenas I está correta.</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">b)</span><span>Apenas II está correta.</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">c)</span><span>Apenas III está correta.</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">d)</span><span>I, II e III estão corretas.</span></li>
+      <li class="op"><span class="opc"></span><span class="opl">e)</span><span>Apenas I e II estão corretas.</span></li>
+    </ul>
+  </div>
+
+  <div class="pf">UC: Qualidade, Produtividade e Sustentabilidade · SA 15 · Prof. Julio Cesar · SENAI Umuarama · Página 1 de 3</div>
+</div>
+
+<div class="sep">Página 2 de 3 — Questões Discursivas</div>
+
+<!-- ══════════════════════════════
+     PÁGINA 2 — QUESTÕES DISCURSIVAS
+══════════════════════════════ -->
+<div class="pagina" id="p2">
+
+  <div class="mini">
+    <span class="mini-t">UC: Qualidade, Produtividade e Sustentabilidade · SA 15 — Pareto e Ishikawa</span>
+    <span class="mini-b">Pág. 2 · Aluno: ______________________</span>
+  </div>
+
+  <div class="ph">
+    <span class="ph-nome">Parte II — Questões Discursivas</span>
+    <span class="ph-tag">Q 6 a 10</span>
+  </div>
+  <p class="ph-intro">Responda com clareza e objetividade. Justifique suas respostas.</p>
+
+  <!-- Q6 -->
+  <div class="q">
+    <div class="qh"><span class="qn">6</span>
+      <p class="qt">Complete a tabela calculando a <strong>frequência relativa (%)</strong> e a <strong>frequência acumulada (%)</strong> de cada tipo de chamado. Em seguida, indique quais representam ≈ 80% dos problemas e o que isso indica para a equipe.</p>
+    </div>
+    <table class="ft">
+      <thead><tr><th>Ordem</th><th>Tipo de Chamado</th><th>Freq.</th><th>Freq. Relativa (%)</th><th>Freq. Acumulada (%)</th></tr></thead>
+      <tbody>
+        <tr><td>1º</td><td>Lentidão do sistema</td><td>42</td><td class="vz">&nbsp;</td><td class="vz">&nbsp;</td></tr>
+        <tr><td>2º</td><td>Erro de login</td><td>18</td><td class="vz">&nbsp;</td><td class="vz">&nbsp;</td></tr>
+        <tr><td>3º</td><td>Tela em branco</td><td>15</td><td class="vz">&nbsp;</td><td class="vz">&nbsp;</td></tr>
+        <tr><td>4º</td><td>Timeout de conexão</td><td>12</td><td class="vz">&nbsp;</td><td class="vz">&nbsp;</td></tr>
+        <tr><td>5º</td><td>Outros</td><td>8</td><td class="vz">&nbsp;</td><td class="vz">&nbsp;</td></tr>
+        <tr><td></td><td><strong>Total</strong></td><td><strong>95</strong></td><td><strong>100%</strong></td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div class="ar"><div class="rl">Resposta:</div><div class="ln l2"></div></div>
+  </div>
+  <div class="dq"></div>
+
+  <!-- Q7 -->
+  <div class="q">
+    <div class="qh"><span class="qn">7</span>
+      <p class="qt">O problema prioritário é a <strong>lentidão do sistema</strong>. Preencha ao menos uma causa possível por categoria dos <strong>6M</strong> e explique qual considera mais crítica.</p>
+    </div>
+    <table class="ct">
+      <thead><tr><th style="width:28%">Categoria</th><th>Causa possível para "Lentidão do sistema"</th></tr></thead>
+      <tbody>
+        <tr><td><span class="cn">Método</span></td><td class="cc">&nbsp;</td></tr>
+        <tr><td><span class="cn">Material</span></td><td class="cc">&nbsp;</td></tr>
+        <tr><td><span class="cn">Mão de obra</span></td><td class="cc">&nbsp;</td></tr>
+        <tr><td><span class="cn">Máquina</span></td><td class="cc">&nbsp;</td></tr>
+        <tr><td><span class="cn">Meio ambiente</span></td><td class="cc">&nbsp;</td></tr>
+        <tr><td><span class="cn">Medição</span></td><td class="cc">&nbsp;</td></tr>
+      </tbody>
+    </table>
+    <div class="ar"><div class="rl">Causa mais crítica e justificativa:</div><div class="ln l2"></div></div>
+  </div>
+  <div class="dq"></div>
+
+  <!-- Q8 -->
+  <div class="q">
+    <div class="qh"><span class="qn">8</span>
+      <p class="qt">Um analista afirma: <em>"Não há necessidade de usar o Pareto antes do Ishikawa. Podemos ir direto à análise de causas."</em> Você <strong>concorda ou discorda</strong>? Argumente sobre a importância de priorizar antes de investigar, com exemplos do desenvolvimento de sistemas.</p>
+    </div>
+    <div class="ar"><div class="rl">Resposta:</div><div class="ln l3"></div></div>
+  </div>
+  <div class="dq"></div>
+
+  <!-- Q9 -->
+  <div class="q">
+    <div class="qh"><span class="qn">9</span>
+      <p class="qt">Explique a <strong>diferença de propósito</strong> entre o Diagrama de Pareto e o Diagrama de Ishikawa e descreva um <strong>exemplo prático</strong> de como usá-los em sequência em um projeto de software.</p>
+    </div>
+    <div class="ar"><div class="rl">Resposta:</div><div class="ln l3"></div></div>
+  </div>
+  <div class="dq"></div>
+
+  <!-- Q10 -->
+  <div class="q">
+    <div class="qh"><span class="qn">10</span>
+      <p class="qt">Um time enfrenta atrasos recorrentes. Os dados levantados apontam as seguintes causas:</p>
+    </div>
+    <table class="dt">
+      <thead><tr><th>Causa do Atraso</th><th>Ocorrências</th></tr></thead>
+      <tbody>
+        <tr><td>Escopo mal definido</td><td>44</td></tr>
+        <tr><td>Falta de recursos</td><td>20</td></tr>
+        <tr><td>Falhas técnicas</td><td>16</td></tr>
+        <tr><td>Problemas de comunicação</td><td>12</td></tr>
+        <tr><td>Outros</td><td>8</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>100</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="sq">
+      <div class="sql">a)</div>
+      <div class="sqt">Qual é o problema prioritário segundo o princípio 80/20? Justifique com os percentuais acumulados.</div>
+      <div class="ar"><div class="rl">Resposta:</div><div class="ln l2"></div></div>
+    </div>
+    <div class="sq" style="margin-top:6px;">
+      <div class="sql">b)</div>
+      <div class="sqt">Escolha <strong>duas categorias dos 6M</strong> e indique uma causa específica de cada uma relacionada ao problema prioritário.</div>
+      <div class="ar"><div class="rl">Resposta:</div><div class="ln l2"></div></div>
+    </div>
+  </div>
+
+  <div class="pf">UC: Qualidade, Produtividade e Sustentabilidade · SA 15 · Prof. Julio Cesar · SENAI Umuarama · Página 2 de 3</div>
+</div>
+
+<div class="sep">Página 3 de 3 — Gabarito</div>
+
+<!-- ══════════════════════════════
+     PÁGINA 3 — GABARITO
+══════════════════════════════ -->
+<div class="pagina" id="p3">
+
+  <div class="gh">
+    <div class="gex">⚠ Uso exclusivo do professor — não distribuir aos alunos</div>
+    <div class="gtit">Gabarito — <span>SA 15 · Ferramentas da Qualidade II</span></div>
+    <div class="gsub">Pareto e Ishikawa · 2º Trimestre · UC: Qualidade, Produtividade e Sustentabilidade · Prof. Julio Cesar · SENAI Umuarama</div>
+  </div>
+
+  <!-- Objetivas -->
+  <div class="gs">
+    <div class="gst">Questões Objetivas <em>— 1 ponto cada</em></div>
+    <table class="go">
+      <thead><tr><th style="width:16%;text-align:center">Questão</th><th style="width:16%;text-align:center">Resposta</th><th>Justificativa resumida</th></tr></thead>
+      <tbody>
+        <tr><td style="text-align:center;font-weight:700">1</td><td style="text-align:center"><span class="gl">E</span></td><td style="font-size:11px">42+18=60 → 60÷95=<strong>63,2%</strong> (acumulado após Lentidão + Erro de login)</td></tr>
+        <tr><td style="text-align:center;font-weight:700">2</td><td style="text-align:center"><span class="gl">B</span></td><td style="font-size:11px">"Ausência de testes antes do deploy" é falha de processo/procedimento → <strong>Método</strong></td></tr>
+        <tr><td style="text-align:center;font-weight:700">3</td><td style="text-align:center"><span class="gl">D</span></td><td style="font-size:11px">~80% dos efeitos gerados por ~20% das causas — definição correta do princípio de Pareto</td></tr>
+        <tr><td style="text-align:center;font-weight:700">4</td><td style="text-align:center"><span class="gl">E</span></td><td style="font-size:11px">Investigar <em>por que</em> o problema ocorre → <strong>Ishikawa</strong> (análise de causas raíz)</td></tr>
+        <tr><td style="text-align:center;font-weight:700">5</td><td style="text-align:center"><span class="gl">E</span></td><td style="font-size:11px">I e II corretas · III incorreta: uso combinado em sequência é eficiente e complementar</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Discursivas -->
+  <div class="gs">
+    <div class="gst">Orientações para Correção — Questões Discursivas</div>
+    <div class="gd">
+
+      <div class="gq">
+        <div class="gqh"><span class="gqn">Q 6</span><span class="gqt">Tabela de Pareto — frequências relativa e acumulada</span></div>
+        <div class="gqb">
+          <table class="gf">
+            <thead><tr><th>Ordem</th><th>Tipo de Chamado</th><th>Freq.</th><th>Rel. (%)</th><th>Acum. (%)</th></tr></thead>
+            <tbody>
+              <tr><td>1º</td><td>Lentidão do sistema</td><td>42</td><td><strong>44,2%</strong></td><td><strong>44,2%</strong></td></tr>
+              <tr><td>2º</td><td>Erro de login</td><td>18</td><td><strong>18,9%</strong></td><td><strong>63,2%</strong></td></tr>
+              <tr><td>3º</td><td>Tela em branco</td><td>15</td><td><strong>15,8%</strong></td><td><strong>78,9%</strong></td></tr>
+              <tr><td>4º</td><td>Timeout de conexão</td><td>12</td><td><strong>12,6%</strong></td><td><strong>91,6%</strong></td></tr>
+              <tr><td>5º</td><td>Outros</td><td>8</td><td><strong>8,4%</strong></td><td><strong>100,0%</strong></td></tr>
+            </tbody>
+          </table>
+          <p>Aluno deve identificar <strong>Lentidão + Erro de login + Tela em branco</strong> (≈ 79%) como os chamados que merecem atenção prioritária da equipe.</p>
+        </div>
+      </div>
+
+      <div class="gq">
+        <div class="gqh"><span class="gqn">Q 7</span><span class="gqt">Ishikawa — 6M aplicados à lentidão do sistema</span></div>
+        <div class="gqb">
+          <p>Aceitar qualquer causa coerente. Exemplos esperados:</p>
+          <ul>
+            <li><strong>Método:</strong> consultas ao banco sem índice / processo sem otimização</li>
+            <li><strong>Material:</strong> licença de servidor com capacidade de processamento limitada</li>
+            <li><strong>Mão de obra:</strong> código escrito sem boas práticas de performance</li>
+            <li><strong>Máquina:</strong> RAM insuficiente no servidor de aplicação</li>
+            <li><strong>Meio ambiente:</strong> instabilidade ou baixa largura de banda na rede</li>
+            <li><strong>Medição:</strong> ausência de monitoramento de tempo de resposta (SLA)</li>
+          </ul>
+          <p style="margin-top:3px;">Justificativa da causa mais crítica deve ser coerente com o argumento do aluno.</p>
+        </div>
+      </div>
+
+      <div class="gq">
+        <div class="gqh"><span class="gqn">Q 8</span><span class="gqt">Argumentação — necessidade de priorizar antes de investigar</span></div>
+        <div class="gqb">
+          <p>Aluno deve <strong>discordar</strong>. Argumentos esperados:</p>
+          <ul>
+            <li>Sem priorização, há risco de desperdiçar esforços em problemas de baixo impacto</li>
+            <li>O Pareto direciona o Ishikawa para o problema que realmente importa</li>
+            <li>Em sistemas: analisar causas de todos os bugs ao mesmo tempo é inviável — o Pareto define qual módulo/tipo atacar primeiro</li>
+            <li>Combinação Pareto → Ishikawa é estratégica e eficiente, não redundante</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gq">
+        <div class="gqh"><span class="gqn">Q 9</span><span class="gqt">Diferença de propósito e uso sequencial</span></div>
+        <div class="gqb">
+          <ul>
+            <li><strong>Pareto prioriza</strong> — responde "o quê atacar primeiro" (problema de maior impacto)</li>
+            <li><strong>Ishikawa investiga</strong> — responde "por que o problema acontece" (causas raízes)</li>
+          </ul>
+          <p style="margin-top:4px;">Exemplo: Pareto identifica módulo de relatórios como maior fonte de bugs → Ishikawa mapeia as causas daquele módulo (queries N+1, falta de cache, validações ausentes).</p>
+        </div>
+      </div>
+
+      <div class="gq">
+        <div class="gqh"><span class="gqn">Q 10</span><span class="gqt">Atrasos em entregas — Pareto + 6M</span></div>
+        <div class="gqb">
+          <p><strong>a)</strong> Cálculo: Escopo mal definido 44% + Falta de recursos 20% = 64% + Falhas técnicas 16% = <strong>80%</strong>. Esses três itens são o foco prioritário; "Escopo mal definido" (44%) é o mais crítico.</p>
+          <p style="margin-top:4px;"><strong>b)</strong> Aceitar duas categorias coerentes ao "Escopo mal definido". Exemplos:</p>
+          <ul>
+            <li><strong>Método:</strong> ausência de metodologia formal de levantamento de requisitos</li>
+            <li><strong>Mão de obra:</strong> cliente sem experiência para definir escopo com precisão</li>
+            <li><strong>Medição:</strong> sem critérios de aceite definidos para validar o escopo</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="pf">UC: Qualidade, Produtividade e Sustentabilidade · SA 15 · Prof. Julio Cesar · SENAI Umuarama · Gabarito — Página 3 de 3</div>
+</div>
+
+<button id="bt" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF=()=>{const t=document.title;document.title='Exercicios_SA15_QPS_Pareto_Ishikawa';window.print();setTimeout(()=>{document.title=t;},1000);};
+  const bt=document.getElementById('bt');
+  window.addEventListener('scroll',()=>{if(bt)bt.classList.toggle('v',window.scrollY>400);});
+  if(bt)bt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>

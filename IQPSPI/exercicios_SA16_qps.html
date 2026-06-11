@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercícios SA 16 — CEP, 5W2H, Folha de Verificação e Dispersão · QPS</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 11pt;
+  color: #000;
+  background: #d0d0d0;
+  line-height: 1.45;
+}
+
+/* ── BOTÕES FLUTUANTES ── */
+.botoes {
+  position: fixed; top: 20px; right: 20px;
+  display: flex; flex-direction: column; gap: 8px; z-index: 999;
+}
+.btn {
+  padding: 9px 16px; border: none; border-radius: 6px;
+  font-size: 12px; font-weight: bold; cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  transition: opacity .2s;
+}
+.btn:hover { opacity: .85; }
+.btn-imp { background: #1E6B8A; color: #fff; }
+.btn-pdf { background: #333; color: #fff; }
+
+/* ── PÁGINA (card na tela) ── */
+.pagina {
+  background: #fff;
+  width: 210mm;
+  margin: 24px auto;
+  padding: 18mm 15mm 15mm 20mm;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.22);
+}
+
+/* ── SEPARADOR DE PÁGINA (somente tela) ── */
+.sep-pag {
+  width: 210mm; margin: 0 auto;
+  text-align: center; padding: 6px 0;
+  font-family: monospace; font-size: 10px;
+  color: #888; letter-spacing: 2px;
+}
+
+/* ══════════════════════════════
+   CABEÇALHO INSTITUCIONAL
+══════════════════════════════ */
+.cab {
+  background: #1E6B8A;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 14px;
+}
+.cab-texto {
+  font-size: 10.5pt;
+  font-weight: bold;
+  line-height: 1.55;
+  text-align: center;
+  flex: 1;
+}
+.cab-logo {
+  text-align: right;
+  padding-left: 14px;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+.cab-logo .cl-row1 {
+  font-size: 8pt;
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 3px;
+}
+.cab-logo .cl-box {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin: 0 2px;
+  vertical-align: middle;
+}
+.cab-logo .cl-box span {
+  width: 5px; height: 5px;
+  background: #fff;
+  display: block;
+}
+.cab-logo .cl-nome {
+  font-size: 15pt;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  display: block;
+  text-align: right;
+}
+.cab-logo .cl-marca {
+  font-size: 13pt;
+  font-weight: 900;
+}
+.cab-logo .cl-row2 {
+  font-size: 7.5pt;
+  font-weight: normal;
+  display: block;
+  text-align: right;
+}
+
+/* ══════════════════════════════
+   LINHA DE IDENTIFICAÇÃO
+══════════════════════════════ */
+.ident {
+  display: grid;
+  grid-template-columns: 1fr 58px 110px;
+  border: 1px solid #000;
+  border-top: none;
+  margin-bottom: 18px;
+}
+.id-cell {
+  padding: 5px 8px;
+  font-weight: bold;
+  font-size: 11pt;
+  border-right: 1px solid #000;
+}
+.id-cell:last-child { border-right: none; }
+
+/* ══════════════════════════════
+   QUESTÕES OBJETIVAS
+══════════════════════════════ */
+.q { margin-bottom: 13px; }
+
+.q-text {
+  font-size: 11pt;
+  line-height: 1.45;
+  margin-bottom: 5px;
+  text-align: justify;
+}
+.q-text b { font-weight: bold; }
+.q-text em { font-style: italic; }
+
+.opcoes {
+  list-style: none;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.opcoes li { font-size: 11pt; line-height: 1.5; }
+.opcoes li b { font-weight: bold; }
+
+/* afirmativas (Q tipo I, II, III) */
+.afs {
+  list-style: none;
+  margin: 4px 0 4px 10px;
+}
+.afs li { font-size: 11pt; line-height: 1.45; }
+
+/* ══════════════════════════════
+   ESPAÇOS DE RESPOSTA (pág 2)
+══════════════════════════════ */
+.esp {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent calc(9mm - 0.5px),
+    #CCCCCC calc(9mm - 0.5px),
+    #CCCCCC 9mm
+  );
+  margin-top: 5px;
+  margin-bottom: 13px;
+}
+.esp-q6  { height: 36mm; } /* ~4 linhas */
+.esp-std { height: 28mm; } /* ~3 linhas */
+.esp-sub { height: 20mm; } /* ~2 linhas */
+
+.sub-q { margin-top: 7px; }
+.sub-q b { font-weight: bold; }
+
+/* ══════════════════════════════
+   GABARITO (pág 3)
+══════════════════════════════ */
+.gab-tit {
+  font-size: 14pt;
+  font-weight: bold;
+  color: #1E6B8A;
+  border-left: 4px solid #1E6B8A;
+  padding-left: 10px;
+  margin-bottom: 4px;
+}
+.gab-excl {
+  font-style: italic;
+  font-size: 10.5pt;
+  color: #444;
+  margin-bottom: 16px;
+  padding-left: 14px;
+}
+.gab-table {
+  width: 100%;
+  max-width: 380px;
+  border-collapse: collapse;
+  margin-bottom: 22px;
+}
+.gab-table thead tr { background: #1E6B8A; }
+.gab-table th {
+  color: #fff; padding: 8px 20px;
+  text-align: center; font-size: 11pt;
+}
+.gab-table td {
+  padding: 7px 20px;
+  text-align: center;
+  border: 1px solid #ccc;
+  font-size: 11pt;
+}
+.gab-table tr:nth-child(even) td { background: #f0f5f8; }
+.ra { color: #1E6B8A; font-weight: bold; font-size: 13pt; }
+.rb { color: #B07000; font-weight: bold; font-size: 13pt; }
+.rc { color: #1A5A9A; font-weight: bold; font-size: 13pt; }
+.rd { color: #333;    font-weight: bold; font-size: 13pt; }
+
+.gab-disc-tit {
+  font-size: 12pt;
+  font-weight: bold;
+  color: #1E6B8A;
+  border-bottom: 2px solid #1E6B8A;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+.gab-item {
+  background: #EFF5F8;
+  border-left: 3px solid #1E6B8A;
+  padding: 8px 12px;
+  margin-bottom: 9px;
+  font-size: 10.5pt;
+  line-height: 1.55;
+  text-align: justify;
+}
+.gab-item b { color: #1E6B8A; }
+
+/* ══════════════════════════════
+   IMPRESSÃO — 3 páginas exatas
+   @page margin:0 → sem cabeçalho
+   e rodapé do navegador
+══════════════════════════════ */
+@media print {
+  @page { size: A4 portrait; margin: 0; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+  body { background: white !important; font-size: 11pt !important; }
+
+  .botoes, .sep-pag { display: none !important; }
+
+  .pagina {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 18mm 15mm 15mm 20mm !important;
+    box-shadow: none !important;
+  }
+  .pagina:not(:first-child) { break-before: page !important; }
+  .q { break-inside: avoid !important; }
+  a[href]::after { content: none !important; }
+}
+
+/* ── responsivo mobile ── */
+@media (max-width: 800px) {
+  .pagina { width: 100%; margin: 10px; padding: 14mm 10mm; }
+  .botoes { top: auto; bottom: 16px; flex-direction: row; }
+}
+</style>
+</head>
+<body>
+
+<div class="botoes">
+  <button class="btn btn-imp" onclick="window.print()">🖨️ Imprimir</button>
+  <button class="btn btn-pdf" onclick="salvarPDF()">📄 Exportar PDF</button>
+</div>
+
+<!-- ══════════════════════════════════
+     PÁGINA 1 — QUESTÕES OBJETIVAS (1–5)
+══════════════════════════════════ -->
+<div class="pagina" id="p1">
+
+  <!-- CABEÇALHO -->
+  <div class="cab">
+    <div class="cab-texto">
+      1º Ano - Técnico em Desenvolvimento de Sistemas<br>
+      Introdução a Qualidade Produtividade e Sustentabilidade<br>
+      nos Processos Industriais
+    </div>
+    <div class="cab-logo">
+      <div class="cl-row1">
+        Sistema
+        <span class="cl-box">
+          <span></span><span></span>
+          <span></span><span></span>
+        </span>
+        <span class="cl-nome">SENAI<span class="cl-marca">≡</span></span>
+      </div>
+      <span class="cl-row2">Fiep</span>
+    </div>
+  </div>
+
+  <!-- IDENTIFICAÇÃO -->
+  <div class="ident">
+    <div class="id-cell">Aluno(a):</div>
+    <div class="id-cell">Nº:</div>
+    <div class="id-cell">Data:</div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="q">
+    <p class="q-text"><b>1.</b> O Controle Estatístico de Processos (CEP) utiliza cartas de controle para monitorar a estabilidade de um processo ao longo do tempo. Um ponto plotado acima do <b>Limite Superior de Controle (LSC)</b> indica:</p>
+    <ul class="opcoes">
+      <li><b>a)</b> Uma variação especial que exige investigação imediata da causa.</li>
+      <li><b>b)</b> Que o processo está operando dentro da variação natural esperada.</li>
+      <li><b>c)</b> Que o limite de controle foi definido incorretamente pela equipe.</li>
+      <li><b>d)</b> Que os dados coletados devem ser descartados e o processo reiniciado.</li>
+    </ul>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q">
+    <p class="q-text"><b>2.</b> Um líder de projeto precisa estruturar um plano de ação para reduzir os bugs no módulo de relatórios. Ao utilizar o <b>5W2H</b>, qual das colunas responde à pergunta <em>"Por que essa ação será realizada?"</em>?</p>
+    <ul class="opcoes">
+      <li><b>a)</b> What (O que)</li>
+      <li><b>b)</b> Why (Por que)</li>
+      <li><b>c)</b> How (Como)</li>
+      <li><b>d)</b> Where (Onde)</li>
+    </ul>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q">
+    <p class="q-text"><b>3.</b> Uma equipe de qualidade deseja registrar sistematicamente a frequência de cada tipo de erro que ocorre durante os testes de software ao longo de duas semanas. A ferramenta mais adequada para essa coleta de dados é:</p>
+    <ul class="opcoes">
+      <li><b>a)</b> Diagrama de Dispersão, pois relaciona duas variáveis quantitativas.</li>
+      <li><b>b)</b> Diagrama de Pareto, pois ordena os erros por frequência de ocorrência.</li>
+      <li><b>c)</b> Folha de Verificação, pois permite registrar ocorrências de forma sistemática e organizada.</li>
+      <li><b>d)</b> Carta de Controle, pois monitora a estabilidade do processo de testes ao longo do tempo.</li>
+    </ul>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q">
+    <p class="q-text"><b>4.</b> Um analista percebe que, quanto maior o número de horas de treinamento recebidas pelos desenvolvedores, menor é a quantidade de bugs gerados por eles. Ao plotar esses dados em um Diagrama de Dispersão, o padrão esperado é:</p>
+    <ul class="opcoes">
+      <li><b>a)</b> Ausência de correlação, pois treinamento e bugs são variáveis independentes.</li>
+      <li><b>b)</b> Correlação positiva, pois ambas as variáveis crescem juntas.</li>
+      <li><b>c)</b> Correlação nula, pois os pontos se distribuem aleatoriamente no gráfico.</li>
+      <li><b>d)</b> Correlação negativa, pois quando uma variável aumenta a outra diminui.</li>
+    </ul>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q">
+    <p class="q-text"><b>5.</b> Sobre o comparativo entre as ferramentas da qualidade estudadas, associe cada ferramenta à sua principal finalidade e assinale a alternativa <b>correta</b>:</p>
+    <ul class="opcoes">
+      <li><b>a)</b> CEP → monitorar estabilidade do processo | 5W2H → estruturar plano de ação | Folha de Verificação → coletar dados sistematicamente | Dispersão → analisar correlação entre variáveis.</li>
+      <li><b>b)</b> CEP → identificar causas de problemas | 5W2H → priorizar falhas | Folha de Verificação → monitorar limites de controle | Dispersão → ordenar ocorrências por frequência.</li>
+      <li><b>c)</b> CEP → estruturar plano de ação | 5W2H → monitorar variáveis | Folha de Verificação → analisar correlação | Dispersão → registrar ocorrências.</li>
+      <li><b>d)</b> CEP → coletar dados de campo | 5W2H → investigar causas raízes | Folha de Verificação → traçar limites de controle | Dispersão → elaborar planos de melhoria.</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="sep-pag">— VERSO DA FOLHA — QUESTÕES DISCURSIVAS —</div>
+
+<!-- ══════════════════════════════════
+     PÁGINA 2 — QUESTÕES DISCURSIVAS (6–10)
+══════════════════════════════════ -->
+<div class="pagina" id="p2">
+
+  <!-- Q6 -->
+  <div class="q">
+    <p class="q-text"><b>6.</b> Uma equipe de desenvolvimento identificou que o módulo de relatórios concentra <b>38% dos bugs</b> do sistema. Elabore um <b>5W2H completo</b> para resolver esse problema, respondendo a cada uma das sete perguntas (What, Why, Where, When, Who, How e How Much) com informações coerentes ao contexto de um projeto de software.</p>
+    <div class="esp esp-q6"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q">
+    <p class="q-text"><b>7.</b> Explique o que é o <b>Controle Estatístico de Processos (CEP)</b> e qual é a diferença entre uma <b>variação comum</b> e uma <b>variação especial</b> em uma carta de controle. Em seguida, dê um exemplo de cada tipo de variação no contexto de um sistema de software.</p>
+    <div class="esp esp-std"></div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q">
+    <p class="q-text"><b>8.</b> Um gerente de projetos afirma que utiliza a Folha de Verificação apenas para registrar ocorrências e nunca para tomar decisões, pois para isso usa o Pareto. Você <b>concorda ou discorda</b> dessa afirmação? Explique a relação entre a Folha de Verificação e as demais ferramentas da qualidade, argumentando sobre o papel dela no ciclo de análise.</p>
+    <div class="esp esp-std"></div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q">
+    <p class="q-text"><b>9.</b> Descreva, com suas próprias palavras, como as quatro ferramentas estudadas nesta aula (<b>CEP, 5W2H, Folha de Verificação e Diagrama de Dispersão</b>) podem ser utilizadas de forma integrada para resolver um problema recorrente em um projeto de software. Construa um exemplo prático que mostre a sequência lógica de uso.</p>
+    <div class="esp esp-std"></div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q">
+    <p class="q-text"><b>10.</b> Uma equipe percebeu que, quanto mais horas extras os desenvolvedores trabalham por semana, maior é o número de bugs gerados no código.</p>
+    <div class="sub-q">
+      <p class="q-text"><b>a)</b> Que tipo de correlação o Diagrama de Dispersão evidenciaria nesse caso? Justifique.</p>
+      <div class="esp esp-sub"></div>
+    </div>
+    <div class="sub-q">
+      <p class="q-text"><b>b)</b> Com base nessa correlação identificada, elabore um plano de ação resumido utilizando o <b>5W2H</b>, respondendo ao menos quatro das sete perguntas.</p>
+      <div class="esp esp-sub"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="sep-pag">— FOLHA SEPARADA — GABARITO (USO EXCLUSIVO DO PROFESSOR) —</div>
+
+<!-- ══════════════════════════════════
+     PÁGINA 3 — GABARITO
+══════════════════════════════════ -->
+<div class="pagina" id="p3">
+
+  <h2 class="gab-tit">GABARITO — Questões Objetivas</h2>
+  <p class="gab-excl">Para uso exclusivo do professor.</p>
+
+  <table class="gab-table">
+    <thead>
+      <tr><th>Questão</th><th>Resposta Correta</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td><span class="ra">A</span></td></tr>
+      <tr><td>2</td><td><span class="rb">B</span></td></tr>
+      <tr><td>3</td><td><span class="rc">C</span></td></tr>
+      <tr><td>4</td><td><span class="rd">D</span></td></tr>
+      <tr><td>5</td><td><span class="ra">A</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="gab-disc-tit">Orientações para Correção — Questões Discursivas</h3>
+
+  <div class="gab-item">
+    <b>Questão 6:</b> O aluno deve preencher todas as sete perguntas com coerência ao problema proposto. Exemplo esperado — <em>What:</em> reduzir bugs no módulo de relatórios; <em>Why:</em> o módulo concentra 38% dos chamados de suporte; <em>Where:</em> ambiente de desenvolvimento e testes; <em>When:</em> nas próximas 2 sprints; <em>Who:</em> equipe de desenvolvimento liderada pelo tech lead; <em>How:</em> implementar code review obrigatório, testes automatizados e critérios de aceite claros; <em>How Much:</em> sem custo adicional, utilizando a equipe atual.
+  </div>
+
+  <div class="gab-item">
+    <b>Questão 7:</b> O aluno deve explicar que o CEP monitora se o processo está sob controle estatístico ao longo do tempo. <em>Variação comum:</em> oscilação normal dentro dos limites de controle — ex.: pequenas variações no tempo de resposta da API ao longo do dia. <em>Variação especial:</em> ponto fora dos limites ou tendência — ex.: tempo de resposta que ultrapassa o LSC após um novo deploy, indicando causa específica a ser investigada.
+  </div>
+
+  <div class="gab-item">
+    <b>Questão 8:</b> O aluno deve discordar parcialmente ou concordar com ressalvas. A Folha de Verificação não é apenas um registro passivo — ela é a fonte de dados que alimenta o Pareto, o CEP e o Diagrama de Dispersão. Sem uma coleta sistemática e confiável, as análises posteriores perdem validade. A Folha de Verificação é o ponto de entrada do ciclo de análise.
+  </div>
+
+  <div class="gab-item">
+    <b>Questão 9:</b> O aluno deve construir uma sequência lógica coerente. Exemplo esperado: Folha de Verificação para coletar os dados de ocorrências → CEP para verificar se o processo está estável → Dispersão para identificar correlação entre variáveis (ex.: horas extras × bugs) → 5W2H para estruturar o plano de ação sobre a causa identificada.
+  </div>
+
+  <div class="gab-item">
+    <b>Questão 10a:</b> Correlação positiva — quanto mais horas extras, mais bugs. Os pontos no Diagrama de Dispersão se distribuem em tendência ascendente da esquerda para a direita. <b>Questão 10b:</b> O aluno deve responder ao menos 4 das 7 perguntas com coerência ao problema. Ex.: <em>What:</em> limitar horas extras semanais; <em>Why:</em> reduzir a taxa de bugs gerados por fadiga; <em>Who:</em> gestores e RH; <em>How:</em> estabelecer limite de 2h extras/dia com revezamento de equipe.
+  </div>
+
+</div>
+
+<script>
+  const salvarPDF = () => {
+    const t = document.title;
+    document.title = 'Exercicios_SA16_QPS_CEP_5W2H_Dispersao';
+    window.print();
+    setTimeout(() => { document.title = t; }, 1000);
+  };
+</script>
+</body>
+</html>

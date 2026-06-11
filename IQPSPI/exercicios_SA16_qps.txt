@@ -1,0 +1,167 @@
+1o Ano - Tecnico em Desenvolvimento de Sistemas
+Introducao a Qualidade, Produtividade e Sustentabilidade
+nos Processos Industriais
+
+Aluno(a): ________________________________  No: _______  Data: ____/____/______
+
+------------------------------------------------------------------------
+
+1. O Controle Estatistico de Processos (CEP) utiliza cartas de controle para
+monitorar a estabilidade de um processo ao longo do tempo. Um ponto plotado
+acima do Limite Superior de Controle (LSC) indica:
+
+   a) Uma variacao especial que exige investigacao imediata da causa.
+   b) Que o processo esta operando dentro da variacao natural esperada.
+   c) Que o limite de controle foi definido incorretamente pela equipe.
+   d) Que os dados coletados devem ser descartados e o processo reiniciado.
+
+------------------------------------------------------------------------
+
+2. Um lider de projeto precisa estruturar um plano de acao para reduzir os bugs
+no modulo de relatorios. Ao utilizar o 5W2H, qual das colunas responde a
+pergunta "Por que essa acao sera realizada?"?
+
+   a) What (O que)
+   b) Why (Por que)
+   c) How (Como)
+   d) Where (Onde)
+
+------------------------------------------------------------------------
+
+3. Uma equipe de qualidade deseja registrar sistematicamente a frequencia de
+cada tipo de erro que ocorre durante os testes de software ao longo de duas
+semanas. A ferramenta mais adequada para essa coleta de dados e:
+
+   a) Diagrama de Dispersao, pois relaciona duas variaveis quantitativas.
+   b) Diagrama de Pareto, pois ordena os erros por frequencia de ocorrencia.
+   c) Folha de Verificacao, pois permite registrar ocorrencias de forma
+      sistematica e organizada.
+   d) Carta de Controle, pois monitora a estabilidade do processo de testes
+      ao longo do tempo.
+
+------------------------------------------------------------------------
+
+4. Um analista percebe que, quanto maior o numero de horas de treinamento
+recebidas pelos desenvolvedores, menor e a quantidade de bugs gerados por eles.
+Ao plotar esses dados em um Diagrama de Dispersao, o padrao esperado e:
+
+   a) Ausencia de correlacao, pois treinamento e bugs sao variaveis independentes.
+   b) Correlacao positiva, pois ambas as variaveis crescem juntas.
+   c) Correlacao nula, pois os pontos se distribuem aleatoriamente no grafico.
+   d) Correlacao negativa, pois quando uma variavel aumenta a outra diminui.
+
+------------------------------------------------------------------------
+
+5. Sobre o comparativo entre as ferramentas da qualidade estudadas, associe
+cada ferramenta a sua principal finalidade e assinale a alternativa correta:
+
+   a) CEP -> monitorar estabilidade do processo | 5W2H -> estruturar plano de
+      acao | Folha de Verificacao -> coletar dados sistematicamente |
+      Dispersao -> analisar correlacao entre variaveis.
+   b) CEP -> identificar causas de problemas | 5W2H -> priorizar falhas |
+      Folha de Verificacao -> monitorar limites de controle | Dispersao ->
+      ordenar ocorrencias por frequencia.
+   c) CEP -> estruturar plano de acao | 5W2H -> monitorar variaveis |
+      Folha de Verificacao -> analisar correlacao | Dispersao -> registrar
+      ocorrencias.
+   d) CEP -> coletar dados de campo | 5W2H -> investigar causas raizes |
+      Folha de Verificacao -> tracar limites de controle | Dispersao ->
+      elaborar planos de melhoria.
+
+------------------------------------------------------------------------
+
+6. Uma equipe de desenvolvimento identificou que o modulo de relatorios
+concentra 38% dos bugs do sistema. Elabore um 5W2H completo para resolver
+esse problema, respondendo a cada uma das sete perguntas (What, Why, Where,
+When, Who, How e How Much) com informacoes coerentes ao contexto de um
+projeto de software.
+
+------------------------------------------------------------------------
+
+7. Explique o que e o Controle Estatistico de Processos (CEP) e qual e a
+diferenca entre uma variacao comum e uma variacao especial em uma carta de
+controle. Em seguida, de um exemplo de cada tipo de variacao no contexto
+de um sistema de software.
+
+------------------------------------------------------------------------
+
+8. Um gerente de projetos afirma que utiliza a Folha de Verificacao apenas
+para registrar ocorrencias e nunca para tomar decisoes, pois para isso usa
+o Pareto. Voce concorda ou discorda dessa afirmacao? Explique a relacao entre
+a Folha de Verificacao e as demais ferramentas da qualidade, argumentando
+sobre o papel dela no ciclo de analise.
+
+------------------------------------------------------------------------
+
+9. Descreva, com suas proprias palavras, como as quatro ferramentas estudadas
+nesta aula (CEP, 5W2H, Folha de Verificacao e Diagrama de Dispersao) podem
+ser utilizadas de forma integrada para resolver um problema recorrente em
+um projeto de software. Construa um exemplo pratico que mostre a sequencia
+logica de uso.
+
+------------------------------------------------------------------------
+
+10. Uma equipe percebeu que, quanto mais horas extras os desenvolvedores
+trabalham por semana, maior e o numero de bugs gerados no codigo.
+
+   a) Que tipo de correlacao o Diagrama de Dispersao evidenciaria nesse caso?
+      Justifique.
+
+   b) Com base nessa correlacao identificada, elabore um plano de acao
+      resumido utilizando o 5W2H, respondendo ao menos quatro das sete
+      perguntas.
+
+------------------------------------------------------------------------
+
+GABARITO -- Questoes Objetivas
+(Para uso exclusivo do professor)
+
+   Questao 1: A
+   Questao 2: B
+   Questao 3: C
+   Questao 4: D
+   Questao 5: A
+
+------------------------------------------------------------------------
+
+Orientacoes para Correcao -- Questoes Discursivas
+
+Questao 6: O aluno deve preencher todas as sete perguntas com coerencia ao
+problema proposto. Exemplo esperado -- What: reduzir bugs no modulo de
+relatorios; Why: o modulo concentra 38% dos chamados de suporte; Where:
+ambiente de desenvolvimento e testes; When: nas proximas 2 sprints; Who:
+equipe de desenvolvimento liderada pelo tech lead; How: implementar code
+review obrigatorio, testes automatizados e criterios de aceite claros;
+How Much: sem custo adicional, utilizando a equipe atual.
+
+Questao 7: O aluno deve explicar que o CEP monitora se o processo esta sob
+controle estatistico ao longo do tempo. Variacao comum: oscilacao normal
+dentro dos limites de controle -- ex.: pequenas variacoes no tempo de
+resposta da API ao longo do dia. Variacao especial: ponto fora dos limites
+ou tendencia -- ex.: tempo de resposta que ultrapassa o LSC apos um novo
+deploy, indicando causa especifica a ser investigada.
+
+Questao 8: O aluno deve discordar parcialmente ou concordar com ressalvas.
+A Folha de Verificacao nao e apenas um registro passivo -- ela e a fonte
+de dados que alimenta o Pareto, o CEP e o Diagrama de Dispersao. Sem uma
+coleta sistematica e confivel, as analises posteriores perdem validade.
+A Folha de Verificacao e o ponto de entrada do ciclo de analise.
+
+Questao 9: O aluno deve construir uma sequencia logica coerente. Exemplo
+esperado: Folha de Verificacao para coletar os dados de ocorrencias -> CEP
+para verificar se o processo esta estavel -> Dispersao para identificar
+correlacao entre variaveis (ex.: horas extras x bugs) -> 5W2H para
+estruturar o plano de acao sobre a causa identificada.
+
+Questao 10a: Correlacao positiva -- quanto mais horas extras, mais bugs.
+Os pontos no Diagrama de Dispersao se distribuem em tendencia ascendente
+da esquerda para a direita. Questao 10b: O aluno deve responder ao menos
+4 das 7 perguntas com coerencia ao problema. Ex. -- What: limitar horas
+extras semanais; Why: reduzir a taxa de bugs gerados por fadiga; Who:
+gestores e RH; How: estabelecer limite de 2h extras/dia com revezamento
+de equipe.
+
+------------------------------------------------------------------------
+UC: Introducao a Qualidade, Produtividade e Sustentabilidade nos
+Processos Industriais -- SENAI Umuarama
+SA 16 | 2o Trimestre | Professor: Julio Cesar
