@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 36 — Projeto Final: Desenvolvimento Parte 3 · Programação de Aplicativos</title>
+<meta name="description" content="Plano de aula SA 36 — Projeto Final: Desenvolvimento Parte 3 — Integração, Refatoração e Entrega · UC: Programação de Aplicativos · Colégio Neiva Pavan">
+<meta name="theme-color" content="#0D1A2B">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uc-main:  #1A7A4A;
+    --uc-light: #EAF3DE;
+    --uc-tx:    #173404;
+    --dark:     #0D1A2B;
+    --yellow:   #F9C74F;
+    --gold:     #C49A00;
+    --gray:     #64748B;
+    --light:    #F2F5F8;
+    --white:    #FFFFFF;
+    --text:     #1A2635;
+    --border:   #D4DCE4;
+    --warn-bg:  #FFF8E7;
+  }
+
+  html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; font-weight:300; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(26,122,74,0.18); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-sub .uc-nome { white-space:nowrap; display:block; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; flex-shrink:0; align-self:flex-start; margin-top:4px; }
+
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag      { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
+  .section-body  { padding:24px 26px; }
+
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .tema-box span { color:var(--uc-main); }
+  .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(26,122,74,0.2); }
+
+  .obj-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  .hierarquia-wrap { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-radius:12px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .hier-item { display:flex; flex-direction:column; }
+  .hier-item:not(:last-child) { border-right:1px solid var(--border); }
+  .hier-header { padding:12px 14px 10px; text-align:center; }
+  .hier-icon   { font-size:28px; margin-bottom:4px; }
+  .hier-nome   { font-size:14px; font-weight:700; color:var(--white); line-height:1.2; }
+  .hier-body   { padding:12px 14px 14px; background:var(--light); flex:1; }
+  .hier-def    { font-size:12.5px; font-style:italic; color:var(--uc-tx); margin-bottom:8px; padding:8px 10px; background:var(--uc-light); border-radius:6px; line-height:1.5; }
+  .hier-body ul { list-style:none; display:flex; flex-direction:column; gap:4px; }
+  .hier-body ul li { font-size:12px; color:var(--gray); padding-left:12px; position:relative; line-height:1.5; }
+  .hier-body ul li::before { content:'▸'; position:absolute; left:0; font-size:9px; top:3px; color:var(--uc-main); }
+  .hi-her .hier-header { background:var(--uc-main); }
+  .hi-pol .hier-header { background:#0A5C7A; }
+  .hi-int .hier-header { background:var(--uc-tx); }
+
+  .caract-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:16px; }
+  .caract-card { border-radius:10px; overflow:hidden; border:1px solid var(--border); text-align:center; }
+  .caract-card-header { padding:12px 8px 8px; background:var(--uc-main); }
+  .caract-icon { font-size:22px; margin-bottom:4px; }
+  .caract-nome { font-size:12px; font-weight:700; color:var(--white); line-height:1.2; }
+  .caract-body { padding:10px 8px; background:var(--light); }
+  .caract-desc { font-size:11.5px; color:var(--gray); line-height:1.4; }
+
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:last-child td { border-bottom:none; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; }
+  .ep-abertura { background:#E0F2FE; color:#0369A1; }
+  .ep-retomada { background:#FEF9C3; color:#854D0E; }
+  .ep-expl     { background:#DCFCE7; color:#166534; }
+  .ep-dinamica { background:#F3E8FF; color:#6B21A8; }
+  .ep-fecha    { background:#F1F5F9; color:#475569; }
+
+  .dinamica-box    { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body   { padding:18px; }
+
+  .situ-table { width:100%; border-collapse:collapse; font-size:12.5px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-top:12px; }
+  .situ-table thead tr { background:var(--uc-tx); }
+  .situ-table th { color:var(--white); padding:10px 14px; text-align:left; font-size:12px; }
+  .situ-table td { padding:9px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .situ-table tr:last-child td { border-bottom:none; }
+  .situ-table tr:nth-child(even) td { background:#F7FAFC; }
+  .situ-code   { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:#1A7A4A; background:#EAF3DE; padding:3px 8px; border-radius:6px; display:inline-block; white-space:nowrap; }
+  .situ-code-b { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:#0A5C7A; background:#E0F2FE; padding:3px 8px; border-radius:6px; display:inline-block; white-space:nowrap; }
+
+  .nota-box { background:var(--uc-light); border:1px solid rgba(26,122,74,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); line-height:1.6; margin-top:16px; }
+
+  .aval-parts { display:flex; flex-direction:column; gap:12px; }
+  .aval-part  { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .aval-part-header { padding:11px 18px; font-size:13.5px; font-weight:700; }
+  .aph-uc   { background:var(--uc-main); color:var(--white); }
+  .aph-dark { background:var(--dark); color:var(--white); }
+  .aval-part-body { padding:14px 18px; background:var(--white); }
+  .aval-part-body ul { list-style:none; }
+  .aval-part-body ul li { padding:5px 0 5px 18px; font-size:13.5px; position:relative; color:var(--text); border-bottom:1px solid var(--border); }
+  .aval-part-body ul li:last-child { border-bottom:none; }
+  .aval-part-body ul li::before { content:'•'; position:absolute; left:0; color:var(--uc-main); font-weight:700; }
+
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  .recurso-icon  { font-size:20px; }
+  .obs-box { background:var(--light); border:1px dashed var(--border); border-radius:8px; padding:16px 20px; min-height:80px; font-size:13.5px; color:var(--gray); }
+
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  footer span { color:var(--uc-main); }
+
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; }
+  .btn-action:active { transform:scale(0.97); }
+  .btn-imprimir { background:var(--dark); color:var(--white); }
+  .btn-imprimir:hover { background:#0A3520; box-shadow:0 4px 12px rgba(23,52,4,0.4); }
+  .btn-pdf { background:var(--dark); color:var(--white); }
+  .btn-pdf:hover { background:#0A3520; box-shadow:0 4px 12px rgba(23,52,4,0.4); }
+  button:focus, a:focus { outline:3px solid var(--yellow); outline-offset:2px; }
+
+  @media print {
+    @page { size:A4 portrait; margin:18mm 14mm 16mm 14mm; }
+    * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    body { background:white !important; font-size:11.5px; }
+    .btn-group { display:none !important; }
+    .page-header { background:var(--dark) !important; }
+    .header-inner { padding:16px 24px 16px 30px !important; gap:16px !important; }
+    .header-title { font-size:22px !important; }
+    .header-label { font-size:11px !important; margin-bottom:8px !important; gap:5px !important; }
+    .header-sub   { font-size:11px !important; }
+    .header-badge { font-size:11px !important; padding:4px 10px !important; }
+    .container { padding:10px 0 !important; }
+    .section { box-shadow:none !important; border:1px solid #ccc !important; break-inside:avoid; margin-bottom:12px !important; }
+    .section-body   { padding:14px 20px !important; }
+    .section-header { padding:10px 20px !important; }
+    table { break-inside:avoid; }
+    a[href]::after { content:none !important; }
+    a { text-decoration:none !important; color:inherit !important; }
+    .obs-box { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
+    .connection-row  { grid-template-columns:1fr 1fr !important; }
+    .recursos-grid   { grid-template-columns:repeat(3,1fr) !important; }
+    .hierarquia-wrap { grid-template-columns:repeat(3,1fr) !important; }
+    .caract-grid     { grid-template-columns:repeat(5,1fr) !important; }
+    footer { background:var(--dark) !important; margin-top:8px !important; padding:12px !important; font-size:10.5px !important; }
+    #btn-topo { display:none !important; }
+  }
+
+  @media (max-width:960px) {
+    .header-inner  { padding:36px 32px 36px 44px; gap:24px; }
+    .container     { padding:28px 32px; }
+    .header-title  { font-size:28px; }
+    .caract-grid   { grid-template-columns:repeat(3,1fr); }
+    .recursos-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:768px) {
+    .header-inner    { flex-direction:column; padding:28px 20px 28px 28px; gap:14px; }
+    .container       { padding:20px 16px; }
+    .header-title    { font-size:22px; }
+    .uc-nome         { white-space:normal; }
+    .section-header  { padding:14px 18px; gap:10px; }
+    .section-body    { padding:18px; }
+    .hierarquia-wrap { grid-template-columns:1fr; }
+    .hier-item:not(:last-child) { border-right:none; border-bottom:1px solid var(--border); }
+    .caract-grid     { grid-template-columns:repeat(3,1fr); }
+    .connection-row  { grid-template-columns:1fr; }
+    .recursos-grid   { grid-template-columns:1fr 1fr; }
+    .time-table      { display:block; overflow-x:auto; }
+    .situ-table      { display:block; overflow-x:auto; }
+    .btn-group  { top:auto; bottom:20px; right:16px; flex-direction:row; }
+    .btn-action { padding:9px 14px; font-size:12px; }
+  }
+  @media (max-width:480px) {
+    .page-header::before { width:4px; }
+    .page-header::after  { left:4px; width:2px; }
+    .header-inner  { padding:20px 14px 20px 18px; }
+    .container     { padding:14px 12px; }
+    .header-title  { font-size:18px; }
+    .caract-grid   { grid-template-columns:repeat(2,1fr); }
+    .recursos-grid { grid-template-columns:1fr; }
+    .section-body  { padding:14px; }
+    footer         { padding:16px; font-size:11px; }
+  }
+
+  #btn-topo { position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--dark); color:var(--white); border:none; font-size:18px; font-weight:700; cursor:pointer; z-index:999; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:all 0.2s ease; }
+  #btn-topo.visible { display:flex; }
+  #btn-topo:hover   { background:var(--uc-main); transform:translateY(-2px); }
+  #btn-topo:focus   { outline:3px solid var(--yellow); outline-offset:2px; }
+  @media print { #btn-topo { display:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action btn-imprimir" onclick="window.print()" aria-label="Imprimir plano de aula">🖨️ Imprimir</button>
+  <button class="btn-action btn-pdf" onclick="salvarPDF()" aria-label="Exportar como PDF">📄 Exportar PDF</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 36</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">3º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">04/11/2026</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">Quarta-feira</span>
+      </div>
+      <h1 class="header-title">Projeto Final<br><span>Desenvolvimento Parte 3 — Integração e Entrega</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Programação de Aplicativos · 1ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        Colégio Neiva Pavan · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">Projeto Final · B6–B9</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- TEMA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidade</span>
+      <span class="section-tag">3º Trimestre · SA 36</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">
+        Projeto Final — Desenvolvimento Parte 3
+        <span>— integração de todos os módulos em um fluxo funcional completo, refatoração final com DRY e nomenclatura, rastreabilidade com logs nos pontos críticos, testes de regressão, README completo e entrega do sistema no repositório com histórico rastreável — última SA de desenvolvimento antes das apresentações</span>
+      </div>
+      <div class="hab-row">
+        <span class="hab-tag">Integração de todas as capacidades da UC</span>
+        <span class="hab-tag">Aplicar métodos e técnicas de programação</span>
+        <span class="hab-tag">IDE para rastreabilidade do código</span>
+        <span class="hab-tag">Gestão da Qualidade</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag">5 objetivos</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+      <ul class="obj-list">
+        <li><span class="obj-num">1</span>Integrar todos os módulos do sistema em um fluxo funcional completo e coeso</li>
+        <li><span class="obj-num">2</span>Refatorar o código aplicando DRY, otimização e boas práticas de nomenclatura</li>
+        <li><span class="obj-num">3</span>Garantir rastreabilidade do sistema com logs nos pontos críticos da aplicação</li>
+        <li><span class="obj-num">4</span>Realizar ajustes finais de interface e experiência de uso do sistema</li>
+        <li><span class="obj-num">5</span>Entregar o sistema completo no repositório com histórico de commits rastreável e README atualizado</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo da Aula</span>
+      <span class="section-tag">Projeto Final · Etapa 3 de 3</span>
+    </div>
+    <div class="section-body">
+
+      <!-- TRÊS FRENTES -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin-bottom:10px;">As Três Frentes da Entrega</p>
+      <div class="hierarquia-wrap">
+        <div class="hier-item hi-her">
+          <div class="hier-header">
+            <div class="hier-icon">🔗</div>
+            <div class="hier-nome">Integração dos Módulos</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"O sistema funciona de ponta a ponta sem travar — todas as operações acessíveis pelo usuário com feedback"</div>
+            <ul>
+              <li>Fluxo principal do início ao fim sem erros críticos</li>
+              <li>Todas as operações CRUD acessíveis pelo usuário</li>
+              <li>Mensagens de feedback para cada operação (sucesso e erro)</li>
+              <li>Nenhum <code style="font-size:11px;font-family:'DM Mono',monospace;">NullPointerException</code> não tratado · sistema opera ao iniciar do zero</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hier-item hi-pol">
+          <div class="hier-header">
+            <div class="hier-icon">✨</div>
+            <div class="hier-nome">Refatoração Final</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"Checklist de qualidade antes da entrega — o código que vai para a apresentação representa o grupo"</div>
+            <ul>
+              <li>Nenhum método com mais de 30 linhas</li>
+              <li>Nenhuma lógica duplicada — extraída para método ou utilitária</li>
+              <li>Todos os atributos <code style="font-size:11px;font-family:'DM Mono',monospace;">private</code> · nomes descritivos — sem <code style="font-size:11px;font-family:'DM Mono',monospace;">x</code>, <code style="font-size:11px;font-family:'DM Mono',monospace;">tmp</code>, <code style="font-size:11px;font-family:'DM Mono',monospace;">obj</code></li>
+              <li>Sem código comentado · formatação aplicada em todos os arquivos</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hier-item hi-int">
+          <div class="hier-header">
+            <div class="hier-icon">📜</div>
+            <div class="hier-nome">Logs, README e Repositório</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"Logs INFO e ERROR nos pontos críticos · README que permite a qualquer pessoa rodar o sistema"</div>
+            <ul>
+              <li><code style="font-size:11px;font-family:'DM Mono',monospace;">logger.info("Sistema iniciado")</code> · <code style="font-size:11px;font-family:'DM Mono',monospace;">logger.severe("Erro ao conectar: ...")</code></li>
+              <li>README: descrição · integrantes · tecnologias · como instalar e rodar · funcionalidades</li>
+              <li>Todos os membros com commits · último commit: <code style="font-size:11px;font-family:'DM Mono',monospace;">"versão final — sistema completo e funcional"</code></li>
+              <li><code style="font-size:11px;font-family:'DM Mono',monospace;">.gitignore</code> correto · sem <code style="font-size:11px;font-family:'DM Mono',monospace;">.env</code>, senhas ou caminhos absolutos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTREGÁVEIS -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Entregáveis ao Final desta SA</p>
+      <div class="caract-grid">
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🔗</div>
+            <div class="caract-nome">Sistema Integrado</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Todos os módulos funcionando juntos sem erros críticos</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">✨</div>
+            <div class="caract-nome">Refatoração</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">DRY · nomes descritivos · sem código morto · sem atributos públicos</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">📜</div>
+            <div class="caract-nome">Logs</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Ao menos INFO e ERROR nos pontos críticos do sistema</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🧪</div>
+            <div class="caract-nome">Testes Passando</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Todos os testes da SA 35 continuam passando após as alterações</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">📖</div>
+            <div class="caract-nome">README + Repositório</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">README completo · histórico limpo · todos os membros com commits</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- README -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">README Final — Estrutura Mínima Esperada</p>
+      <table class="situ-table" style="margin-top:0;">
+        <thead>
+          <tr><th>Seção do README</th><th>Conteúdo</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="situ-code"># Nome do Sistema</span></td><td>Título do projeto</td></tr>
+          <tr><td><span class="situ-code">## Descrição</span></td><td>Breve descrição do que o sistema faz e qual problema resolve</td></tr>
+          <tr><td><span class="situ-code">## Integrantes</span></td><td>Nome de todos os membros do grupo</td></tr>
+          <tr><td><span class="situ-code-b">## Tecnologias utilizadas</span></td><td>Linguagem (Java/Python) · banco (MySQL/SQLite) · IDE (VS Code)</td></tr>
+          <tr><td><span class="situ-code-b">## Como instalar e rodar</span></td><td>1. Clonar o repositório · 2. Importar <code style="font-family:'DM Mono',monospace;font-size:11px;">sql/schema.sql</code> · 3. Configurar credenciais em <code style="font-family:'DM Mono',monospace;font-size:11px;">ConexaoDB</code> · 4. Executar o arquivo principal</td></tr>
+          <tr><td><span class="situ-code">## Funcionalidades</span></td><td>Cadastro da entidade principal · consulta e filtro · atualização e remoção</td></tr>
+        </tbody>
+      </table>
+
+      <div class="nota-box">
+        🔁 <strong>Testes de regressão antes da entrega:</strong> reexecutar todos os testes unitários após as refatorações · se algum teste falhou com a refatoração: corrigir o código, não o teste · verificar a cobertura — não deve ter diminuído em relação à SA 35.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ORGANIZAÇÃO DO TEMPO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag">5 etapas · 50 min</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+        <thead>
+          <tr><th style="width:26%">Etapa</th><th>Atividade</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="etapa-pill ep-abertura">Abertura · 5 min</span></td>
+            <td>Chamada · Feedback rápido do professor sobre o progresso da SA 35 · orientações: <em>"Hoje integramos tudo, refinamos a qualidade e entregamos o sistema funcionando de ponta a ponta. Esta é a última SA de desenvolvimento antes das apresentações"</em></td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-retomada">Revisão por grupo · 8 min</span></td>
+            <td>Professor passa com cada grupo verificando o que falta para o sistema estar completo · define prioridades claras para o tempo da SA</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-expl">Desenvolvimento e refatoração · 22 min</span></td>
+            <td>Grupos trabalham na integração, refatoração e logs · professor circula auxiliando nos pontos críticos</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-dinamica">Checkpoint de qualidade · 10 min</span></td>
+            <td>Cada grupo executa o fluxo completo do sistema ao vivo para o professor · professor verifica e registra o status final</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-fecha">Commit final e fechamento · 5 min</span></td>
+            <td>Commit final com tag de versão · README revisado · professor registra a entrega de cada grupo · Próxima SA: Canvas e preparação da apresentação (SA 37 · 11/11)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ACOMPANHAMENTO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📋</span>
+      <span class="section-title">Acompanhamento — Ficha de Status Final de Desenvolvimento</span>
+      <span class="section-tag section-tag-gray">Uso do professor</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box">
+        <div class="dinamica-header">🗂️ Ficha de Status Final — preencher no checkpoint de qualidade</div>
+        <div class="dinamica-body">
+          <table class="situ-table" style="margin-top:0;">
+            <thead>
+              <tr><th>Grupo</th><th>Sistema integrado</th><th>Refatorado</th><th>Logs</th><th>Testes passando</th><th>README</th><th>Todos com commits</th><th>Status final</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>3</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>5</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag">Entrega técnica</span>
+    </div>
+    <div class="section-body">
+      <div class="aval-parts">
+        <div class="aval-part">
+          <div class="aval-part-header aph-uc">Critérios verificados ao final desta SA</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Sistema funcionando de ponta a ponta sem erros críticos</li>
+              <li>Refatoração aplicada (DRY, nomenclatura, sem código morto)</li>
+              <li>Logs nos pontos críticos</li>
+              <li>Todos os testes passando após refatoração</li>
+              <li>README completo e repositório com histórico rastreável</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header aph-dark">Avaliação somativa</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Aplicada na SA 38 (apresentação) e na SA 39 (avaliação do 3º Trimestre)</li>
+              <li>A entrega técnica desta SA é a base avaliada na apresentação</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONEXÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag section-tag-gray">Continuidade</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant">
+          <div class="conn-label">← Aula anterior — SA 35</div>
+          <div style="font-size:13.5px;color:var(--dark);">Projeto Final — Desenvolvimento Parte 2 · 28/10/2026</div>
+        </div>
+        <div class="conn-card conn-prox">
+          <div class="conn-label">Próxima aula → SA 37</div>
+          <div style="font-size:13.5px;color:var(--dark);">Projeto Final — Canvas e Preparação da Apresentação · 11/11/2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag section-tag-gray">Verificar antes da aula</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid">
+        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor ou TV e computador com HDMI</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🖥️</span><span>Computadores com VS Code, SGBD e acesso ao GitHub</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Ficha de acompanhamento atualizada das SAs 34 e 35</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📖</span><span>Modelo de README final para referência dos grupos</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📜</span><span>Exemplos de logs (INFO, WARN, ERROR) para implementação</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🖊️</span><span>Quadro branco e marcador</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSERVAÇÕES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag section-tag-gray">Opcional</span>
+    </div>
+    <div class="section-body">
+      <div class="obs-box"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Plano de Aula · <span>SA 36 — Projeto Final: Desenvolvimento Parte 3 — Integração, Refatoração e Entrega</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · Colégio Neiva Pavan · 2026
+</footer>
+
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF = () => {
+    const t = document.title;
+    document.title = 'Plano_Aula_SA36_PA_Projeto_Final_Desenvolvimento3';
+    window.print();
+    setTimeout(() => { document.title = t; }, 1000);
+  };
+  const btn = document.getElementById('btn-topo');
+  window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 400); });
+  if (btn) btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>

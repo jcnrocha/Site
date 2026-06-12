@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 31 — Consolidação: POO e Banco de Dados · Programação de Aplicativos</title>
+<meta name="description" content="Plano de aula SA 31 — Consolidação: POO e Conexão com Banco de Dados · UC: Programação de Aplicativos · Colégio Neiva Pavan">
+<meta name="theme-color" content="#0D1A2B">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uc-main:  #1A7A4A;
+    --uc-light: #EAF3DE;
+    --uc-tx:    #173404;
+    --dark:     #0D1A2B;
+    --yellow:   #F9C74F;
+    --gold:     #C49A00;
+    --gray:     #64748B;
+    --light:    #F2F5F8;
+    --white:    #FFFFFF;
+    --text:     #1A2635;
+    --border:   #D4DCE4;
+    --warn-bg:  #FFF8E7;
+  }
+
+  html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; font-weight:300; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(26,122,74,0.18); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-sub .uc-nome { white-space:nowrap; display:block; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; flex-shrink:0; align-self:flex-start; margin-top:4px; }
+
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag      { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
+  .section-body  { padding:24px 26px; }
+
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .tema-box span { color:var(--uc-main); }
+  .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(26,122,74,0.2); }
+
+  .obj-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  .hierarquia-wrap { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-radius:12px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .hier-item { display:flex; flex-direction:column; }
+  .hier-item:not(:last-child) { border-right:1px solid var(--border); }
+  .hier-header { padding:12px 14px 10px; text-align:center; }
+  .hier-icon   { font-size:28px; margin-bottom:4px; }
+  .hier-nome   { font-size:14px; font-weight:700; color:var(--white); line-height:1.2; }
+  .hier-body   { padding:12px 14px 14px; background:var(--light); flex:1; }
+  .hier-def    { font-size:12.5px; font-style:italic; color:var(--uc-tx); margin-bottom:8px; padding:8px 10px; background:var(--uc-light); border-radius:6px; line-height:1.5; }
+  .hier-body ul { list-style:none; display:flex; flex-direction:column; gap:4px; }
+  .hier-body ul li { font-size:12px; color:var(--gray); padding-left:12px; position:relative; line-height:1.5; }
+  .hier-body ul li::before { content:'▸'; position:absolute; left:0; font-size:9px; top:3px; color:var(--uc-main); }
+  .hi-her .hier-header { background:var(--uc-main); }
+  .hi-pol .hier-header { background:#0A5C7A; }
+  .hi-int .hier-header { background:var(--uc-tx); }
+
+  .caract-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:16px; }
+  .caract-card { border-radius:10px; overflow:hidden; border:1px solid var(--border); text-align:center; }
+  .caract-card-header { padding:12px 8px 8px; background:var(--uc-main); }
+  .caract-icon { font-size:22px; margin-bottom:4px; }
+  .caract-nome { font-size:12px; font-weight:700; color:var(--white); line-height:1.2; }
+  .caract-body { padding:10px 8px; background:var(--light); }
+  .caract-desc { font-size:11.5px; color:var(--gray); line-height:1.4; }
+
+  .compare-wrap { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .compare-card { border-radius:10px; overflow:hidden; border:2px solid; }
+  .cmp-her { border-color:var(--uc-main); }
+  .cmp-com { border-color:#0A5C7A; }
+  .compare-header { padding:12px 16px; display:flex; align-items:center; gap:10px; }
+  .cmp-her .compare-header { background:var(--uc-main); }
+  .cmp-com .compare-header { background:#0A5C7A; }
+  .compare-titulo { font-size:14px; font-weight:700; color:var(--white); }
+  .compare-body { padding:14px 16px; background:var(--white); }
+  .compare-body ul { list-style:none; display:flex; flex-direction:column; gap:5px; }
+  .compare-body ul li { font-size:12.5px; color:var(--text); padding-left:14px; position:relative; line-height:1.5; }
+  .compare-body ul li::before { content:'▸'; position:absolute; left:0; font-size:9px; top:4px; color:var(--uc-main); }
+  .cmp-com .compare-body ul li::before { color:#0A5C7A; }
+  .compare-quando { padding:10px 16px 14px; font-size:12px; font-style:italic; color:var(--gray); background:var(--light); border-top:1px solid var(--border); }
+
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:last-child td { border-bottom:none; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; }
+  .ep-abertura { background:#E0F2FE; color:#0369A1; }
+  .ep-retomada { background:#FEF9C3; color:#854D0E; }
+  .ep-expl     { background:#DCFCE7; color:#166534; }
+  .ep-dinamica { background:#F3E8FF; color:#6B21A8; }
+  .ep-fecha    { background:#F1F5F9; color:#475569; }
+
+  .dinamica-box    { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body   { padding:18px; }
+  .dinamica-meta   { display:flex; gap:16px; margin-bottom:16px; flex-wrap:wrap; }
+  .dinamica-meta-item { font-size:12.5px; color:var(--gray); display:flex; align-items:center; gap:6px; }
+  .dinamica-meta-item strong { color:var(--dark); }
+  .dinamica-step   { display:flex; gap:14px; padding:10px 0; border-bottom:1px solid var(--border); font-size:13.5px; }
+  .dinamica-step:last-child { border-bottom:none; }
+  .step-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  .situ-table { width:100%; border-collapse:collapse; font-size:12.5px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-top:12px; }
+  .situ-table thead tr { background:var(--uc-tx); }
+  .situ-table th { color:var(--white); padding:10px 14px; text-align:left; font-size:12px; }
+  .situ-table td { padding:9px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .situ-table tr:last-child td { border-bottom:none; }
+  .situ-table tr:nth-child(even) td { background:#F7FAFC; }
+  .situ-code   { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:#1A7A4A; background:#EAF3DE; padding:3px 8px; border-radius:6px; display:inline-block; white-space:nowrap; }
+  .situ-code-b { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:#0A5C7A; background:#E0F2FE; padding:3px 8px; border-radius:6px; display:inline-block; white-space:nowrap; }
+  .situ-code-r { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:#B91C1C; background:#FEE2E2; padding:3px 8px; border-radius:6px; display:inline-block; white-space:nowrap; }
+
+  .nota-box { background:var(--uc-light); border:1px solid rgba(26,122,74,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); line-height:1.6; margin-top:16px; }
+
+  .aval-parts { display:flex; flex-direction:column; gap:12px; }
+  .aval-part  { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .aval-part-header { padding:11px 18px; font-size:13.5px; font-weight:700; }
+  .aph-uc   { background:var(--uc-main); color:var(--white); }
+  .aph-dark { background:var(--dark); color:var(--white); }
+  .aval-part-body { padding:14px 18px; background:var(--white); }
+  .aval-part-body ul { list-style:none; }
+  .aval-part-body ul li { padding:5px 0 5px 18px; font-size:13.5px; position:relative; color:var(--text); border-bottom:1px solid var(--border); }
+  .aval-part-body ul li:last-child { border-bottom:none; }
+  .aval-part-body ul li::before { content:'•'; position:absolute; left:0; color:var(--uc-main); font-weight:700; }
+
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  .recurso-icon  { font-size:20px; }
+  .obs-box { background:var(--light); border:1px dashed var(--border); border-radius:8px; padding:16px 20px; min-height:80px; font-size:13.5px; color:var(--gray); }
+
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  footer span { color:var(--uc-main); }
+
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; }
+  .btn-action:active { transform:scale(0.97); }
+  .btn-imprimir { background:var(--dark); color:var(--white); }
+  .btn-imprimir:hover { background:#0A3520; box-shadow:0 4px 12px rgba(23,52,4,0.4); }
+  .btn-pdf { background:var(--dark); color:var(--white); }
+  .btn-pdf:hover { background:#0A3520; box-shadow:0 4px 12px rgba(23,52,4,0.4); }
+  button:focus, a:focus { outline:3px solid var(--yellow); outline-offset:2px; }
+
+  @media print {
+    @page { size:A4 portrait; margin:18mm 14mm 16mm 14mm; }
+    * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    body { background:white !important; font-size:11.5px; }
+    .btn-group { display:none !important; }
+    .page-header { background:var(--dark) !important; }
+    .header-inner { padding:16px 24px 16px 30px !important; gap:16px !important; }
+    .header-title { font-size:22px !important; }
+    .header-label { font-size:11px !important; margin-bottom:8px !important; gap:5px !important; }
+    .header-sub   { font-size:11px !important; }
+    .header-badge { font-size:11px !important; padding:4px 10px !important; }
+    .container { padding:10px 0 !important; }
+    .section { box-shadow:none !important; border:1px solid #ccc !important; break-inside:avoid; margin-bottom:12px !important; }
+    .section-body   { padding:14px 20px !important; }
+    .section-header { padding:10px 20px !important; }
+    table { break-inside:avoid; }
+    a[href]::after { content:none !important; }
+    a { text-decoration:none !important; color:inherit !important; }
+    .obs-box { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
+    .connection-row  { grid-template-columns:1fr 1fr !important; }
+    .recursos-grid   { grid-template-columns:repeat(3,1fr) !important; }
+    .hierarquia-wrap { grid-template-columns:repeat(3,1fr) !important; }
+    .caract-grid     { grid-template-columns:repeat(5,1fr) !important; }
+    .compare-wrap    { grid-template-columns:1fr 1fr !important; }
+    footer { background:var(--dark) !important; margin-top:8px !important; padding:12px !important; font-size:10.5px !important; }
+    #btn-topo { display:none !important; }
+  }
+
+  @media (max-width:960px) {
+    .header-inner  { padding:36px 32px 36px 44px; gap:24px; }
+    .container     { padding:28px 32px; }
+    .header-title  { font-size:28px; }
+    .caract-grid   { grid-template-columns:repeat(3,1fr); }
+    .recursos-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:768px) {
+    .header-inner    { flex-direction:column; padding:28px 20px 28px 28px; gap:14px; }
+    .container       { padding:20px 16px; }
+    .header-title    { font-size:22px; }
+    .uc-nome         { white-space:normal; }
+    .section-header  { padding:14px 18px; gap:10px; }
+    .section-body    { padding:18px; }
+    .hierarquia-wrap { grid-template-columns:1fr; }
+    .hier-item:not(:last-child) { border-right:none; border-bottom:1px solid var(--border); }
+    .caract-grid     { grid-template-columns:repeat(3,1fr); }
+    .compare-wrap    { grid-template-columns:1fr; }
+    .connection-row  { grid-template-columns:1fr; }
+    .recursos-grid   { grid-template-columns:1fr 1fr; }
+    .time-table      { display:block; overflow-x:auto; }
+    .situ-table      { display:block; overflow-x:auto; }
+    .btn-group  { top:auto; bottom:20px; right:16px; flex-direction:row; }
+    .btn-action { padding:9px 14px; font-size:12px; }
+  }
+  @media (max-width:480px) {
+    .page-header::before { width:4px; }
+    .page-header::after  { left:4px; width:2px; }
+    .header-inner  { padding:20px 14px 20px 18px; }
+    .container     { padding:14px 12px; }
+    .header-title  { font-size:18px; }
+    .caract-grid   { grid-template-columns:repeat(2,1fr); }
+    .recursos-grid { grid-template-columns:1fr; }
+    .section-body  { padding:14px; }
+    footer         { padding:16px; font-size:11px; }
+  }
+
+  #btn-topo { position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--dark); color:var(--white); border:none; font-size:18px; font-weight:700; cursor:pointer; z-index:999; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:all 0.2s ease; }
+  #btn-topo.visible { display:flex; }
+  #btn-topo:hover   { background:var(--uc-main); transform:translateY(-2px); }
+  #btn-topo:focus   { outline:3px solid var(--yellow); outline-offset:2px; }
+  @media print { #btn-topo { display:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action btn-imprimir" onclick="window.print()" aria-label="Imprimir plano de aula">🖨️ Imprimir</button>
+  <button class="btn-action btn-pdf" onclick="salvarPDF()" aria-label="Exportar como PDF">📄 Exportar PDF</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 31</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">3º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">30/09/2026</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">Quarta-feira</span>
+      </div>
+      <h1 class="header-title">Consolidação<br><span>POO e Conexão com Banco de Dados</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Programação de Aplicativos · 1ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        Colégio Neiva Pavan · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">Revisão · B4–B5</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- TEMA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidade</span>
+      <span class="section-tag">3º Trimestre · SA 31</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">
+        Consolidação — POO e Conexão com Banco de Dados
+        <span>— revisão integrada dos blocos B4 e B5: pilares da orientação a objetos (classes, encapsulamento, herança, polimorfismo, abstratas e interfaces) e CRUD completo com transações, aplicados juntos no sistema prático de Cadastro de Funcionários com refatoração e qualidade</span>
+      </div>
+      <div class="hab-row">
+        <span class="hab-tag">Blocos 4 e 5 da matriz</span>
+        <span class="hab-tag">Aplicar linguagem por meio da IDE</span>
+        <span class="hab-tag">Integrar banco de dados</span>
+        <span class="hab-tag">Aplicar métodos e técnicas de programação</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag">5 objetivos</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+      <ul class="obj-list">
+        <li><span class="obj-num">1</span>Revisar e consolidar os pilares da orientação a objetos: classes, objetos, encapsulamento, herança e polimorfismo</li>
+        <li><span class="obj-num">2</span>Aplicar POO em um sistema com múltiplas classes relacionadas, com foco em qualidade e boas práticas</li>
+        <li><span class="obj-num">3</span>Revisar as operações CRUD completas integradas com uma hierarquia de classes</li>
+        <li><span class="obj-num">4</span>Refatorar código com foco em DRY, encapsulamento e documentação</li>
+        <li><span class="obj-num">5</span>Preparar a base técnica necessária para o desenvolvimento do Projeto Final</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo da Aula</span>
+      <span class="section-tag">Revisão B4–B5 · SA 08–15</span>
+    </div>
+    <div class="section-body">
+
+      <!-- TRÊS FRENTES -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin-bottom:10px;">As Três Frentes da Revisão</p>
+      <div class="hierarquia-wrap">
+        <div class="hier-item hi-her">
+          <div class="hier-header">
+            <div class="hier-icon">🏗️</div>
+            <div class="hier-nome">Orientação a Objetos (SA 08–12)</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"POO organiza o sistema em entidades com dados e comportamento — o coração do Projeto Final"</div>
+            <ul>
+              <li>Classe é o molde · objeto é a instância · <code style="font-size:11px;font-family:'DM Mono',monospace;">new</code> instancia · construtor inicializa</li>
+              <li><code style="font-size:11px;font-family:'DM Mono',monospace;">private</code> protege · getter lê · setter valida · <code style="font-size:11px;font-family:'DM Mono',monospace;">this</code> referencia</li>
+              <li><code style="font-size:11px;font-family:'DM Mono',monospace;">extends</code> herda · <code style="font-size:11px;font-family:'DM Mono',monospace;">super</code> acessa o pai · <code style="font-size:11px;font-family:'DM Mono',monospace;">@Override</code> redefine</li>
+              <li>Polimorfismo: referência pai → objeto filho · abstratas e interfaces</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hier-item hi-pol">
+          <div class="hier-header">
+            <div class="hier-icon">🗄️</div>
+            <div class="hier-nome">Banco de Dados (SA 13–15)</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"O banco persiste — conexão, CRUD completo e transações revisados em conjunto com a POO"</div>
+            <ul>
+              <li>Conexão: driver · host, porta, banco, usuário, senha</li>
+              <li>SELECT: <code style="font-size:11px;font-family:'DM Mono',monospace;">executeQuery()</code> · <code style="font-size:11px;font-family:'DM Mono',monospace;">while(rs.next())</code></li>
+              <li>INSERT/UPDATE/DELETE: <code style="font-size:11px;font-family:'DM Mono',monospace;">executeUpdate()</code> · Prepared Statement · WHERE obrigatório</li>
+              <li>Transações: <code style="font-size:11px;font-family:'DM Mono',monospace;">setAutoCommit(false)</code> · commit · rollback · <code style="font-size:11px;font-family:'DM Mono',monospace;">finally</code> fecha</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hier-item hi-int">
+          <div class="hier-header">
+            <div class="hier-icon">🧑‍💼</div>
+            <div class="hier-nome">Sistema Prático Integrado</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"Cadastro de Funcionários com BD — POO e CRUD juntos em um único sistema coeso, como será no Projeto Final"</div>
+            <ul>
+              <li>Hierarquia <code style="font-size:11px;font-family:'DM Mono',monospace;">Pessoa</code> (abstrata) → <code style="font-size:11px;font-family:'DM Mono',monospace;">Funcionario</code></li>
+              <li>Classe de acesso ao banco <code style="font-size:11px;font-family:'DM Mono',monospace;">FuncionarioBD</code></li>
+              <li>Polimorfismo ao percorrer a lista chamando <code style="font-size:11px;font-family:'DM Mono',monospace;">exibirDados()</code></li>
+              <li>Refatoração com DRY, encapsulamento, documentação e commits</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESTRUTURA DO SISTEMA -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Sistema de Consolidação — Cadastro de Funcionários com BD</p>
+      <table class="situ-table" style="margin-top:0;">
+        <thead>
+          <tr><th>Classe</th><th>Estrutura</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="situ-code">Pessoa (abstrata)</span></td>
+            <td>nome e cpf <code style="font-family:'DM Mono',monospace;font-size:11px;">private</code> · construtor(nome, cpf) · <code style="font-family:'DM Mono',monospace;font-size:11px;">exibirDados()</code> abstrato</td>
+          </tr>
+          <tr>
+            <td><span class="situ-code">Funcionario extends Pessoa</span></td>
+            <td>cargo e salario <code style="font-family:'DM Mono',monospace;font-size:11px;">private</code> · construtor(nome, cpf, cargo, salario) · <code style="font-family:'DM Mono',monospace;font-size:11px;">exibirDados()</code> @Override · <code style="font-family:'DM Mono',monospace;font-size:11px;">calcularBonus()</code> retorna 10% do salário</td>
+          </tr>
+          <tr>
+            <td><span class="situ-code-b">FuncionarioBD (acesso ao banco)</span></td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11px;">inserir(Funcionario f)</code> · <code style="font-family:'DM Mono',monospace;font-size:11px;">buscarTodos()</code> · <code style="font-family:'DM Mono',monospace;font-size:11px;">buscarPorNome(String)</code> · <code style="font-family:'DM Mono',monospace;font-size:11px;">atualizar(Funcionario f)</code> · <code style="font-family:'DM Mono',monospace;font-size:11px;">remover(int id)</code></td>
+          </tr>
+          <tr>
+            <td><span class="situ-code-b">Sistema principal</span></td>
+            <td>Cria objetos com construtor → insere no banco → busca todos e percorre com <code style="font-family:'DM Mono',monospace;font-size:11px;">for</code> chamando <code style="font-family:'DM Mono',monospace;font-size:11px;">exibirDados()</code> (polimorfismo) → atualiza salário → remove pelo ID</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- ERROS FREQUENTES -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Cinco Erros Frequentes a Revisar e Corrigir</p>
+      <div class="caract-grid">
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">💥</div>
+            <div class="caract-nome">NullPointer<br>Exception</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Objeto não instanciado com <code style="font-size:10px;font-family:'DM Mono',monospace;">new</code> — verificar a criação antes do uso</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🎯</div>
+            <div class="caract-nome">UPDATE sem WHERE</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Esquecimento da cláusula — sempre incluir WHERE com ID ou condição específica</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🔓</div>
+            <div class="caract-nome">private violado</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Atributo acessado diretamente — usar getter/setter correspondente</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🚰</div>
+            <div class="caract-nome">Conexão aberta</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Vazamento de recurso — sempre fechar no <code style="font-size:10px;font-family:'DM Mono',monospace;">finally</code> ou try-with-resources</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🔄</div>
+            <div class="caract-nome">@Override errado</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Assinatura diferente do método pai — conferir nome, parâmetros e retorno idênticos</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nota-box">
+        ✨ <strong>Refatoração integrada — qualidade no sistema de consolidação:</strong> DRY — método de abertura de conexão centralizado em uma classe <code style="font-family:'DM Mono',monospace;font-size:12px;">ConexaoDB</code> · encapsulamento — nenhum atributo acessado diretamente fora da classe · documentação — Javadoc/docstring em todos os métodos públicos · tratamento de erro — try/catch/finally em todos os métodos de BD · commit de cada etapa com mensagem descritiva no repositório.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ORGANIZAÇÃO DO TEMPO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag">6 etapas · 50 min</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+        <thead>
+          <tr><th style="width:26%">Etapa</th><th>Atividade</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="etapa-pill ep-abertura">Abertura · 5 min</span></td>
+            <td>Chamada · Retomada da SA 30: <em>"Ambiente e estruturado revisados — hoje consolidamos POO e banco de dados: os dois blocos que formam o coração do Projeto Final"</em></td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-retomada">Leitura da estrutura · 5 min</span></td>
+            <td>Professor projeta a estrutura de classes do sistema de consolidação e pergunta: <em>"Quem consegue dizer, olhando para isso, onde está o encapsulamento, a herança e o polimorfismo?"</em> — alunos identificam ao vivo</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-expl">Revisão dirigida · 5 min</span></td>
+            <td>Revisão rápida dos pontos de maior dúvida: <code style="font-family:'DM Mono',monospace;font-size:12px;">@Override</code> e polimorfismo · transações com rollback · Prepared Statement · erros frequentes</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-expl">Prática · 15 min</span></td>
+            <td>Alunos implementam o sistema de Cadastro de Funcionários na IDE · professor orienta e revisa ao vivo · foco em qualidade integrada: DRY, encapsulamento, documentação e commits</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-dinamica">Dinâmica · 15 min</span></td>
+            <td>"Liga o Conceito ao Código" — grupos identificam conceitos de POO e CRUD em trechos de código reais, avaliam se estão corretos e sugerem melhorias</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-fecha">Fechamento · 5 min</span></td>
+            <td>Resumo: POO organiza · banco persiste · os dois juntos formam qualquer sistema real · refatoração com DRY + encapsulamento + documentação é a marca do profissional · Próxima SA: consolidação de técnicas de programação e testes (SA 32 · 07/10)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DINÂMICA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica</span>
+      <span class="section-tag">Liga o Conceito ao Código</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box">
+        <div class="dinamica-header">🔗 Liga o Conceito ao Código — Leitura Técnica de POO e CRUD</div>
+        <div class="dinamica-body">
+          <div class="dinamica-meta">
+            <div class="dinamica-meta-item">⏱️ <strong>Duração:</strong> 15 minutos</div>
+            <div class="dinamica-meta-item">👥 <strong>Agrupamento:</strong> grupos de 4 a 5 alunos</div>
+            <div class="dinamica-meta-item">🎯 <strong>Objetivo:</strong> consolidar POO e CRUD por meio da identificação de conceitos em trechos de código reais — desenvolvendo a leitura técnica precisa que será necessária no Projeto Final e em revisões de código no mercado de trabalho</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">1</div>
+            <div><strong>Apresentação do trecho</strong> <em>(1 min por rodada)</em> — O professor projeta um trecho de código. O grupo deve identificar: qual conceito está sendo demonstrado · se está correto ou tem problema · e o que melhoraria</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">2</div>
+            <div><strong>Análise em grupo</strong> <em>(8 min)</em> — Os grupos analisam cada trecho e preenchem a ficha com: conceito identificado, avaliação (correto/problema) e sugestão de melhoria quando necessário</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">3</div>
+            <div><strong>Debate coletivo</strong> <em>(6 min)</em> — O professor revela as respostas e discute as sugestões de melhoria apresentadas pelos grupos</div>
+          </div>
+        </div>
+      </div>
+
+      <table class="situ-table">
+        <thead>
+          <tr><th>Trecho</th><th>Conceito</th><th>Avaliação</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11px;">Pessoa p = new Funcionario("Ana", "123", "Dev", 5000)</code></td>
+            <td>Polimorfismo — referência pai para objeto filho</td>
+            <td><span class="situ-code">Correto</span></td>
+          </tr>
+          <tr>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11px;">public String nome;</code> dentro de uma classe</td>
+            <td>Encapsulamento violado — atributo público</td>
+            <td><span class="situ-code-r">Problema</span> — deve ser <code style="font-family:'DM Mono',monospace;font-size:11px;">private</code> com getter/setter</td>
+          </tr>
+          <tr>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11px;">UPDATE funcionarios SET salario = 6000</code> sem WHERE</td>
+            <td>CRUD — UPDATE sem condição</td>
+            <td><span class="situ-code-r">Problema crítico</span> — atualiza todos os registros</td>
+          </tr>
+          <tr>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11px;">@Override public void exibirDados(String extra)</code> diferente do pai</td>
+            <td>Herança — tentativa de @Override com assinatura diferente</td>
+            <td><span class="situ-code-r">Problema</span> — não é Override válido, é sobrecarga</td>
+          </tr>
+          <tr>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11px;">finally &#123; conexao.close(); &#125;</code> após try/catch</td>
+            <td>Boas práticas de CRUD — fechamento de conexão</td>
+            <td><span class="situ-code">Correto</span></td>
+          </tr>
+          <tr>
+            <td>Método com 60 linhas fazendo conexão + CRUD + exibição</td>
+            <td>DRY e responsabilidade única</td>
+            <td><span class="situ-code-r">Problema</span> — dividir em métodos separados</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="nota-box">
+        💡 <strong>Reforço pedagógico:</strong> identificar conceitos em código alheio é uma habilidade cotidiana do desenvolvedor — em revisões de código (code review), em manutenção de sistemas legados e em entrevistas técnicas. Quem consegue ler código com precisão técnica e apontar melhorias com clareza é um profissional muito valorizado em qualquer equipe.
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag">Questionário · 10 questões</span>
+    </div>
+    <div class="section-body">
+      <div class="aval-parts">
+        <div class="aval-part">
+          <div class="aval-part-header aph-uc">Parte 1 — Questões Objetivas (5 questões)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Nível alto · 4 alternativas: A) B) C) D)</li>
+              <li>Gabarito alternado, sem repetição consecutiva de letras</li>
+              <li>Temas: identificar o conceito de POO em um trecho, comportamento do polimorfismo na lista, qual operação CRUD exige WHERE, papel do rollback na transação, erro frequente apresentado em um cenário</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header aph-dark">Parte 2 — Questões Discursivas (5 questões)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Cada questão possui título explicativo antes do enunciado</li>
+              <li>Sem linhas — apenas espaço em branco com <code style="font-family:'DM Mono',monospace;font-size:12px;background:rgba(26,122,74,0.1);color:var(--uc-tx);padding:1px 5px;border-radius:4px;">R:</code></li>
+              <li>Temas: declarar a hierarquia <code style="font-family:'DM Mono',monospace;font-size:12px;">Pessoa</code> → <code style="font-family:'DM Mono',monospace;font-size:12px;">Funcionario</code> com encapsulamento, escrever o método <code style="font-family:'DM Mono',monospace;font-size:12px;">inserir</code> do <code style="font-family:'DM Mono',monospace;font-size:12px;">FuncionarioBD</code> com Prepared Statement, explicar o polimorfismo do sistema principal, identificar e corrigir três erros frequentes em um trecho dado, justificar a centralização da conexão em <code style="font-family:'DM Mono',monospace;font-size:12px;">ConexaoDB</code> (DRY)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header" style="background:var(--gray);color:var(--white);">Gabarito</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Em página separada — uso exclusivo do professor</li>
+              <li>Objetivas: letra correta + justificativa completa</li>
+              <li>Discursivas: resposta esperada com critérios de correção e exemplos de código válidos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONEXÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag section-tag-gray">Continuidade</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant">
+          <div class="conn-label">← Aula anterior — SA 30</div>
+          <div style="font-size:13.5px;color:var(--dark);">Consolidação — Ambiente, Ferramentas e Programação Estruturada · 23/09/2026</div>
+        </div>
+        <div class="conn-card conn-prox">
+          <div class="conn-label">Próxima aula → SA 32</div>
+          <div style="font-size:13.5px;color:var(--dark);">Consolidação — Técnicas de Programação e Testes · 07/10/2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag section-tag-gray">Verificar antes da aula</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid">
+        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor ou TV e computador com HDMI</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📊</span><span>Apresentação com slides</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🖥️</span><span>Computadores com VS Code, SGBD e GitHub configurados</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🧑‍💼</span><span>Projeto base do sistema de Cadastro de Funcionários preparado para a prática</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Questionário impresso ou digital</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🃏</span><span>Ficha de identificação da dinâmica impressa (1 por grupo) · quadro branco e marcador</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSERVAÇÕES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag section-tag-gray">Opcional</span>
+    </div>
+    <div class="section-body">
+      <div class="obs-box"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Plano de Aula · <span>SA 31 — Consolidação: POO e Conexão com Banco de Dados</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · Colégio Neiva Pavan · 2026
+</footer>
+
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF = () => {
+    const t = document.title;
+    document.title = 'Plano_Aula_SA31_PA_Consolidacao_POO_BD';
+    window.print();
+    setTimeout(() => { document.title = t; }, 1000);
+  };
+  const btn = document.getElementById('btn-topo');
+  window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 400); });
+  if (btn) btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
