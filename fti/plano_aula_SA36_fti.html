@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 36 — Revisão Geral do Ano · Retomada de todos os conteúdos de 2026 · FTI</title>
+<meta name="description" content="Plano de aula SA 36 — Revisão Geral do Ano · Retomada de todos os conteúdos de 2026 · Fundamentos de Tecnologias da Informação · SENAI Umuarama">
+<meta name="theme-color" content="#0D1A2B">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uc:         #534AB7;
+    --uc-light:   #EEEDFE;
+    --uc-dark:    #26215C;
+    --uc-mid:     #7B6FCC;
+    --dark:       #0D1A2B;
+    --yellow:     #F9C74F;
+    --gold:       #C49A00;
+    --gray:       #64748B;
+    --light:      #F5F7FA;
+    --white:      #FFFFFF;
+    --text:       #1A2B3C;
+    --border:     #E2E8F0;
+    --warn-bg:    #FFF8E7;
+    --purple:     #6A0572;
+  }
+
+  html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--uc-dark); }
+  .header-inner { max-width: 980px; margin: 0 auto; padding: 44px 48px 44px 60px; display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; }
+  .header-label { font-size: 15px; font-weight: 500; color: #94A3B8; letter-spacing: 0.5px; margin-bottom: 14px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .header-label .hl-sep  { color: #475569; font-weight: 300; }
+  .header-label .hl-sa   { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 600; color: #B8B0F0; background: rgba(83,74,183,0.22); padding: 2px 10px; border-radius: 20px; letter-spacing: 1px; }
+  .header-label .hl-tri  { color: var(--yellow); font-weight: 600; }
+  .header-label .hl-data { font-family: 'DM Mono', monospace; font-size: 13px; color: #64748B; }
+  .header-title { font-family: 'DM Serif Display', serif; font-size: 36px; line-height: 1.15; color: var(--white); margin-bottom: 10px; }
+  .header-title span { color: var(--yellow); }
+  .header-sub  { font-size: 13.5px; color: #64748B; line-height: 1.6; }
+  .header-sub .uc-nome { white-space: nowrap; display: block; }
+
+  .container { max-width: 980px; margin: 0 auto; padding: 40px 48px; }
+
+  .section { background: var(--white); border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 2px 12px rgba(0,0,0,0.04); margin-bottom: 28px; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 12px; padding: 18px 26px; border-bottom: 1px solid var(--border); background: var(--light); }
+  .section-icon  { font-size: 20px; }
+  .section-title { font-size: 16px; font-weight: 700; color: var(--dark); flex: 1; }
+  .section-tag   { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; background: var(--uc-light); color: var(--uc); padding: 3px 10px; border-radius: 12px; letter-spacing: 0.5px; }
+  .section-tag-gray { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; background: var(--light); color: var(--gray); padding: 3px 10px; border-radius: 12px; letter-spacing: 0.5px; border: 1px solid var(--border); }
+  .section-body  { padding: 24px 26px; }
+
+  .tema-box { background: var(--light); border-radius: 8px; padding: 14px 18px; font-size: 15px; font-weight: 600; color: var(--dark); border-left: 4px solid var(--uc); }
+  .tema-box span { color: var(--uc); }
+
+  .obj-intro { font-size: 13.5px; color: var(--gray); margin-bottom: 12px; }
+  .obj-list  { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .obj-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: var(--light); border-radius: 8px; font-size: 13.5px; border-left: 3px solid var(--uc); }
+  .obj-num { background: var(--uc); color: var(--white); font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+  .content-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .content-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; font-size: 13.5px; }
+  .content-list li::before { content:'▸'; color:var(--uc); font-weight:bold; }
+
+  .time-table { width: 100%; border-collapse: collapse; font-size: 13px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 16px; }
+  .time-table thead tr { background: var(--dark); }
+  .time-table th { color: var(--white); padding: 11px 14px; text-align: left; font-size: 12.5px; }
+  .time-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .time-table tr:nth-child(even) td { background: #F7FAFC; }
+  .etapa-pill { font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 12px; display: inline-block; white-space: nowrap; background:#DCFCE7; color:#166534; }
+
+  .dinamica-box { background: var(--light); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+  .dinamica-header { background: var(--purple); color: var(--white); padding: 12px 18px; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .dinamica-body { padding: 18px; font-size: 13.5px; }
+
+  .nota-box  { background: var(--warn-bg); border: 1px solid rgba(196,154,0,0.3); border-left: 4px solid var(--gold); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #78350F; line-height: 1.6; margin-top: 14px; margin-bottom: 16px; }
+  .nota-info { background: var(--uc-light); border: 1px solid rgba(83,74,183,0.25); border-left: 4px solid var(--uc); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--uc-dark); line-height: 1.6; margin-top: 12px; margin-bottom: 16px; }
+
+  .connection-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .conn-card  { border-radius: 8px; padding: 14px 18px; font-size: 13.5px; }
+  .conn-ant   { background: var(--uc-light); border-left: 4px solid var(--uc); }
+  .conn-prox  { background: var(--warn-bg);  border-left: 4px solid var(--gold); }
+  .conn-label { font-size: 11px; font-family: 'DM Mono', monospace; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .conn-ant .conn-label  { color: var(--uc); }
+  .conn-prox .conn-label { color: var(--gold); }
+
+  .recursos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .recurso-item  { background: var(--light); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; font-size: 13px; display: flex; align-items: center; gap: 10px; }
+  .recurso-icon  { font-size: 20px; }
+
+  .obs-box { background: var(--light); border: 1px dashed var(--border); border-radius: 8px; padding: 16px 20px; min-height: 80px; font-size: 13.5px; color: var(--gray); }
+
+  footer { background: var(--dark); color: #475569; text-align: center; padding: 22px; font-size: 12px; font-family: 'DM Mono', monospace; margin-top: 16px; }
+  footer span { color: var(--uc-mid); }
+
+  .btn-group  { position: fixed; top: 20px; right: 24px; z-index: 999; display: flex; flex-direction: column; gap: 8px; }
+  .btn-action { border: none; border-radius: 8px; padding: 10px 18px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap; transition: all 0.2s ease; background: var(--dark); color: var(--white); }
+
+  #btn-topo { position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px; border-radius: 50%; background: var(--dark); color: var(--white); border: none; font-size: 18px; font-weight: 700; cursor: pointer; z-index: 999; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+  #btn-topo.visible { display: flex; }
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action btn-imprimir" onclick="window.print()" aria-label="Imprimir plano de aula">🖨️ Imprimir</button>
+  <button class="btn-action btn-pdf" onclick="salvarPDF()" aria-label="Exportar como PDF">📄 Exportar PDF</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 36</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">3º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">17/11/2026</span>
+      </div>
+      <h1 class="header-title">Revisão Geral do Ano · Retomada de todos os conteúdos de 2026<br><span>Introdução à Tecnologia da Informação</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Tecnologias da Informação</span>
+        2º Ano · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema da Aula</span>
+      <span class="section-tag">SA 36</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">🔖 <span>Revisão Geral do Ano · Retomada de todos os conteúdos de 2026</span></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da SA, o aluno será capaz de:</p>
+<ul class="content-list">
+<li>Retomar e consolidar os conteúdos dos 3 trimestres de 2026 — Hardware, Software, SO, Segurança, Ferramentas de Escritório, Internet, Python e Cloud</li>
+<li>Identificar e sanar dúvidas remanescentes antes da prova escrita do 3º Trimestre</li>
+<li>Relacionar os conteúdos aprendidos ao longo do ano de forma integrada</li>
+<li>Avaliar seu próprio progresso ao longo do ano, reconhecendo os pontos de domínio e os que ainda precisam de atenção</li>
+<li>Preparar-se para a prova escrita da próxima SA com segurança e organização</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>Revisão — 1º Trimestre: Hardware (componentes e periféricos), Software (tipos e licenças), Sistemas Operacionais, Segurança do Trabalho e Segurança da Informação</li>
+<li>Revisão — 2º Trimestre: Excel, Google Sheets, PowerPoint, Google Slides, Word, Google Docs e Correio Eletrônico</li>
+<li>Revisão — 3º Trimestre: Internet e Redes, Segurança Digital Avançada, Lógica de Programação, Fluxogramas, Python (variáveis, estruturas de controle, funções), Cloud Computing e Mercado de Trabalho</li>
+<li>Espaço aberto para dúvidas e esclarecimentos antes da prova</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+<thead><tr>
+<th>Etapa</th>
+<th>Atividade</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="etapa-pill">Abertura</span></td>
+<td>Chamada · Apresentação da estrutura da aula de revisão · Motivação: "Esta é a última aula antes da prova — é o momento de fechar as lacunas do ano inteiro"</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Retomada</span></td>
+<td>Revisão ativa — professor projeta um mapa visual com todos os conteúdos dos 3 trimestres e conduz perguntas abertas por bloco</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Dinâmica</span></td>
+<td>"Quiz do Ano" — ver seção abaixo</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Espaço de Dúvidas</span></td>
+<td>Professor abre espaço para perguntas livres sobre qualquer conteúdo do ano</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Fechamento</span></td>
+<td>Resumo dos pontos mais importantes de cada trimestre · Orientações para a prova da SA 37 (24/11/2026) — o que cai, como estudar e o que levar</td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica — Quiz do Ano</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box"><div class="dinamica-header">🎮 Dinâmica — Quiz do Ano</div><div class="dinamica-body"><p style="font-size:13.5px; margin-bottom:12px;"><strong>Nome:</strong> Quiz do Ano</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Duração:</strong> 15 a 20 minutos</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Agrupamento:</strong> 5 grupos de 4 alunos</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Descrição:</strong> O professor projeta 15 perguntas rápidas cobrindo os 3 trimestres — 5 perguntas por trimestre. Cada grupo registra a resposta em uma folha. Ao final, o professor corrige e o grupo com mais acertos vence. As questões erradas são explicadas no momento da correção.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Passo a passo:</strong></p>
+<ul class="obj-list">
+<li><span class="obj-num">1</span><strong>Apresentação</strong> — Professor projeta cada pergunta com um cronômetro de 30 segundos</li>
+<li><span class="obj-num">2</span><strong>Resposta em grupo</strong> — Cada grupo anota a resposta sem consultar o material</li>
+<li><span class="obj-num">3</span><strong>Correção coletiva</strong> — Professor revela a resposta correta e explica o conceito envolvido</li>
+<li><span class="obj-num">4</span><strong>Pontuação</strong> — Professor registra os pontos no quadro e anuncia o grupo vencedor</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Perguntas sugeridas por trimestre:</strong></p>
+<table class="time-table">
+<thead><tr>
+<th>#</th>
+<th>Trimestre</th>
+<th>Pergunta</th>
+<th>Resposta esperada</th>
+</tr></thead><tbody>
+<tr>
+<td>1</td>
+<td>1º Tri</td>
+<td>Qual componente interno é responsável por processar as instruções do computador?</td>
+<td>Processador (CPU)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1º Tri</td>
+<td>Qual a diferença entre HD e SSD?</td>
+<td>SSD é mais rápido e sem partes mecânicas · HD é mais lento e com disco giratório</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1º Tri</td>
+<td>O que é um Sistema Operacional e cite 2 exemplos?</td>
+<td>Software que gerencia o hardware e os programas · Windows e Linux</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1º Tri</td>
+<td>O que é phishing?</td>
+<td>Golpe virtual que usa e-mails falsos para roubar dados</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1º Tri</td>
+<td>O que significa LER e como prevenir?</td>
+<td>Lesão por Esforço Repetitivo · pausas, postura correta e ergonomia</td>
+</tr>
+<tr>
+<td>6</td>
+<td>2º Tri</td>
+<td>Qual símbolo trava uma célula na Referência Absoluta do Excel?</td>
+<td>$ (cifrão)</td>
+</tr>
+<tr>
+<td>7</td>
+<td>2º Tri</td>
+<td>Qual função do Excel verifica uma condição e retorna um valor se verdadeira e outro se falsa?</td>
+<td>=SE()</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2º Tri</td>
+<td>Qual recurso do Word gera o índice automaticamente a partir dos títulos?</td>
+<td>Sumário automático</td>
+</tr>
+<tr>
+<td>9</td>
+<td>2º Tri</td>
+<td>Qual campo do e-mail oculta os destinatários uns dos outros?</td>
+<td>CCO (com cópia oculta)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>2º Tri</td>
+<td>Qual a vantagem do Google Slides sobre o PowerPoint para trabalho em equipe?</td>
+<td>Edição colaborativa em tempo real sem instalação</td>
+</tr>
+<tr>
+<td>11</td>
+<td>3º Tri</td>
+<td>Qual protocolo garante comunicação segura e criptografada na web?</td>
+<td>HTTPS</td>
+</tr>
+<tr>
+<td>12</td>
+<td>3º Tri</td>
+<td>O que é uma VPN e para que serve?</td>
+<td>Rede privada virtual — criptografa a conexão e protege dados em redes públicas</td>
+</tr>
+<tr>
+<td>13</td>
+<td>3º Tri</td>
+<td>Qual estrutura de repetição em Python usa a condição "enquanto" para executar um bloco?</td>
+<td>while</td>
+</tr>
+<tr>
+<td>14</td>
+<td>3º Tri</td>
+<td>O que é uma função em Python e qual palavra-chave usamos para criar?</td>
+<td>Bloco de código reutilizável · def</td>
+</tr>
+<tr>
+<td>15</td>
+<td>3º Tri</td>
+<td>Cite um modelo de serviço de Cloud Computing e dê um exemplo real</td>
+<td>IaaS (AWS), PaaS (Google App Engine) ou SaaS (Google Drive, Office 365)</td>
+</tr>
+</tbody></table></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>Questões Objetivas</li>
+<li>Questões Discursivas</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant"><div class="conn-label">← Aula anterior</div><div>Mercado de Trabalho em TI · Áreas de atuação, perfis profissionais, portfólio e LinkedIn · 10/11/2026</div></div>
+        <div class="conn-card conn-prox"><div class="conn-label">Próxima aula →</div><div>📝 Prova Escrita — 3º Trimestre · 24/11/2026</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid"><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Projetor / TV</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Slides — Mapa visual dos 3 trimestres (PPTX)</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Folha do Quiz do Ano impressa (1 por grupo)</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Quadro branco / Marcador (para registrar pontuação do quiz)</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>---</span></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <div class="nota-info">📌 Lembrar os alunos sobre a <strong>Prova Escrita na próxima SA (24/11/2026)</strong> — conteúdo integral do 3º Trimestre + possível revisão do ano.</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Plano de Aula · <span>SA 36 — Revisão Geral do Ano · Retomada de todos os conteúdos de 2026</span> · Prof. Julio Cesar · Fundamentos de Tecnologias da Informação · SENAI Umuarama · 2026
+</footer>
+
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF = () => {
+    const tituloOriginal = document.title;
+    document.title = 'Plano_Aula_SA36_FTI_Revisão_Geral_do_Ano_·_Retomada_de_todos_os_conteúdos_de_2026';
+    window.print();
+    setTimeout(() => { document.title = tituloOriginal; }, 1000);
+  };
+
+  const btnTopo = document.getElementById('btn-topo');
+  window.addEventListener('scroll', () => {
+    if (btnTopo) btnTopo.classList.toggle('visible', window.scrollY > 400);
+  });
+  if (btnTopo) {
+    btnTopo.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+</script>
+</body>
+</html>

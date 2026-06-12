@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 05 — Revisão · Hardware + Digitação · FTI</title>
+<meta name="description" content="Plano de aula SA 05 — Revisão · Hardware + Digitação · Fundamentos de Tecnologias da Informação · SENAI Umuarama">
+<meta name="theme-color" content="#0D1A2B">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uc:         #534AB7;
+    --uc-light:   #EEEDFE;
+    --uc-dark:    #26215C;
+    --uc-mid:     #7B6FCC;
+    --dark:       #0D1A2B;
+    --yellow:     #F9C74F;
+    --gold:       #C49A00;
+    --gray:       #64748B;
+    --light:      #F5F7FA;
+    --white:      #FFFFFF;
+    --text:       #1A2B3C;
+    --border:     #E2E8F0;
+    --warn-bg:    #FFF8E7;
+    --purple:     #6A0572;
+  }
+
+  html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--uc-dark); }
+  .header-inner { max-width: 980px; margin: 0 auto; padding: 44px 48px 44px 60px; display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; }
+  .header-label { font-size: 15px; font-weight: 500; color: #94A3B8; letter-spacing: 0.5px; margin-bottom: 14px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .header-label .hl-sep  { color: #475569; font-weight: 300; }
+  .header-label .hl-sa   { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 600; color: #B8B0F0; background: rgba(83,74,183,0.22); padding: 2px 10px; border-radius: 20px; letter-spacing: 1px; }
+  .header-label .hl-tri  { color: var(--yellow); font-weight: 600; }
+  .header-label .hl-data { font-family: 'DM Mono', monospace; font-size: 13px; color: #64748B; }
+  .header-title { font-family: 'DM Serif Display', serif; font-size: 36px; line-height: 1.15; color: var(--white); margin-bottom: 10px; }
+  .header-title span { color: var(--yellow); }
+  .header-sub  { font-size: 13.5px; color: #64748B; line-height: 1.6; }
+  .header-sub .uc-nome { white-space: nowrap; display: block; }
+
+  .container { max-width: 980px; margin: 0 auto; padding: 40px 48px; }
+
+  .section { background: var(--white); border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 2px 12px rgba(0,0,0,0.04); margin-bottom: 28px; overflow: hidden; }
+  .section-header { display: flex; align-items: center; gap: 12px; padding: 18px 26px; border-bottom: 1px solid var(--border); background: var(--light); }
+  .section-icon  { font-size: 20px; }
+  .section-title { font-size: 16px; font-weight: 700; color: var(--dark); flex: 1; }
+  .section-tag   { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; background: var(--uc-light); color: var(--uc); padding: 3px 10px; border-radius: 12px; letter-spacing: 0.5px; }
+  .section-tag-gray { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; background: var(--light); color: var(--gray); padding: 3px 10px; border-radius: 12px; letter-spacing: 0.5px; border: 1px solid var(--border); }
+  .section-body  { padding: 24px 26px; }
+
+  .tema-box { background: var(--light); border-radius: 8px; padding: 14px 18px; font-size: 15px; font-weight: 600; color: var(--dark); border-left: 4px solid var(--uc); }
+  .tema-box span { color: var(--uc); }
+
+  .obj-intro { font-size: 13.5px; color: var(--gray); margin-bottom: 12px; }
+  .obj-list  { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .obj-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: var(--light); border-radius: 8px; font-size: 13.5px; border-left: 3px solid var(--uc); }
+  .obj-num { background: var(--uc); color: var(--white); font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+  .content-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .content-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; font-size: 13.5px; }
+  .content-list li::before { content:'▸'; color:var(--uc); font-weight:bold; }
+
+  .time-table { width: 100%; border-collapse: collapse; font-size: 13px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 16px; }
+  .time-table thead tr { background: var(--dark); }
+  .time-table th { color: var(--white); padding: 11px 14px; text-align: left; font-size: 12.5px; }
+  .time-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .time-table tr:nth-child(even) td { background: #F7FAFC; }
+  .etapa-pill { font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 12px; display: inline-block; white-space: nowrap; background:#DCFCE7; color:#166534; }
+
+  .dinamica-box { background: var(--light); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+  .dinamica-header { background: var(--purple); color: var(--white); padding: 12px 18px; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .dinamica-body { padding: 18px; font-size: 13.5px; }
+
+  .nota-box  { background: var(--warn-bg); border: 1px solid rgba(196,154,0,0.3); border-left: 4px solid var(--gold); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #78350F; line-height: 1.6; margin-top: 14px; margin-bottom: 16px; }
+  .nota-info { background: var(--uc-light); border: 1px solid rgba(83,74,183,0.25); border-left: 4px solid var(--uc); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--uc-dark); line-height: 1.6; margin-top: 12px; margin-bottom: 16px; }
+
+  .connection-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .conn-card  { border-radius: 8px; padding: 14px 18px; font-size: 13.5px; }
+  .conn-ant   { background: var(--uc-light); border-left: 4px solid var(--uc); }
+  .conn-prox  { background: var(--warn-bg);  border-left: 4px solid var(--gold); }
+  .conn-label { font-size: 11px; font-family: 'DM Mono', monospace; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .conn-ant .conn-label  { color: var(--uc); }
+  .conn-prox .conn-label { color: var(--gold); }
+
+  .recursos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .recurso-item  { background: var(--light); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; font-size: 13px; display: flex; align-items: center; gap: 10px; }
+  .recurso-icon  { font-size: 20px; }
+
+  .obs-box { background: var(--light); border: 1px dashed var(--border); border-radius: 8px; padding: 16px 20px; min-height: 80px; font-size: 13.5px; color: var(--gray); }
+
+  footer { background: var(--dark); color: #475569; text-align: center; padding: 22px; font-size: 12px; font-family: 'DM Mono', monospace; margin-top: 16px; }
+  footer span { color: var(--uc-mid); }
+
+  .btn-group  { position: fixed; top: 20px; right: 24px; z-index: 999; display: flex; flex-direction: column; gap: 8px; }
+  .btn-action { border: none; border-radius: 8px; padding: 10px 18px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap; transition: all 0.2s ease; background: var(--dark); color: var(--white); }
+
+  #btn-topo { position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px; border-radius: 50%; background: var(--dark); color: var(--white); border: none; font-size: 18px; font-weight: 700; cursor: pointer; z-index: 999; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+  #btn-topo.visible { display: flex; }
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action btn-imprimir" onclick="window.print()" aria-label="Imprimir plano de aula">🖨️ Imprimir</button>
+  <button class="btn-action btn-pdf" onclick="salvarPDF()" aria-label="Exportar como PDF">📄 Exportar PDF</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 05</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">1º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">17/03/2026</span>
+      </div>
+      <h1 class="header-title">Revisão · Hardware + Digitação<br><span>Introdução à Tecnologia da Informação</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Tecnologias da Informação</span>
+        2º Ano · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema da Aula</span>
+      <span class="section-tag">SA 05</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">🔖 <span>Revisão · Hardware + Digitação</span></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag-gray">SA 05</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da SA, o aluno será capaz de:</p>
+<ul class="content-list">
+<li>Consolidar os conteúdos de hardware — componentes internos, periféricos e tipos de computador — trabalhados nas SA 02, 03 e 04</li>
+<li>Retomar e aplicar corretamente o vocabulário técnico de hardware</li>
+<li>Praticar digitação com foco em técnica e postura correta, medindo evolução desde a SA 04</li>
+<li>Identificar suas dúvidas e lacunas antes do bloco seguinte — Software e Sistemas Operacionais</li>
+<li>Participar ativamente das atividades de revisão colaborando com a turma</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo</span>
+      <span class="section-tag-gray">SA 05</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>Revisão — componentes internos: CPU, RAM, ROM, HD, SSD, placa-mãe, fonte e placa de vídeo</li>
+<li>Revisão — periféricos de entrada, saída e entrada/saída</li>
+<li>Revisão — tipos de computador: desktop, notebook, tablet, servidor e workstation</li>
+<li>Prática de digitação — sessão com foco em velocidade e acurácia</li>
+<li>Espaço para dúvidas sobre hardware e digitação</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag-gray">SA 05</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+<thead><tr>
+<th>Etapa</th>
+<th>Atividade</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="etapa-pill">Abertura</span></td>
+<td>Chamada · Apresentação da estrutura da aula de revisão</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Retomada</span></td>
+<td>Revisão ativa — professor faz perguntas abertas sobre hardware para a turma · Alunos respondem voluntariamente</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Dinâmica</span></td>
+<td>"Quem Eu Sou?" — ver seção abaixo</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Prática de Digitação</span></td>
+<td>Sessão de digitação no laboratório — alunos repetem o teste de 1 minuto do 10FastFingers para medir evolução desde a SA 04 · Professor registra os novos resultados</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Espaço de Dúvidas</span></td>
+<td>Professor abre espaço para perguntas livres sobre hardware e digitação</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Fechamento</span></td>
+<td>Resumo geral do bloco de hardware · Antecipação da SA 06 — Fundamentos de Software (24/03/2026) · Aviso: a partir da SA 06 o Prof. Julio Cesar assume a regência da turma</td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica — Quem Eu Sou?</span>
+      <span class="section-tag-gray">SA 05</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box"><div class="dinamica-header">🎮 Dinâmica — Quem Eu Sou?</div><div class="dinamica-body"><p style="font-size:13.5px; margin-bottom:12px;"><strong>Nome:</strong> Quem Eu Sou? (Hardware Edition)</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Duração:</strong> 10 a 15 minutos</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Agrupamento:</strong> Individual — toda a turma</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Descrição:</strong> Cada aluno recebe um post-it colado na testa (ou nas costas) com o nome de um componente ou periférico de hardware. Sem ver o que está escrito, o aluno faz perguntas de sim ou não para os colegas e tenta descobrir qual componente ou periférico é. Reforça o vocabulário técnico de forma lúdica.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Passo a passo:</strong></p>
+<ul class="obj-list">
+<li><span class="obj-num">1</span><strong>Preparação</strong> — Professor distribui os post-its e cola nas testas (ou costas) dos alunos sem que eles vejam</li>
+<li><span class="obj-num">2</span><strong>Rodada</strong> — Cada aluno circula pela sala fazendo perguntas de sim/não aos colegas (máximo 5 perguntas por aluno)</li>
+<li><span class="obj-num">3</span><strong>Tentativa</strong> — Ao atingir 5 perguntas, o aluno tenta adivinhar o que é</li>
+<li><span class="obj-num">4</span><strong>Revelação</strong> — Professor confirma e o aluno retira o post-it</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Exemplos de componentes e periféricos nos post-its:</strong></p>
+<table class="time-table">
+<thead><tr>
+<th>Post-it</th>
+<th>Dicas que os colegas podem dar (apenas sim/não)</th>
+</tr></thead><tbody>
+<tr>
+<td>Processador (CPU)</td>
+<td>"Sou interno?" Sim · "Processo dados?" Sim · "Sou a memória?" Não</td>
+</tr>
+<tr>
+<td>Monitor</td>
+<td>"Sou periférico?" Sim · "Mostro imagens?" Sim · "Sou de entrada?" Não</td>
+</tr>
+<tr>
+<td>Pendrive</td>
+<td>"Sou periférico?" Sim · "Armazeno dados?" Sim · "Sou de entrada apenas?" Não</td>
+</tr>
+<tr>
+<td>Placa-mãe</td>
+<td>"Sou interno?" Sim · "Conecto outros componentes?" Sim · "Processo dados?" Não</td>
+</tr>
+<tr>
+<td>Impressora</td>
+<td>"Sou periférico?" Sim · "Sou de saída?" Sim · "Mostro imagens na tela?" Não</td>
+</tr>
+<tr>
+<td>SSD</td>
+<td>"Sou interno?" Sim · "Armazeno dados?" Sim · "Sou mais rápido que o HD?" Sim</td>
+</tr>
+</tbody></table></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag-gray">SA 05</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>Questões Objetivas</li>
+<li>Questões Discursivas</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag-gray">SA 05</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant"><div class="conn-label">← Aula anterior</div><div>Digitação · Técnica e Postura · 10/03/2026</div></div>
+        <div class="conn-card conn-prox"><div class="conn-label">Próxima aula →</div><div>Fundamentos de Software · 24/03/2026</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag-gray">SA 05</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid"><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Laboratório de informática — 1 computador por aluno</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Projetor / TV</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Post-its com nomes de componentes e periféricos (1 por aluno)</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Acesso à internet (10FastFingers para sessão de digitação)</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Quadro branco / Marcador (para registrar evolução de digitação)</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>---</span></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag-gray">SA 05</span>
+    </div>
+    <div class="section-body">
+      <div class="obs-box">⚠️ <strong>SA ministrada por outro professor.</strong> · A partir da SA 06 (24/03/2026) o Prof. Julio Cesar assume a regência da turma.</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Plano de Aula · <span>SA 05 — Revisão · Hardware + Digitação</span> · Prof. Julio Cesar · Fundamentos de Tecnologias da Informação · SENAI Umuarama · 2026
+</footer>
+
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF = () => {
+    const tituloOriginal = document.title;
+    document.title = 'Plano_Aula_SA05_FTI_Revisão_·_Hardware_+_Digitação';
+    window.print();
+    setTimeout(() => { document.title = tituloOriginal; }, 1000);
+  };
+
+  const btnTopo = document.getElementById('btn-topo');
+  window.addEventListener('scroll', () => {
+    if (btnTopo) btnTopo.classList.toggle('visible', window.scrollY > 400);
+  });
+  if (btnTopo) {
+    btnTopo.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+</script>
+</body>
+</html>
