@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 38 — Revisão Geral — Todos os Trimestres · Redes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --uc-main: #0F6E56; --uc-light: #E1F5EE; --uc-tx: #04342C; --dark: #0D1A2B; --yellow: #F9C74F; --gold: #C49A00; --gray: #64748B; --light: #F2F5F8; --white: #FFFFFF; --text: #1A2635; --border: #D4DCE4; --warn-bg: #FFF8E7; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; font-weight:300; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(15,110,86,0.18); padding:2px 10px; border-radius:20px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; margin-top:4px; }
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag   { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
+  .section-body  { padding:24px 26px; }
+  
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(15,110,86,0.2); }
+  
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  
+  .content-list { list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+  .content-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--white); border:1px solid var(--border); border-radius:8px; font-size:13.5px; }
+  .content-list li::before { content:'▸'; color:var(--uc-main); font-weight:bold; }
+  
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; background:#DCFCE7; color:#166534; }
+  
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+  
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; background:var(--dark); color:var(--white); }
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  
+  .nota-box { background:var(--uc-light); border:1px solid rgba(15,110,86,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); margin-bottom:16px; }
+  .dinamica-box { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body { padding:18px; font-size:13.5px; }
+</style>
+</head>
+<body>
+<div class="btn-group">
+  <button class="btn-action" onclick="window.print()">🖨️ Imprimir</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 38</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">3º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">18/11/2026</span>
+      </div>
+      <h1 class="header-title">Revisão Geral — Todos os Trimestres<br><span>Redes de Computadores</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Redes de Computadores · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">Aula Regular</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidade</span>
+      <span class="section-tag">3º Trimestre · SA 38</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">Revisão Geral — Todos os Trimestres</div>
+      <div class="hab-row"><span class="hab-tag">H1 · H2 · H3 · H4 · H5 — revisão integral de todas as habilidades da UC</span></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag-gray">SA 38</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+<ul class="content-list">
+<li>Retomar e consolidar os principais conteúdos trabalhados ao longo dos três trimestres da UC</li>
+<li>Identificar as conexões entre os conteúdos dos três trimestres — percebendo a UC como um sistema integrado e progressivo</li>
+<li>Reconhecer os pontos de maior dificuldade e esclarecer dúvidas finais antes da prova trimestral</li>
+<li>Resolver questões integradas no formato da prova — cobrindo conteúdos dos três trimestres simultaneamente</li>
+<li>Avaliar o próprio nível de preparação para a 3ª Avaliação Trimestral</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Habilidade da matriz:</strong> H1 · H2 · H3 · H4 · H5 — revisão integral de todas as habilidades da UC</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo</span>
+      <span class="section-tag-gray">SA 38</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>Esta aula é de revisão integral — não há conteúdo novo</li>
+<li>O foco é conectar, consolidar e esclarecer os conteúdos de toda a UC antes da prova final</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Mapa Completo da UC — Todos os Trimestres</span>
+      <span class="section-tag-gray">SA 38</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">1º Trimestre — Fundamentos, Medidas e Simbologias</p>
+<table class="time-table">
+<thead><tr>
+<th>Aula</th>
+<th>Tema</th>
+<th>Habilidade</th>
+<th>Pontos-chave</th>
+</tr></thead><tbody>
+<tr>
+<td>01</td>
+<td>Introdução às Redes</td>
+<td>Base</td>
+<td>O que é rede · benefícios · exemplos do cotidiano</td>
+</tr>
+<tr>
+<td>02</td>
+<td>Unidades de Medida — Bits e Bytes</td>
+<td>H1</td>
+<td>bit, byte, KB, MB, GB, TB · conversões</td>
+</tr>
+<tr>
+<td>03</td>
+<td>Velocidade de Transmissão</td>
+<td>H1</td>
+<td>bps, Kbps, Mbps, Gbps · diferença bps × B/s</td>
+</tr>
+<tr>
+<td>04</td>
+<td>Tipos de Armazenamento em Redes</td>
+<td>H1</td>
+<td>NAS, SAN, DAS · armazenamento em nuvem</td>
+</tr>
+<tr>
+<td>05</td>
+<td>Simbologias Básicas — Parte 1</td>
+<td>H2</td>
+<td>Padrões ANSI/ISO · símbolos de dispositivos</td>
+</tr>
+<tr>
+<td>06</td>
+<td>Simbologias Básicas — Parte 2</td>
+<td>H2</td>
+<td>Meios de transmissão · firewalls · nuvem · WAN</td>
+</tr>
+<tr>
+<td>07</td>
+<td>Componentes — Hardware Passivo</td>
+<td>H3</td>
+<td>Cabos, conectores, patch panel, rack</td>
+</tr>
+<tr>
+<td>08</td>
+<td>Componentes — Ativos e Interfaces</td>
+<td>H3</td>
+<td>Hub, switch, roteador, AP, modem, NIC</td>
+</tr>
+<tr>
+<td>09</td>
+<td>Interfaces e Serviços de Internet</td>
+<td>H3</td>
+<td>Ethernet, Wi-Fi, Fibra · ADSL, cabo, 4G/5G</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Revisão e Correção 1º Tri</td>
+<td>—</td>
+<td>Feedback da prova · retomada de pontos críticos</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Ponte — 1º para 2º Trimestre</td>
+<td>—</td>
+<td>Conexão H3 → H4</td>
+</tr>
+</tbody></table>
+<p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">2º Trimestre — Componentes Avançados e Tecnologias de Conexão</p>
+<table class="time-table">
+<thead><tr>
+<th>Aula</th>
+<th>Tema</th>
+<th>Habilidade</th>
+<th>Pontos-chave</th>
+</tr></thead><tbody>
+<tr>
+<td>14</td>
+<td>Meios Guiados</td>
+<td>H3 · H4</td>
+<td>UTP/STP/FTP · Cat5e/6/6A · Fibra mono/multi · Coaxial</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Meios Não Guiados</td>
+<td>H4</td>
+<td>Wi-Fi 802.11 · 2,4 × 5 GHz · Bluetooth · Satélite LEO</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Tecnologias de Conexão — Parte 1</td>
+<td>H4</td>
+<td>ADSL · VDSL · HFC/DOCSIS · FTTH/FTTB</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Tecnologias de Conexão — Parte 2</td>
+<td>H4</td>
+<td>3G · 4G LTE · 5G · Rádio WISP · PLC · Satélite LEO</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Endereçamento IP</td>
+<td>H4</td>
+<td>IPv4/IPv6 · privado × público · NAT · máscara · DHCP</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Protocolos TCP/IP e UDP</td>
+<td>H4</td>
+<td>TCP (handshake, garantias) · UDP (velocidade) · portas</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Protocolos de Aplicação</td>
+<td>H4</td>
+<td>HTTP/HTTPS · DNS (DORA) · DHCP · FTP × SFTP</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Segurança Básica em Redes</td>
+<td>H4</td>
+<td>CIA · Firewall · VPN · Phishing · DDoS · Ransomware</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Modelo OSI</td>
+<td>H4 · H5</td>
+<td>7 camadas · função · dispositivos · diagnóstico</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Revisão 2º Trimestre</td>
+<td>—</td>
+<td>Simulado com questões do trimestre</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Correção Comentada 2º Tri</td>
+<td>—</td>
+<td>Feedback da prova · retomada de pontos críticos</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Ponte — 2º para 3º Trimestre</td>
+<td>—</td>
+<td>Conexão H4 → H5</td>
+</tr>
+</tbody></table>
+<p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">3º Trimestre — Classificação, Estrutura e Modelos de Redes</p>
+<table class="time-table">
+<thead><tr>
+<th>Aula</th>
+<th>Tema</th>
+<th>Habilidade</th>
+<th>Pontos-chave</th>
+</tr></thead><tbody>
+<tr>
+<td>28</td>
+<td>Classificação por Abrangência</td>
+<td>H5</td>
+<td>PAN · LAN · MAN · WAN · GAN</td>
+</tr>
+<tr>
+<td>29</td>
+<td>Topologias de Rede</td>
+<td>H5</td>
+<td>Barramento · Anel · Estrela · Malha · Híbrida</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Modelos — Cliente-Servidor e P2P</td>
+<td>H5</td>
+<td>Papéis · gerenciamento · segurança · uso típico</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Redes Sem Fio Corporativas</td>
+<td>H4 · H5</td>
+<td>AP · PoE · SSID · WEP→WPA3 · roaming</td>
+</tr>
+<tr>
+<td>32</td>
+<td>Redes Corporativas</td>
+<td>H5</td>
+<td>3 camadas · cabeamento · DMZ · VLANs · STP</td>
+</tr>
+<tr>
+<td>33</td>
+<td>Computação em Nuvem</td>
+<td>H5</td>
+<td>IaaS · PaaS · SaaS · pública · privada · híbrida</td>
+</tr>
+<tr>
+<td>34</td>
+<td>Diagnóstico de Redes</td>
+<td>H3 · H4</td>
+<td>ping · tracert · ipconfig · nslookup · boas práticas</td>
+</tr>
+<tr>
+<td>35</td>
+<td>IoT e Redes do Futuro</td>
+<td>H4 · H5</td>
+<td>IoT · 5G · SDN · Edge Computing · Zero Trust</td>
+</tr>
+<tr>
+<td>36</td>
+<td>Projeto Integrador</td>
+<td>H1–H5</td>
+<td>Desenho de rede corporativa</td>
+</tr>
+<tr>
+<td>37</td>
+<td>Apresentação + Revisão 3º Tri</td>
+<td>H1–H5</td>
+<td>Apresentação dos projetos · revisão do trimestre</td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Revisão Integrada — Conexões entre os Trimestres</span>
+      <span class="section-tag-gray">SA 38</span>
+    </div>
+    <div class="section-body">
+      <div class="nota-box">O professor usa esta seção para mostrar como os conteúdos se conectam — a UC como um sistema progressivo e coeso.</div>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Conexão 1 — H1 + H3 + H4:</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">As unidades de medida (H1) definem a velocidade dos cabos (H3) que são usados nas tecnologias de conexão (H4). Ex.: <em>"Cat6A suporta 10 Gbps/100m — isso é quanto em MB/s? E em quanto tempo baixaria um arquivo de 1 TB?"</em></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Conexão 2 — H2 + H3 + H5:</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">As simbologias (H2) representam os componentes físicos (H3) que formam a estrutura da rede (H5). Ex.: <em>"No diagrama do Projeto Integrador vocês usaram o símbolo correto para o switch? E para o firewall? E para o AP?"</em></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Conexão 3 — H3 + H4:</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Os componentes de rede (H3) operam usando os protocolos e tecnologias de conexão (H4). Ex.: <em>"O switch opera na Camada 2 do OSI — o que isso significa? E o roteador na Camada 3?"</em></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Conexão 4 — H4 + H5:</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">As tecnologias de conexão (H4) são escolhidas conforme a classificação e estrutura da rede (H5). Ex.: <em>"Uma LAN corporativa em topologia Estrela usa FTTH para chegar à internet e Wi-Fi 802.11ax internamente — como tudo isso se conecta?"</em></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Conexão 5 — Todos os trimestres:</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">O Projeto Integrador foi o ponto de chegada — integrou H1 (dimensionamento de banda), H2 (simbologia no diagrama), H3 (componentes escolhidos), H4 (tecnologias de conexão e protocolos) e H5 (classificação, topologia, modelo, infraestrutura).</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag-gray">SA 38</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+<thead><tr>
+<th>Etapa</th>
+<th>Atividade</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="etapa-pill">Abertura</span></td>
+<td>Chamada · Apresentação da estrutura da aula · Professor pergunta: <em>"Qual foi o conteúdo mais difícil da UC inteira? E qual foi o mais interessante?"</em> — levantamento rápido da turma</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Revisão 1º Trimestre</span></td>
+<td>Tour pelos pontos-chave do 1º tri com perguntas à turma · foco em H1, H2 e H3</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Revisão 2º Trimestre</span></td>
+<td>Tour pelos pontos-chave do 2º tri com perguntas à turma · foco em H4 e modelo OSI</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Revisão 3º Trimestre</span></td>
+<td>Tour pelos pontos-chave do 3º tri com perguntas à turma · foco em H5 e infraestrutura</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Conexões integradas</span></td>
+<td>Professor mostra as 5 conexões entre trimestres — usando exemplos do Projeto Integrador</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Simulado Final</span></td>
+<td>"Prova Relâmpago Integrada" — ver seção abaixo</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Fechamento</span></td>
+<td>Comentário do simulado · orientações sobre o formato da prova da Aula 39 · encorajamento final</td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica — Simulado "Prova Relâmpago Integrada"</span>
+      <span class="section-tag-gray">SA 38</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box"><div class="dinamica-header">🎮 Dinâmica — Simulado "Prova Relâmpago Integrada"</div><div class="dinamica-body"><p style="font-size:13.5px; margin-bottom:12px;"><strong>Duração:</strong> 25 minutos · <strong>Agrupamento:</strong> individual ou duplas (a critério do professor)</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Objetivo:</strong> simular o formato e o nível da prova trimestral com questões que cobrem os três trimestres de forma integrada — permitindo que os alunos identifiquem seus pontos de atenção finais antes da avaliação oficial.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Materiais:</strong> folha com 5 questões objetivas + 3 questões discursivas curtas · ou projeção no slide.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questões sugeridas para o simulado:</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Objetivas:</strong></p>
+<ul class="obj-list">
+<li><span class="obj-num">1</span>Um técnico precisa conectar dois prédios separados por 1,5 km com velocidade de 10 Gbps. Qual meio de transmissão é o mais indicado?</li>
+<li>A) Cat6A UTP — suporta 10 Gbps e longas distâncias</li>
+<li>B) Fibra óptica monomodo ✓</li>
+<li>C) Cabo coaxial RG-6</li>
+<li>D) Cat5e STP</li>
+<li><span class="obj-num">2</span>Uma empresa adota a política de que todo acesso à rede precisa ser autenticado individualmente, mesmo para funcionários dentro do escritório. Qual conceito de segurança está sendo aplicado?</li>
+<li>A) DMZ</li>
+<li>B) VPN site-to-site</li>
+<li>C) Zero Trust Network Access ✓</li>
+<li>D) VLAN de gerenciamento</li>
+<li><span class="obj-num">3</span>Qual protocolo de transporte é mais adequado para um sistema de monitoramento IoT que envia dados de sensores a cada segundo e pode tolerar perda ocasional de pacotes?</li>
+<li>A) TCP — pela entrega garantida</li>
+<li>B) HTTPS — pela segurança</li>
+<li>C) FTP — pela velocidade de transferência</li>
+<li>D) UDP — pela baixa latência e menor overhead ✓</li>
+<li><span class="obj-num">4</span>Uma empresa tem sede em São Paulo e filial em Porto Alegre, conectadas por um link dedicado de operadora. Qual tipo de rede essa conexão representa?</li>
+<li>A) LAN — rede local de área ampla</li>
+<li>B) MAN — rede metropolitana entre as cidades</li>
+<li>C) WAN — rede de longa distância entre estados ✓</li>
+<li>D) PAN — rede pessoal de longa distância</li>
+<li><span class="obj-num">5</span>Em qual camada do modelo OSI o protocolo DNS opera?</li>
+<li>A) Camada 3 — Rede</li>
+<li>B) Camada 4 — Transporte</li>
+<li>C) Camada 6 — Apresentação</li>
+<li>D) Camada 7 — Aplicação ✓</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Discursivas:</strong></p>
+<ul class="obj-list">
+<li><span class="obj-num">1</span><em>Um plano de internet de 200 Mbps anuncia essa velocidade em bits por segundo. Qual é a velocidade real de download em megabytes por segundo (MB/s)? Mostre o cálculo e explique por que a velocidade anunciada é sempre maior que a velocidade de transferência de arquivos.</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Resposta esperada:</strong> 200 Mbps ÷ 8 = 25 MB/s · A velocidade é anunciada em Megabits (Mb) e os arquivos são medidos em Megabytes (MB) · 1 byte = 8 bits · portanto, divide-se por 8 para converter · outros fatores como overhead de protocolo, latência e congestionamento também reduzem a velocidade real.</p>
+<ul class="obj-list">
+<li><span class="obj-num">2</span><em>Explique a diferença entre topologia física e topologia lógica. Dê um exemplo de rede que pode ter topologia física Estrela e topologia lógica de Barramento simultaneamente.</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Resposta esperada:</strong> Topologia física = como os cabos estão fisicamente dispostos · Topologia lógica = como os dados efetivamente trafegam · Exemplo: rede com hub central — fisicamente todos os cabos vão ao hub (estrela física) mas o hub retransmite para todos os dispositivos simultaneamente como se fosse um barramento (barramento lógico).</p>
+<ul class="obj-list">
+<li><span class="obj-num">3</span><em>Descreva o modelo de três camadas de uma rede corporativa (núcleo, distribuição e acesso), explicando a função de cada camada e qual tipo de equipamento atua em cada uma.</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Resposta esperada:</strong> Núcleo (core): backbone de alta velocidade · switches de alto desempenho com links redundantes · sem dispositivos finais · prioridade: velocidade e baixa latência · Distribuição: interliga núcleo e acesso · aplica ACLs, QoS e roteamento entre VLANs · switches Layer 3 · Acesso: conecta dispositivos finais (PCs, impressoras, APs) · switches com portas para usuários · PoE para APs e telefones IP.</p></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag-gray">SA 38</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>Esta aula não tem questionário individual — o simulado cumpre o papel de avaliação formativa</li>
+<li>O professor comenta o desempenho geral e reforça os pontos críticos no fechamento</li>
+<li>O professor pode solicitar que os alunos registrem por escrito: <em>"Quais são os 3 tópicos que ainda preciso revisar antes da prova?"</em> — exercício de autoavaliação direcionado</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag-gray">SA 38</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant"><div class="conn-label">← Aula anterior</div><div>Aula 37 — 11/11/2026 · Apresentação do Projeto + Revisão do 3º Trimestre</div></div>
+        <div class="conn-card conn-prox"><div class="conn-label">Próxima aula →</div><div>Aula 39 — 25/11/2026 · Prova — 3ª Avaliação Trimestral</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag-gray">SA 38</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid"><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Projetor ou TV</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Computador com HDMI</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Slides com o mapa completo da UC e os pontos-chave de cada trimestre</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Folha do simulado impressa (1 por aluno ou dupla) ou questões projetadas no slide</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Quadro branco e marcador para registrar dúvidas levantadas pela turma</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Se possível: mapa mental ou infográfico visual conectando as 5 habilidades (H1 a H5) com os conteúdos da UC — fixar na parede ou projetar durante toda a revisão</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>---</span></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag-gray">SA 38</span>
+    </div>
+    <div class="section-body">
+      
+    </div>
+  </section>
+</main>
+<footer>
+  Plano de Aula · SA 38 · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+</body>
+</html>

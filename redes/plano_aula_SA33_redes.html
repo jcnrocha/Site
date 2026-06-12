@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 33 — Computação em Nuvem e Redes · Redes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --uc-main: #0F6E56; --uc-light: #E1F5EE; --uc-tx: #04342C; --dark: #0D1A2B; --yellow: #F9C74F; --gold: #C49A00; --gray: #64748B; --light: #F2F5F8; --white: #FFFFFF; --text: #1A2635; --border: #D4DCE4; --warn-bg: #FFF8E7; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; font-weight:300; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(15,110,86,0.18); padding:2px 10px; border-radius:20px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; margin-top:4px; }
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag   { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
+  .section-body  { padding:24px 26px; }
+  
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(15,110,86,0.2); }
+  
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  
+  .content-list { list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+  .content-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--white); border:1px solid var(--border); border-radius:8px; font-size:13.5px; }
+  .content-list li::before { content:'▸'; color:var(--uc-main); font-weight:bold; }
+  
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; background:#DCFCE7; color:#166534; }
+  
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+  
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; background:var(--dark); color:var(--white); }
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  
+  .nota-box { background:var(--uc-light); border:1px solid rgba(15,110,86,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); margin-bottom:16px; }
+  .dinamica-box { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body { padding:18px; font-size:13.5px; }
+</style>
+</head>
+<body>
+<div class="btn-group">
+  <button class="btn-action" onclick="window.print()">🖨️ Imprimir</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 33</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">3º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">14/10/2026</span>
+      </div>
+      <h1 class="header-title">Computação em Nuvem e Redes<br><span>Redes de Computadores</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Redes de Computadores · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">Aula Regular</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidade</span>
+      <span class="section-tag">3º Trimestre · SA 33</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">Computação em Nuvem e Redes</div>
+      <div class="hab-row"><span class="hab-tag">H5 — Reconhecer tipos e características (classificação, estrutura e modelos)</span></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag-gray">SA 33</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+<ul class="content-list">
+<li>Compreender o que é computação em nuvem e como ela se relaciona com a infraestrutura de redes</li>
+<li>Identificar e diferenciar os modelos de serviço em nuvem: IaaS, PaaS e SaaS</li>
+<li>Diferenciar os tipos de nuvem: pública, privada e híbrida — entendendo quando cada modelo é mais adequado</li>
+<li>Reconhecer os principais provedores de nuvem (AWS, Azure e GCP) e seus serviços mais relevantes para a área de redes e desenvolvimento de sistemas</li>
+<li>Relacionar o impacto da computação em nuvem na infraestrutura de redes corporativas e no desenvolvimento de sistemas</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Habilidade da matriz:</strong> H5 — Reconhecer tipos e características (classificação, estrutura e modelos)</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo</span>
+      <span class="section-tag-gray">SA 33</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>Retomada rápida da Aula 32: <em>"Estruturamos a rede corporativa completa — hoje vamos entender como a nuvem se encaixa nessa infraestrutura e o que muda quando parte dos recursos sai do servidor físico da empresa e vai para um data center remoto"</em></li>
+<li><strong>O que é computação em nuvem?</strong></li>
+<li>Fornecimento de recursos de TI — servidores, armazenamento, redes, software — pela internet, sob demanda, com pagamento pelo uso</li>
+<li>Antes da nuvem: empresa precisava comprar, instalar e manter seus próprios servidores físicos</li>
+<li>Com a nuvem: empresa "aluga" recursos de um provedor e acessa tudo pela internet — sem hardware próprio</li>
+<li>Características essenciais (NIST):</li>
+<li><strong>Sob demanda (On-demand):</strong> recursos disponíveis a qualquer momento sem intervenção humana do provedor</li>
+<li><strong>Acesso amplo pela rede:</strong> acessível por qualquer dispositivo com internet</li>
+<li><strong>Pooling de recursos:</strong> recursos compartilhados entre múltiplos clientes (multitenancy)</li>
+<li><strong>Elasticidade rápida:</strong> aumentar ou diminuir recursos em minutos conforme a demanda</li>
+<li><strong>Serviço medido:</strong> pague apenas pelo que usar</li>
+<li><strong>Modelos de Serviço em Nuvem:</strong></li>
+<li><strong>IaaS — Infrastructure as a Service (Infraestrutura como Serviço)</strong></li>
+<li>O provedor oferece: servidores virtuais, armazenamento, rede e virtualização</li>
+<li>O cliente gerencia: sistema operacional, middleware, runtime, dados e aplicações</li>
+<li>Analogia: você aluga o terreno e a construção — mas decora e mobilia do jeito que quiser</li>
+<li>Exemplos de serviços: Amazon EC2, Azure Virtual Machines, Google Compute Engine</li>
+<li>Uso típico: hospedar servidores de aplicação, banco de dados, ambientes de desenvolvimento</li>
+<li><strong>PaaS — Platform as a Service (Plataforma como Serviço)</strong></li>
+<li>O provedor oferece: tudo do IaaS + sistema operacional, middleware e runtime</li>
+<li>O cliente gerencia: apenas os dados e as aplicações</li>
+<li>Analogia: você aluga um apartamento mobiliado — só precisa levar seus pertences</li>
+<li>Exemplos de serviços: AWS Elastic Beanstalk, Azure App Service, Google App Engine, Heroku</li>
+<li>Uso típico: desenvolver e implantar aplicações sem se preocupar com a infraestrutura subjacente</li>
+<li><strong>SaaS — Software as a Service (Software como Serviço)</strong></li>
+<li>O provedor oferece: tudo — infraestrutura, plataforma e o software já pronto para uso</li>
+<li>O cliente gerencia: apenas seus dados e configurações de uso</li>
+<li>Analogia: você usa um hotel — tudo já está pronto, arrumado e funcionando</li>
+<li>Exemplos de serviços: Google Workspace (Gmail, Drive, Docs), Microsoft 365, Salesforce, Zoom, Slack, Trello</li>
+<li>Uso típico: ferramentas de produtividade, CRM, comunicação, colaboração</li>
+<li><strong>Comparativo resumido:</strong></li>
+</ul>
+<table class="time-table">
+<thead><tr>
+<th>Modelo</th>
+<th>Cliente gerencia</th>
+<th>Provedor gerencia</th>
+<th>Exemplo</th>
+</tr></thead><tbody>
+<tr>
+<td>IaaS</td>
+<td>SO, middleware, app, dados</td>
+<td>Virtualização, servidores, rede</td>
+<td>AWS EC2</td>
+</tr>
+<tr>
+<td>PaaS</td>
+<td>Aplicação e dados</td>
+<td>SO, middleware, runtime, infra</td>
+<td>Heroku</td>
+</tr>
+<tr>
+<td>SaaS</td>
+<td>Apenas dados e uso</td>
+<td>Tudo</td>
+<td>Gmail, Office 365</td>
+</tr>
+</tbody></table>
+<ul class="content-list">
+<li><strong>Tipos de Nuvem:</strong></li>
+<li><strong>Nuvem Pública</strong></li>
+<li>Recursos compartilhados com outros clientes em data centers do provedor</li>
+<li>Gerenciada e mantida pelo provedor — cliente não tem acesso físico</li>
+<li>Vantagens: baixo custo inicial, elasticidade, sem manutenção de hardware</li>
+<li>Desvantagens: menor controle, dados fora do ambiente da empresa, dependência do provedor</li>
+<li>Exemplos: AWS, Microsoft Azure, Google Cloud Platform</li>
+<li><strong>Nuvem Privada</strong></li>
+<li>Infraestrutura de nuvem exclusiva de uma organização — não compartilhada</li>
+<li>Pode ser hospedada no próprio data center da empresa (on-premises) ou em ambiente dedicado no provedor</li>
+<li>Vantagens: controle total, maior segurança e conformidade regulatória (LGPD, HIPAA)</li>
+<li>Desvantagens: custo elevado, exige equipe de TI especializada</li>
+<li>Exemplos: VMware vSphere, OpenStack, Microsoft Azure Stack</li>
+<li><strong>Nuvem Híbrida</strong></li>
+<li>Combinação de nuvem pública e privada — integradas e orquestradas</li>
+<li>Dados sensíveis na nuvem privada · recursos variáveis na nuvem pública (cloud bursting)</li>
+<li>Vantagens: flexibilidade, equilíbrio entre custo e controle, migração gradual</li>
+<li>Exemplos: empresa com ERP no servidor local e site na AWS · banco com dados regulatórios on-premises e IA na nuvem pública</li>
+<li><strong>Principais Provedores:</strong></li>
+</ul>
+<table class="time-table">
+<thead><tr>
+<th>Provedor</th>
+<th>Empresa</th>
+<th>Destaque</th>
+<th>Serviço de Rede</th>
+</tr></thead><tbody>
+<tr>
+<td>AWS</td>
+<td>Amazon</td>
+<td>Maior do mercado (~32% share)</td>
+<td>Amazon VPC, Route 53, CloudFront</td>
+</tr>
+<tr>
+<td>Azure</td>
+<td>Microsoft</td>
+<td>Integração com ecossistema Microsoft</td>
+<td>Azure Virtual Network, Azure DNS</td>
+</tr>
+<tr>
+<td>GCP</td>
+<td>Google</td>
+<td>Forte em IA/ML e dados</td>
+<td>Google VPC, Cloud DNS, Cloud CDN</td>
+</tr>
+</tbody></table>
+<ul class="content-list">
+<li><strong>Impacto da nuvem na infraestrutura de redes corporativas:</strong></li>
+<li><strong>Conexão dedicada com o provedor:</strong> links de alta velocidade entre a empresa e o data center na nuvem (AWS Direct Connect, Azure ExpressRoute)</li>
+<li><strong>SD-WAN (Software Defined WAN):</strong> gerenciamento inteligente de múltiplos links WAN — otimiza o tráfego para a nuvem e para filiais</li>
+<li><strong>VPN para nuvem:</strong> tunelamento seguro entre a rede interna da empresa e os recursos na nuvem</li>
+<li><strong>Latência:</strong> dados na nuvem têm latência maior que dados no servidor local — impacta aplicações sensíveis ao tempo de resposta</li>
+<li><strong>Largura de banda:</strong> quanto mais serviços na nuvem, mais banda a empresa precisa contratar do ISP</li>
+<li><strong>Segurança:</strong> o modelo de responsabilidade compartilhada — provedor protege a infraestrutura, cliente protege os dados e as aplicações</li>
+<li><strong>Conexão com o desenvolvimento de sistemas:</strong></li>
+<li>Todo desenvolvedor moderno trabalha com nuvem: deploy de aplicações, banco de dados gerenciado, armazenamento de arquivos, envio de e-mails, autenticação</li>
+<li><strong>Serverless:</strong> o desenvolvedor escreve apenas o código — a infraestrutura é gerenciada completamente pelo provedor (AWS Lambda, Azure Functions, Google Cloud Functions)</li>
+<li><strong>Containers e Kubernetes:</strong> empacotamento de aplicações que rodam consistentemente em qualquer ambiente de nuvem</li>
+<li><strong>CDN (Content Delivery Network):</strong> servidores distribuídos globalmente que entregam conteúdo ao usuário mais próximo — reduz latência em aplicações web</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag-gray">SA 33</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+<thead><tr>
+<th>Etapa</th>
+<th>Atividade</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="etapa-pill">Abertura</span></td>
+<td>Chamada · Retomada rápida da Aula 32: <em>"Montamos a infraestrutura corporativa completa — hoje entendemos o que muda quando parte dela vai para a nuvem"</em></td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Retomada</span></td>
+<td>Professor pergunta: <em>"Vocês usam Google Drive, Gmail ou Microsoft 365? Sabem onde os arquivos ficam guardados fisicamente? E quando uma empresa coloca seu sistema na AWS, o que exatamente ela está fazendo?"</em> — alunos respondem livremente</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Explicação</span></td>
+<td>Slides — o que é nuvem, IaaS × PaaS × SaaS (com analogias), nuvem pública × privada × híbrida, principais provedores, impacto na infraestrutura de redes, conexão com desenvolvimento de sistemas</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Dinâmica</span></td>
+<td>"Na Nuvem ou No Servidor?" — ver seção abaixo</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Questionário</span></td>
+<td>5 questões objetivas + 5 questões discursivas sobre o conteúdo da aula</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Fechamento</span></td>
+<td>Resumo: IaaS (infraestrutura) · PaaS (plataforma) · SaaS (software pronto) · pública (compartilhada) · privada (exclusiva) · híbrida (melhor dos dois) · nuvem exige mais banda e segurança na rede · Próxima aula: Diagnóstico e Solução de Problemas em Redes</td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica — "Na Nuvem ou No Servidor?"</span>
+      <span class="section-tag-gray">SA 33</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box"><div class="dinamica-header">🎮 Dinâmica — "Na Nuvem ou No Servidor?"</div><div class="dinamica-body"><p style="font-size:13.5px; margin-bottom:12px;"><strong>Duração:</strong> 15 minutos · <strong>Agrupamento:</strong> grupos do Projeto Integrador (4 a 5 alunos)</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Objetivo:</strong> desenvolver o raciocínio de decisão entre infraestrutura local (on-premises) e nuvem, identificando modelos de serviço e tipos de nuvem adequados para cada cenário — conectando os conceitos da aula com decisões reais que desenvolvedores e gestores de TI tomam no mercado de trabalho.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Materiais:</strong> cartões com cenários de decisão — um conjunto por grupo · ou slide com os cenários projetados.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Passo a passo:</strong></p>
+<ul class="obj-list">
+<li><span class="obj-num">1</span><strong>Distribuição dos cartões</strong> <em>(1 min)</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;">Cada grupo recebe 4 cartões com cenários de decisão de infraestrutura. O desafio é indicar: local (on-premises), nuvem pública, nuvem privada ou híbrida — e qual modelo de serviço (IaaS, PaaS ou SaaS) se aplica.</p>
+<ul class="obj-list">
+<li><span class="obj-num">2</span><strong>Análise em grupo</strong> <em>(8 min)</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;">O grupo discute cada cenário e decide a melhor abordagem, justificando com base em custo, segurança, controle e flexibilidade.</p>
+<ul class="obj-list">
+<li><span class="obj-num">3</span><strong>Compartilhamento</strong> <em>(6 min)</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;">Cada grupo apresenta uma situação. O professor complementa, corrige e reforça os critérios de decisão.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Cenários sugeridos:</strong></p>
+<table class="time-table">
+<thead><tr>
+<th>Cenário</th>
+<th>Indicação</th>
+<th>Justificativa</th>
+</tr></thead><tbody>
+<tr>
+<td>Startup com 5 desenvolvedores precisa hospedar uma API REST sem investir em servidores</td>
+<td>PaaS — nuvem pública (Heroku ou AWS Elastic Beanstalk)</td>
+<td>Sem investimento inicial em hardware · escala conforme cresce · equipe foca no código</td>
+</tr>
+<tr>
+<td>Hospital precisa armazenar prontuários eletrônicos com conformidade total à LGPD</td>
+<td>Nuvem privada ou on-premises</td>
+<td>Dados sensíveis de saúde exigem controle total e conformidade regulatória</td>
+</tr>
+<tr>
+<td>Empresa usa Gmail, Google Drive e Google Meet para toda a equipe</td>
+<td>SaaS — nuvem pública</td>
+<td>Software já pronto e gerenciado pelo Google · sem instalação ou manutenção</td>
+</tr>
+<tr>
+<td>E-commerce precisa suportar picos de tráfego no Black Friday sem manter servidores ociosos o resto do ano</td>
+<td>Nuvem pública IaaS com elasticidade (AWS EC2 Auto Scaling)</td>
+<td>Elasticidade da nuvem — escala automaticamente no pico e reduz fora dele</td>
+</tr>
+<tr>
+<td>Banco precisa manter dados regulatórios no Brasil mas quer usar IA da Google para análise de crédito</td>
+<td>Nuvem híbrida</td>
+<td>Dados sensíveis on-premises (conformidade regulatória) · IA na nuvem pública (custo e capacidade)</td>
+</tr>
+<tr>
+<td>Desenvolvedor quer testar um novo banco de dados sem configurar um servidor</td>
+<td>IaaS ou PaaS — nuvem pública</td>
+<td>Instância de banco de dados gerenciado em minutos · paga apenas pelo tempo de uso</td>
+</tr>
+<tr>
+<td>Grande empresa de varejo quer entregar imagens de produto rapidamente para usuários em todo o Brasil</td>
+<td>SaaS / CDN — nuvem pública (AWS CloudFront)</td>
+<td>CDN distribui o conteúdo para servidores próximos ao usuário — reduz latência</td>
+</tr>
+<tr>
+<td>Escola quer sistema de gestão acadêmica sem equipe de TI para manter servidores</td>
+<td>SaaS — nuvem pública</td>
+<td>Sistema já pronto, hospedado e mantido pelo fornecedor · sem preocupação com infraestrutura</td>
+</tr>
+</tbody></table>
+<div class="nota-box"><strong>Nota:</strong> o objetivo é desenvolver o raciocínio: <em>"quais são os requisitos de custo, segurança, controle e escala? A partir daí, faz mais sentido manter on-premises ou ir para a nuvem? E qual modelo de serviço?"</em> Reforçar que no Projeto Integrador os grupos podem propor que alguns serviços da empresa fictícia sejam hospedados na nuvem — como o e-mail corporativo (SaaS) ou o site institucional (IaaS/PaaS).</div></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com o Projeto Integrador</span>
+      <span class="section-tag-gray">SA 33</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:13.5px; margin-bottom:12px;">Esta aula amplia as possibilidades do <strong>Projeto Integrador — Desenho de Rede Corporativa</strong> (Aulas 36 e 37):</p>
+<ul class="content-list">
+<li>Os grupos podem enriquecer o projeto incluindo serviços em nuvem:</li>
+<li><strong>E-mail corporativo:</strong> Google Workspace ou Microsoft 365 (SaaS) — sem necessidade de servidor de e-mail local</li>
+<li><strong>Site institucional:</strong> hospedado em IaaS ou PaaS na nuvem pública</li>
+<li><strong>Backup:</strong> armazenamento em nuvem para backup dos dados do servidor local</li>
+<li><strong>Conexão:</strong> VPN ou link dedicado entre a rede interna e os recursos na nuvem</li>
+<li>A decisão de incluir nuvem impacta o dimensionamento do link de internet da empresa — mais banda é necessária</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag-gray">SA 33</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>5 questões objetivas — nível alto · 4 alternativas: A) B) C) D) · Gabarito alternado, sem repetição consecutiva</li>
+<li>5 questões discursivas — cada uma com título explicativo antes do enunciado · Sem linhas, apenas espaço em branco com `R:`</li>
+<li>Gabarito em página separada — uso exclusivo do professor · Objetivas: letra correta + justificativa · Discursivas: resposta esperada com critérios de correção</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag-gray">SA 33</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant"><div class="conn-label">← Aula anterior</div><div>Aula 32 — 07/10/2026 · Redes Corporativas e Infraestrutura Empresarial</div></div>
+        <div class="conn-card conn-prox"><div class="conn-label">Próxima aula →</div><div>Aula 34 — 21/10/2026 · Diagnóstico e Solução de Problemas em Redes</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag-gray">SA 33</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid"><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Projetor ou TV</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Computador com HDMI</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Apresentação com slides — incluindo diagrama comparativo IaaS × PaaS × SaaS e diagrama de nuvem híbrida</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Questionário impresso ou digital</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Cartões com os cenários da dinâmica impressos (1 conjunto por grupo) ou slide com os cenários</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Se possível: demonstração ao vivo do console da AWS Free Tier ou do Google Cloud Console — mostrar a criação de uma instância de máquina virtual ou de um bucket de armazenamento em menos de 2 minutos para ilustrar a elasticidade da nuvem</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>---</span></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag-gray">SA 33</span>
+    </div>
+    <div class="section-body">
+      
+    </div>
+  </section>
+</main>
+<footer>
+  Plano de Aula · SA 33 · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+</body>
+</html>

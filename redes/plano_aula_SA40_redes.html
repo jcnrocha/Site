@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 40 — Prova de Recuperação — 3º Trimestre · Redes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --uc-main: #0F6E56; --uc-light: #E1F5EE; --uc-tx: #04342C; --dark: #0D1A2B; --yellow: #F9C74F; --gold: #C49A00; --gray: #64748B; --light: #F2F5F8; --white: #FFFFFF; --text: #1A2635; --border: #D4DCE4; --warn-bg: #FFF8E7; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; font-weight:300; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(15,110,86,0.18); padding:2px 10px; border-radius:20px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; margin-top:4px; }
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag   { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
+  .section-body  { padding:24px 26px; }
+  
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(15,110,86,0.2); }
+  
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  
+  .content-list { list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+  .content-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--white); border:1px solid var(--border); border-radius:8px; font-size:13.5px; }
+  .content-list li::before { content:'▸'; color:var(--uc-main); font-weight:bold; }
+  
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; background:#DCFCE7; color:#166534; }
+  
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+  
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; background:var(--dark); color:var(--white); }
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  
+  .nota-box { background:var(--uc-light); border:1px solid rgba(15,110,86,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); margin-bottom:16px; }
+  .dinamica-box { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body { padding:18px; font-size:13.5px; }
+</style>
+</head>
+<body>
+<div class="btn-group">
+  <button class="btn-action" onclick="window.print()">🖨️ Imprimir</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 40</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">3º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">02/12/2026</span>
+      </div>
+      <h1 class="header-title">Prova de Recuperação — 3º Trimestre<br><span>Redes de Computadores</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Redes de Computadores · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">Aula Regular</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidade</span>
+      <span class="section-tag">3º Trimestre · SA 40</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">Prova de Recuperação — 3º Trimestre</div>
+      <div class="hab-row"><span class="hab-tag">H3 — Reconhecer componentes e ativos de redes · H4 — Identificar tipos e tecnologias de conexão a redes de computadores · H5 — Reconhecer tipos e características (classificação, estrutura e modelos)</span></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag-gray">SA 40</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+<ul class="content-list">
+<li>Demonstrar recuperação do domínio dos conteúdos do 3º trimestre nos quais apresentou dificuldade na avaliação anterior</li>
+<li>Responder questões objetivas e discursivas com clareza, precisão e fundamentação técnica</li>
+<li>Comprovar o desenvolvimento das habilidades H3, H4 e H5 trabalhadas ao longo do trimestre</li>
+<li>Superar a média mínima exigida pela instituição para aprovação no 3º trimestre</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Habilidade da matriz:</strong> H3 — Reconhecer componentes e ativos de redes · H4 — Identificar tipos e tecnologias de conexão a redes de computadores · H5 — Reconhecer tipos e características (classificação, estrutura e modelos)</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo</span>
+      <span class="section-tag-gray">SA 40</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>Esta aula é destinada exclusivamente à aplicação da Prova de Recuperação do 3º Trimestre</li>
+<li>Não há explicação de conteúdo novo</li>
+<li><strong>Público:</strong> alunos que não atingiram a média mínima na Aula 39 (3ª Avaliação Trimestral)</li>
+<li><strong>Cobertura da prova — conteúdos avaliados:</strong></li>
+</ul>
+<table class="time-table">
+<thead><tr>
+<th>Bloco</th>
+<th>Conteúdo</th>
+<th>Aulas</th>
+</tr></thead><tbody>
+<tr>
+<td>Classificação de Redes</td>
+<td>PAN, LAN, MAN, WAN e GAN — abrangência, tecnologias e exemplos</td>
+<td>28</td>
+</tr>
+<tr>
+<td>Topologias de Rede</td>
+<td>Barramento, Anel, Estrela, Malha e Híbrida — física × lógica</td>
+<td>29</td>
+</tr>
+<tr>
+<td>Modelos de Rede</td>
+<td>Cliente-Servidor e Peer-to-Peer — características e uso típico</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Redes Sem Fio</td>
+<td>AP, PoE, SSID, canais, WEP → WPA3, roaming</td>
+<td>31</td>
+</tr>
+<tr>
+<td>Infraestrutura Corporativa</td>
+<td>3 camadas, cabeamento estruturado, DMZ, VLANs, STP</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Computação em Nuvem</td>
+<td>IaaS, PaaS, SaaS, pública, privada, híbrida</td>
+<td>33</td>
+</tr>
+<tr>
+<td>Diagnóstico de Redes</td>
+<td>ping, tracert, ipconfig, nslookup, metodologia OSI</td>
+<td>34</td>
+</tr>
+<tr>
+<td>IoT e Tendências</td>
+<td>IoT, 5G, SDN, Edge Computing, Zero Trust</td>
+<td>35</td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag-gray">SA 40</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+<thead><tr>
+<th>Etapa</th>
+<th>Atividade</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="etapa-pill">Abertura</span></td>
+<td>Chamada · identificação dos alunos em recuperação · organização da sala · distribuição das provas · instruções gerais</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Retomada rápida</span></td>
+<td>Professor faz revisão oral de 10 minutos — percorre os pontos críticos do trimestre com foco nos conteúdos que geraram mais erros na prova anterior</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Aplicação da Prova</span></td>
+<td>Alunos em recuperação respondem individualmente a prova completa — sem consulta · demais alunos podem realizar atividade complementar ou ficam em silêncio</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Encerramento</span></td>
+<td>Recolhimento das provas · orientações sobre a Aula 41 (Correção Comentada) · previsão de devolução com correção</td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Formato e Estrutura da Prova de Recuperação</span>
+      <span class="section-tag-gray">SA 40</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li><strong>Total de questões:</strong> 10</li>
+<li><strong>Questões objetivas:</strong> 5 — nível alto · 4 alternativas cada: A) B) C) D) · Gabarito alternado, sem repetição consecutiva</li>
+<li><strong>Questões discursivas:</strong> 5 — cada uma com título explicativo antes do enunciado · Sem linhas, apenas espaço em branco com `R:`</li>
+<li><strong>Consulta:</strong> não permitida</li>
+<li><strong>Critério de correção:</strong></li>
+<li>Objetivas: 1,0 ponto cada · total 5,0 pontos</li>
+<li>Discursivas: 1,0 ponto cada · total 5,0 pontos</li>
+<li><strong>Total: 10,0 pontos</strong></li>
+<li><strong>Média para aprovação:</strong> conforme critério da instituição</li>
+<li><strong>Gabarito:</strong> em página separada — uso exclusivo do professor · Objetivas: letra correta + justificativa · Discursivas: resposta esperada com critérios de correção</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Questões da Prova de Recuperação</span>
+      <span class="section-tag-gray">SA 40</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">PARTE 1 — Questões Objetivas</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 1 — Classificação de Redes</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Uma operadora de telecomunicações instala uma rede de fibra óptica que interliga diferentes bairros de uma cidade, conectando residências, empresas e órgãos públicos em uma única infraestrutura metropolitana. Qual é o tipo de rede que melhor descreve essa infraestrutura?</p>
+<ul class="content-list">
+<li>A) PAN — pois conecta dispositivos pessoais de uma única pessoa</li>
+<li>B) LAN — pois todos os dispositivos estão na mesma cidade</li>
+<li>C) MAN — pois abrange uma área metropolitana interligando múltiplas LANs</li>
+<li>D) GAN — pois a infraestrutura é gerenciada por uma operadora global</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 2 — Topologias de Rede</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Analise a seguinte situação: <em>"A rede da empresa nunca ficou completamente fora do ar — mesmo quando um dos switches falhou, os demais continuaram operando normalmente porque havia múltiplos caminhos alternativos para o tráfego."</em> Qual topologia de rede está descrita nessa situação?</p>
+<ul class="content-list">
+<li>A) Barramento — porque todos os dispositivos compartilham o mesmo cabo</li>
+<li>B) Estrela — porque o switch central gerencia todos os caminhos</li>
+<li>C) Anel — porque o tráfego percorre um caminho circular com desvio automático</li>
+<li>D) Malha — porque existem múltiplas conexões redundantes entre os dispositivos</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 3 — Redes Sem Fio</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Um técnico de redes percebe que dois access points vizinhos em um escritório estão operando no mesmo canal da faixa 2,4 GHz, causando lentidão para os usuários próximos aos dois APs. Qual é a causa do problema e como resolvê-lo?</p>
+<ul class="content-list">
+<li>A) Os APs estão usando WPA2 em vez de WPA3 — atualizar o padrão de segurança resolve o problema</li>
+<li>B) Os APs estão causando co-channel interference — configurar canais não sobrepostos (1, 6 e 11) resolve o problema</li>
+<li>C) Os APs estão com PoE desativado — ativar o PoE aumenta a potência do sinal e resolve a interferência</li>
+<li>D) Os APs precisam de mais SSIDs configurados — criar SSIDs adicionais distribui os usuários e elimina a interferência</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 4 — Infraestrutura Corporativa e Nuvem</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Uma empresa de médio porte mantém seus dados financeiros e de RH em servidores físicos no próprio escritório por questões de conformidade com a LGPD, mas usa a AWS para hospedar o site institucional e o sistema de e-commerce. Qual modelo de nuvem essa empresa está adotando?</p>
+<ul class="content-list">
+<li>A) Nuvem pública — pois usa a AWS para os serviços principais</li>
+<li>B) Nuvem privada — pois tem servidores físicos próprios no escritório</li>
+<li>C) Nuvem híbrida — pois combina infraestrutura local com serviços de nuvem pública</li>
+<li>D) SaaS — pois contrata software como serviço de terceiros</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 5 — IoT e SDN</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Uma grande empresa de telecomunicações migra sua infraestrutura de rede para um modelo onde um controlador centralizado define as regras de roteamento para todos os switches da rede, que passam a apenas encaminhar pacotes conforme as instruções recebidas. Qual tecnologia está sendo implementada?</p>
+<ul class="content-list">
+<li>A) VLAN — segmentação lógica da rede por departamento</li>
+<li>B) SDN — Software Defined Networking, com separação do plano de controle e plano de dados</li>
+<li>C) DMZ — zona desmilitarizada para proteção de servidores públicos</li>
+<li>D) LoRaWAN — protocolo de longa distância para dispositivos IoT</li>
+</ul>
+<p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">PARTE 2 — Questões Discursivas</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 6 — Classificação e Topologia</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Da PAN à GAN: A Escala das Redes</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Descreva as cinco classificações de redes por abrangência (PAN, LAN, MAN, WAN e GAN), indicando para cada uma: a abrangência geográfica típica, um exemplo real do cotidiano e uma tecnologia de conexão típica.</p>
+<p style="font-size:13.5px; margin-bottom:12px;">`R:`</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 7 — Modelos de Rede</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Peer-to-Peer: Quando Faz Sentido?</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Explique o modelo Peer-to-Peer (P2P), descrevendo suas características principais, vantagens e desvantagens. Cite dois exemplos reais de aplicações que utilizam P2P e explique por que esse modelo NÃO é recomendado para ambientes corporativos com dados sensíveis.</p>
+<p style="font-size:13.5px; margin-bottom:12px;">`R:`</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 8 — Infraestrutura Corporativa</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Cabeamento Estruturado e Sala de Servidores</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Explique o que é cabeamento estruturado e quais são seus componentes principais (ponto de telecomunicações, cabeamento horizontal, patch panel e backbone). Em seguida, descreva os requisitos mínimos de uma sala de servidores corporativa, explicando a função de cada elemento.</p>
+<p style="font-size:13.5px; margin-bottom:12px;">`R:`</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 9 — Diagnóstico de Redes</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Tracert: Mapeando o Caminho dos Pacotes</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Explique o que é o comando tracert (Windows) / traceroute (Linux) e como ele funciona. Descreva como interpretar o resultado — o que cada linha representa, o que significa quando aparece `<em> </em> *` em um salto e como usar essa ferramenta para identificar onde um problema de conectividade está ocorrendo.</p>
+<p style="font-size:13.5px; margin-bottom:12px;">`R:`</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 10 — IoT e Redes do Futuro</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>O Impacto do 5G nas Redes</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Explique as três capacidades fundamentais do 5G (eMBB, URLLC e mMTC) e como cada uma viabiliza um tipo diferente de aplicação. Para cada capacidade, cite um caso de uso real que seria inviável com a tecnologia 4G atual.</p>
+<p style="font-size:13.5px; margin-bottom:12px;">`R:`</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Gabarito — Uso Exclusivo do Professor</span>
+      <span class="section-tag-gray">SA 40</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">Objetivas</p>
+<table class="time-table">
+<thead><tr>
+<th>Questão</th>
+<th>Gabarito</th>
+<th>Justificativa</th>
+</tr></thead><tbody>
+<tr>
+<td>1</td>
+<td>C</td>
+<td>MAN (Metropolitan Area Network) abrange uma cidade interligando múltiplas LANs · PAN é pessoal (poucos metros) · LAN é local (um prédio/campus) · GAN é global (mundial) · o critério é a abrangência geográfica, não quem gerencia</td>
+</tr>
+<tr>
+<td>2</td>
+<td>D</td>
+<td>Múltiplos caminhos alternativos com tolerância a falha de switch = característica da topologia Malha (partial mesh) · Barramento tem ponto único de falha no cabo · Estrela tem ponto único de falha no switch central · Anel simples derruba toda a rede com falha em um nó</td>
+</tr>
+<tr>
+<td>3</td>
+<td>B</td>
+<td>Co-channel interference ocorre quando APs vizinhos usam o mesmo canal — os sinais colidem e degradam o desempenho · solução: canais não sobrepostos 1, 6 e 11 na faixa 2,4 GHz · WPA2/WPA3 é padrão de segurança, não afeta interferência de canal · PoE fornece energia, não controla canal</td>
+</tr>
+<tr>
+<td>4</td>
+<td>C</td>
+<td>Nuvem híbrida = combinação de infraestrutura local (on-premises) com nuvem pública · dados sensíveis no servidor físico (conformidade LGPD) + serviços na AWS = modelo híbrido clássico · não é apenas pública nem apenas privada</td>
+</tr>
+<tr>
+<td>5</td>
+<td>B</td>
+<td>SDN (Software Defined Networking) = separação do plano de controle (controlador centralizado decide o roteamento) do plano de dados (switches apenas encaminham) · VLAN é segmentação lógica · DMZ é zona de segurança perimetral · LoRaWAN é protocolo IoT</td>
+</tr>
+</tbody></table>
+<p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">Discursivas — Critérios de Correção</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 6 — PAN à GAN</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><em>Resposta esperada:</em></p>
+<ul class="content-list">
+<li><strong>PAN:</strong> poucos metros · smartwatch ↔ celular · Bluetooth/NFC</li>
+<li><strong>LAN:</strong> prédio/campus · rede do escritório ou escola · Ethernet/Wi-Fi</li>
+<li><strong>MAN:</strong> cidade/região · rede da prefeitura ou operadora local · fibra óptica metropolitana</li>
+<li><strong>WAN:</strong> países/continentes · rede corporativa com filiais em estados diferentes · links MPLS/VPN de operadora</li>
+<li><strong>GAN:</strong> mundial · a própria internet · cabos submarinos de fibra óptica e satélites</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><em>Critérios:</em> cada tipo com abrangência + exemplo + tecnologia corretos (0,2 pt cada = 1,0 pt total)</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 7 — Peer-to-Peer</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><em>Resposta esperada:</em></p>
+<ul class="content-list">
+<li><strong>Características:</strong> sem servidor central · cada dispositivo (peer) é cliente e servidor simultaneamente · comunicação direta entre peers · descentralizado</li>
+<li><strong>Vantagens:</strong> baixo custo (sem servidor dedicado) · sem ponto único de falha · escalabilidade natural · simples para redes pequenas</li>
+<li><strong>Desvantagens:</strong> segurança fraca (difícil controlar acesso) · gerenciamento descentralizado · desempenho variável · não recomendado para dados sensíveis</li>
+<li><strong>Exemplos reais:</strong> BitTorrent (compartilhamento de arquivos) · Bitcoin/blockchain (transações sem banco central) · jogos LAN party · Skype original</li>
+<li><strong>Por que não corporativo:</strong> impossível aplicar políticas de segurança consistentes · sem controle centralizado de permissões · dados sensíveis ficam expostos nos peers · sem auditoria de acesso</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><em>Critérios:</em> características + vantagens + desvantagens (0,4 pt) · dois exemplos válidos (0,2 pt) · justificativa para ambiente corporativo (0,4 pt)</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 8 — Cabeamento Estruturado e Sala de Servidores</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><em>Resposta esperada:</em></p>
+<ul class="content-list">
+<li><strong>Cabeamento estruturado:</strong> sistema padronizado e documentado de cabeamento de rede (ABNT NBR 14565 / ANSI/TIA-568)</li>
+<li>PT (Ponto de Telecomunicações): tomada na parede onde o dispositivo conecta</li>
+<li>Cabeamento horizontal: cabo do PT ao patch panel · máximo 90 metros</li>
+<li>Patch panel: painel que termina o cabeamento horizontal e organiza as conexões no rack</li>
+<li>Backbone: cabeamento entre andares/prédios · geralmente fibra óptica</li>
+<li><strong>Sala de servidores:</strong></li>
+<li>Rack: estrutura que organiza servidores e equipamentos verticalmente</li>
+<li>Ar-condicionado dedicado: controle de temperatura (servidores geram muito calor)</li>
+<li>No-break (UPS): energia imediata em caso de queda — evita perda de dados</li>
+<li>Gerador: para quedas prolongadas de energia</li>
+<li>Controle de acesso físico: apenas pessoal autorizado</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><em>Critérios:</em> componentes do cabeamento estruturado (0,5 pt) · requisitos da sala de servidores com função de cada elemento (0,5 pt)</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 9 — Tracert/Traceroute</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><em>Resposta esperada:</em></p>
+<ul class="content-list">
+<li><strong>O que é:</strong> ferramenta que mapeia o caminho (rota) dos pacotes da origem ao destino, identificando cada roteador intermediário (hop/salto)</li>
+<li><strong>Como funciona:</strong> envia pacotes com TTL crescente (1, 2, 3...) · cada roteador decrementa o TTL · quando TTL chega a 0, o roteador envia uma mensagem ICMP de volta · assim o tracert descobre cada salto no caminho</li>
+<li><strong>Interpretação:</strong></li>
+<li>Cada linha = um roteador no caminho (endereço IP + tempo de resposta em ms)</li>
+<li>`<em> </em> *` = o roteador não responde ao ICMP (firewall bloqueando) — não significa necessariamente problema</li>
+<li>Tempo alto em um salto = gargalo ou problema de latência naquele ponto da rota</li>
+<li>Onde o tracert para = onde o pacote está sendo bloqueado ou perdido</li>
+<li><strong>Uso no diagnóstico:</strong> site fora do ar → tracert mostra até qual salto o pacote chega → identifica se o problema é no link local, no ISP ou no servidor de destino</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><em>Critérios:</em> definição correta (0,2 pt) · funcionamento com TTL (0,2 pt) · interpretação correta de cada linha e `<em> </em> *` (0,4 pt) · uso no diagnóstico (0,2 pt)</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Questão 10 — Três Capacidades do 5G</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;"><em>Resposta esperada:</em></p>
+<ul class="content-list">
+<li><strong>eMBB (Enhanced Mobile Broadband):</strong> velocidades de até 20 Gbps · para aplicações que exigem altíssima largura de banda · caso de uso: streaming de vídeo 8K em tempo real ou realidade virtual imersiva — inviável com 4G (máximo ~150 Mbps real)</li>
+<li><strong>URLLC (Ultra-Reliable Low-Latency Communications):</strong> latência de ~1 ms com altíssima confiabilidade · para aplicações críticas em tempo real · caso de uso: cirurgia remota com braço robótico ou controle de veículo autônomo — 4G tem latência de 30–50 ms, inaceitável para controle em tempo real</li>
+<li><strong>mMTC (Massive Machine-Type Communications):</strong> suporte a até 1 milhão de dispositivos por km² · para IoT em escala urbana · caso de uso: cidade inteligente com sensores em cada semáforo, lixeira, poste e veículo simultaneamente — 4G não suporta essa densidade de dispositivos</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><em>Critérios:</em> cada capacidade com definição correta + caso de uso válido + justificativa de por que 4G não atende (0,33 pt cada ≈ 1,0 pt total)</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag-gray">SA 40</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant"><div class="conn-label">← Aula anterior</div><div>Aula 39 — 25/11/2026 · Prova — 3ª Avaliação Trimestral</div></div>
+        <div class="conn-card conn-prox"><div class="conn-label">Próxima aula →</div><div>Aula 41 — 09/12/2026 · Correção Comentada das Provas do 3º Trimestre</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag-gray">SA 40</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid"><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Projetor ou TV (opcional — para exibir o tempo restante ou revisão oral inicial)</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Prova de recuperação impressa — 1 cópia por aluno em recuperação</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Gabarito impresso — uso exclusivo do professor</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Lista de chamada com identificação dos alunos em recuperação</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Atividade complementar impressa para os demais alunos (opcional)</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>---</span></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag-gray">SA 40</span>
+    </div>
+    <div class="section-body">
+      
+    </div>
+  </section>
+</main>
+<footer>
+  Plano de Aula · SA 40 · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+</body>
+</html>

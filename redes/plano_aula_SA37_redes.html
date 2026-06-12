@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 37 — Apresentação do Projeto Integrador + Revisão Geral · Redes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --uc-main: #0F6E56; --uc-light: #E1F5EE; --uc-tx: #04342C; --dark: #0D1A2B; --yellow: #F9C74F; --gold: #C49A00; --gray: #64748B; --light: #F2F5F8; --white: #FFFFFF; --text: #1A2635; --border: #D4DCE4; --warn-bg: #FFF8E7; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; font-weight:300; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(15,110,86,0.18); padding:2px 10px; border-radius:20px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; margin-top:4px; }
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag   { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
+  .section-body  { padding:24px 26px; }
+  
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(15,110,86,0.2); }
+  
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  
+  .content-list { list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+  .content-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--white); border:1px solid var(--border); border-radius:8px; font-size:13.5px; }
+  .content-list li::before { content:'▸'; color:var(--uc-main); font-weight:bold; }
+  
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; background:#DCFCE7; color:#166534; }
+  
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+  
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; background:var(--dark); color:var(--white); }
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  
+  .nota-box { background:var(--uc-light); border:1px solid rgba(15,110,86,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); margin-bottom:16px; }
+  .dinamica-box { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body { padding:18px; font-size:13.5px; }
+</style>
+</head>
+<body>
+<div class="btn-group">
+  <button class="btn-action" onclick="window.print()">🖨️ Imprimir</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 37</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">3º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">11/11/2026</span>
+      </div>
+      <h1 class="header-title">Apresentação do Projeto Integrador + Revisão Geral<br><span>Redes de Computadores</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Redes de Computadores · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">Aula Regular</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidade</span>
+      <span class="section-tag">3º Trimestre · SA 37</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">Apresentação do Projeto Integrador + Revisão Geral</div>
+      <div class="hab-row"><span class="hab-tag">H1 · H2 · H3 · H4 · H5 — consolidação integrada de todas as habilidades da UC</span></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag-gray">SA 37</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+<ul class="content-list">
+<li>Apresentar o projeto de rede corporativa desenvolvido em grupo com clareza, domínio técnico e organização</li>
+<li>Justificar oralmente as decisões técnicas do projeto — respondendo perguntas e defendendo as escolhas realizadas</li>
+<li>Avaliar criticamente os projetos dos outros grupos — identificando pontos fortes e oportunidades de melhoria</li>
+<li>Consolidar os principais conteúdos do 3º trimestre a partir da revisão integrada realizada após as apresentações</li>
+<li>Preparar-se para a prova trimestral (Aula 39) com visão consolidada de todos os conteúdos</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Habilidade da matriz:</strong> H1 · H2 · H3 · H4 · H5 — consolidação integrada de todas as habilidades da UC</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo</span>
+      <span class="section-tag-gray">SA 37</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>Esta aula tem duas partes distintas:</li>
+<li><strong>Parte 1 (primeiro tempo):</strong> Apresentações dos Projetos Integradores</li>
+<li><strong>Parte 2 (segundo tempo):</strong> Revisão Geral do 3º Trimestre</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">PARTE 1 — Apresentações dos Projetos Integradores</span>
+      <span class="section-tag-gray">SA 37</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">Organização das Apresentações</p>
+<ul class="content-list">
+<li><strong>Tempo por grupo:</strong> 10 a 12 minutos de apresentação + 3 minutos de perguntas</li>
+<li><strong>Ordem:</strong> sorteada no início da aula</li>
+<li><strong>Quem apresenta:</strong> todos os membros do grupo participam — cada integrante apresenta pelo menos uma parte</li>
+<li><strong>Recursos:</strong> projetor ou TV · grupos podem usar slides, papel A3 ou ferramenta de diagrama (draw.io, Packet Tracer)</li>
+</ul>
+<p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">Roteiro Sugerido para Cada Apresentação</p>
+<table class="time-table">
+<thead><tr>
+<th>Etapa</th>
+<th>Conteúdo</th>
+<th>Tempo</th>
+</tr></thead><tbody>
+<tr>
+<td>Contexto</td>
+<td>Apresentar o cenário da empresa — quem é, quantos funcionários, quantos andares, quais necessidades</td>
+<td>1 min</td>
+</tr>
+<tr>
+<td>Diagrama</td>
+<td>Exibir e explicar o diagrama de rede — percorrer os componentes de fora para dentro (ISP → roteador → firewall → switch → dispositivos)</td>
+<td>4 min</td>
+</tr>
+<tr>
+<td>Decisões técnicas</td>
+<td>Explicar as principais decisões: topologia, VLANs, endereçamento IP, Wi-Fi e segurança</td>
+<td>4 min</td>
+</tr>
+<tr>
+<td>Diferenciais</td>
+<td>Apresentar itens extras: nuvem, IoT, redundância, plano de diagnóstico, visão de futuro</td>
+<td>2 min</td>
+</tr>
+<tr>
+<td>Perguntas</td>
+<td>Professor e colegas fazem perguntas técnicas ao grupo</td>
+<td>3 min</td>
+</tr>
+</tbody></table>
+<p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">Perguntas Técnicas Sugeridas para o Professor</p>
+<div class="nota-box">Usar essas perguntas para aprofundar a avaliação técnica de cada grupo:</div>
+<ul class="content-list">
+<li><em>"Por que vocês escolheram a topologia Estrela e não a Malha para esta rede?"</em></li>
+<li><em>"Explique o endereçamento IP que vocês usaram — por que essa faixa? A máscara suporta a quantidade de hosts do cenário?"</em></li>
+<li><em>"Se o switch principal falhar, o que acontece com a rede? Há algum mecanismo de redundância?"</em></li>
+<li><em>"Por que o servidor de arquivos está dentro da rede interna e não na DMZ?"</em></li>
+<li><em>"Qual é a VLAN dos visitantes? O que eles conseguem acessar? O que eles não conseguem?"</em></li>
+<li><em>"Se um dispositivo IoT for comprometido, como a rede está protegida para que o invasor não alcance os computadores dos funcionários?"</em></li>
+<li><em>"Qual padrão de segurança Wi-Fi vocês escolheram? Por que não usar WPA2-Personal neste cenário corporativo?"</em></li>
+<li><em>"Como vocês fariam o diagnóstico se um funcionário reclamasse que não consegue acessar o servidor de arquivos?"</em></li>
+</ul>
+<p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">Ficha de Avaliação do Projeto (por grupo)</p>
+<table class="time-table">
+<thead><tr>
+<th>Critério</th>
+<th>Descrição</th>
+<th>Nota (0–10)</th>
+</tr></thead><tbody>
+<tr>
+<td>Coerência técnica</td>
+<td>As escolhas são adequadas ao cenário? Componentes corretos?</td>
+<td></td>
+</tr>
+<tr>
+<td>Diagrama e simbologia</td>
+<td>Diagrama legível, completo e com simbologia correta?</td>
+<td></td>
+</tr>
+<tr>
+<td>Endereçamento IP</td>
+<td>Faixa correta, máscaras adequadas, hosts dimensionados?</td>
+<td></td>
+</tr>
+<tr>
+<td>Justificativa técnica</td>
+<td>As decisões foram explicadas com base nos conteúdos da UC?</td>
+<td></td>
+</tr>
+<tr>
+<td>Apresentação oral</td>
+<td>Clareza, participação de todos, domínio do conteúdo, respostas às perguntas?</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Nota final</strong></td>
+<td>Média ponderada dos critérios conforme definido na Aula 36</td>
+<td></td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">PARTE 2 — Revisão Geral do 3º Trimestre</span>
+      <span class="section-tag-gray">SA 37</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">Estrutura da Revisão</p>
+<ul class="content-list">
+<li>Após as apresentações, professor conduz revisão oral dos principais conteúdos do trimestre</li>
+<li>Foco nos tópicos com maior índice de dúvida identificado durante as apresentações e nos conteúdos de maior peso na prova</li>
+</ul>
+<p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">Mapa do 3º Trimestre — Conteúdos Revisados</p>
+<table class="time-table">
+<thead><tr>
+<th>Aula</th>
+<th>Data</th>
+<th>Tema</th>
+<th>Habilidade</th>
+</tr></thead><tbody>
+<tr>
+<td>28</td>
+<td>09/09</td>
+<td>Classificação das Redes por Abrangência (PAN/LAN/MAN/WAN/GAN)</td>
+<td>H5</td>
+</tr>
+<tr>
+<td>29</td>
+<td>16/09</td>
+<td>Topologias de Rede — Física e Lógica</td>
+<td>H5</td>
+</tr>
+<tr>
+<td>30</td>
+<td>23/09</td>
+<td>Modelos de Rede — Cliente-Servidor e Peer-to-Peer</td>
+<td>H5</td>
+</tr>
+<tr>
+<td>31</td>
+<td>30/09</td>
+<td>Redes Sem Fio — Padrões e Infraestrutura</td>
+<td>H4 · H5</td>
+</tr>
+<tr>
+<td>32</td>
+<td>07/10</td>
+<td>Redes Corporativas e Infraestrutura Empresarial</td>
+<td>H5</td>
+</tr>
+<tr>
+<td>33</td>
+<td>14/10</td>
+<td>Computação em Nuvem e Redes</td>
+<td>H5</td>
+</tr>
+<tr>
+<td>34</td>
+<td>21/10</td>
+<td>Diagnóstico e Solução de Problemas em Redes</td>
+<td>H3 · H4</td>
+</tr>
+<tr>
+<td>35</td>
+<td>28/10</td>
+<td>Tendências em Redes — IoT e Redes do Futuro</td>
+<td>H4 · H5</td>
+</tr>
+</tbody></table>
+<p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">Pontos-Chave da Revisão por Bloco</p>
+<ul class="content-list">
+<li><strong>Classificação por abrangência (Aula 28)</strong></li>
+<li>PAN: pessoal, poucos metros, Bluetooth/NFC</li>
+<li>LAN: local, prédio/campus, Ethernet/Wi-Fi</li>
+<li>MAN: cidade, fibra metropolitana</li>
+<li>WAN: países, links de operadoras, VPN</li>
+<li>GAN: mundial, internet, cabos submarinos</li>
+<li><strong>Topologias (Aula 29)</strong></li>
+<li>Barramento: obsoleta, ponto único de falha no cabo</li>
+<li>Anel: obsoleta, token ring, falha derruba o anel</li>
+<li>Estrela: padrão atual de LAN, switch central, isolamento de falhas</li>
+<li>Malha: redundância total, WAN e data centers</li>
+<li>Híbrida: corporativa, combina topologias por necessidade</li>
+<li><strong>Modelos de rede (Aula 30)</strong></li>
+<li>Cliente-Servidor: papéis fixos, gerenciamento centralizado, segurança robusta</li>
+<li>P2P: papéis dinâmicos, sem servidor central, baixo custo</li>
+<li>Híbrido: WhatsApp, jogos online, CDN</li>
+<li><strong>Redes sem fio corporativas (Aula 31)</strong></li>
+<li>AP ≠ roteador · PoE · controlador Wi-Fi · roaming</li>
+<li>SSID corporativo × guest × IoT em VLANs separadas</li>
+<li>WEP (obsoleto) → WPA → WPA2 → WPA3 (padrão atual)</li>
+<li>WPA2-Enterprise com RADIUS para autenticação individual</li>
+<li><strong>Infraestrutura corporativa (Aula 32)</strong></li>
+<li>Três camadas: núcleo (velocidade) · distribuição (controle) · acesso (conectividade)</li>
+<li>Sala de servidores: rack, patch panel, UPS, controle de temperatura</li>
+<li>Cabeamento estruturado: PT → cabo horizontal → patch panel → switch</li>
+<li>DMZ: servidores públicos isolados entre dois firewalls</li>
+<li>VLANs: segmentação lógica por departamento ou função</li>
+<li><strong>Computação em nuvem (Aula 33)</strong></li>
+<li>IaaS: infraestrutura alugada (EC2, VMs)</li>
+<li>PaaS: plataforma para desenvolver apps (Heroku, App Service)</li>
+<li>SaaS: software pronto para usar (Gmail, Office 365)</li>
+<li>Pública × privada × híbrida</li>
+<li>Impacto: mais banda, VPN para nuvem, responsabilidade compartilhada</li>
+<li><strong>Diagnóstico de redes (Aula 34)</strong></li>
+<li>Metodologia OSI: bottom-up, top-down, divide and conquer</li>
+<li>ping: conectividade e latência</li>
+<li>tracert/traceroute: mapeamento do caminho</li>
+<li>ipconfig/ifconfig: configuração IP do dispositivo</li>
+<li>nslookup: resolução de nomes DNS</li>
+<li>IP 169.254.x.x = DHCP não respondeu</li>
+<li><strong>Tendências (Aula 35)</strong></li>
+<li>IoT: bilhões de dispositivos · MQTT, Zigbee, LoRaWAN · VLAN IoT obrigatória</li>
+<li>5G: eMBB (velocidade) · URLLC (latência 1ms) · mMTC (densidade)</li>
+<li>SDN: plano de controle separado do plano de dados · rede programável</li>
+<li>Edge computing: processamento na borda · reduz latência e banda</li>
+<li>Zero Trust: nunca confie, sempre verifique</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag-gray">SA 37</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+<thead><tr>
+<th>Etapa</th>
+<th>Atividade</th>
+<th>Tempo estimado</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="etapa-pill">Abertura</span></td>
+<td>Chamada · sorteio da ordem de apresentação · orientações finais</td>
+<td>5 min</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Apresentações</span></td>
+<td>Cada grupo apresenta o Projeto Integrador</td>
+<td>~60 min (5 grupos × ~12 min)</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Intervalo</span></td>
+<td>Breve pausa entre as apresentações e a revisão</td>
+<td>5 min</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Revisão geral</span></td>
+<td>Professor conduz revisão oral dos 8 blocos do trimestre com perguntas à turma</td>
+<td>~25 min</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Fechamento</span></td>
+<td>Orientações sobre o formato da prova da Aula 39 · dúvidas finais</td>
+<td>5 min</td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag-gray">SA 37</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>Esta aula não tem questionário individual</li>
+<li>A avaliação é feita pela <strong>Ficha de Avaliação do Projeto</strong> (seção acima)</li>
+<li>O professor pode solicitar autoavaliação dos grupos ao final: <em>"O que seu grupo faria diferente se tivesse mais tempo?"</em></li>
+<li>A revisão oral é formativa — sem nota, mas essencial para a preparação da prova</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag-gray">SA 37</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant"><div class="conn-label">← Aula anterior</div><div>Aula 36 — 04/11/2026 · Projeto Integrador — Desenho de Rede Corporativa</div></div>
+        <div class="conn-card conn-prox"><div class="conn-label">Próxima aula →</div><div>Aula 38 — 18/11/2026 · Revisão Geral — Todos os Trimestres</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag-gray">SA 37</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid"><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Projetor ou TV</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Computador com HDMI</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Cronômetro para controle do tempo de cada apresentação</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Ficha de avaliação impressa — 1 por grupo avaliado (professor preenche durante as apresentações)</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Slides com o mapa do trimestre para a revisão (segunda parte da aula)</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Quadro branco e marcador para anotar dúvidas levantadas durante as apresentações</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>---</span></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag-gray">SA 37</span>
+    </div>
+    <div class="section-body">
+      
+    </div>
+  </section>
+</main>
+<footer>
+  Plano de Aula · SA 37 · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+</body>
+</html>

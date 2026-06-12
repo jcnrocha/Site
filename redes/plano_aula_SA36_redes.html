@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 36 — Projeto Integrador — Desenho de Rede Corporativa · Redes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --uc-main: #0F6E56; --uc-light: #E1F5EE; --uc-tx: #04342C; --dark: #0D1A2B; --yellow: #F9C74F; --gold: #C49A00; --gray: #64748B; --light: #F2F5F8; --white: #FFFFFF; --text: #1A2635; --border: #D4DCE4; --warn-bg: #FFF8E7; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; font-weight:300; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(15,110,86,0.18); padding:2px 10px; border-radius:20px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; margin-top:4px; }
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag   { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
+  .section-body  { padding:24px 26px; }
+  
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(15,110,86,0.2); }
+  
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  
+  .content-list { list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+  .content-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--white); border:1px solid var(--border); border-radius:8px; font-size:13.5px; }
+  .content-list li::before { content:'▸'; color:var(--uc-main); font-weight:bold; }
+  
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; background:#DCFCE7; color:#166534; }
+  
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+  
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; background:var(--dark); color:var(--white); }
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  
+  .nota-box { background:var(--uc-light); border:1px solid rgba(15,110,86,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); margin-bottom:16px; }
+  .dinamica-box { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body { padding:18px; font-size:13.5px; }
+</style>
+</head>
+<body>
+<div class="btn-group">
+  <button class="btn-action" onclick="window.print()">🖨️ Imprimir</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 36</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">3º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">04/11/2026</span>
+      </div>
+      <h1 class="header-title">Projeto Integrador — Desenho de Rede Corporativa<br><span>Redes de Computadores</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Redes de Computadores · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">Aula Regular</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidade</span>
+      <span class="section-tag">3º Trimestre · SA 36</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">Projeto Integrador — Desenho de Rede Corporativa</div>
+      <div class="hab-row"><span class="hab-tag">H1 · H2 · H3 · H4 · H5 — aplicação integrada de todas as habilidades da UC</span></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+<ul class="content-list">
+<li>Aplicar de forma integrada os conhecimentos adquiridos ao longo do 3º trimestre no desenvolvimento de um projeto real de rede corporativa</li>
+<li>Definir e justificar tecnicamente as escolhas de topologia, modelo, endereçamento IP, meios de transmissão, solução sem fio e segurança para a rede projetada</li>
+<li>Elaborar o diagrama de rede com simbologia correta, incluindo todos os componentes definidos no projeto</li>
+<li>Desenvolver o documento de justificativa técnica das escolhas realizadas no projeto</li>
+<li>Trabalhar de forma colaborativa em grupo, distribuindo responsabilidades e integrando as contribuições individuais em um produto coeso</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Habilidade da matriz:</strong> H1 · H2 · H3 · H4 · H5 — aplicação integrada de todas as habilidades da UC</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>Esta aula é dedicada ao <strong>desenvolvimento do Projeto Integrador</strong> — não há conteúdo expositivo novo</li>
+<li>Os grupos trabalham ativamente no projeto com orientação do professor</li>
+<li><strong>Retomada da proposta do Projeto Integrador (lançado na Aula 27):</strong></li>
+<li>Cada grupo recebeu um cenário de uma empresa fictícia e deve projetar a infraestrutura de rede completa</li>
+<li>O produto final é composto de dois entregáveis:</li>
+<li><strong>Diagrama de rede:</strong> representação visual completa com simbologia correta de todos os componentes</li>
+<li><strong>Documento de justificativa técnica:</strong> explicação fundamentada de cada decisão de projeto</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Cenários das Empresas (sugestão — professor adapta conforme a turma)</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <div class="nota-box">O professor distribui um cenário diferente para cada grupo. Os cenários abaixo são sugestões — podem ser adaptados para a realidade local.</div>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Cenário A — Escritório Contábil:</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Empresa com 25 funcionários em um único andar de um prédio comercial. Possui 3 departamentos: Contabilidade (10 pessoas), Administrativo (8 pessoas) e Diretoria (7 pessoas). Precisa de acesso à internet, impressoras em rede, servidor de arquivos compartilhados e Wi-Fi para notebooks e celulares. Clientes visitam o escritório eventualmente.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Cenário B — Clínica Médica:</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Clínica com 2 andares — térreo (recepção, salas de espera e 4 consultórios) e 1º andar (administração, farmácia e arquivo). 20 computadores no total, sistema de prontuário eletrônico em servidor local, câmeras de segurança IP, Wi-Fi para pacientes na sala de espera e rede separada para equipamentos médicos.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Cenário C — Escola Técnica:</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Instituição com 3 blocos: administrativo (15 computadores), laboratório de informática (30 computadores) e sala dos professores (10 computadores). Necessita de servidor de arquivos, internet para todos os blocos, Wi-Fi para alunos com acesso restrito, câmeras de segurança e impressoras em rede.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Cenário D — Loja de Varejo:</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Rede com loja física (20 PDVs, 5 computadores administrativos, câmeras de segurança, Wi-Fi para clientes) e um pequeno escritório de administração no mesmo prédio (10 computadores, servidor de banco de dados do sistema de vendas). Precisa de link de internet redundante para garantir que os PDVs nunca fiquem offline.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Cenário E — Empresa de Desenvolvimento de Software:</strong></p>
+<p style="font-size:13.5px; margin-bottom:12px;">Startup com 30 desenvolvedores em espaço aberto (open office), 1 sala de reuniões com sistema de videoconferência, servidor local de desenvolvimento (Git, CI/CD), acesso a serviços em nuvem (AWS, GitHub), Wi-Fi de alta velocidade em toda a área e isolamento da rede de desenvolvimento da rede administrativa.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Estrutura do Projeto Integrador</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">Entregável 1 — Diagrama de Rede</p>
+<p style="font-size:13.5px; margin-bottom:12px;">O diagrama deve conter obrigatoriamente:</p>
+<ul class="content-list">
+<li>[ ] Representação de todos os dispositivos com simbologia correta (H2)</li>
+<li>[ ] Switch(es) e suas conexões com os dispositivos finais</li>
+<li>[ ] Roteador conectando a rede interna ao link de internet (ISP)</li>
+<li>[ ] Access point(s) com a localização indicada</li>
+<li>[ ] Servidor(es) com identificação do serviço (arquivos, DHCP, etc.)</li>
+<li>[ ] Firewall ou indicação de onde a segurança perimetral é aplicada</li>
+<li>[ ] DMZ (se o cenário tiver servidor web ou serviços públicos)</li>
+<li>[ ] Indicação das VLANs ou segmentos de rede</li>
+<li>[ ] Endereçamento IP de cada segmento (rede, máscara e gateway)</li>
+<li>[ ] Identificação dos meios de transmissão utilizados (cabo, fibra, Wi-Fi)</li>
+</ul>
+<p style="font-size:14px;font-weight:700;color:var(--dark);margin:18px 0 8px;">Entregável 2 — Documento de Justificativa Técnica</p>
+<p style="font-size:13.5px; margin-bottom:12px;">O documento deve responder:</p>
+<table class="time-table">
+<thead><tr>
+<th>Decisão de Projeto</th>
+<th>Pergunta a responder</th>
+</tr></thead><tbody>
+<tr>
+<td>Tipo de rede</td>
+<td>Qual é a classificação da rede projetada (PAN/LAN/MAN/WAN)? Por quê?</td>
+</tr>
+<tr>
+<td>Topologia</td>
+<td>Qual topologia foi escolhida? Por que ela é adequada para este cenário?</td>
+</tr>
+<tr>
+<td>Modelo</td>
+<td>Qual modelo de rede (Cliente-Servidor ou P2P)? Por quê?</td>
+</tr>
+<tr>
+<td>Meios de transmissão</td>
+<td>Quais cabos foram usados? Por que essa categoria/tipo?</td>
+</tr>
+<tr>
+<td>Endereçamento IP</td>
+<td>Qual faixa de IP? Máscaras? Quantos hosts por segmento?</td>
+</tr>
+<tr>
+<td>VLANs</td>
+<td>Quais VLANs foram criadas? Qual o critério de segmentação?</td>
+</tr>
+<tr>
+<td>Wi-Fi</td>
+<td>Quantos APs? Qual padrão? Qual SSID? Qual segurança (WPA2/WPA3)?</td>
+</tr>
+<tr>
+<td>Segurança</td>
+<td>Firewall? DMZ? Política de acesso? Padrão Wi-Fi?</td>
+</tr>
+<tr>
+<td>Serviços em nuvem</td>
+<td>Algum serviço vai para a nuvem? Qual modelo (IaaS/PaaS/SaaS)?</td>
+</tr>
+<tr>
+<td>Alta disponibilidade</td>
+<td>Há redundância? Como é garantida a continuidade do serviço?</td>
+</tr>
+<tr>
+<td>Plano de diagnóstico</td>
+<td>Quais ferramentas e procedimentos de troubleshooting para a rede?</td>
+</tr>
+<tr>
+<td>Visão de futuro</td>
+<td>A rede suporta expansão para IoT? 5G? Qual seria o próximo passo?</td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+<thead><tr>
+<th>Etapa</th>
+<th>Atividade</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="etapa-pill">Abertura</span></td>
+<td>Chamada · Apresentação da estrutura da aula · Distribuição dos cenários (se ainda não foram entregues) · Formação ou confirmação dos grupos</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Briefing do projeto</span></td>
+<td>Professor apresenta os dois entregáveis, os critérios de avaliação e o cronograma: <em>"Hoje trabalhamos no projeto — na Aula 37 vocês apresentam"</em> · Esclarece dúvidas sobre o escopo</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Desenvolvimento</span></td>
+<td>Grupos trabalham ativamente no projeto · professor circula entre os grupos orientando, questionando e validando escolhas técnicas · Cada grupo deve sair da aula com pelo menos o diagrama iniciado e as decisões principais definidas</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Checkpoint</span></td>
+<td>Nos últimos 10 minutos: cada grupo faz um status rápido de 1 minuto — o que foi decidido, o que ainda falta · professor identifica grupos que precisam de mais orientação</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Fechamento</span></td>
+<td>Orientações finais para completar o projeto até a Aula 37 · Lembrete: apresentação na próxima aula — cada grupo terá 10 a 15 minutos</td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Critérios de Avaliação do Projeto</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+<thead><tr>
+<th>Critério</th>
+<th>Descrição</th>
+<th>Peso</th>
+</tr></thead><tbody>
+<tr>
+<td>Coerência técnica</td>
+<td>As escolhas fazem sentido para o cenário? Os componentes estão corretos?</td>
+<td>30%</td>
+</tr>
+<tr>
+<td>Simbologia e diagrama</td>
+<td>O diagrama usa a simbologia correta? Está legível e completo?</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>Endereçamento IP</td>
+<td>A faixa de IP é adequada? Máscaras corretas? Quantidade de hosts planejada?</td>
+<td>15%</td>
+</tr>
+<tr>
+<td>Justificativa técnica</td>
+<td>As decisões foram explicadas com fundamentação nos conteúdos da UC?</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>Apresentação</td>
+<td>Clareza na comunicação · todos os membros participam · domínio do conteúdo</td>
+<td>15%</td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Orientações para o Professor</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:13.5px; margin-bottom:12px;"><strong>Durante o desenvolvimento, questionar cada grupo:</strong></p>
+<ul class="content-list">
+<li><em>"Por que vocês escolheram essa topologia e não outra?"</em></li>
+<li><em>"Quantos hosts precisam nesse segmento? A máscara que vocês colocaram suporta isso?"</em></li>
+<li><em>"Onde fica o firewall no diagrama? O que ele filtra?"</em></li>
+<li><em>"O visitante vai usar qual SSID? Ele consegue acessar o servidor de arquivos por esse SSID?"</em></li>
+<li><em>"Se o switch principal cair, o que acontece? Há redundância?"</em></li>
+<li><em>"Vocês pensaram em onde colocar os servidores fisicamente? Há uma sala de servidores no cenário?"</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Erros mais comuns a corrigir:</strong></p>
+<ul class="content-list">
+<li>Usar IP público (ex.: 8.x.x.x) para a rede interna</li>
+<li>Esquecer o gateway em cada segmento</li>
+<li>Colocar todos os dispositivos na mesma rede sem segmentação</li>
+<li>Dimensionar a máscara incorretamente (poucos hosts para a quantidade de dispositivos)</li>
+<li>Não colocar firewall entre a internet e a rede interna</li>
+<li>Esquecer de segregar a rede de visitantes (SSID Guest) da rede interna</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid"><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Projetor ou TV (para apresentar os critérios e o checklist do projeto)</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Computador com HDMI</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>**Para os grupos:**</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Papel A3 ou A4 para rascunho do diagrama</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Canetas coloridas ou lápis para o diagrama físico</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Computadores para pesquisa e digitalização do diagrama (opcional — pode ser entregue no papel)</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Ferramenta de diagrama (opcional): draw.io (gratuito, online), Packet Tracer (Cisco), Lucidchart ou Microsoft Visio</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Enunciado do cenário de cada grupo impresso</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Checklist de entregáveis impresso para cada grupo</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>---</span></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant"><div class="conn-label">← Aula anterior</div><div>Aula 35 — 28/10/2026 · Tendências em Redes — IoT e Redes do Futuro</div></div>
+        <div class="conn-card conn-prox"><div class="conn-label">Próxima aula →</div><div>Aula 37 — 11/11/2026 · Apresentação do Projeto + Revisão Geral</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag-gray">SA 36</span>
+    </div>
+    <div class="section-body">
+      
+    </div>
+  </section>
+</main>
+<footer>
+  Plano de Aula · SA 36 · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+</body>
+</html>

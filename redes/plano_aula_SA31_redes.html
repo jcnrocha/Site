@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 31 — Redes Sem Fio — Padrões e Infraestrutura · Redes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --uc-main: #0F6E56; --uc-light: #E1F5EE; --uc-tx: #04342C; --dark: #0D1A2B; --yellow: #F9C74F; --gold: #C49A00; --gray: #64748B; --light: #F2F5F8; --white: #FFFFFF; --text: #1A2635; --border: #D4DCE4; --warn-bg: #FFF8E7; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; font-weight:300; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(15,110,86,0.18); padding:2px 10px; border-radius:20px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; margin-top:4px; }
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag   { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
+  .section-body  { padding:24px 26px; }
+  
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(15,110,86,0.2); }
+  
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  
+  .content-list { list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+  .content-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--white); border:1px solid var(--border); border-radius:8px; font-size:13.5px; }
+  .content-list li::before { content:'▸'; color:var(--uc-main); font-weight:bold; }
+  
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; background:#DCFCE7; color:#166534; }
+  
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+  
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; background:var(--dark); color:var(--white); }
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  
+  .nota-box { background:var(--uc-light); border:1px solid rgba(15,110,86,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); margin-bottom:16px; }
+  .dinamica-box { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body { padding:18px; font-size:13.5px; }
+</style>
+</head>
+<body>
+<div class="btn-group">
+  <button class="btn-action" onclick="window.print()">🖨️ Imprimir</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 31</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">3º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">30/09/2026</span>
+      </div>
+      <h1 class="header-title">Redes Sem Fio — Padrões e Infraestrutura<br><span>Redes de Computadores</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Redes de Computadores · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">Aula Regular</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidade</span>
+      <span class="section-tag">3º Trimestre · SA 31</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">Redes Sem Fio — Padrões e Infraestrutura</div>
+      <div class="hab-row"><span class="hab-tag">H4 — Identificar tipos e tecnologias de conexão a redes de computadores · H5 — Reconhecer tipos e características (classificação, estrutura e modelos)</span></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag-gray">SA 31</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+<ul class="content-list">
+<li>Compreender a infraestrutura necessária para montar e gerenciar uma rede sem fio corporativa</li>
+<li>Identificar os componentes de uma rede Wi-Fi: roteadores, access points e controladores</li>
+<li>Reconhecer os conceitos de SSID, canais e frequências aplicados à configuração de redes sem fio</li>
+<li>Diferenciar os padrões de segurança Wi-Fi: WEP, WPA, WPA2 e WPA3 — entendendo a evolução e por que o WPA3 é o padrão atual</li>
+<li>Relacionar os conceitos de infraestrutura sem fio com o planejamento do Projeto Integrador</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Habilidade da matriz:</strong> H4 — Identificar tipos e tecnologias de conexão a redes de computadores · H5 — Reconhecer tipos e características (classificação, estrutura e modelos)</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo</span>
+      <span class="section-tag-gray">SA 31</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>Retomada rápida da Aula 30: <em>"Definimos os modelos de rede — Cliente-Servidor e P2P. Hoje vamos entender como estruturar uma rede sem fio corporativa com segurança e desempenho"</em></li>
+<li><strong>Por que redes sem fio corporativas são diferentes da rede doméstica?</strong></li>
+<li>Em casa: um único roteador Wi-Fi cobre o ambiente e serve poucos dispositivos</li>
+<li>Em uma empresa: múltiplos andares, salas e áreas externas exigem cobertura planejada, gerenciamento centralizado e segurança robusta</li>
+<li>A rede corporativa sem fio precisa garantir: cobertura total, segurança por usuário, controle de acesso e desempenho estável para dezenas ou centenas de dispositivos simultâneos</li>
+<li><strong>Componentes de uma rede Wi-Fi corporativa:</strong></li>
+<li><strong>Roteador (Router)</strong></li>
+<li>Conecta a rede interna à internet (WAN)</li>
+<li>Faz o roteamento dos pacotes entre redes diferentes</li>
+<li>Em redes corporativas geralmente é separado do access point — cada equipamento tem sua função específica</li>
+<li>Exemplos: roteadores Cisco, MikroTik, pfSense (software)</li>
+<li><strong>Access Point (AP)</strong></li>
+<li>Dispositivo que cria e transmite o sinal Wi-Fi para os dispositivos finais</li>
+<li>Conectado ao switch por cabo (uplink via Ethernet — PoE)</li>
+<li>Diferente do roteador: o AP não roteia — apenas fornece acesso sem fio à rede cabeada</li>
+<li><strong>PoE (Power over Ethernet):</strong> permite alimentar o AP com energia elétrica pelo próprio cabo de rede — sem necessidade de tomada próxima ao AP</li>
+<li>Tipos de instalação: teto (ceiling mount), parede, área externa (outdoor)</li>
+<li>Exemplos: Ubiquiti UniFi, Cisco Meraki, TP-Link EAP</li>
+<li><strong>Controlador Wi-Fi (Wireless Controller)</strong></li>
+<li>Gerencia múltiplos access points de forma centralizada</li>
+<li>Permite: configuração simultânea de todos os APs, monitoramento de desempenho, roaming entre APs, políticas de segurança centralizadas</li>
+<li>Pode ser físico (hardware dedicado) ou em nuvem (cloud controller)</li>
+<li>Roaming: usuário se move pelo ambiente e o dispositivo passa automaticamente de um AP para outro sem perder a conexão</li>
+<li>Exemplos: Ubiquiti UniFi Controller, Cisco WLC, Aruba Central</li>
+<li><strong>Switch PoE</strong></li>
+<li>Switch com portas que fornecem energia elétrica pelo cabo Ethernet</li>
+<li>Alimenta os access points sem necessidade de fonte de energia separada</li>
+<li>Simplifica a instalação: apenas um cabo do switch ao AP (dados + energia)</li>
+<li><strong>SSID — Service Set Identifier</strong></li>
+<li>O "nome" da rede Wi-Fi visível para os dispositivos</li>
+<li>Uma mesma rede pode ter múltiplos SSIDs para finalidades diferentes:</li>
+<li><strong>SSID Corporativo:</strong> para funcionários — acesso completo à rede interna com autenticação</li>
+<li><strong>SSID Guest (visitantes):</strong> para clientes e visitantes — acesso apenas à internet, isolado da rede interna</li>
+<li><strong>SSID IoT:</strong> para dispositivos inteligentes — isolado por segurança</li>
+<li>Cada SSID pode ter sua própria senha, VLAN e políticas de acesso</li>
+<li><strong>SSID oculto:</strong> não aparece na lista de redes disponíveis — o usuário precisa digitar o nome manualmente · segurança por obscuridade — não é uma medida de segurança robusta</li>
+<li><strong>Canais Wi-Fi</strong></li>
+<li>A faixa de frequência é dividida em canais para que múltiplos roteadores/APs operem próximos sem interferir</li>
+<li><strong>2,4 GHz:</strong> 13 canais disponíveis · apenas 3 não sobrepostos: 1, 6 e 11</li>
+<li><strong>5 GHz:</strong> muito mais canais disponíveis — menos congestionamento</li>
+<li>Em ambientes corporativos com múltiplos APs: cada AP deve usar um canal diferente para evitar interferência entre eles (co-channel interference)</li>
+<li>Configuração recomendada: APs adjacentes em canais 1, 6 e 11 (na faixa 2,4 GHz)</li>
+<li><strong>Segurança Wi-Fi — Evolução dos Padrões:</strong></li>
+</ul>
+<table class="time-table">
+<thead><tr>
+<th>Padrão</th>
+<th>Ano</th>
+<th>Criptografia</th>
+<th>Status</th>
+<th>Vulnerabilidade</th>
+</tr></thead><tbody>
+<tr>
+<td>WEP</td>
+<td>1997</td>
+<td>RC4 (64/128 bits)</td>
+<td>Obsoleto — NUNCA usar</td>
+<td>Quebrado em minutos com ferramentas simples</td>
+</tr>
+<tr>
+<td>WPA</td>
+<td>2003</td>
+<td>TKIP</td>
+<td>Obsoleto</td>
+<td>Vulnerável a ataques de dicionário</td>
+</tr>
+<tr>
+<td>WPA2</td>
+<td>2004</td>
+<td>AES-CCMP</td>
+<td>Ainda aceitável</td>
+<td>Vulnerável ao ataque KRACK (2017)</td>
+</tr>
+<tr>
+<td>WPA3</td>
+<td>2018</td>
+<td>AES-GCMP + SAE</td>
+<td>Padrão atual recomendado</td>
+<td>Proteção contra ataques de dicionário offline</td>
+</tr>
+</tbody></table>
+<ul class="content-list">
+<li><strong>WPA2-Personal:</strong> senha compartilhada (PSK — Pre-Shared Key) · uso doméstico e pequenas empresas</li>
+<li><strong>WPA2-Enterprise:</strong> autenticação individual por usuário via servidor RADIUS · uso corporativo · cada funcionário tem seu próprio login na rede Wi-Fi</li>
+<li><strong>WPA3-SAE (Simultaneous Authentication of Equals):</strong> substitui o handshake de 4 vias do WPA2 · protege contra ataques de força bruta offline</li>
+<li><strong>Wi-Fi Protected Setup (WPS):</strong> botão de fácil configuração — DEVE ser desativado em ambientes corporativos (vulnerável)</li>
+<li><strong>Planejamento de cobertura Wi-Fi corporativa:</strong></li>
+<li><strong>Site survey:</strong> levantamento físico do ambiente antes de instalar os APs — mapeia paredes, obstáculos, interferências e áreas a cobrir</li>
+<li><strong>Densidade de APs:</strong> ambientes com muitos dispositivos precisam de mais APs com menor potência (cell splitting) — não de um AP com maior potência</li>
+<li><strong>Roaming entre APs:</strong> usuário em movimento (celular, notebook) deve passar de um AP para outro sem interrupção da conexão</li>
+<li><strong>VLAN por SSID:</strong> cada SSID em sua própria VLAN — isola o tráfego de visitantes do tráfego corporativo</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag-gray">SA 31</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+<thead><tr>
+<th>Etapa</th>
+<th>Atividade</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="etapa-pill">Abertura</span></td>
+<td>Chamada · Retomada rápida da Aula 30: <em>"Definimos o modelo Cliente-Servidor — hoje vamos ver como a rede sem fio corporativa é estruturada para suportar esse modelo com segurança"</em></td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Retomada</span></td>
+<td>Professor pergunta: <em>"Qual a diferença entre o roteador Wi-Fi da sua casa e o Wi-Fi de uma empresa grande como um shopping ou aeroporto? Por que lá o sinal é mais estável e você não precisa de senha para entrar em alguns casos?"</em> — alunos respondem livremente</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Explicação</span></td>
+<td>Slides — rede Wi-Fi doméstica × corporativa, componentes (roteador, AP, controlador, switch PoE), SSID e múltiplos SSIDs, canais e interferência, evolução dos padrões de segurança (WEP → WPA3), planejamento de cobertura</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Dinâmica</span></td>
+<td>"Monte a Rede Sem Fio!" — ver seção abaixo</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Questionário</span></td>
+<td>5 questões objetivas + 5 questões discursivas sobre o conteúdo da aula</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Fechamento</span></td>
+<td>Resumo: AP ≠ roteador · múltiplos SSIDs para diferentes usuários · WPA3 é o padrão atual · planejamento de cobertura evita pontos cegos · Próxima aula: Redes Corporativas e Infraestrutura Empresarial</td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica — "Monte a Rede Sem Fio!"</span>
+      <span class="section-tag-gray">SA 31</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box"><div class="dinamica-header">🎮 Dinâmica — "Monte a Rede Sem Fio!"</div><div class="dinamica-body"><p style="font-size:13.5px; margin-bottom:12px;"><strong>Duração:</strong> 15 minutos · <strong>Agrupamento:</strong> grupos do Projeto Integrador (4 a 5 alunos)</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Objetivo:</strong> desenvolver o raciocínio de planejamento de infraestrutura Wi-Fi corporativa, conectando os componentes e conceitos da aula com decisões reais de projeto — preparando os grupos para incluir a solução sem fio no Projeto Integrador.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Materiais:</strong> cartões com cenários de infraestrutura Wi-Fi — um conjunto por grupo · ou slide com os cenários projetados.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Passo a passo:</strong></p>
+<ul class="obj-list">
+<li><span class="obj-num">1</span><strong>Distribuição dos cartões</strong> <em>(1 min)</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;">Cada grupo recebe 4 cartões com cenários de infraestrutura Wi-Fi. O desafio é identificar o problema, propor a solução correta e justificar com base nos conceitos da aula.</p>
+<ul class="obj-list">
+<li><span class="obj-num">2</span><strong>Análise em grupo</strong> <em>(8 min)</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;">O grupo discute cada cartão: identifica o problema ou a necessidade, decide qual componente ou configuração resolver e justifica tecnicamente.</p>
+<ul class="obj-list">
+<li><span class="obj-num">3</span><strong>Compartilhamento</strong> <em>(6 min)</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;">Cada grupo apresenta uma situação. O professor complementa, corrige e reforça os conceitos envolvidos.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Cenários sugeridos:</strong></p>
+<table class="time-table">
+<thead><tr>
+<th>Cenário / Problema</th>
+<th>Solução correta</th>
+<th>Justificativa</th>
+</tr></thead><tbody>
+<tr>
+<td>Empresa com 3 andares — sinal do roteador no térreo não chega ao 3º andar</td>
+<td>Instalar APs em cada andar conectados ao switch por cabo (PoE)</td>
+<td>Um único roteador não cobre múltiplos andares em ambiente corporativo</td>
+</tr>
+<tr>
+<td>TI quer que visitantes acessem a internet mas não a rede interna da empresa</td>
+<td>Criar SSID Guest em VLAN separada da rede corporativa</td>
+<td>Isolamento por VLAN impede que visitantes acessem servidores internos</td>
+</tr>
+<tr>
+<td>Dois APs vizinhos interferem um no outro — usuários relatam lentidão</td>
+<td>Configurar APs em canais não sobrepostos (1, 6 e 11 na faixa 2,4 GHz)</td>
+<td>Co-channel interference reduz o desempenho — canais diferentes eliminam o problema</td>
+</tr>
+<tr>
+<td>Rede Wi-Fi da empresa ainda usa WPA — auditor de segurança apontou como vulnerabilidade</td>
+<td>Migrar para WPA2-Enterprise com servidor RADIUS ou WPA3</td>
+<td>WPA é obsoleto e vulnerável — WPA2/WPA3 com autenticação individual é o padrão</td>
+</tr>
+<tr>
+<td>Funcionário reclama que o Wi-Fi cai toda vez que ele se move de uma sala para outra</td>
+<td>Configurar roaming adequado entre APs com mesmo SSID e controlador centralizado</td>
+<td>Roaming garante transição suave entre APs sem interrupção da conexão</td>
+</tr>
+<tr>
+<td>Empresa quer identificar qual usuário está conectado em qual AP a qualquer momento</td>
+<td>Implantar controlador Wi-Fi com WPA2-Enterprise e servidor RADIUS</td>
+<td>Autenticação individual por usuário permite rastreabilidade e controle centralizado</td>
+</tr>
+<tr>
+<td>TI percebeu que dispositivos IoT da fábrica estão na mesma rede dos computadores dos escritórios</td>
+<td>Criar SSID IoT em VLAN separada com políticas de acesso restrito</td>
+<td>Isolamento de IoT protege a rede corporativa de vulnerabilidades de dispositivos menos seguros</td>
+</tr>
+<tr>
+<td>Novo funcionário reclamou que a senha do Wi-Fi foi compartilhada com ele por e-mail sem criptografia</td>
+<td>Migrar para WPA2-Enterprise — cada usuário tem login e senha individual</td>
+<td>PSK compartilhada é arriscada — se vazar, compromete toda a rede · autenticação individual elimina esse risco</td>
+</tr>
+</tbody></table>
+<div class="nota-box"><strong>Nota:</strong> o objetivo é desenvolver o raciocínio: <em>"qual componente, configuração ou padrão de segurança resolve esse problema?"</em> Reforçar que no Projeto Integrador os grupos precisarão decidir: quantos APs, em quais locais, com qual SSID, em qual faixa de frequência e com qual padrão de segurança.</div></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com o Projeto Integrador</span>
+      <span class="section-tag-gray">SA 31</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:13.5px; margin-bottom:12px;">Esta aula tem conexão direta com o <strong>Projeto Integrador — Desenho de Rede Corporativa</strong> (Aulas 36 e 37):</p>
+<ul class="content-list">
+<li>Os grupos devem incluir no projeto a solução Wi-Fi da empresa:</li>
+<li>Quantos APs são necessários para cobrir o ambiente?</li>
+<li>Onde cada AP será instalado? (planta baixa simplificada)</li>
+<li>Quantos SSIDs? Quais? (corporativo, guest, IoT?)</li>
+<li>Qual padrão de segurança? (WPA2-Enterprise ou WPA3?)</li>
+<li>Precisam de controlador centralizado?</li>
+<li>Esta aula fornece todos os elementos técnicos para essa parte do projeto</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag-gray">SA 31</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>5 questões objetivas — nível alto · 4 alternativas: A) B) C) D) · Gabarito alternado, sem repetição consecutiva</li>
+<li>5 questões discursivas — cada uma com título explicativo antes do enunciado · Sem linhas, apenas espaço em branco com `R:`</li>
+<li>Gabarito em página separada — uso exclusivo do professor · Objetivas: letra correta + justificativa · Discursivas: resposta esperada com critérios de correção</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag-gray">SA 31</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant"><div class="conn-label">← Aula anterior</div><div>Aula 30 — 23/09/2026 · Modelos de Rede — Cliente-Servidor e Peer-to-Peer</div></div>
+        <div class="conn-card conn-prox"><div class="conn-label">Próxima aula →</div><div>Aula 32 — 07/10/2026 · Redes Corporativas e Infraestrutura Empresarial</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag-gray">SA 31</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid"><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Projetor ou TV</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Computador com HDMI</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Apresentação com slides — incluindo diagrama de rede Wi-Fi corporativa com APs, switch PoE e controlador</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Questionário impresso ou digital</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Cartões com os cenários da dinâmica impressos (1 conjunto por grupo) ou slide com os cenários</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Se possível: mostrar ao vivo o painel de configuração de um roteador ou controlador Wi-Fi (ex.: UniFi Demo em unifi.ui.com) para ilustrar SSIDs, canais e políticas de segurança na prática</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>---</span></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag-gray">SA 31</span>
+    </div>
+    <div class="section-body">
+      
+    </div>
+  </section>
+</main>
+<footer>
+  Plano de Aula · SA 31 · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+</body>
+</html>

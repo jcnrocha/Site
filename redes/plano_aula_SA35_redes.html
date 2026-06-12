@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 35 — Tendências em Redes — IoT e Redes do Futuro · Redes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --uc-main: #0F6E56; --uc-light: #E1F5EE; --uc-tx: #04342C; --dark: #0D1A2B; --yellow: #F9C74F; --gold: #C49A00; --gray: #64748B; --light: #F2F5F8; --white: #FFFFFF; --text: #1A2635; --border: #D4DCE4; --warn-bg: #FFF8E7; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; font-weight:300; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(15,110,86,0.18); padding:2px 10px; border-radius:20px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; margin-top:4px; }
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag   { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
+  .section-body  { padding:24px 26px; }
+  
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(15,110,86,0.2); }
+  
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  
+  .content-list { list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+  .content-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--white); border:1px solid var(--border); border-radius:8px; font-size:13.5px; }
+  .content-list li::before { content:'▸'; color:var(--uc-main); font-weight:bold; }
+  
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; background:#DCFCE7; color:#166534; }
+  
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+  
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; background:var(--dark); color:var(--white); }
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  
+  .nota-box { background:var(--uc-light); border:1px solid rgba(15,110,86,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); margin-bottom:16px; }
+  .dinamica-box { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body { padding:18px; font-size:13.5px; }
+</style>
+</head>
+<body>
+<div class="btn-group">
+  <button class="btn-action" onclick="window.print()">🖨️ Imprimir</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 35</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">3º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">28/10/2026</span>
+      </div>
+      <h1 class="header-title">Tendências em Redes — IoT e Redes do Futuro<br><span>Redes de Computadores</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Redes de Computadores · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">Aula Regular</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidade</span>
+      <span class="section-tag">3º Trimestre · SA 35</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">Tendências em Redes — IoT e Redes do Futuro</div>
+      <div class="hab-row"><span class="hab-tag">H4 — Identificar tipos e tecnologias de conexão a redes de computadores · H5 — Reconhecer tipos e características (classificação, estrutura e modelos)</span></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag-gray">SA 35</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+<ul class="content-list">
+<li>Compreender o que é a Internet das Coisas (IoT) e como ela impacta a infraestrutura de redes</li>
+<li>Identificar os principais protocolos de comunicação utilizados em dispositivos IoT</li>
+<li>Reconhecer o conceito de SDN (Software Defined Networking) e como ele transforma o gerenciamento de redes</li>
+<li>Compreender o impacto do 5G na infraestrutura de redes e nas aplicações do futuro</li>
+<li>Relacionar as tendências de redes com oportunidades reais no mercado de trabalho para desenvolvedores e técnicos de TI</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Habilidade da matriz:</strong> H4 — Identificar tipos e tecnologias de conexão a redes de computadores · H5 — Reconhecer tipos e características (classificação, estrutura e modelos)</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo</span>
+      <span class="section-tag-gray">SA 35</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>Retomada rápida da Aula 34: <em>"Aprendemos a diagnosticar e resolver problemas — hoje olhamos para o futuro: quais são as tendências que vão transformar as redes nos próximos anos?"</em></li>
+<li><strong>Por que entender tendências?</strong></li>
+<li>A infraestrutura de redes está evoluindo rapidamente — o que é tecnologia de ponta hoje será o padrão corporativo em poucos anos</li>
+<li>Profissionais que antecipam essas mudanças se posicionam melhor no mercado de trabalho</li>
+<li>IoT, 5G e SDN já estão presentes em projetos reais no Brasil — não são tecnologias do futuro distante</li>
+<li><strong>IoT — Internet das Coisas (Internet of Things)</strong></li>
+<li><strong>Conceito:</strong> conexão de objetos físicos do cotidiano à internet, permitindo coleta de dados, automação e controle remoto</li>
+<li>Qualquer dispositivo com sensores, capacidade de processamento e conectividade pode ser um objeto IoT</li>
+<li><strong>Escala:</strong> em 2024 já eram mais de 15 bilhões de dispositivos IoT conectados no mundo · projeção de 30 bilhões até 2030</li>
+<li><strong>Exemplos no cotidiano:</strong></li>
+<li>🏠 Casa inteligente: lâmpadas, tomadas, fechaduras, câmeras, termostatos conectados</li>
+<li>🏭 Indústria 4.0: sensores em máquinas que monitoram temperatura, vibração e consumo de energia</li>
+<li>🏥 Saúde: monitores de pressão, glicosímetros e pulseiras fitness conectados ao celular ou ao hospital</li>
+<li>🌾 Agronegócio: sensores de solo, irrigação automatizada, drones de monitoramento de lavoura</li>
+<li>🚗 Veículos conectados: carros que reportam localização, diagnóstico e telemetria em tempo real</li>
+<li>🏙️ Cidades inteligentes: semáforos adaptativos, lixeiras que avisam quando estão cheias, monitoramento de qualidade do ar</li>
+<li><strong>Desafios do IoT para a infraestrutura de redes:</strong></li>
+<li><strong>Volume:</strong> milhares de dispositivos simultâneos em uma única rede — switches e APs precisam suportar alta densidade</li>
+<li><strong>Segurança:</strong> dispositivos IoT geralmente têm firmware desatualizado e senhas padrão — vetor de ataque frequente</li>
+<li><strong>Isolamento:</strong> VLAN IoT separada da rede corporativa — fundamental para proteger dados sensíveis</li>
+<li><strong>Protocolos leves:</strong> dispositivos com baixo poder de processamento precisam de protocolos eficientes</li>
+<li><strong>Principais protocolos IoT:</strong></li>
+</ul>
+<table class="time-table">
+<thead><tr>
+<th>Protocolo</th>
+<th>Camada</th>
+<th>Característica principal</th>
+<th>Uso típico</th>
+</tr></thead><tbody>
+<tr>
+<td>MQTT</td>
+<td>Aplicação</td>
+<td>Leve, publish-subscribe, baixo consumo</td>
+<td>Sensores industriais, telemetria</td>
+</tr>
+<tr>
+<td>CoAP</td>
+<td>Aplicação</td>
+<td>Similar ao HTTP, otimizado para IoT</td>
+<td>Dispositivos com bateria limitada</td>
+</tr>
+<tr>
+<td>Zigbee</td>
+<td>Física/Enlace</td>
+<td>Malha sem fio, baixo consumo, curto alcance</td>
+<td>Casa inteligente, automação</td>
+</tr>
+<tr>
+<td>Z-Wave</td>
+<td>Física/Enlace</td>
+<td>Malha sem fio, menor interferência que Zigbee</td>
+<td>Automação residencial</td>
+</tr>
+<tr>
+<td>LoRaWAN</td>
+<td>Física/Enlace</td>
+<td>Longo alcance, baixíssimo consumo</td>
+<td>Agronegócio, cidades inteligentes</td>
+</tr>
+<tr>
+<td>NB-IoT</td>
+<td>Física/Enlace</td>
+<td>Usa rede celular, baixo consumo</td>
+<td>Medidores inteligentes, rastreamento</td>
+</tr>
+</tbody></table>
+<ul class="content-list">
+<li><strong>5G e o impacto nas redes</strong></li>
+<li><strong>O que o 5G traz de novo além da velocidade:</strong></li>
+<li><strong>eMBB (Enhanced Mobile Broadband):</strong> velocidades de até 20 Gbps — streaming 8K, realidade virtual/aumentada</li>
+<li><strong>URLLC (Ultra-Reliable Low-Latency Communications):</strong> latência de ~1 ms — cirurgias remotas, veículos autônomos, controle industrial em tempo real</li>
+<li><strong>mMTC (Massive Machine-Type Communications):</strong> suporte a até 1 milhão de dispositivos por km² — viabiliza IoT em escala urbana</li>
+<li><strong>Impacto na infraestrutura:</strong></li>
+<li><strong>Small cells:</strong> antenas menores e mais densas instaladas em postes, fachadas e interiores de prédios — substituem as grandes torres em áreas urbanas</li>
+<li><strong>Edge computing:</strong> processamento de dados próximo ao dispositivo, sem enviar tudo para a nuvem — reduz latência e economiza banda</li>
+<li><strong>Network slicing:</strong> divisão da rede 5G em fatias virtuais independentes para diferentes usos (slice para IoT, slice para streaming, slice para emergências)</li>
+<li><strong>Casos de uso reais já em implantação no Brasil:</strong></li>
+<li>Fábricas inteligentes com controle de máquinas via 5G privado</li>
+<li>Telemedicina e cirurgias assistidas remotamente</li>
+<li>Transmissão ao vivo de eventos em 4K/8K sem cabo</li>
+<li>Veículos conectados em vias inteligentes</li>
+<li><strong>SDN — Software Defined Networking (Redes Definidas por Software)</strong></li>
+<li><strong>Conceito:</strong> separação do plano de controle (decisões de roteamento) do plano de dados (encaminhamento de pacotes)</li>
+<li>Na rede tradicional: cada switch e roteador toma suas próprias decisões de forma independente e distribuída</li>
+<li>No SDN: um controlador centralizado define as regras para todos os dispositivos da rede — os switches apenas encaminham os pacotes conforme instruído</li>
+<li><strong>Benefícios:</strong></li>
+<li>Gerenciamento centralizado de toda a rede por software</li>
+<li>Programabilidade: a rede pode ser configurada via código (NetDevOps)</li>
+<li>Flexibilidade: mudanças de configuração aplicadas em segundos em toda a rede</li>
+<li>Visibilidade: o controlador tem visão completa de todo o tráfego da rede</li>
+<li>Automação: scripts e APIs configuram a rede automaticamente</li>
+<li><strong>Exemplos de uso:</strong> data centers de grandes empresas (Google, Facebook), redes de operadoras, ambientes de cloud computing</li>
+<li><strong>Ferramentas:</strong> OpenFlow (protocolo), OpenDaylight (controlador open source), Cisco ACI, VMware NSX</li>
+<li><strong>NFV — Network Functions Virtualization (Virtualização de Funções de Rede)</strong></li>
+<li>Funções de rede que antes exigiam hardware dedicado (firewall, load balancer, roteador) são executadas como software em servidores padrão</li>
+<li>Reduz drasticamente o custo de infraestrutura de operadoras e grandes empresas</li>
+<li>Complementa o SDN — SDN controla o fluxo, NFV virtualiza as funções</li>
+<li><strong>Edge Computing e a nova arquitetura de redes:</strong></li>
+<li>Processamento de dados na borda da rede — próximo ao dispositivo que gera os dados</li>
+<li>Reduz latência e o volume de dados enviados à nuvem central</li>
+<li>Essencial para IoT industrial, veículos autônomos e realidade aumentada</li>
+<li>Exemplo: câmera de segurança com IA que processa as imagens localmente e só envia alertas para a nuvem — não o vídeo completo</li>
+<li><strong>Segurança nas redes do futuro:</strong></li>
+<li><strong>Zero Trust Network Access (ZTNA):</strong> "nunca confie, sempre verifique" — nenhum dispositivo ou usuário é confiável por padrão, mesmo dentro da rede corporativa</li>
+<li><strong>SASE (Secure Access Service Edge):</strong> convergência de rede e segurança entregues como serviço na nuvem</li>
+<li><strong>IA para segurança de redes:</strong> detecção de anomalias e ataques em tempo real com machine learning</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag-gray">SA 35</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+<thead><tr>
+<th>Etapa</th>
+<th>Atividade</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="etapa-pill">Abertura</span></td>
+<td>Chamada · Retomada rápida da Aula 34: <em>"Aprendemos a diagnosticar redes — hoje olhamos para onde as redes estão indo: IoT, 5G, SDN e o que isso significa para nossa carreira"</em></td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Retomada</span></td>
+<td>Professor pergunta: <em>"Quantos dispositivos conectados à internet vocês têm em casa agora? Celular, TV, caixa de som, roteador, câmera... Isso é IoT. O que acontece com a rede quando esses dispositivos se multiplicam por mil em uma fábrica?"</em> — alunos respondem livremente</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Explicação</span></td>
+<td>Slides — IoT (conceito, escala, exemplos, desafios, protocolos), 5G (eMBB, URLLC, mMTC, small cells, edge computing, network slicing), SDN (plano de controle × dados, benefícios, ferramentas), NFV, Edge Computing, segurança do futuro (Zero Trust, SASE)</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Dinâmica</span></td>
+<td>"Tecnologia do Futuro ou do Presente?" — ver seção abaixo</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Questionário</span></td>
+<td>5 questões objetivas + 5 questões discursivas sobre o conteúdo da aula</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Fechamento</span></td>
+<td>Resumo: IoT = objetos conectados em escala · 5G = velocidade + latência + densidade · SDN = rede programável e centralizada · Edge = processamento na borda · Zero Trust = segurança sem perímetro fixo · Próxima aula: Projeto Integrador — Desenho de Rede Corporativa</td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica — "Tecnologia do Futuro ou do Presente?"</span>
+      <span class="section-tag-gray">SA 35</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box"><div class="dinamica-header">🎮 Dinâmica — "Tecnologia do Futuro ou do Presente?"</div><div class="dinamica-body"><p style="font-size:13.5px; margin-bottom:12px;"><strong>Duração:</strong> 15 minutos · <strong>Agrupamento:</strong> grupos do Projeto Integrador (4 a 5 alunos)</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Objetivo:</strong> consolidar o entendimento das tendências de redes por meio de situações reais, desenvolvendo a capacidade de identificar qual tecnologia está sendo aplicada e qual oportunidade de mercado ela representa — conectando as tendências com o Projeto Integrador e com a visão de carreira dos alunos.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Materiais:</strong> cartões com cenários de tecnologia — um conjunto por grupo · ou slide com os cenários projetados.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Passo a passo:</strong></p>
+<ul class="obj-list">
+<li><span class="obj-num">1</span><strong>Distribuição dos cartões</strong> <em>(1 min)</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;">Cada grupo recebe 4 cartões com cenários de uso de tecnologia. O desafio é identificar: qual tendência está sendo aplicada (IoT, 5G, SDN, Edge Computing ou Zero Trust) e qual é a oportunidade de mercado ou desafio de infraestrutura envolvido.</p>
+<ul class="obj-list">
+<li><span class="obj-num">2</span><strong>Análise em grupo</strong> <em>(8 min)</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;">O grupo discute cada cenário: identifica a tecnologia, o benefício gerado e o impacto na infraestrutura de redes.</p>
+<ul class="obj-list">
+<li><span class="obj-num">3</span><strong>Compartilhamento</strong> <em>(6 min)</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;">Cada grupo apresenta um cenário. O professor complementa, corrige e conecta com oportunidades reais de mercado.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Cenários sugeridos:</strong></p>
+<table class="time-table">
+<thead><tr>
+<th>Cenário</th>
+<th>Tecnologia</th>
+<th>Impacto na rede / Oportunidade</th>
+</tr></thead><tbody>
+<tr>
+<td>Fábrica instala sensores em 500 máquinas que enviam dados de temperatura e vibração a cada 5 segundos</td>
+<td>IoT Industrial (IIoT) + MQTT</td>
+<td>Rede precisa de VLAN IoT, switches de alta densidade e protocolo leve como MQTT</td>
+</tr>
+<tr>
+<td>Cirurgião em São Paulo opera um paciente em Manaus com braço robótico controlado remotamente</td>
+<td>5G URLLC</td>
+<td>Latência de ~1 ms via 5G — impossível com 4G ou Wi-Fi convencional</td>
+</tr>
+<tr>
+<td>Empresa de data center gerencia 10.000 switches via software, alterando rotas em segundos sem acessar cada equipamento</td>
+<td>SDN com OpenFlow</td>
+<td>Controlador centralizado — mudanças de configuração por API em toda a rede simultaneamente</td>
+</tr>
+<tr>
+<td>Câmeras de segurança de um shopping processam reconhecimento facial localmente sem enviar vídeo para a nuvem</td>
+<td>Edge Computing + IoT</td>
+<td>Reduz latência, economiza banda e protege privacidade — processamento na borda</td>
+</tr>
+<tr>
+<td>Empresa adota política de que todo acesso à rede — mesmo de funcionários internos — exige autenticação e verificação contínua</td>
+<td>Zero Trust Network Access (ZTNA)</td>
+<td>Elimina o conceito de "dentro da rede é seguro" — cada acesso é verificado independentemente</td>
+</tr>
+<tr>
+<td>Operadora de telecomunicações substitui firewalls físicos por instâncias de software em servidores padrão</td>
+<td>NFV</td>
+<td>Reduz custo de hardware · funções de rede executadas como software escalável</td>
+</tr>
+<tr>
+<td>Agricultor recebe alertas no celular quando o solo de sua lavoura precisa de irrigação — sensores a 15 km da sede</td>
+<td>IoT + LoRaWAN</td>
+<td>LoRaWAN transmite dados a longas distâncias com baixíssimo consumo — ideal para agronegócio</td>
+</tr>
+<tr>
+<td>Desenvolvedor configura toda a topologia de rede de um data center escrevendo um arquivo de configuração em código</td>
+<td>SDN + NetDevOps</td>
+<td>Infraestrutura como código — rede programável e versionável como qualquer software</td>
+</tr>
+</tbody></table>
+<div class="nota-box"><strong>Nota:</strong> o objetivo é desenvolver a visão de mercado: <em>"essa tecnologia já existe e está sendo usada agora — como ela impacta a infraestrutura de redes e quais profissionais são necessários para implementá-la?"</em> Reforçar que IoT, 5G e SDN não são apenas tendências acadêmicas — são projetos reais que empresas brasileiras já estão implantando.</div></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com o Projeto Integrador</span>
+      <span class="section-tag-gray">SA 35</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:13.5px; margin-bottom:12px;">Esta aula enriquece o <strong>Projeto Integrador — Desenho de Rede Corporativa</strong> (Aulas 36 e 37) com uma visão de futuro:</p>
+<ul class="content-list">
+<li>Os grupos podem incluir no projeto uma seção de <strong>"Visão de Futuro":</strong></li>
+<li>Quais dispositivos IoT fazem sentido para a empresa projetada? (câmeras IP, sensores, impressoras inteligentes)</li>
+<li>A rede projetada suporta a expansão para IoT? (VLAN IoT, switch de alta densidade)</li>
+<li>O link de internet dimensionado suporta o crescimento dos serviços em nuvem e IoT?</li>
+<li>Algum serviço poderia se beneficiar de Edge Computing? (processamento local de câmeras, por exemplo)</li>
+<li>Essa seção demonstra visão estratégica e diferencia os projetos mais completos</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag-gray">SA 35</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>5 questões objetivas — nível alto · 4 alternativas: A) B) C) D) · Gabarito alternado, sem repetição consecutiva</li>
+<li>5 questões discursivas — cada uma com título explicativo antes do enunciado · Sem linhas, apenas espaço em branco com `R:`</li>
+<li>Gabarito em página separada — uso exclusivo do professor · Objetivas: letra correta + justificativa · Discursivas: resposta esperada com critérios de correção</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag-gray">SA 35</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant"><div class="conn-label">← Aula anterior</div><div>Aula 34 — 21/10/2026 · Diagnóstico e Solução de Problemas em Redes</div></div>
+        <div class="conn-card conn-prox"><div class="conn-label">Próxima aula →</div><div>Aula 36 — 04/11/2026 · Projeto Integrador — Desenho de Rede Corporativa</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag-gray">SA 35</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid"><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Projetor ou TV</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Computador com HDMI</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Apresentação com slides — incluindo infográficos de IoT em escala, diagrama de arquitetura SDN e comparativo 4G × 5G</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Questionário impresso ou digital</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Cartões com os cenários da dinâmica impressos (1 conjunto por grupo) ou slide com os cenários</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Se possível: mostrar ao vivo um dashboard de dispositivos IoT (ex.: plataforma ThingSpeak ou Node-RED) ou uma demonstração de automação residencial com assistente de voz — torna o conteúdo tangível e motivador para os alunos</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>---</span></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag-gray">SA 35</span>
+    </div>
+    <div class="section-body">
+      
+    </div>
+  </section>
+</main>
+<footer>
+  Plano de Aula · SA 35 · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+</body>
+</html>

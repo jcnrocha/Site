@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 32 — Redes Corporativas e Infraestrutura Empresarial · Redes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --uc-main: #0F6E56; --uc-light: #E1F5EE; --uc-tx: #04342C; --dark: #0D1A2B; --yellow: #F9C74F; --gold: #C49A00; --gray: #64748B; --light: #F2F5F8; --white: #FFFFFF; --text: #1A2635; --border: #D4DCE4; --warn-bg: #FFF8E7; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; font-weight:300; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(15,110,86,0.18); padding:2px 10px; border-radius:20px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; margin-top:4px; }
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag   { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
+  .section-body  { padding:24px 26px; }
+  
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(15,110,86,0.2); }
+  
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  
+  .content-list { list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+  .content-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--white); border:1px solid var(--border); border-radius:8px; font-size:13.5px; }
+  .content-list li::before { content:'▸'; color:var(--uc-main); font-weight:bold; }
+  
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; background:#DCFCE7; color:#166534; }
+  
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+  
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; background:var(--dark); color:var(--white); }
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  
+  .nota-box { background:var(--uc-light); border:1px solid rgba(15,110,86,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); margin-bottom:16px; }
+  .dinamica-box { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body { padding:18px; font-size:13.5px; }
+</style>
+</head>
+<body>
+<div class="btn-group">
+  <button class="btn-action" onclick="window.print()">🖨️ Imprimir</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 32</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">3º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">07/10/2026</span>
+      </div>
+      <h1 class="header-title">Redes Corporativas e Infraestrutura Empresarial<br><span>Redes de Computadores</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Fundamentos de Redes de Computadores · 2ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        SENAI Umuarama · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">Aula Regular</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidade</span>
+      <span class="section-tag">3º Trimestre · SA 32</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">Redes Corporativas e Infraestrutura Empresarial</div>
+      <div class="hab-row"><span class="hab-tag">H5 — Reconhecer tipos e características (classificação, estrutura e modelos)</span></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag-gray">SA 32</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+<ul class="content-list">
+<li>Compreender como uma rede corporativa é organizada e quais são seus componentes principais</li>
+<li>Identificar os elementos de uma infraestrutura empresarial de rede: sala de servidores, cabeamento estruturado e DMZ</li>
+<li>Reconhecer o conceito de VLAN e sua utilidade no isolamento e organização do tráfego de rede</li>
+<li>Diferenciar os níveis de uma rede corporativa em camadas: acesso, distribuição e núcleo</li>
+<li>Relacionar os conceitos de infraestrutura corporativa com o planejamento do Projeto Integrador</li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Habilidade da matriz:</strong> H5 — Reconhecer tipos e características (classificação, estrutura e modelos)</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo</span>
+      <span class="section-tag-gray">SA 32</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>Retomada rápida da Aula 31: <em>"Vimos a infraestrutura sem fio corporativa — hoje ampliamos a visão para toda a infraestrutura de rede de uma empresa: cabeada, sem fio, servidores e segurança"</em></li>
+<li><strong>Por que a infraestrutura corporativa é mais complexa que a doméstica?</strong></li>
+<li>Uma rede doméstica serve poucos dispositivos com necessidades simples</li>
+<li>Uma rede corporativa precisa garantir: disponibilidade 24/7, segurança em camadas, escalabilidade, gerenciamento centralizado e separação de tráfego por departamento ou função</li>
+<li><strong>Modelo de três camadas da rede corporativa:</strong></li>
+<li><strong>Camada de Núcleo (Core Layer)</strong></li>
+<li>O backbone da rede — responsável pelo tráfego de alta velocidade entre os demais componentes</li>
+<li>Switches de núcleo de alta performance com links redundantes</li>
+<li>Não conecta dispositivos finais diretamente — apenas interliga as camadas de distribuição</li>
+<li>Prioridade: velocidade, baixa latência e redundância</li>
+<li><strong>Camada de Distribuição (Distribution Layer)</strong></li>
+<li>Interliga a camada de núcleo com as camadas de acesso</li>
+<li>Aplica políticas de roteamento, ACLs (listas de controle de acesso) e QoS</li>
+<li>Agrega o tráfego dos switches de acesso antes de encaminhar ao núcleo</li>
+<li>Prioridade: controle de tráfego, segurança e gerenciamento</li>
+<li><strong>Camada de Acesso (Access Layer)</strong></li>
+<li>Conecta diretamente os dispositivos finais: computadores, impressoras, telefones IP, APs</li>
+<li>Switches de acesso com portas para os dispositivos do usuário</li>
+<li>Prioridade: conectividade, PoE para APs e telefones IP, controle de porta</li>
+<li><strong>Sala de Servidores (Data Room / Server Room)</strong></li>
+<li>Ambiente físico controlado que abriga os servidores e equipamentos críticos da rede</li>
+<li>Requisitos físicos:</li>
+<li><strong>Controle de temperatura e umidade:</strong> ar-condicionado dedicado — servidores geram muito calor</li>
+<li><strong>No-break (UPS):</strong> fornece energia elétrica em caso de queda — evita perda de dados</li>
+<li><strong>Gerador:</strong> para quedas prolongadas de energia</li>
+<li><strong>Rack:</strong> estrutura metálica que organiza servidores, switches e patch panels verticalmente</li>
+<li><strong>Patch panel:</strong> painel de conexões que organiza os cabos vindos dos pontos de rede do ambiente</li>
+<li><strong>Controle de acesso físico:</strong> somente pessoal autorizado entra na sala de servidores</li>
+<li>Servidores típicos em uma empresa:</li>
+<li>Servidor de arquivos (file server)</li>
+<li>Servidor de autenticação (Active Directory / LDAP)</li>
+<li>Servidor de e-mail</li>
+<li>Servidor de banco de dados</li>
+<li>Servidor de backup</li>
+<li><strong>Cabeamento Estruturado</strong></li>
+<li>Sistema padronizado de cabeamento que organiza todos os cabos da rede de forma planejada e documentada</li>
+<li>Baseado nas normas ABNT NBR 14565 (Brasil) e ANSI/TIA-568 (EUA)</li>
+<li>Componentes do cabeamento estruturado:</li>
+<li><strong>Ponto de telecomunicações (PT):</strong> tomada de rede na parede onde o usuário conecta o dispositivo</li>
+<li><strong>Cabeamento horizontal:</strong> cabo que vai do PT ao patch panel no rack — máximo de 90 metros</li>
+<li><strong>Patch panel:</strong> painel de conexões que termina o cabeamento horizontal e organiza os cabos no rack</li>
+<li><strong>Patch cord:</strong> cabo curto que conecta o patch panel ao switch e o PT ao dispositivo final</li>
+<li><strong>Backbone:</strong> cabeamento que interliga os racks entre andares ou prédios — geralmente fibra óptica</li>
+<li>Vantagens: organização, facilidade de manutenção, documentação e escalabilidade</li>
+<li><strong>DMZ — Demilitarized Zone (Zona Desmilitarizada)</strong></li>
+<li>Segmento de rede separado que fica entre a rede interna (LAN) e a internet (WAN)</li>
+<li>Abriga servidores que precisam ser acessíveis pela internet mas que não devem ter acesso direto à rede interna</li>
+<li>Servidores típicos na DMZ: servidor web, servidor de e-mail, servidor FTP público, servidor DNS</li>
+<li>Como funciona:</li>
+<li>Firewall externo: filtra o tráfego entre a internet e a DMZ</li>
+<li>Firewall interno: filtra o tráfego entre a DMZ e a rede interna</li>
+<li>Se um servidor da DMZ for comprometido, o invasor ainda precisa superar o firewall interno para acessar a rede corporativa</li>
+<li>Analogia: a DMZ é como a recepção de um prédio — visitantes entram na recepção, mas não têm acesso direto aos escritórios internos</li>
+<li><strong>VLANs — Virtual Local Area Networks</strong></li>
+<li>Segmentação lógica da rede física em múltiplas redes virtuais independentes</li>
+<li>Dispositivos na mesma VLAN comunicam-se diretamente · dispositivos em VLANs diferentes precisam passar por um roteador ou switch L3</li>
+<li>Por que usar VLANs:</li>
+<li><strong>Segurança:</strong> isola o tráfego de diferentes departamentos — financeiro não acessa rede de produção</li>
+<li><strong>Desempenho:</strong> reduz o domínio de broadcast — menos tráfego desnecessário em cada segmento</li>
+<li><strong>Organização:</strong> cada departamento ou função em sua própria VLAN</li>
+<li><strong>Flexibilidade:</strong> reorganização lógica sem mexer no cabeamento físico</li>
+<li>Exemplos de VLANs em uma empresa:</li>
+</ul>
+<table class="time-table">
+<thead><tr>
+<th>VLAN ID</th>
+<th>Nome</th>
+<th>Dispositivos</th>
+</tr></thead><tbody>
+<tr>
+<td>VLAN 10</td>
+<td>Administração</td>
+<td>Computadores do RH, Financeiro e Diretoria</td>
+</tr>
+<tr>
+<td>VLAN 20</td>
+<td>Produção</td>
+<td>Computadores do setor produtivo</td>
+</tr>
+<tr>
+<td>VLAN 30</td>
+<td>TI</td>
+<td>Computadores e servidores da equipe de TI</td>
+</tr>
+<tr>
+<td>VLAN 40</td>
+<td>Wi-Fi Corporativo</td>
+<td>Notebooks e celulares dos funcionários</td>
+</tr>
+<tr>
+<td>VLAN 50</td>
+<td>Guest</td>
+<td>Dispositivos de visitantes</td>
+</tr>
+<tr>
+<td>VLAN 60</td>
+<td>IoT</td>
+<td>Câmeras, sensores e dispositivos inteligentes</td>
+</tr>
+<tr>
+<td>VLAN 99</td>
+<td>Gerenciamento</td>
+<td>Switches e APs — acesso apenas da TI</td>
+</tr>
+</tbody></table>
+<ul class="content-list">
+<li><strong>Alta disponibilidade em redes corporativas:</strong></li>
+<li><strong>Redundância de links:</strong> dois cabos entre switches críticos — se um cair, o outro assume</li>
+<li><strong>STP (Spanning Tree Protocol):</strong> evita loops na rede quando há links redundantes</li>
+<li><strong>Balanceamento de carga:</strong> distribui o tráfego entre múltiplos links ativos simultaneamente</li>
+<li><strong>Failover:</strong> troca automática para o link reserva em caso de falha — sem intervenção manual</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag-gray">SA 32</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+<thead><tr>
+<th>Etapa</th>
+<th>Atividade</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="etapa-pill">Abertura</span></td>
+<td>Chamada · Retomada rápida da Aula 31: <em>"Estruturamos a rede sem fio — hoje montamos o quadro completo da infraestrutura corporativa: cabeamento, servidores, DMZ e VLANs"</em></td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Retomada</span></td>
+<td>Professor pergunta: <em>"Se você fosse o responsável pela TI de uma empresa com 100 funcionários em 3 andares, como organizaria a rede para que o financeiro não acesse os arquivos da produção e vice-versa? E como garantiria que o site da empresa fique acessível pela internet sem expor os servidores internos?"</em> — alunos respondem livremente</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Explicação</span></td>
+<td>Slides — modelo de três camadas (núcleo, distribuição, acesso), sala de servidores, cabeamento estruturado, DMZ, VLANs com tabela de exemplos, alta disponibilidade</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Dinâmica</span></td>
+<td>"Projete a Infraestrutura!" — ver seção abaixo</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Questionário</span></td>
+<td>5 questões objetivas + 5 questões discursivas sobre o conteúdo da aula</td>
+</tr>
+<tr>
+<td><span class="etapa-pill">Fechamento</span></td>
+<td>Resumo: três camadas organizam o tráfego · cabeamento estruturado é a base física · DMZ protege os servidores públicos · VLANs segmentam logicamente a rede · Conexão com o Projeto Integrador: aplicar esses conceitos no projeto · Próxima aula: Computação em Nuvem e Redes</td>
+</tr>
+</tbody></table>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica — "Projete a Infraestrutura!"</span>
+      <span class="section-tag-gray">SA 32</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box"><div class="dinamica-header">🎮 Dinâmica — "Projete a Infraestrutura!"</div><div class="dinamica-body"><p style="font-size:13.5px; margin-bottom:12px;"><strong>Duração:</strong> 15 minutos · <strong>Agrupamento:</strong> grupos do Projeto Integrador (4 a 5 alunos)</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Objetivo:</strong> desenvolver o raciocínio de projeto de infraestrutura corporativa, integrando os conceitos de VLANs, DMZ, cabeamento estruturado e sala de servidores em cenários reais — preparando diretamente os grupos para o Projeto Integrador.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Materiais:</strong> cartões com cenários corporativos — um conjunto por grupo · ou slide com os cenários projetados.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Passo a passo:</strong></p>
+<ul class="obj-list">
+<li><span class="obj-num">1</span><strong>Distribuição dos cartões</strong> <em>(1 min)</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;">Cada grupo recebe 4 cartões com situações de infraestrutura corporativa. O desafio é identificar o problema, propor a solução correta e justificar tecnicamente.</p>
+<ul class="obj-list">
+<li><span class="obj-num">2</span><strong>Análise em grupo</strong> <em>(8 min)</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;">O grupo discute cada cartão e propõe a solução baseada nos conceitos da aula.</p>
+<ul class="obj-list">
+<li><span class="obj-num">3</span><strong>Compartilhamento</strong> <em>(6 min)</em></li>
+</ul>
+<p style="font-size:13.5px; margin-bottom:12px;">Cada grupo apresenta uma situação. O professor complementa, corrige e reforça os conceitos envolvidos.</p>
+<p style="font-size:13.5px; margin-bottom:12px;"><strong>Cenários sugeridos:</strong></p>
+<table class="time-table">
+<thead><tr>
+<th>Cenário / Problema</th>
+<th>Solução correta</th>
+<th>Justificativa</th>
+</tr></thead><tbody>
+<tr>
+<td>Funcionário do RH acessou por engano arquivos confidenciais do setor financeiro na rede</td>
+<td>Criar VLANs separadas para RH e Financeiro com políticas de acesso entre elas</td>
+<td>Isolamento lógico por VLAN impede acesso indevido entre departamentos</td>
+</tr>
+<tr>
+<td>Servidor web da empresa precisa ser acessado pela internet mas não pode ver os servidores internos</td>
+<td>Colocar o servidor web na DMZ com firewall entre DMZ e rede interna</td>
+<td>DMZ isola servidores públicos da rede interna — mesmo que o servidor seja comprometido, a rede interna está protegida</td>
+</tr>
+<tr>
+<td>Empresa cresceu e o rack está com cabos totalmente desorganizados — manutenção é lenta e arriscada</td>
+<td>Implementar cabeamento estruturado com patch panel, etiquetagem e documentação</td>
+<td>Cabeamento estruturado padroniza e documenta cada ponto de rede — manutenção rápida e segura</td>
+</tr>
+<tr>
+<td>Switch do andar térreo falhou e toda a empresa perdeu a rede</td>
+<td>Implementar redundância de links com STP entre switches críticos</td>
+<td>Links redundantes com STP garantem failover automático sem interrupção da rede</td>
+</tr>
+<tr>
+<td>Dispositivos IoT (câmeras e sensores) estão na mesma rede dos computadores da diretoria</td>
+<td>Criar VLAN IoT separada com acesso restrito aos sistemas internos</td>
+<td>Dispositivos IoT têm segurança mais fraca — isolamento protege dados sensíveis da diretoria</td>
+</tr>
+<tr>
+<td>TI precisa gerenciar os switches remotamente mas não quer que essa porta de gerenciamento seja acessível por funcionários</td>
+<td>Criar VLAN de gerenciamento (ex.: VLAN 99) acessível apenas pela equipe de TI</td>
+<td>VLAN de gerenciamento isola o acesso administrativo aos equipamentos de rede</td>
+</tr>
+<tr>
+<td>Sala de servidores está sujeita a quedas de energia frequentes — houve perda de dados</td>
+<td>Instalar no-break (UPS) e gerador com transferência automática</td>
+<td>UPS garante energia imediata · gerador sustenta por períodos prolongados · evita perda de dados e danos ao hardware</td>
+</tr>
+<tr>
+<td>Nova empresa com 50 funcionários em 2 andares — TI quer saber por onde começar a projetar a rede</td>
+<td>Definir: topologia Estrela, 3 camadas (núcleo/distribuição/acesso), VLANs por departamento, sala de servidores com rack, cabeamento estruturado e AP por andar</td>
+<td>Sequência lógica de projeto corporativo — da estrutura física ao segmento lógico</td>
+</tr>
+</tbody></table>
+<div class="nota-box"><strong>Nota:</strong> o objetivo é desenvolver o raciocínio integrado: <em>"qual problema de infraestrutura está sendo descrito? Qual conceito — VLAN, DMZ, cabeamento, redundância — resolve esse problema?"</em> Esta dinâmica é um ensaio direto para o Projeto Integrador — cada decisão aqui será replicada no projeto dos grupos.</div></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com o Projeto Integrador</span>
+      <span class="section-tag-gray">SA 32</span>
+    </div>
+    <div class="section-body">
+      <p style="font-size:13.5px; margin-bottom:12px;">Esta aula é a mais diretamente conectada ao <strong>Projeto Integrador — Desenho de Rede Corporativa</strong> (Aulas 36 e 37):</p>
+<ul class="content-list">
+<li>Após esta aula, os grupos têm todos os elementos técnicos para estruturar o projeto completo:</li>
+<li><strong>Aula 28:</strong> tipo de rede (LAN corporativa)</li>
+<li><strong>Aula 29:</strong> topologia (Estrela / Híbrida)</li>
+<li><strong>Aula 30:</strong> modelo (Cliente-Servidor)</li>
+<li><strong>Aula 31:</strong> solução sem fio (APs, SSIDs, WPA3)</li>
+<li><strong>Aula 32:</strong> infraestrutura completa (VLANs, DMZ, cabeamento, sala de servidores)</li>
+<li>O professor pode orientar os grupos a começar a montar o diagrama da rede corporativa do projeto ainda nesta semana</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag-gray">SA 32</span>
+    </div>
+    <div class="section-body">
+      <ul class="content-list">
+<li>5 questões objetivas — nível alto · 4 alternativas: A) B) C) D) · Gabarito alternado, sem repetição consecutiva</li>
+<li>5 questões discursivas — cada uma com título explicativo antes do enunciado · Sem linhas, apenas espaço em branco com `R:`</li>
+<li>Gabarito em página separada — uso exclusivo do professor · Objetivas: letra correta + justificativa · Discursivas: resposta esperada com critérios de correção</li>
+</ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag-gray">SA 32</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant"><div class="conn-label">← Aula anterior</div><div>Aula 31 — 30/09/2026 · Redes Sem Fio — Padrões e Infraestrutura</div></div>
+        <div class="conn-card conn-prox"><div class="conn-label">Próxima aula →</div><div>Aula 33 — 14/10/2026 · Computação em Nuvem e Redes</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag-gray">SA 32</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid"><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Projetor ou TV</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Computador com HDMI</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Apresentação com slides — incluindo diagrama completo de rede corporativa com três camadas, DMZ, VLANs e sala de servidores</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Questionário impresso ou digital</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Cartões com os cenários da dinâmica impressos (1 conjunto por grupo) ou slide com os cenários</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>Se possível: papel A3 e canetas coloridas para que os grupos comecem a esboçar o diagrama do Projeto Integrador ao final da aula</span></div><div class="recurso-item"><span class="recurso-icon">✔️</span><span>---</span></div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag-gray">SA 32</span>
+    </div>
+    <div class="section-body">
+      
+    </div>
+  </section>
+</main>
+<footer>
+  Plano de Aula · SA 32 · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · SENAI Umuarama · 2026
+</footer>
+</body>
+</html>
