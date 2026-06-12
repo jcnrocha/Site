@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Aula SA 13 — Banco de Dados: Introdução · Programação de Aplicativos</title>
+<meta name="description" content="Plano de aula SA 13 — Conexão com Banco de Dados: Introdução · UC: Programação de Aplicativos · Colégio Neiva Pavan">
+<meta name="theme-color" content="#0D1A2B">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uc-main:  #1A7A4A;
+    --uc-light: #EAF3DE;
+    --uc-tx:    #173404;
+    --dark:     #0D1A2B;
+    --yellow:   #F9C74F;
+    --gold:     #C49A00;
+    --gray:     #64748B;
+    --light:    #F2F5F8;
+    --white:    #FFFFFF;
+    --text:     #1A2635;
+    --border:   #D4DCE4;
+    --warn-bg:  #FFF8E7;
+  }
+
+  html { scroll-behavior: smooth; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: var(--text); line-height: 1.7; }
+
+  .page-header { background: var(--dark); position: relative; overflow: hidden; }
+  .page-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--uc-main); }
+  .page-header::after  { content:''; position:absolute; left:6px; top:0; bottom:0; width:3px; background:var(--yellow); }
+  .header-inner { max-width:980px; margin:0 auto; padding:44px 48px 44px 60px; display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
+  .header-label { font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:#94A3B8; letter-spacing:0.5px; margin-bottom:14px; display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+  .header-label .hl-sep  { color:#475569; font-weight:300; }
+  .header-label .hl-sa   { font-family:'DM Mono',monospace; font-size:14px; font-weight:600; color:var(--uc-main); background:rgba(26,122,74,0.18); padding:2px 10px; border-radius:20px; letter-spacing:1px; }
+  .header-label .hl-tri  { color:var(--yellow); font-weight:600; }
+  .header-label .hl-data { font-family:'DM Mono',monospace; font-size:13px; color:#64748B; }
+  .header-title { font-family:'DM Serif Display',serif; font-size:36px; line-height:1.15; color:var(--white); margin-bottom:10px; }
+  .header-title span { color:var(--yellow); }
+  .header-sub { font-size:13.5px; color:#64748B; line-height:1.6; }
+  .header-sub .uc-nome { white-space:nowrap; display:block; }
+  .header-badge { background:var(--uc-main); color:var(--white); font-size:12px; font-weight:600; padding:6px 14px; border-radius:20px; white-space:nowrap; flex-shrink:0; align-self:flex-start; margin-top:4px; }
+
+  .container { max-width:980px; margin:0 auto; padding:40px 48px; }
+
+  .section { background:var(--white); border-radius:12px; border:1px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.04); margin-bottom:28px; overflow:hidden; }
+  .section-header { display:flex; align-items:center; gap:12px; padding:18px 26px; border-bottom:1px solid var(--border); background:var(--light); }
+  .section-icon  { font-size:20px; }
+  .section-title { font-size:16px; font-weight:700; color:var(--dark); flex:1; }
+  .section-tag      { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; background:var(--uc-light); color:var(--uc-main); padding:3px 10px; border-radius:12px; letter-spacing:0.5px; }
+  .section-tag-gray { background:var(--light); color:var(--gray); border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; padding:3px 10px; border-radius:12px; }
+  .section-body  { padding:24px 26px; }
+
+  .tema-box { background:var(--light); border-radius:8px; padding:14px 18px; font-size:15px; font-weight:600; color:var(--dark); border-left:4px solid var(--uc-main); }
+  .tema-box span { color:var(--uc-main); }
+  .hab-row  { margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hab-tag  { font-family:'DM Mono',monospace; font-size:11.5px; font-weight:500; background:var(--uc-light); color:var(--uc-tx); padding:4px 12px; border-radius:12px; border:1px solid rgba(26,122,74,0.2); }
+
+  .obj-intro { font-size:13.5px; color:var(--gray); margin-bottom:12px; }
+  .obj-list  { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .obj-list li { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; background:var(--light); border-radius:8px; font-size:13.5px; border-left:3px solid var(--uc-main); }
+  .obj-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; font-weight:500; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  .hierarquia-wrap { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-radius:12px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+  .hier-item { display:flex; flex-direction:column; }
+  .hier-item:not(:last-child) { border-right:1px solid var(--border); }
+  .hier-header { padding:12px 14px 10px; text-align:center; }
+  .hier-icon   { font-size:28px; margin-bottom:4px; }
+  .hier-nome   { font-size:14px; font-weight:700; color:var(--white); line-height:1.2; }
+  .hier-body   { padding:12px 14px 14px; background:var(--light); flex:1; }
+  .hier-def    { font-size:12.5px; font-style:italic; color:var(--uc-tx); margin-bottom:8px; padding:8px 10px; background:var(--uc-light); border-radius:6px; line-height:1.5; }
+  .hier-body ul { list-style:none; display:flex; flex-direction:column; gap:4px; }
+  .hier-body ul li { font-size:12px; color:var(--gray); padding-left:12px; position:relative; line-height:1.5; }
+  .hier-body ul li::before { content:'▸'; position:absolute; left:0; font-size:9px; top:3px; color:var(--uc-main); }
+  .hi-her .hier-header { background:var(--uc-main); }
+  .hi-pol .hier-header { background:#0A5C7A; }
+  .hi-int .hier-header { background:var(--uc-tx); }
+
+  .caract-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:16px; }
+  .caract-card { border-radius:10px; overflow:hidden; border:1px solid var(--border); text-align:center; }
+  .caract-card-header { padding:12px 8px 8px; background:var(--uc-main); }
+  .caract-icon { font-size:22px; margin-bottom:4px; }
+  .caract-nome { font-size:12px; font-weight:700; color:var(--white); line-height:1.2; }
+  .caract-body { padding:10px 8px; background:var(--light); }
+  .caract-desc { font-size:11.5px; color:var(--gray); line-height:1.4; }
+
+  .compare-wrap { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .compare-card { border-radius:10px; overflow:hidden; border:2px solid; }
+  .cmp-her { border-color:var(--uc-main); }
+  .cmp-com { border-color:#0A5C7A; }
+  .compare-header { padding:12px 16px; display:flex; align-items:center; gap:10px; }
+  .cmp-her .compare-header { background:var(--uc-main); }
+  .cmp-com .compare-header { background:#0A5C7A; }
+  .compare-titulo { font-size:14px; font-weight:700; color:var(--white); }
+  .compare-body { padding:14px 16px; background:var(--white); }
+  .compare-body ul { list-style:none; display:flex; flex-direction:column; gap:5px; }
+  .compare-body ul li { font-size:12.5px; color:var(--text); padding-left:14px; position:relative; line-height:1.5; }
+  .compare-body ul li::before { content:'▸'; position:absolute; left:0; font-size:9px; top:4px; color:var(--uc-main); }
+  .cmp-com .compare-body ul li::before { color:#0A5C7A; }
+  .compare-quando { padding:10px 16px 14px; font-size:12px; font-style:italic; color:var(--gray); background:var(--light); border-top:1px solid var(--border); }
+
+  .time-table { width:100%; border-collapse:collapse; font-size:13px; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+  .time-table thead tr { background:var(--dark); }
+  .time-table th { color:var(--white); padding:11px 14px; text-align:left; font-size:12.5px; }
+  .time-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .time-table tr:last-child td { border-bottom:none; }
+  .time-table tr:nth-child(even) td { background:#F7FAFC; }
+  .etapa-pill { font-size:12px; font-weight:600; padding:2px 10px; border-radius:12px; display:inline-block; white-space:nowrap; }
+  .ep-abertura { background:#E0F2FE; color:#0369A1; }
+  .ep-retomada { background:#FEF9C3; color:#854D0E; }
+  .ep-expl     { background:#DCFCE7; color:#166534; }
+  .ep-dinamica { background:#F3E8FF; color:#6B21A8; }
+  .ep-fecha    { background:#F1F5F9; color:#475569; }
+
+  .dinamica-box    { background:var(--light); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+  .dinamica-header { background:var(--uc-tx); color:var(--white); padding:12px 18px; font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .dinamica-body   { padding:18px; }
+  .dinamica-meta   { display:flex; gap:16px; margin-bottom:16px; flex-wrap:wrap; }
+  .dinamica-meta-item { font-size:12.5px; color:var(--gray); display:flex; align-items:center; gap:6px; }
+  .dinamica-meta-item strong { color:var(--dark); }
+  .dinamica-step   { display:flex; gap:14px; padding:10px 0; border-bottom:1px solid var(--border); font-size:13.5px; }
+  .dinamica-step:last-child { border-bottom:none; }
+  .step-num { background:var(--uc-main); color:var(--white); font-family:'DM Mono',monospace; font-size:11px; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
+  .situ-table { width:100%; border-collapse:collapse; font-size:12.5px; border-radius:8px; overflow:hidden; border:1px solid var(--border); margin-top:12px; }
+  .situ-table thead tr { background:var(--uc-tx); }
+  .situ-table th { color:var(--white); padding:10px 14px; text-align:left; font-size:12px; }
+  .situ-table td { padding:9px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .situ-table tr:last-child td { border-bottom:none; }
+  .situ-table tr:nth-child(even) td { background:#F7FAFC; }
+  .situ-code   { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:#1A7A4A; background:#EAF3DE; padding:3px 8px; border-radius:6px; display:inline-block; white-space:nowrap; }
+  .situ-code-b { font-family:'DM Mono',monospace; font-size:11px; font-weight:700; color:#0A5C7A; background:#E0F2FE; padding:3px 8px; border-radius:6px; display:inline-block; white-space:nowrap; }
+
+  .nota-box { background:var(--uc-light); border:1px solid rgba(26,122,74,0.25); border-left:4px solid var(--uc-main); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--uc-tx); line-height:1.6; margin-top:16px; }
+
+  .aval-parts { display:flex; flex-direction:column; gap:12px; }
+  .aval-part  { border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .aval-part-header { padding:11px 18px; font-size:13.5px; font-weight:700; }
+  .aph-uc   { background:var(--uc-main); color:var(--white); }
+  .aph-dark { background:var(--dark); color:var(--white); }
+  .aval-part-body { padding:14px 18px; background:var(--white); }
+  .aval-part-body ul { list-style:none; }
+  .aval-part-body ul li { padding:5px 0 5px 18px; font-size:13.5px; position:relative; color:var(--text); border-bottom:1px solid var(--border); }
+  .aval-part-body ul li:last-child { border-bottom:none; }
+  .aval-part-body ul li::before { content:'•'; position:absolute; left:0; color:var(--uc-main); font-weight:700; }
+
+  .connection-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .conn-card  { border-radius:8px; padding:14px 18px; font-size:13.5px; }
+  .conn-ant   { background:var(--uc-light); border-left:4px solid var(--uc-main); }
+  .conn-prox  { background:var(--warn-bg); border-left:4px solid var(--gold); }
+  .conn-label { font-size:11px; font-family:'DM Mono',monospace; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .conn-ant  .conn-label { color:var(--uc-main); }
+  .conn-prox .conn-label { color:var(--gold); }
+
+  .recursos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .recurso-item  { background:var(--light); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-size:13px; display:flex; align-items:center; gap:10px; }
+  .recurso-icon  { font-size:20px; }
+  .obs-box { background:var(--light); border:1px dashed var(--border); border-radius:8px; padding:16px 20px; min-height:80px; font-size:13.5px; color:var(--gray); }
+
+  footer { background:var(--dark); color:#475569; text-align:center; padding:22px; font-size:12px; font-family:'DM Mono',monospace; margin-top:16px; border-top:3px solid var(--uc-main); }
+  footer span { color:var(--uc-main); }
+
+  .btn-group  { position:fixed; top:20px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+  .btn-action { border:none; border-radius:8px; padding:10px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap; transition:all 0.2s ease; }
+  .btn-action:active { transform:scale(0.97); }
+  .btn-imprimir { background:var(--dark); color:var(--white); }
+  .btn-imprimir:hover { background:#0A3520; box-shadow:0 4px 12px rgba(23,52,4,0.4); }
+  .btn-pdf { background:var(--dark); color:var(--white); }
+  .btn-pdf:hover { background:#0A3520; box-shadow:0 4px 12px rgba(23,52,4,0.4); }
+  button:focus, a:focus { outline:3px solid var(--yellow); outline-offset:2px; }
+
+  @media print {
+    @page { size:A4 portrait; margin:18mm 14mm 16mm 14mm; }
+    * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    body { background:white !important; font-size:11.5px; }
+    .btn-group { display:none !important; }
+    .page-header { background:var(--dark) !important; }
+    .header-inner { padding:16px 24px 16px 30px !important; gap:16px !important; }
+    .header-title { font-size:22px !important; }
+    .header-label { font-size:11px !important; margin-bottom:8px !important; gap:5px !important; }
+    .header-sub   { font-size:11px !important; }
+    .header-badge { font-size:11px !important; padding:4px 10px !important; }
+    .container { padding:10px 0 !important; }
+    .section { box-shadow:none !important; border:1px solid #ccc !important; break-inside:avoid; margin-bottom:12px !important; }
+    .section-body   { padding:14px 20px !important; }
+    .section-header { padding:10px 20px !important; }
+    table { break-inside:avoid; }
+    a[href]::after { content:none !important; }
+    a { text-decoration:none !important; color:inherit !important; }
+    .obs-box { min-height:80px !important; background-image:repeating-linear-gradient(transparent,transparent 27px,#c8d0db 27px,#c8d0db 28px) !important; background-color:white !important; }
+    .connection-row  { grid-template-columns:1fr 1fr !important; }
+    .recursos-grid   { grid-template-columns:repeat(3,1fr) !important; }
+    .hierarquia-wrap { grid-template-columns:repeat(3,1fr) !important; }
+    .caract-grid     { grid-template-columns:repeat(5,1fr) !important; }
+    .compare-wrap    { grid-template-columns:1fr 1fr !important; }
+    footer { background:var(--dark) !important; margin-top:8px !important; padding:12px !important; font-size:10.5px !important; }
+    #btn-topo { display:none !important; }
+  }
+
+  @media (max-width:960px) {
+    .header-inner  { padding:36px 32px 36px 44px; gap:24px; }
+    .container     { padding:28px 32px; }
+    .header-title  { font-size:28px; }
+    .caract-grid   { grid-template-columns:repeat(3,1fr); }
+    .recursos-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:768px) {
+    .header-inner    { flex-direction:column; padding:28px 20px 28px 28px; gap:14px; }
+    .container       { padding:20px 16px; }
+    .header-title    { font-size:22px; }
+    .uc-nome         { white-space:normal; }
+    .section-header  { padding:14px 18px; gap:10px; }
+    .section-body    { padding:18px; }
+    .hierarquia-wrap { grid-template-columns:1fr; }
+    .hier-item:not(:last-child) { border-right:none; border-bottom:1px solid var(--border); }
+    .caract-grid     { grid-template-columns:repeat(3,1fr); }
+    .compare-wrap    { grid-template-columns:1fr; }
+    .connection-row  { grid-template-columns:1fr; }
+    .recursos-grid   { grid-template-columns:1fr 1fr; }
+    .time-table      { display:block; overflow-x:auto; }
+    .situ-table      { display:block; overflow-x:auto; }
+    .btn-group  { top:auto; bottom:20px; right:16px; flex-direction:row; }
+    .btn-action { padding:9px 14px; font-size:12px; }
+  }
+  @media (max-width:480px) {
+    .page-header::before { width:4px; }
+    .page-header::after  { left:4px; width:2px; }
+    .header-inner  { padding:20px 14px 20px 18px; }
+    .container     { padding:14px 12px; }
+    .header-title  { font-size:18px; }
+    .caract-grid   { grid-template-columns:repeat(2,1fr); }
+    .recursos-grid { grid-template-columns:1fr; }
+    .section-body  { padding:14px; }
+    footer         { padding:16px; font-size:11px; }
+  }
+
+  #btn-topo { position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--dark); color:var(--white); border:none; font-size:18px; font-weight:700; cursor:pointer; z-index:999; display:none; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:all 0.2s ease; }
+  #btn-topo.visible { display:flex; }
+  #btn-topo:hover   { background:var(--uc-main); transform:translateY(-2px); }
+  #btn-topo:focus   { outline:3px solid var(--yellow); outline-offset:2px; }
+  @media print { #btn-topo { display:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="btn-group">
+  <button class="btn-action btn-imprimir" onclick="window.print()" aria-label="Imprimir plano de aula">🖨️ Imprimir</button>
+  <button class="btn-action btn-pdf" onclick="salvarPDF()" aria-label="Exportar como PDF">📄 Exportar PDF</button>
+</div>
+
+<header class="page-header">
+  <div class="header-inner">
+    <div>
+      <div class="header-label">
+        Plano de Aula
+        <span class="hl-sep">·</span>
+        <span class="hl-sa">SA 13</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-tri">2º Trimestre</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">13/05/2026</span>
+        <span class="hl-sep">·</span>
+        <span class="hl-data">Quarta-feira</span>
+      </div>
+      <h1 class="header-title">Conexão com Banco de Dados<br><span>Introdução — Drivers, Conexão e Primeiro SELECT</span></h1>
+      <p class="header-sub">
+        <span class="uc-nome">UC: Programação de Aplicativos · 1ª Série · Técnico em Desenvolvimento de Sistemas</span>
+        Colégio Neiva Pavan · Prof. Julio Cesar
+      </p>
+    </div>
+    <div class="header-badge">B5 — Banco de Dados · Cap. 5</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- TEMA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Tema e Habilidade</span>
+      <span class="section-tag">2º Trimestre · SA 13</span>
+    </div>
+    <div class="section-body">
+      <div class="tema-box">
+        Conexão com Banco de Dados — Introdução
+        <span>— o papel do banco de dados em um sistema de software, drivers e conectores, parâmetros de conexão (host, porta, banco, usuário e senha), configuração da conexão na IDE, primeiro SELECT via código e o fluxo completo de uma requisição: aplicação → driver → SGBD → retorno</span>
+      </div>
+      <div class="hab-row">
+        <span class="hab-tag">5. Conexão com banco de dados</span>
+        <span class="hab-tag">Integrar banco de dados por meio da linguagem</span>
+        <span class="hab-tag">Aplicar linguagem por meio da IDE</span>
+        <span class="hab-tag">B5 — Conexão com BD</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🏆</span>
+      <span class="section-title">Objetivos de Aprendizagem</span>
+      <span class="section-tag">5 objetivos</span>
+    </div>
+    <div class="section-body">
+      <p class="obj-intro">Ao final da aula, o aluno será capaz de:</p>
+      <ul class="obj-list">
+        <li><span class="obj-num">1</span>Compreender o papel do banco de dados em um sistema de software e por que a integração com a aplicação é essencial</li>
+        <li><span class="obj-num">2</span>Identificar os principais drivers e conectores utilizados para conectar uma aplicação ao banco de dados (JDBC, mysql-connector, psycopg2)</li>
+        <li><span class="obj-num">3</span>Configurar uma conexão com banco de dados na IDE, informando os parâmetros necessários: host, porta, banco, usuário e senha</li>
+        <li><span class="obj-num">4</span>Executar o primeiro comando <code style="font-family:'DM Mono',monospace;font-size:12px;background:rgba(26,122,74,0.1);color:var(--uc-tx);padding:1px 5px;border-radius:4px;">SELECT</code> via código, recuperando dados do banco e exibindo no console</li>
+        <li><span class="obj-num">5</span>Reconhecer o fluxo completo de uma requisição ao banco de dados: aplicação → driver → SGBD → retorno</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📚</span>
+      <span class="section-title">Conteúdo da Aula</span>
+      <span class="section-tag">B5 — Integração com Banco de Dados</span>
+    </div>
+    <div class="section-body">
+
+      <!-- COMPONENTES -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin-bottom:10px;">Componentes da Integração Aplicação × Banco de Dados</p>
+      <div class="hierarquia-wrap">
+        <div class="hier-item hi-her">
+          <div class="hier-header">
+            <div class="hier-icon">💻</div>
+            <div class="hier-nome">Aplicação</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"O código que solicita operações ao banco — sem persistência, os dados vivem só na memória RAM e somem quando o programa encerra"</div>
+            <ul>
+              <li>Solicita SELECT, INSERT, UPDATE e DELETE</li>
+              <li>Sem BD: dados perdidos ao encerrar o programa</li>
+              <li>Com BD: dados persistidos em disco, consultáveis e compartilháveis</li>
+              <li>Todo sistema real usa BD: e-commerce, RH, delivery, sistema escolar</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hier-item hi-pol">
+          <div class="hier-header">
+            <div class="hier-icon">🔌</div>
+            <div class="hier-nome">Driver / Conector</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"O tradutor — biblioteca que converte as chamadas da aplicação para o protocolo que o SGBD entende"</div>
+            <ul>
+              <li>Java: JDBC (MySQL Connector, PostgreSQL)</li>
+              <li>Python: mysql-connector-python, psycopg2, sqlite3</li>
+              <li>JavaScript: mysql2 via npm</li>
+              <li>Adicionado via Maven, pip ou npm — cada linguagem tem o seu</li>
+            </ul>
+          </div>
+        </div>
+        <div class="hier-item hi-int">
+          <div class="hier-header">
+            <div class="hier-icon">🗄️</div>
+            <div class="hier-nome">SGBD + Banco de Dados</div>
+          </div>
+          <div class="hier-body">
+            <div class="hier-def">"O SGBD processa as operações e retorna os resultados — o banco é onde os dados estão armazenados em tabelas"</div>
+            <ul>
+              <li>SGBD: MySQL, PostgreSQL, SQLite</li>
+              <li>Recebe o SQL pelo protocolo, processa e devolve</li>
+              <li>Fluxo completo: Aplicação → Driver → SGBD → retorno dos dados</li>
+              <li>O resultado volta como objeto percorrível linha a linha</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- PARÂMETROS -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Cinco Parâmetros Necessários para a Conexão</p>
+      <div class="caract-grid">
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🌐</div>
+            <div class="caract-nome">Host</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Endereço do servidor onde o banco está rodando — <code style="font-size:10px;font-family:'DM Mono',monospace;">localhost</code> para banco local</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🚪</div>
+            <div class="caract-nome">Porta</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Porta de comunicação do SGBD — MySQL: <code style="font-size:10px;font-family:'DM Mono',monospace;">3306</code> · PostgreSQL: <code style="font-size:10px;font-family:'DM Mono',monospace;">5432</code> · SQLite: não usa</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🗃️</div>
+            <div class="caract-nome">Nome do Banco</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Qual banco de dados usar dentro do SGBD — ex.: <code style="font-size:10px;font-family:'DM Mono',monospace;">escola</code></div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">👤</div>
+            <div class="caract-nome">Usuário</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Login de acesso ao banco — define as permissões de operação</div>
+          </div>
+        </div>
+        <div class="caract-card">
+          <div class="caract-card-header">
+            <div class="caract-icon">🔑</div>
+            <div class="caract-nome">Senha</div>
+          </div>
+          <div class="caract-body">
+            <div class="caract-desc">Senha do usuário — nunca deixar no código que vai para o repositório</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DRIVERS -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Principais Drivers e Conectores</p>
+      <table class="situ-table" style="margin-top:0;">
+        <thead>
+          <tr><th>Linguagem</th><th>Banco de Dados</th><th>Driver / Conector</th><th>Como adicionar</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="situ-code">Java</span></td>
+            <td>MySQL</td>
+            <td>JDBC MySQL Connector</td>
+            <td>Dependência Maven / JAR externo</td>
+          </tr>
+          <tr>
+            <td><span class="situ-code">Java</span></td>
+            <td>PostgreSQL</td>
+            <td>JDBC PostgreSQL</td>
+            <td>Dependência Maven</td>
+          </tr>
+          <tr>
+            <td><span class="situ-code-b">Python</span></td>
+            <td>MySQL</td>
+            <td>mysql-connector-python</td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11px;">pip install mysql-connector-python</code></td>
+          </tr>
+          <tr>
+            <td><span class="situ-code-b">Python</span></td>
+            <td>PostgreSQL</td>
+            <td>psycopg2</td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11px;">pip install psycopg2</code></td>
+          </tr>
+          <tr>
+            <td><span class="situ-code-b">Python</span></td>
+            <td>SQLite</td>
+            <td>sqlite3</td>
+            <td>Nativo — sem instalação</td>
+          </tr>
+          <tr>
+            <td><span class="situ-code">JavaScript</span></td>
+            <td>MySQL</td>
+            <td>mysql2</td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11px;">npm install mysql2</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- CONEXÃO + SELECT -->
+      <p style="font-size:13.5px;font-weight:700;color:var(--dark);margin:18px 0 10px;">Conexão e Primeiro SELECT via Código — Java × Python</p>
+      <div class="compare-wrap">
+        <div class="compare-card cmp-her">
+          <div class="compare-header">
+            <span style="font-size:22px;">☕</span>
+            <div class="compare-titulo">Java — JDBC + MySQL</div>
+          </div>
+          <div class="compare-body">
+            <ul>
+              <li>URL de conexão: <code style="font-size:11.5px;font-family:'DM Mono',monospace;">"jdbc:mysql://localhost:3306/escola"</code></li>
+              <li><code style="font-size:11.5px;font-family:'DM Mono',monospace;">DriverManager.getConnection(url, usuario, senha)</code> abre a conexão</li>
+              <li><code style="font-size:11.5px;font-family:'DM Mono',monospace;">Statement stmt = conexao.createStatement()</code></li>
+              <li><code style="font-size:11.5px;font-family:'DM Mono',monospace;">ResultSet rs = stmt.executeQuery("SELECT nome, nota FROM alunos")</code></li>
+              <li>Percorrer com <code style="font-size:11.5px;font-family:'DM Mono',monospace;">while (rs.next())</code> · ler com <code style="font-size:11.5px;font-family:'DM Mono',monospace;">rs.getString("nome")</code> e <code style="font-size:11.5px;font-family:'DM Mono',monospace;">rs.getDouble("nota")</code></li>
+            </ul>
+          </div>
+          <div class="compare-quando">Driver adicionado como dependência Maven ou JAR no projeto</div>
+        </div>
+        <div class="compare-card cmp-com">
+          <div class="compare-header">
+            <span style="font-size:22px;">🐍</span>
+            <div class="compare-titulo">Python — mysql-connector</div>
+          </div>
+          <div class="compare-body">
+            <ul>
+              <li><code style="font-size:11.5px;font-family:'DM Mono',monospace;">import mysql.connector</code></li>
+              <li><code style="font-size:11.5px;font-family:'DM Mono',monospace;">mysql.connector.connect(host, port, database, user, password)</code></li>
+              <li><code style="font-size:11.5px;font-family:'DM Mono',monospace;">cursor = conexao.cursor()</code></li>
+              <li><code style="font-size:11.5px;font-family:'DM Mono',monospace;">cursor.execute("SELECT nome, nota FROM alunos")</code></li>
+              <li>Percorrer com <code style="font-size:11.5px;font-family:'DM Mono',monospace;">for (nome, nota) in cursor:</code> e exibir com <code style="font-size:11.5px;font-family:'DM Mono',monospace;">print(f"...")</code></li>
+            </ul>
+          </div>
+          <div class="compare-quando">Conector instalado com pip — SQLite dispensa instalação</div>
+        </div>
+      </div>
+
+      <div class="nota-box">
+        ✅ <strong>Boas práticas desde o início:</strong> sempre fechar a conexão após o uso — conexões abertas desnecessariamente consomem recursos do servidor · nunca colocar senha diretamente no código que vai para o repositório — usar variáveis de ambiente ou arquivos de configuração separados · tratar erros de conexão com try/catch — banco indisponível não deve derrubar a aplicação inteira.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ORGANIZAÇÃO DO TEMPO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">⏱️</span>
+      <span class="section-title">Organização do Tempo</span>
+      <span class="section-tag">5 etapas · 50 min</span>
+    </div>
+    <div class="section-body">
+      <table class="time-table">
+        <thead>
+          <tr><th style="width:26%">Etapa</th><th>Atividade</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="etapa-pill ep-abertura">Abertura · 5 min</span></td>
+            <td>Chamada · Contextualização do 2º Trimestre: <em>"Até agora o programa funcionava na memória — a partir de hoje os dados passam a persistir. Isso muda tudo."</em></td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-retomada">Problematização · 5 min</span></td>
+            <td>Professor pergunta: <em>"Quando vocês fecham um aplicativo e reabrem, os dados continuam lá. Como isso é possível se o programa estava na memória RAM?"</em> — alunos respondem livremente · professor conecta com banco de dados como camada de persistência</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-expl">Explicação · 20 min</span></td>
+            <td>Slides — por que integrar com BD, componentes da integração, fluxo da requisição, drivers e conectores, parâmetros de conexão, primeiro <code style="font-family:'DM Mono',monospace;font-size:12px;">SELECT</code> via código · demonstração ao vivo na IDE com banco MySQL ou SQLite</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-dinamica">Dinâmica · 15 min</span></td>
+            <td>"Liga os Pontos" — grupos organizam o fluxo de integração e diagnosticam erros reais de conexão a partir das mensagens de erro</td>
+          </tr>
+          <tr>
+            <td><span class="etapa-pill ep-fecha">Fechamento · 5 min</span></td>
+            <td>Resumo: driver é o tradutor entre a aplicação e o SGBD · conexão precisa de host, porta, banco, usuário e senha · SELECT via código retorna dados que podem ser percorridos · Próxima SA: CRUD — INSERT e SELECT (SA 14 · 20/05)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DINÂMICA -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🎮</span>
+      <span class="section-title">Dinâmica</span>
+      <span class="section-tag">Liga os Pontos</span>
+    </div>
+    <div class="section-body">
+      <div class="dinamica-box">
+        <div class="dinamica-header">🔌 Liga os Pontos — Fluxo de Integração e Diagnóstico de Conexão</div>
+        <div class="dinamica-body">
+          <div class="dinamica-meta">
+            <div class="dinamica-meta-item">⏱️ <strong>Duração:</strong> 15 minutos</div>
+            <div class="dinamica-meta-item">👥 <strong>Agrupamento:</strong> grupos de 4 a 5 alunos</div>
+            <div class="dinamica-meta-item">🎯 <strong>Objetivo:</strong> fixar o fluxo de integração entre aplicação e banco de dados por meio do mapeamento de componentes e da identificação de erros de configuração de conexão — desenvolvendo o raciocínio de diagnóstico que o desenvolvedor usa quando a conexão falha</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">1</div>
+            <div><strong>Mapeamento do fluxo</strong> <em>(5 min)</em> — O professor projeta o diagrama de fluxo com os componentes fora de ordem (Aplicação · Driver · SGBD · Banco de Dados). Os grupos organizam o fluxo correto e descrevem o papel de cada componente com suas próprias palavras</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">2</div>
+            <div><strong>Diagnóstico de erros</strong> <em>(7 min)</em> — O professor projeta 4 mensagens de erro reais de conexão. Os grupos identificam qual parâmetro está errado em cada caso e sugerem a correção</div>
+          </div>
+          <div class="dinamica-step">
+            <div class="step-num">3</div>
+            <div><strong>Apresentação</strong> <em>(3 min)</em> — Os grupos apresentam os diagnósticos. O professor confirma e complementa com dicas práticas de debugging de conexão</div>
+          </div>
+        </div>
+      </div>
+
+      <table class="situ-table">
+        <thead>
+          <tr><th>Mensagem de erro</th><th>Parâmetro com problema</th><th>Correção sugerida</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11px;">Unknown database 'escolas'</code></td>
+            <td><span class="situ-code">Nome do banco incorreto</span></td>
+            <td>Verificar o nome exato do banco criado no SGBD</td>
+          </tr>
+          <tr>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11px;">Access denied for user 'root'@'localhost'</code></td>
+            <td><span class="situ-code">Usuário ou senha incorretos</span></td>
+            <td>Verificar credenciais no SGBD</td>
+          </tr>
+          <tr>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11px;">Communications link failure</code></td>
+            <td><span class="situ-code-b">Host ou porta incorretos</span></td>
+            <td>Verificar se o SGBD está rodando e se host/porta estão corretos</td>
+          </tr>
+          <tr>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11px;">Loading class 'com.mysql.jdbc.Driver' failed</code></td>
+            <td><span class="situ-code-b">Driver não adicionado ao projeto</span></td>
+            <td>Adicionar o JAR do driver MySQL ao projeto</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="nota-box">
+        💡 <strong>Reforço pedagógico:</strong> erros de conexão são extremamente comuns no mercado — todo desenvolvedor já ficou travado por horas por causa de um parâmetro errado. Saber diagnosticar esses erros rapidamente é uma habilidade prática valiosa que começa com entender o que cada parâmetro faz.
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📝</span>
+      <span class="section-title">Avaliação</span>
+      <span class="section-tag">Questionário · 10 questões</span>
+    </div>
+    <div class="section-body">
+      <div class="aval-parts">
+        <div class="aval-part">
+          <div class="aval-part-header aph-uc">Parte 1 — Questões Objetivas (5 questões)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Nível alto · 4 alternativas: A) B) C) D)</li>
+              <li>Gabarito alternado, sem repetição consecutiva de letras</li>
+              <li>Temas: papel do driver na integração, fluxo da requisição ao banco, parâmetros de conexão e suas funções, portas padrão dos SGBDs, o que o <code style="font-family:'DM Mono',monospace;font-size:12px;">executeQuery</code> retorna</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header aph-dark">Parte 2 — Questões Discursivas (5 questões)</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Cada questão possui título explicativo antes do enunciado</li>
+              <li>Sem linhas — apenas espaço em branco com <code style="font-family:'DM Mono',monospace;font-size:12px;background:rgba(26,122,74,0.1);color:var(--uc-tx);padding:1px 5px;border-radius:4px;">R:</code></li>
+              <li>Temas: explicar por que aplicações precisam de banco de dados, descrever o fluxo aplicação → driver → SGBD → retorno, montar a URL de conexão JDBC com os parâmetros corretos, escrever o trecho que percorre um <code style="font-family:'DM Mono',monospace;font-size:12px;">ResultSet</code>, diagnosticar uma mensagem de erro de conexão indicando o parâmetro com problema</li>
+            </ul>
+          </div>
+        </div>
+        <div class="aval-part">
+          <div class="aval-part-header" style="background:var(--gray);color:var(--white);">Gabarito</div>
+          <div class="aval-part-body">
+            <ul>
+              <li>Em página separada — uso exclusivo do professor</li>
+              <li>Objetivas: letra correta + justificativa completa</li>
+              <li>Discursivas: resposta esperada com critérios de correção e exemplos de código válidos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONEXÃO -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Conexão com Conteúdos</span>
+      <span class="section-tag section-tag-gray">Continuidade</span>
+    </div>
+    <div class="section-body">
+      <div class="connection-row">
+        <div class="conn-card conn-ant">
+          <div class="conn-label">← Aula anterior — SA 12</div>
+          <div style="font-size:13.5px;color:var(--dark);">Linguagem OO — Consolidação · 06/05/2026</div>
+        </div>
+        <div class="conn-card conn-prox">
+          <div class="conn-label">Próxima aula → SA 14</div>
+          <div style="font-size:13.5px;color:var(--dark);">Conexão com Banco de Dados — CRUD Parte 1 · 20/05/2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📦</span>
+      <span class="section-title">Recursos Necessários</span>
+      <span class="section-tag section-tag-gray">Verificar antes da aula</span>
+    </div>
+    <div class="section-body">
+      <div class="recursos-grid">
+        <div class="recurso-item"><span class="recurso-icon">📺</span><span>Projetor ou TV e computador com HDMI</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📊</span><span>Apresentação com slides</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🖥️</span><span>Computadores da sala com VS Code e SGBD instalado (MySQL ou SQLite recomendado)</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🔌</span><span>Driver/conector da linguagem configurado no projeto de demonstração</span></div>
+        <div class="recurso-item"><span class="recurso-icon">📋</span><span>Questionário impresso ou digital</span></div>
+        <div class="recurso-item"><span class="recurso-icon">🃏</span><span>Ficha de diagnóstico impressa (1 por grupo) ou slide projetado · quadro branco e marcador</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBSERVAÇÕES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-icon">📌</span>
+      <span class="section-title">Observações do Professor</span>
+      <span class="section-tag section-tag-gray">Opcional</span>
+    </div>
+    <div class="section-body">
+      <div class="obs-box"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Plano de Aula · <span>SA 13 — Conexão com Banco de Dados: Introdução</span> · Prof. Julio Cesar · Técnico em Desenvolvimento de Sistemas · Colégio Neiva Pavan · 2026
+</footer>
+
+<button id="btn-topo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+  const salvarPDF = () => {
+    const t = document.title;
+    document.title = 'Plano_Aula_SA13_PA_BD_Introducao';
+    window.print();
+    setTimeout(() => { document.title = t; }, 1000);
+  };
+  const btn = document.getElementById('btn-topo');
+  window.addEventListener('scroll', () => { if (btn) btn.classList.toggle('visible', window.scrollY > 400); });
+  if (btn) btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
