@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SA 15 — CRUD Parte 2: UPDATE, DELETE e Transações · Programação de Aplicativos</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pa:     #1A7A4A;
+  --yellow: #F9C74F;
+  --green:  #10B981;
+  --red:    #EF4444;
+  --orange: #F97316;
+  --purple: #7C3AED;
+  --dark:   #080D20;
+  --gray:   #CBD5E1;
+}
+
+.reveal { font-family: 'DM Sans', sans-serif; }
+.reveal .slides section { text-align: left; }
+.reveal h1,.reveal h2,.reveal h3 { font-family: 'DM Sans', sans-serif; }
+.reveal pre { box-shadow: none; margin: 0; }
+.reveal section img { border: none; background: none; box-shadow: none; }
+
+/* ─── CAPA ─── */
+.slide-capa {
+  background: var(--dark) !important;
+  position: relative;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 80px !important;
+  overflow: hidden;
+}
+.slide-capa::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: var(--pa);
+}
+.capa-kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7em;
+  color: var(--pa);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.capa-title {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+.capa-sub {
+  font-size: 1.3em;
+  color: var(--yellow);
+  font-weight: 500;
+  margin-bottom: 26px;
+}
+.capa-uc {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62em;
+  color: rgba(203,213,225,0.45);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.capa-badge {
+  display: inline-block;
+  background: rgba(26,122,74,0.18);
+  border: 1px solid rgba(26,122,74,0.4);
+  color: #4ADE80;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58em;
+  padding: 5px 16px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+  margin-top: 12px;
+}
+
+/* ─── SLIDE STD ─── */
+.slide-std {
+  background: #0C1427 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column;
+}
+.slide-header {
+  background: rgba(26,122,74,0.1);
+  border-left: 4px solid var(--pa);
+  padding: 18px 56px 14px;
+  flex-shrink: 0;
+}
+.slide-kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.52em;
+  color: var(--pa);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.slide-title {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.2;
+}
+.slide-content {
+  flex: 1;
+  padding: 20px 56px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ─── ENC ─── */
+.slide-enc {
+  background: var(--dark) !important;
+  position: relative;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 72px !important;
+  overflow: hidden;
+}
+.slide-enc::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: var(--pa);
+}
+
+/* ─── CARDS ─── */
+.cards-grid { display: grid; gap: 12px; }
+.cards-2 { grid-template-columns: 1fr 1fr; }
+.cards-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 14px;
+}
+.card-accent  { border-top: 3px solid var(--pa); }
+.card-green   { border-top: 3px solid var(--green); }
+.card-yellow  { border-top: 3px solid var(--yellow); }
+.card-red     { border-top: 3px solid var(--red); }
+.card-orange  { border-top: 3px solid var(--orange); }
+.card-purple  { border-top: 3px solid var(--purple); }
+
+.card-icon { font-size: 1.3em; margin-bottom: 5px; }
+.card-title {
+  font-size: 0.72em;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.card-body {
+  font-size: 0.62em;
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+/* ─── BULLET LIST ─── */
+.bullet-list {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.bullet-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.72em;
+  color: var(--gray);
+  line-height: 1.5;
+}
+.bullet-list li::before {
+  content: '▸';
+  color: var(--pa);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.bullet-list li strong { color: #fff; }
+
+/* ─── HIGHLIGHT BOXES ─── */
+.highlight-box {
+  background: rgba(26,122,74,0.1);
+  border: 1px solid rgba(26,122,74,0.3);
+  border-left: 4px solid var(--pa);
+  border-radius: 8px;
+  padding: 11px 16px;
+  font-size: 0.65em;
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.highlight-box strong { color: #fff; }
+
+.highlight-box-y {
+  background: rgba(249,199,79,0.08);
+  border: 1px solid rgba(249,199,79,0.3);
+  border-left: 4px solid var(--yellow);
+  border-radius: 8px;
+  padding: 11px 16px;
+  font-size: 0.65em;
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.highlight-box-y strong { color: var(--yellow); }
+
+.highlight-box-r {
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.3);
+  border-left: 4px solid var(--red);
+  border-radius: 8px;
+  padding: 11px 16px;
+  font-size: 0.65em;
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.highlight-box-r strong { color: var(--red); }
+
+/* ─── QUOTE ─── */
+.quote-box {
+  background: rgba(255,255,255,0.04);
+  border-left: 4px solid var(--pa);
+  padding: 14px 18px;
+  border-radius: 0 8px 8px 0;
+  margin-top: 16px;
+}
+.quote-box p {
+  font-size: 0.75em;
+  color: #fff;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 5px;
+}
+.quote-box cite {
+  font-size: 0.58em;
+  color: var(--pa);
+  font-family: 'DM Mono', monospace;
+  font-style: normal;
+}
+
+/* ─── FLOW STEPS ─── */
+.exemplo-flow {
+  display: flex;
+  gap: 6px;
+  align-items: stretch;
+}
+.flow-step {
+  flex: 1;
+  border-radius: 8px;
+  padding: 11px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.fs-icon { font-size: 1.2em; margin-bottom: 4px; }
+.fs-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.fs-desc { font-size: 0.55em; line-height: 1.4; color: rgba(255,255,255,0.65); }
+
+.fs-t  { background: rgba(26,122,74,0.15);  border: 1px solid rgba(26,122,74,0.35); }
+.fs-t .fs-label { color: #4ADE80; }
+.fs-y  { background: rgba(249,199,79,0.12); border: 1px solid rgba(249,199,79,0.3); }
+.fs-y .fs-label { color: var(--yellow); }
+.fs-g  { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); }
+.fs-g .fs-label { color: var(--green); }
+.fs-r  { background: rgba(239,68,68,0.12);  border: 1px solid rgba(239,68,68,0.3); }
+.fs-r .fs-label { color: var(--red); }
+.fs-o  { background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.3); }
+.fs-o .fs-label { color: var(--orange); }
+.fs-p  { background: rgba(124,58,237,0.12); border: 1px solid rgba(124,58,237,0.3); }
+.fs-p .fs-label { color: var(--purple); }
+
+/* ─── DINÂMICA ─── */
+.din-header {
+  background: linear-gradient(135deg, rgba(26,122,74,0.18), rgba(26,122,74,0.06));
+  border: 1px solid rgba(26,122,74,0.3);
+  border-radius: 10px;
+  padding: 13px 16px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.din-icon { font-size: 1.7em; flex-shrink: 0; }
+.din-title { font-size: 0.85em; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.din-sub { font-size: 0.58em; color: var(--gray); }
+
+/* ─── ENC GRID ─── */
+.enc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+.enc-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 16px;
+}
+.enc-card-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.52em;
+  color: var(--pa);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.enc-card-title {
+  font-size: 0.75em;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.enc-card ul {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.enc-card ul li {
+  font-size: 0.6em;
+  color: var(--gray);
+  line-height: 1.5;
+  padding-left: 13px;
+  position: relative;
+}
+.enc-card ul li::before {
+  content: '▸';
+  color: var(--pa);
+  position: absolute;
+  left: 0;
+  font-size: 0.85em;
+}
+
+/* ─── COMP GRID ─── */
+.comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.comp-faz {
+  background: rgba(16,185,129,0.07);
+  border: 1px solid rgba(16,185,129,0.25);
+  border-top: 3px solid var(--green);
+  border-radius: 8px;
+  padding: 12px;
+}
+.comp-evit {
+  background: rgba(239,68,68,0.07);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-top: 3px solid var(--red);
+  border-radius: 8px;
+  padding: 12px;
+}
+.comp-header {
+  font-size: 0.62em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.comp-faz .comp-header { color: var(--green); }
+.comp-evit .comp-header { color: var(--red); }
+.comp-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.comp-list li {
+  font-size: 0.6em;
+  color: var(--gray);
+  line-height: 1.4;
+  padding-left: 14px;
+  position: relative;
+}
+.comp-faz .comp-list li::before { content: '✓'; color: var(--green); position: absolute; left: 0; }
+.comp-evit .comp-list li::before { content: '✗'; color: var(--red); position: absolute; left: 0; }
+
+/* ─── ATALHO / CRUD TABLE ─── */
+.atalho-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.63em;
+}
+.atalho-table thead tr { background: rgba(26,122,74,0.18); }
+.atalho-table th {
+  padding: 8px 12px;
+  text-align: left;
+  color: #4ADE80;
+  font-weight: 600;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.88em;
+  border-bottom: 1px solid rgba(26,122,74,0.3);
+}
+.atalho-table td {
+  padding: 7px 12px;
+  color: var(--gray);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  line-height: 1.4;
+  vertical-align: middle;
+}
+.atalho-table tr:last-child td { border-bottom: none; }
+.atalho-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+.kbd {
+  display: inline-block;
+  background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 4px;
+  padding: 1px 7px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.87em;
+  color: #fff;
+}
+
+/* ─── CODE BLOCK ─── */
+.code-block {
+  background: #050E1A;
+  border: 1px solid rgba(26,122,74,0.3);
+  border-left: 3px solid var(--pa);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58em;
+  text-align: left;
+  color: #E2E8F0;
+  line-height: 1.75;
+  margin-bottom: 10px;
+  white-space: pre;
+  overflow: hidden;
+}
+.code-block.bad {
+  border-left-color: var(--red);
+  border-color: rgba(239,68,68,0.3);
+}
+.code-block.warn {
+  border-left-color: var(--yellow);
+  border-color: rgba(249,199,79,0.3);
+}
+.ck  { color: var(--yellow); }
+.cs  { color: #86EFAC; }
+.cc  { color: #475569; }
+.cf  { color: #93C5FD; }
+.cn  { color: #FCA5A5; }
+
+/* ─── PERCURSO ─── */
+.percurso {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 16px;
+}
+.perc-item {
+  flex: 1;
+  text-align: center;
+  padding: 12px 6px;
+  border-radius: 8px;
+}
+.perc-item.done { background: rgba(255,255,255,0.04); opacity: 0.7; }
+.perc-item.today { background: rgba(26,122,74,0.18); border: 1px solid rgba(26,122,74,0.4); }
+.perc-item.next { background: rgba(249,199,79,0.09); border: 1px solid rgba(249,199,79,0.25); opacity: 0.85; }
+.perc-item.far { background: rgba(255,255,255,0.02); opacity: 0.4; }
+
+.perc-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.52em;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.done .perc-num  { color: var(--gray); }
+.today .perc-num { color: #4ADE80; font-weight: 700; }
+.next .perc-num  { color: var(--yellow); }
+.far .perc-num   { color: var(--gray); }
+
+.perc-title {
+  font-size: 0.56em;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: 3px;
+}
+.perc-date {
+  font-size: 0.48em;
+  color: var(--gray);
+  font-family: 'DM Mono', monospace;
+}
+.perc-badge {
+  display: inline-block;
+  font-size: 0.43em;
+  padding: 1px 7px;
+  border-radius: 10px;
+  margin-top: 4px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 700;
+}
+.today .perc-badge { background: var(--pa); color: #fff; }
+.next .perc-badge  { background: rgba(249,199,79,0.2); color: var(--yellow); }
+
+.perc-arrow { color: rgba(255,255,255,0.18); font-size: 0.9em; flex-shrink: 0; padding: 0 3px; }
+
+/* ─── CRUD REVIEW GRID ─── */
+.crud-rev-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.crud-card { border-radius: 10px; overflow: hidden; text-align: center; }
+.crud-card-header { padding: 11px 6px 7px; }
+.crud-letter {
+  font-family: 'DM Mono', monospace;
+  font-size: 1.35em;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.crud-cmd { font-family: 'DM Mono', monospace; font-size: 0.5em; color: rgba(255,255,255,0.75); }
+.crud-card-body { padding: 9px 8px 10px; background: rgba(0,0,0,0.2); }
+.crud-desc { font-size: 0.55em; color: var(--gray); line-height: 1.4; }
+.crud-status { display: block; margin-top: 4px; font-size: 0.48em; font-family: 'DM Mono', monospace; font-weight: 700; }
+
+.crud-c .crud-card-header      { background: rgba(26,122,74,0.35); opacity: 0.7; }
+.crud-r .crud-card-header      { background: rgba(59,130,246,0.35); opacity: 0.7; }
+.crud-u .crud-card-header      { background: rgba(249,115,22,0.6); }
+.crud-d .crud-card-header      { background: rgba(239,68,68,0.6); }
+.crud-commit .crud-card-header { background: rgba(124,58,237,0.5); }
+
+/* ─── SITU TABLE ─── */
+.situ-table { width: 100%; border-collapse: collapse; font-size: 0.59em; }
+.situ-table thead tr { background: rgba(26,122,74,0.18); }
+.situ-table th { color: #4ADE80; padding: 7px 12px; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.88em; border-bottom: 1px solid rgba(26,122,74,0.3); }
+.situ-table td { padding: 7px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--gray); line-height: 1.4; vertical-align: middle; }
+.situ-table tr:last-child td { border-bottom: none; }
+.situ-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+.badge-g { background: rgba(16,185,129,0.15);  color: var(--green);   font-family: 'DM Mono', monospace; font-size: 0.85em; padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
+.badge-r { background: rgba(239,68,68,0.15);   color: var(--red);     font-family: 'DM Mono', monospace; font-size: 0.85em; padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
+.badge-y { background: rgba(249,199,79,0.15);  color: var(--yellow);  font-family: 'DM Mono', monospace; font-size: 0.85em; padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
+.mono { font-family: 'DM Mono', monospace; font-size: 0.9em; }
+
+/* ─── SLIDE LABEL ─── */
+.slide-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5em;
+  padding: 2px 9px;
+  border-radius: 10px;
+  display: inline-block;
+  margin-bottom: 7px;
+  font-weight: 700;
+}
+.sl-green  { background: rgba(16,185,129,0.15);  color: #4ADE80; }
+.sl-red    { background: rgba(239,68,68,0.15);   color: var(--red); }
+.sl-yellow { background: rgba(249,199,79,0.15);  color: var(--yellow); }
+.sl-orange { background: rgba(249,115,22,0.15);  color: var(--orange); }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══ SLIDE 01 — CAPA ═══ -->
+<section class="slide-capa" data-transition="zoom">
+  <div class="capa-kicker">SA 15 · 27/05/2026 · Aula 15 · 2º Trimestre</div>
+  <div class="capa-title">Conexão com<br>Banco de Dados</div>
+  <div class="capa-sub">CRUD Parte 2 — UPDATE, DELETE e Transações</div>
+  <div class="capa-uc">Programação de Aplicativos · 1ª Série · Técnico em Desenvolvimento de Sistemas · Colégio Neiva Pavan</div>
+  <div class="capa-badge">B5 — Conexão com Banco de Dados</div>
+</section>
+
+<!-- ═══ SLIDE 02 — OBJETIVOS ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 02 · Objetivos</div>
+    <div class="slide-title">O que você vai aprender hoje</div>
+  </div>
+  <div class="slide-content">
+    <ul class="bullet-list">
+      <li>Implementar operações de <strong>UPDATE</strong> para atualizar registros existentes no banco de dados via código</li>
+      <li>Implementar operações de <strong>DELETE</strong> para remover registros do banco de dados via código</li>
+      <li>Compreender o conceito de <strong>transação</strong> e aplicar <strong>commit</strong> e <strong>rollback</strong> para garantir a integridade dos dados</li>
+      <li>Identificar situações onde o <strong>rollback</strong> é necessário para desfazer operações em caso de erro</li>
+      <li>Consolidar o <strong>CRUD completo</strong> integrando as quatro operações em um fluxo único de sistema</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 03 — PERCURSO ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 03 · Percurso</div>
+    <div class="slide-title">Onde estamos na jornada</div>
+  </div>
+  <div class="slide-content">
+    <div class="percurso">
+      <div class="perc-item done">
+        <div class="perc-num">SA 13</div>
+        <div class="perc-title">BD — Introdução</div>
+        <div class="perc-date">13/05</div>
+      </div>
+      <div class="perc-arrow">›</div>
+      <div class="perc-item done">
+        <div class="perc-num">SA 14</div>
+        <div class="perc-title">CRUD Parte 1</div>
+        <div class="perc-date">20/05</div>
+      </div>
+      <div class="perc-arrow">›</div>
+      <div class="perc-item today">
+        <div class="perc-num">SA 15</div>
+        <div class="perc-title">CRUD Parte 2</div>
+        <div class="perc-date">27/05</div>
+        <span class="perc-badge">HOJE</span>
+      </div>
+      <div class="perc-arrow">›</div>
+      <div class="perc-item next">
+        <div class="perc-num">SA 16</div>
+        <div class="perc-title">Técnicas de Programação</div>
+        <div class="perc-date">03/06</div>
+        <span class="perc-badge">próxima</span>
+      </div>
+      <div class="perc-arrow">›</div>
+      <div class="perc-item far">
+        <div class="perc-num">SA 17</div>
+        <div class="perc-title">Reutilização de Código</div>
+        <div class="perc-date">10/06</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <strong>Contexto:</strong> na SA 14 você implementou INSERT e SELECT com Prepared Statement. Hoje você fecha o ciclo com <strong>UPDATE e DELETE</strong> — e aprende a proteger sequências de operações com <strong>transações</strong> (commit e rollback).
+    </div>
+    <div class="highlight-box-y" style="margin-bottom:0;">
+      <strong>SA 16 — próxima aula:</strong> agora que o CRUD está completo, a próxima etapa é Técnicas de Programação — começando por Formatação e Documentação de Código (03/06).
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 04 — CRUD: ONDE ESTAMOS ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 04 · Revisão</div>
+    <div class="slide-title">CRUD — O que já sabemos e o que fechamos hoje</div>
+  </div>
+  <div class="slide-content">
+    <div class="crud-rev-grid">
+      <div class="crud-card crud-c">
+        <div class="crud-card-header">
+          <div class="crud-letter">C</div>
+          <div class="crud-cmd">INSERT</div>
+        </div>
+        <div class="crud-card-body">
+          <div class="crud-desc">Insere novos registros — Prepared Statement + commit()</div>
+          <span class="crud-status" style="color:var(--green);">✓ SA 14 — concluído</span>
+        </div>
+      </div>
+      <div class="crud-card crud-r">
+        <div class="crud-card-header">
+          <div class="crud-letter">R</div>
+          <div class="crud-cmd">SELECT</div>
+        </div>
+        <div class="crud-card-body">
+          <div class="crud-desc">Consulta registros — WHERE, executeQuery(), ResultSet</div>
+          <span class="crud-status" style="color:var(--green);">✓ SA 14 — concluído</span>
+        </div>
+      </div>
+      <div class="crud-card crud-u">
+        <div class="crud-card-header">
+          <div class="crud-letter">U</div>
+          <div class="crud-cmd">UPDATE</div>
+        </div>
+        <div class="crud-card-body">
+          <div class="crud-desc">Atualiza registros existentes — WHERE obrigatório</div>
+          <span class="crud-status" style="color:var(--yellow);">★ foco hoje</span>
+        </div>
+      </div>
+      <div class="crud-card crud-d">
+        <div class="crud-card-header">
+          <div class="crud-letter">D</div>
+          <div class="crud-cmd">DELETE</div>
+        </div>
+        <div class="crud-card-body">
+          <div class="crud-desc">Remove registros — WHERE obrigatório, irreversível</div>
+          <span class="crud-status" style="color:var(--yellow);">★ foco hoje</span>
+        </div>
+      </div>
+      <div class="crud-card crud-commit">
+        <div class="crud-card-header">
+          <div class="crud-letter" style="font-size:0.75em;">Transação</div>
+          <div class="crud-cmd">commit / rollback</div>
+        </div>
+        <div class="crud-card-body">
+          <div class="crud-desc">Garante tudo ou nada em sequências de operações</div>
+          <span class="crud-status" style="color:var(--yellow);">★ foco hoje</span>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-bottom:0;">
+      <strong>Ao fim desta aula</strong> você terá o CRUD completo: INSERT, SELECT, UPDATE e DELETE — mais transações para proteger a integridade dos dados. Essa é a base de qualquer sistema real.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 05 — UPDATE ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 05 · UPDATE</div>
+    <div class="slide-title">UPDATE — Atualizando Registros no Banco</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-green">Java (JDBC)</div>
+        <div class="code-block">String sql = <span class="cs">"UPDATE alunos SET nota = ? WHERE id = ?"</span>;
+<span class="ck">try</span> (Connection conn = Conexao.<span class="cf">getConexao</span>();
+     PreparedStatement ps = conn.<span class="cf">prepareStatement</span>(sql)) {
+
+    ps.<span class="cf">setDouble</span>(<span class="cn">1</span>, novaNota);
+    ps.<span class="cf">setInt</span>(<span class="cn">2</span>, idAluno);
+    <span class="ck">int</span> linhas = ps.<span class="cf">executeUpdate</span>();
+    <span class="ck">if</span> (linhas &gt; <span class="cn">0</span>) {
+        conn.<span class="cf">commit</span>();
+        System.out.<span class="cf">println</span>(<span class="cs">"Nota atualizada!"</span>);
+    } <span class="ck">else</span> {
+        System.out.<span class="cf">println</span>(<span class="cs">"Aluno não encontrado."</span>);
+    }
+} <span class="ck">catch</span> (SQLException e) {
+    System.err.<span class="cf">println</span>(e.<span class="cf">getMessage</span>());
+}</div>
+      </div>
+      <div>
+        <div class="slide-label sl-green">Python (sqlite3)</div>
+        <div class="code-block">sql = <span class="cs">"UPDATE alunos SET nota = ? WHERE id = ?"</span>
+
+cursor.<span class="cf">execute</span>(sql, (nova_nota, id_aluno))
+conexao.<span class="cf">commit</span>()
+
+<span class="ck">if</span> cursor.rowcount &gt; <span class="cn">0</span>:
+    <span class="cf">print</span>(<span class="cs">"Nota atualizada!"</span>)
+<span class="ck">else</span>:
+    <span class="cf">print</span>(<span class="cs">"Aluno não encontrado."</span>)</div>
+        <div class="card card-orange" style="margin-top:10px;">
+          <div class="card-body"><strong style="color:var(--orange);">cursor.rowcount</strong> em Python e <strong style="color:var(--orange);">executeUpdate()</strong> em Java retornam o número de linhas afetadas — sempre verifique se é maior que zero antes de exibir "sucesso"</div>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-bottom:0;">
+      <strong>Sintaxe SQL:</strong> <span class="kbd">UPDATE</span> tabela <span class="kbd">SET</span> coluna1 = ?, coluna2 = ? <span class="kbd">WHERE</span> condição · Atualizar múltiplas colunas: <span class="kbd">SET nota = ?, turma = ?</span> — cada coluna separada por vírgula.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 06 — UPDATE SEM WHERE ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 06 · Perigo</div>
+    <div class="slide-title">UPDATE sem WHERE — O Erro Mais Perigoso do CRUD</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-red">❌ Sem WHERE — catástrofe</div>
+        <div class="code-block bad"><span class="cc">// Intenção: atualizar nota de um aluno</span>
+<span class="cc">// Esqueceu o WHERE...</span>
+String sql = <span class="cs">"UPDATE alunos SET nota = ?"</span>;
+ps.<span class="cf">setDouble</span>(<span class="cn">1</span>, <span class="cn">10.0</span>);
+ps.<span class="cf">executeUpdate</span>();
+conn.<span class="cf">commit</span>();
+
+<span class="cc">// RESULTADO: nota de TODOS os alunos</span>
+<span class="cc">// virou 10.0 — irreversível após o commit</span></div>
+      </div>
+      <div>
+        <div class="slide-label sl-green">✅ Com WHERE — correto</div>
+        <div class="code-block">String sql = <span class="cs">"UPDATE alunos SET nota = ? WHERE id = ?"</span>;
+ps.<span class="cf">setDouble</span>(<span class="cn">1</span>, <span class="cn">10.0</span>);
+ps.<span class="cf">setInt</span>(<span class="cn">2</span>, idAluno);
+<span class="ck">int</span> linhas = ps.<span class="cf">executeUpdate</span>();
+conn.<span class="cf">commit</span>();
+
+<span class="cc">// Apenas o aluno com aquele ID foi atualizado</span>
+<span class="cc">// linhas == 1 confirma que era o esperado</span></div>
+      </div>
+    </div>
+    <div class="highlight-box-r">
+      <strong>Regra absoluta:</strong> UPDATE sem WHERE atualiza <strong>todos os registros da tabela</strong>. No mercado, operações de UPDATE e DELETE em produção exigem revisão por um segundo desenvolvedor, backup prévio e confirmação explícita. <strong>Conferir o WHERE duas vezes antes de executar é hábito obrigatório.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 07 — DELETE ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 07 · DELETE</div>
+    <div class="slide-title">DELETE — Removendo Registros do Banco</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-green">Java (JDBC)</div>
+        <div class="code-block">String sql = <span class="cs">"DELETE FROM alunos WHERE id = ?"</span>;
+<span class="ck">try</span> (Connection conn = Conexao.<span class="cf">getConexao</span>();
+     PreparedStatement ps = conn.<span class="cf">prepareStatement</span>(sql)) {
+
+    ps.<span class="cf">setInt</span>(<span class="cn">1</span>, idAluno);
+    <span class="ck">int</span> linhas = ps.<span class="cf">executeUpdate</span>();
+    <span class="ck">if</span> (linhas &gt; <span class="cn">0</span>) {
+        conn.<span class="cf">commit</span>();
+        System.out.<span class="cf">println</span>(<span class="cs">"Aluno removido!"</span>);
+    } <span class="ck">else</span> {
+        System.out.<span class="cf">println</span>(<span class="cs">"Aluno não encontrado."</span>);
+    }
+} <span class="ck">catch</span> (SQLException e) {
+    System.err.<span class="cf">println</span>(e.<span class="cf">getMessage</span>());
+}</div>
+      </div>
+      <div>
+        <div class="slide-label sl-green">Python (sqlite3)</div>
+        <div class="code-block">sql = <span class="cs">"DELETE FROM alunos WHERE id = ?"</span>
+
+cursor.<span class="cf">execute</span>(sql, (id_aluno,))
+conexao.<span class="cf">commit</span>()
+
+<span class="ck">if</span> cursor.rowcount &gt; <span class="cn">0</span>:
+    <span class="cf">print</span>(<span class="cs">"Aluno removido!"</span>)
+<span class="ck">else</span>:
+    <span class="cf">print</span>(<span class="cs">"Aluno não encontrado."</span>)</div>
+        <div class="highlight-box-y" style="margin-bottom:0; margin-top:10px;">
+          <strong>⚠️ Python:</strong> ao passar apenas um valor como tupla, não esqueça a vírgula: <span class="kbd">(id_aluno,)</span> — sem a vírgula não é uma tupla.
+        </div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-bottom:0;">
+      <strong>Sintaxe SQL:</strong> <span class="kbd">DELETE FROM</span> tabela <span class="kbd">WHERE</span> condição · O DELETE não aceita lista de colunas — ele remove a linha inteira. Sempre use Prepared Statement para o valor da condição WHERE.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 08 — DELETE SEM WHERE ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 08 · Perigo</div>
+    <div class="slide-title">DELETE sem WHERE — Operação Irreversível</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-red">❌ Sem WHERE — apaga tudo</div>
+        <div class="code-block bad"><span class="cc">// Intenção: remover um aluno específico</span>
+<span class="cc">// Esqueceu o WHERE...</span>
+String sql = <span class="cs">"DELETE FROM alunos"</span>;
+ps.<span class="cf">executeUpdate</span>();
+conn.<span class="cf">commit</span>();
+
+<span class="cc">// RESULTADO: TODOS os alunos removidos</span>
+<span class="cc">// Após commit, não há desfazer</span>
+<span class="cc">// Tabela vazia — dados perdidos</span></div>
+      </div>
+      <div>
+        <div class="slide-label sl-green">✅ Com WHERE — seguro</div>
+        <div class="code-block">String sql = <span class="cs">"DELETE FROM alunos WHERE id = ?"</span>;
+ps.<span class="cf">setInt</span>(<span class="cn">1</span>, idAluno);
+<span class="ck">int</span> linhas = ps.<span class="cf">executeUpdate</span>();
+<span class="ck">if</span> (linhas &gt; <span class="cn">0</span>) {
+    conn.<span class="cf">commit</span>();
+    System.out.<span class="cf">println</span>(<span class="cs">"Removido!"</span>);
+}
+
+<span class="cc">// Apenas o aluno com aquele ID foi removido</span></div>
+      </div>
+    </div>
+    <div class="highlight-box-r">
+      <strong>DELETE sem WHERE remove todos os registros da tabela.</strong> Diferente do UPDATE, que pode ser corrigido atualizando os dados de volta, o DELETE destrói os dados permanentemente após o commit. Em ambientes profissionais, DELETE em produção exige <strong>backup obrigatório antes de executar</strong>.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 09 — LINHAS AFETADAS ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 09 · Linhas Afetadas</div>
+    <div class="slide-title">Linhas Afetadas — Verificar Antes de Confirmar Sucesso</div>
+  </div>
+  <div class="slide-content">
+    <div class="highlight-box" style="margin-bottom:14px;">
+      <strong>executeUpdate()</strong> em Java e <strong>cursor.rowcount</strong> em Python retornam o número de linhas que foram alteradas pela operação. <strong>Zero significa que o WHERE não encontrou nenhum registro correspondente</strong> — o sistema NÃO deve exibir "sucesso" nesse caso.
+    </div>
+    <table class="atalho-table" style="margin-bottom:14px;">
+      <thead>
+        <tr><th>Retorno</th><th>Significa</th><th>O que fazer</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span style="color:var(--red); font-family:'DM Mono',monospace; font-weight:700;">0</span></td>
+          <td>Nenhum registro encontrado com o WHERE informado</td>
+          <td>Não chamar commit · exibir "registro não encontrado"</td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--green); font-family:'DM Mono',monospace; font-weight:700;">1</span></td>
+          <td>Exatamente um registro foi alterado — esperado para UPDATE/DELETE por ID</td>
+          <td>Chamar commit · exibir "operação realizada"</td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--yellow); font-family:'DM Mono',monospace; font-weight:700;">&gt; 1</span></td>
+          <td>Múltiplos registros alterados — pode ser intencional (ex: desconto geral) ou erro de WHERE</td>
+          <td>Verificar se a quantidade era esperada · confirmar só se fizer sentido</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="cards-grid cards-2" style="gap:12px;">
+      <div class="code-block" style="margin-bottom:0;">Java:
+<span class="ck">int</span> linhas = ps.<span class="cf">executeUpdate</span>();
+<span class="ck">if</span> (linhas == <span class="cn">0</span>) {
+    System.out.<span class="cf">println</span>(<span class="cs">"Nenhum registro afetado."</span>);
+} <span class="ck">else</span> {
+    conn.<span class="cf">commit</span>();
+}</div>
+      <div class="code-block" style="margin-bottom:0;">Python:
+cursor.<span class="cf">execute</span>(sql, (valor, id_aluno))
+<span class="ck">if</span> cursor.rowcount == <span class="cn">0</span>:
+    <span class="cf">print</span>(<span class="cs">"Nenhum registro afetado."</span>)
+<span class="ck">else</span>:
+    conexao.<span class="cf">commit</span>()</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 10 — EXCLUSÃO LÓGICA ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 10 · Exclusão Lógica</div>
+    <div class="slide-title">Exclusão Lógica × DELETE Físico</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:14px;">
+      <div>
+        <div class="slide-label sl-red">DELETE físico — permanente</div>
+        <div class="code-block"><span class="cc">// Remove o registro da tabela para sempre</span>
+String sql = <span class="cs">"DELETE FROM alunos WHERE id = ?"</span>;
+ps.<span class="cf">setInt</span>(<span class="cn">1</span>, idAluno);
+ps.<span class="cf">executeUpdate</span>();
+conn.<span class="cf">commit</span>();
+
+<span class="cc">// Após commit: dado irrecuperável</span>
+<span class="cc">// Sem backup? Dado perdido para sempre</span></div>
+      </div>
+      <div>
+        <div class="slide-label sl-green">Exclusão lógica — reversível</div>
+        <div class="code-block"><span class="cc">// Marca o registro como inativo</span>
+<span class="cc">// O dado continua no banco, mas "desaparece"</span>
+String sql = <span class="cs">"UPDATE alunos SET ativo = false WHERE id = ?"</span>;
+ps.<span class="cf">setInt</span>(<span class="cn">1</span>, idAluno);
+ps.<span class="cf">executeUpdate</span>();
+conn.<span class="cf">commit</span>();
+
+<span class="cc">// Consultas filtram apenas ativos:</span>
+<span class="cc">// SELECT * FROM alunos WHERE ativo = true</span></div>
+      </div>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card card-accent">
+        <div class="card-icon">🔄</div>
+        <div class="card-title">Reversível</div>
+        <div class="card-body">Exclusão lógica pode ser desfeita: basta atualizar <span class="kbd">ativo = true</span> — o dado nunca saiu do banco</div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-icon">📊</div>
+        <div class="card-title">Histórico</div>
+        <div class="card-body">Mantém o histórico de registros removidos — útil para auditorias, relatórios e rastreabilidade</div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-icon">🏢</div>
+        <div class="card-title">Uso Profissional</div>
+        <div class="card-body">A maioria dos sistemas corporativos usa exclusão lógica — clientes, pedidos e usuários raramente são deletados de verdade</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 11 — O QUE É TRANSAÇÃO ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 11 · Transações</div>
+    <div class="slide-title">Transações — Tudo ou Nada</div>
+  </div>
+  <div class="slide-content">
+    <div class="highlight-box" style="margin-bottom:16px;">
+      <strong>Transação</strong> é um conjunto de operações executado como uma unidade indivisível: ou todas as operações são confirmadas, ou nenhuma delas é. O banco de dados nunca fica em um estado parcialmente modificado.
+    </div>
+    <div class="exemplo-flow" style="margin-bottom:16px;">
+      <div class="flow-step fs-t">
+        <div class="fs-icon">🔓</div>
+        <div class="fs-label">setAutoCommit(false)</div>
+        <div class="fs-desc">Desativa o commit automático — operações ficam em espera</div>
+      </div>
+      <div class="flow-step fs-g">
+        <div class="fs-icon">⚙️</div>
+        <div class="fs-label">Operação 1</div>
+        <div class="fs-desc">Executada mas não confirmada — ainda pode ser desfeita</div>
+      </div>
+      <div class="flow-step fs-g">
+        <div class="fs-icon">⚙️</div>
+        <div class="fs-label">Operação 2</div>
+        <div class="fs-desc">Executada mas não confirmada — parte da mesma transação</div>
+      </div>
+      <div class="flow-step fs-y">
+        <div class="fs-icon">💾</div>
+        <div class="fs-label">commit()</div>
+        <div class="fs-desc">Confirma as duas juntas — banco atualizado de forma consistente</div>
+      </div>
+      <div class="flow-step fs-r">
+        <div class="fs-icon">↩️</div>
+        <div class="fs-label">rollback()</div>
+        <div class="fs-desc">Se algo falhar — desfaz tudo desde o início. Banco volta ao estado original</div>
+      </div>
+    </div>
+    <div class="highlight-box-y" style="margin-bottom:0;">
+      <strong>rollback() não desfaz commit já confirmado.</strong> Ele só age sobre as operações pendentes desde o último commit. Uma vez que o commit foi executado, as alterações são permanentes.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 12 — PROBLEMA SEM TRANSAÇÃO ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 12 · O Problema</div>
+    <div class="slide-title">Transferência Bancária — Sem Transação</div>
+  </div>
+  <div class="slide-content">
+    <div class="highlight-box-r" style="margin-bottom:14px;">
+      <strong>Cenário:</strong> transferir R$ 500 da conta A para a conta B. São duas operações: débito na origem e crédito no destino. O que acontece se ocorrer um erro entre as duas?
+    </div>
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:14px;">
+      <div>
+        <div class="slide-label sl-red">Sequência sem transação</div>
+        <div class="code-block bad"><span class="cc">// Operação 1: débitar da conta A</span>
+String sql1 = <span class="cs">"UPDATE contas SET saldo = saldo - ? WHERE id = ?"</span>;
+ps1.<span class="cf">executeUpdate</span>();
+conn.<span class="cf">commit</span>(); <span class="cc">// commit individual ← ERRO</span>
+
+<span class="cc">// Erro ocorre aqui: banco cai, conexão perde...</span>
+
+<span class="cc">// Operação 2: creditar na conta B</span>
+<span class="cc">// NUNCA ACONTECE</span>
+String sql2 = <span class="cs">"UPDATE contas SET saldo = saldo + ? WHERE id = ?"</span>;</div>
+      </div>
+      <div>
+        <div class="slide-label sl-red">Resultado</div>
+        <div class="cards-grid" style="gap:10px;">
+          <div class="card card-red">
+            <div class="card-icon">💸</div>
+            <div class="card-title">Débito ocorreu</div>
+            <div class="card-body">R$ 500 saíram da conta A — o commit individual confirmou o débito</div>
+          </div>
+          <div class="card card-red">
+            <div class="card-icon">❌</div>
+            <div class="card-title">Crédito não ocorreu</div>
+            <div class="card-body">R$ 500 nunca chegaram à conta B — o dinheiro simplesmente desapareceu</div>
+          </div>
+          <div class="card card-red">
+            <div class="card-icon">💥</div>
+            <div class="card-title">Banco inconsistente</div>
+            <div class="card-body">O sistema está em estado inválido — dados corrompidos, sem como reverter</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 13 — SOLUÇÃO COM TRANSAÇÃO ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 13 · A Solução</div>
+    <div class="slide-title">Transferência Bancária — Com Transação</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-green">Java — com transação</div>
+        <div class="code-block">conn.<span class="cf">setAutoCommit</span>(<span class="ck">false</span>); <span class="cc">// início da transação</span>
+<span class="ck">try</span> {
+    <span class="cc">// Operação 1: débito</span>
+    ps1.<span class="cf">setDouble</span>(<span class="cn">1</span>, valor);
+    ps1.<span class="cf">setInt</span>(<span class="cn">2</span>, contaOrigem);
+    ps1.<span class="cf">executeUpdate</span>();
+
+    <span class="cc">// Operação 2: crédito</span>
+    ps2.<span class="cf">setDouble</span>(<span class="cn">1</span>, valor);
+    ps2.<span class="cf">setInt</span>(<span class="cn">2</span>, contaDestino);
+    ps2.<span class="cf">executeUpdate</span>();
+
+    conn.<span class="cf">commit</span>(); <span class="cc">// confirma as DUAS juntas</span>
+    System.out.<span class="cf">println</span>(<span class="cs">"Transferência concluída!"</span>);
+} <span class="ck">catch</span> (SQLException e) {
+    conn.<span class="cf">rollback</span>(); <span class="cc">// desfaz TUDO se qualquer uma falhar</span>
+    System.err.<span class="cf">println</span>(<span class="cs">"Erro: transferência cancelada."</span>);
+} <span class="ck">finally</span> {
+    conn.<span class="cf">setAutoCommit</span>(<span class="ck">true</span>); <span class="cc">// restaura comportamento padrão</span>
+    conn.<span class="cf">close</span>();
+}</div>
+      </div>
+      <div>
+        <div class="slide-label sl-green">Resultado com transação</div>
+        <div class="cards-grid" style="gap:10px;">
+          <div class="card card-green">
+            <div class="card-icon">✅</div>
+            <div class="card-title">Tudo funciona</div>
+            <div class="card-body">Débito E crédito confirmados juntos pelo commit — banco sempre consistente</div>
+          </div>
+          <div class="card card-green">
+            <div class="card-icon">↩️</div>
+            <div class="card-title">Erro no meio</div>
+            <div class="card-body">rollback() desfaz o débito automaticamente — conta A fica intacta, nenhuma conta é afetada</div>
+          </div>
+          <div class="card card-accent">
+            <div class="card-icon">🔐</div>
+            <div class="card-title">Princípio: Tudo ou Nada</div>
+            <div class="card-body">A transação garante que duas operações dependentes sejam indivisíveis — nunca uma sem a outra</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 14 — COMMIT E ROLLBACK NA PRÁTICA ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 14 · Prática</div>
+    <div class="slide-title">commit e rollback — Estrutura Completa com try/catch/finally</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-green">Java</div>
+        <div class="code-block">conn.<span class="cf">setAutoCommit</span>(<span class="ck">false</span>);
+<span class="ck">try</span> {
+    <span class="cc">// operações de banco</span>
+    ps.<span class="cf">executeUpdate</span>();
+    conn.<span class="cf">commit</span>(); <span class="cc">// confirma se tudo ok</span>
+} <span class="ck">catch</span> (SQLException e) {
+    conn.<span class="cf">rollback</span>(); <span class="cc">// desfaz se falhou</span>
+    System.err.<span class="cf">println</span>(e.<span class="cf">getMessage</span>());
+} <span class="ck">finally</span> {
+    conn.<span class="cf">setAutoCommit</span>(<span class="ck">true</span>);
+    conn.<span class="cf">close</span>(); <span class="cc">// sempre fecha</span>
+}</div>
+      </div>
+      <div>
+        <div class="slide-label sl-green">Python</div>
+        <div class="code-block"><span class="ck">try</span>:
+    cursor.<span class="cf">execute</span>(sql1, params1)
+    cursor.<span class="cf">execute</span>(sql2, params2)
+    conexao.<span class="cf">commit</span>()   <span class="cc"># confirma tudo</span>
+<span class="ck">except</span> Exception <span class="ck">as</span> e:
+    conexao.<span class="cf">rollback</span>() <span class="cc"># desfaz tudo</span>
+    <span class="cf">print</span>(<span class="cs">f"Erro: {e}"</span>)
+<span class="ck">finally</span>:
+    cursor.<span class="cf">close</span>()
+    conexao.<span class="cf">close</span>()</div>
+      </div>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card card-accent">
+        <div class="card-icon">💾</div>
+        <div class="card-title">commit()</div>
+        <div class="card-body">Confirma permanentemente todas as operações da transação — executado no bloco <span class="kbd">try</span> se tudo correu bem</div>
+      </div>
+      <div class="card card-red">
+        <div class="card-icon">↩️</div>
+        <div class="card-title">rollback()</div>
+        <div class="card-body">Desfaz todas as operações pendentes — executado no <span class="kbd">catch</span> quando ocorre qualquer erro</div>
+      </div>
+      <div class="card card-purple">
+        <div class="card-icon">🔒</div>
+        <div class="card-title">finally</div>
+        <div class="card-body">Restaura <span class="kbd">setAutoCommit(true)</span> e fecha a conexão — sempre executado, com ou sem erro</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 15 — CRUD CONSOLIDADO ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 15 · CRUD Completo</div>
+    <div class="slide-title">CRUD Completo — Visão Consolidada das 4 Operações</div>
+  </div>
+  <div class="slide-content">
+    <table class="atalho-table">
+      <thead>
+        <tr><th>Operação</th><th>SQL</th><th>Método Java</th><th>commit?</th><th>Risco sem WHERE</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span style="color:var(--green); font-family:'DM Mono',monospace; font-weight:700;">INSERT</span></td>
+          <td><code class="mono">INSERT INTO tabela (col) VALUES (?)</code></td>
+          <td><span class="kbd">executeUpdate()</span></td>
+          <td><span style="color:var(--green);">✓ Sim</span></td>
+          <td>Não se aplica</td>
+        </tr>
+        <tr>
+          <td><span style="color:#93C5FD; font-family:'DM Mono',monospace; font-weight:700;">SELECT</span></td>
+          <td><code class="mono">SELECT col FROM tabela WHERE cond</code></td>
+          <td><span class="kbd">executeQuery()</span></td>
+          <td><span style="color:var(--gray);">✗ Não</span></td>
+          <td>Retorna todos os registros</td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--yellow); font-family:'DM Mono',monospace; font-weight:700;">UPDATE</span></td>
+          <td><code class="mono">UPDATE tabela SET col = ? WHERE id = ?</code></td>
+          <td><span class="kbd">executeUpdate()</span></td>
+          <td><span style="color:var(--green);">✓ Sim</span></td>
+          <td><span style="color:var(--red);">Atualiza TODOS os registros</span></td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--red); font-family:'DM Mono',monospace; font-weight:700;">DELETE</span></td>
+          <td><code class="mono">DELETE FROM tabela WHERE id = ?</code></td>
+          <td><span class="kbd">executeUpdate()</span></td>
+          <td><span style="color:var(--green);">✓ Sim</span></td>
+          <td><span style="color:var(--red);">Remove TODOS os registros</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box" style="margin-top:14px; margin-bottom:0;">
+      <strong>Padrão comum às 4 operações:</strong> sempre usar <strong>Prepared Statement</strong> · sempre verificar <strong>linhas afetadas</strong> antes de exibir "sucesso" · sempre fechar conexão no <strong>finally</strong> · usar <strong>transação</strong> quando duas ou mais operações dependem uma da outra.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 16 — BOAS PRÁTICAS ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 16 · Boas Práticas</div>
+    <div class="slide-title">Boas Práticas — CRUD Completo</div>
+  </div>
+  <div class="slide-content">
+    <div class="comp-grid">
+      <div class="comp-faz">
+        <div class="comp-header">✓ FAZ</div>
+        <ul class="comp-list">
+          <li>Sempre incluir <strong>WHERE</strong> em UPDATE e DELETE — conferir duas vezes</li>
+          <li>Verificar <strong>linhas afetadas</strong> antes de exibir mensagem de sucesso</li>
+          <li>Usar <strong>transação</strong> quando duas ou mais operações dependem uma da outra</li>
+          <li>Chamar <strong>rollback()</strong> no catch — desfaz tudo em caso de erro</li>
+          <li>Considerar <strong>exclusão lógica</strong> (<span class="kbd">ativo=false</span>) em vez de DELETE físico</li>
+          <li>Registrar em <strong>log</strong> todas as operações de UPDATE e DELETE</li>
+        </ul>
+      </div>
+      <div class="comp-evit">
+        <div class="comp-header">✗ EVITA</div>
+        <ul class="comp-list">
+          <li>UPDATE ou DELETE <strong>sem WHERE</strong> — altera ou remove todos os registros</li>
+          <li>Exibir "sucesso" sem verificar se <strong>rowcount &gt; 0</strong></li>
+          <li>Fazer <strong>commit individual</strong> em operações que dependem umas das outras</li>
+          <li>Esquecer <strong>rollback()</strong> no catch — banco fica em estado inconsistente</li>
+          <li>Usar DELETE físico em dados que podem precisar de <strong>recuperação futura</strong></li>
+          <li>Ignorar o retorno de <strong>executeUpdate()</strong> — ele carrega informação vital</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 17 — DINÂMICA ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 17 · Dinâmica</div>
+    <div class="slide-title">Operação Segura? — Análise Crítica de Cenários</div>
+  </div>
+  <div class="slide-content">
+    <div class="din-header">
+      <div class="din-icon">🛡️</div>
+      <div>
+        <div class="din-title">Dinâmica em Grupo · 15 minutos · Grupos de 4–5 alunos</div>
+        <div class="din-sub">Classificar cada cenário: Operação Segura · Com Risco · Incorreta — e justificar a decisão</div>
+      </div>
+    </div>
+    <table class="situ-table">
+      <thead>
+        <tr><th>Cenário</th><th>Classificação</th><th>Risco / Correção</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="mono">DELETE FROM alunos</code> sem WHERE</td>
+          <td><span class="badge-r">Incorreta — crítico</span></td>
+          <td>Remove todos os alunos — sempre usar WHERE</td>
+        </tr>
+        <tr>
+          <td><code class="mono">UPDATE alunos SET nota = 10.0 WHERE id = ?</code> com Prepared Statement</td>
+          <td><span class="badge-g">Segura</span></td>
+          <td>Atualiza apenas o aluno com o ID informado — uso correto</td>
+        </tr>
+        <tr>
+          <td>Dois INSERTs em tabelas relacionadas sem transação — o segundo falha</td>
+          <td><span class="badge-y">Com Risco</span></td>
+          <td>Banco fica inconsistente — usar transação com rollback no catch</td>
+        </tr>
+        <tr>
+          <td>DELETE com <code class="mono">rowcount == 0</code> sem tratamento — sistema exibe "removido com sucesso"</td>
+          <td><span class="badge-y">Com Risco</span></td>
+          <td>Nenhum registro foi removido — verificar rowcount antes de exibir mensagem</td>
+        </tr>
+        <tr>
+          <td><code class="mono">UPDATE produtos SET preco = preco * 0.9</code> sem WHERE para desconto geral</td>
+          <td><span class="badge-g">Segura (se intencional)</span></td>
+          <td>Correto se o objetivo é atualizar todos — documentar e confirmar a intenção antes</td>
+        </tr>
+        <tr>
+          <td>rollback() chamado após commit bem-sucedido</td>
+          <td><span class="badge-r">Incorreta</span></td>
+          <td>rollback não desfaz commit confirmado — só age sobre operações ainda pendentes</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 18 — RESUMO ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 18 · Resumo</div>
+    <div class="slide-title">O que aprendemos hoje — CRUD Completo</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:12px;">
+      <div class="card card-accent">
+        <div class="card-icon">✏️</div>
+        <div class="card-title">UPDATE</div>
+        <div class="card-body"><strong>WHERE é obrigatório</strong> — sem ele, todos os registros são alterados. Verificar <span class="kbd">executeUpdate()</span> &gt; 0 antes de confirmar sucesso. Sempre usar Prepared Statement.</div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-icon">🗑️</div>
+        <div class="card-title">DELETE</div>
+        <div class="card-body"><strong>WHERE é obrigatório</strong> — sem ele, todos os registros são removidos de forma irreversível. Considere a exclusão lógica (<span class="kbd">ativo=false</span>) para dados importantes.</div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-icon">🔐</div>
+        <div class="card-title">Transações</div>
+        <div class="card-body"><strong>setAutoCommit(false)</strong> agrupa operações. <span class="kbd">commit()</span> confirma todas juntas. <span class="kbd">rollback()</span> no catch desfaz tudo — garantindo o princípio de <strong>tudo ou nada</strong>.</div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-icon">✅</div>
+        <div class="card-title">CRUD Completo</div>
+        <div class="card-body">INSERT · SELECT · UPDATE · DELETE — as quatro operações fundamentais de qualquer sistema com banco de dados. A base de toda aplicação real está concluída.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 19 — ENCERRAMENTO ═══ -->
+<section class="slide-enc" data-transition="zoom">
+  <div class="enc-grid">
+    <div class="enc-card">
+      <div class="enc-card-label">Próxima Aula → SA 16 · 03/06</div>
+      <div class="enc-card-title">Técnicas de Programação — Formatação e Documentação de Código</div>
+      <ul>
+        <li>Padrões de formatação de código e indentação</li>
+        <li>Comentários e documentação do código-fonte</li>
+        <li>Javadoc e docstrings — documentar para quem vem depois</li>
+        <li>Por que documentar importa: manutenibilidade e trabalho em equipe</li>
+      </ul>
+    </div>
+    <div class="enc-card">
+      <div class="enc-card-label">Para a próxima aula</div>
+      <div class="enc-card-title">Revise o CRUD completo</div>
+      <ul>
+        <li>UPDATE e DELETE sempre com WHERE — conferir duas vezes</li>
+        <li>Verificar <span class="kbd">rowcount</span> / <span class="kbd">executeUpdate()</span> antes de exibir sucesso</li>
+        <li>Praticar a transação na IDE: dois INSERTs em sequência com rollback no catch</li>
+        <li>Implementar exclusão lógica no sistema de alunos da SA 14</li>
+      </ul>
+    </div>
+  </div>
+  <div class="quote-box">
+    <p>"Um sistema que não protege seus dados contra falhas parciais não é confiável — é um acidente esperando para acontecer."</p>
+    <cite>— Princípio de Integridade em Desenvolvimento de Software</cite>
+  </div>
+</section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    progress: true,
+    controls: true,
+    width: 1280,
+    height: 720,
+    margin: 0.08,
+    transition: 'slide',
+    backgroundTransition: 'fade'
+  });
+</script>
+</body>
+</html>
