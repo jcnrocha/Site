@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Apresentação sobre Microsoft PowerPoint — do básico ao intermediário para a UC Fundamentos de TI.">
+<meta name="theme-color" content="#080D20">
+<meta name="color-scheme" content="dark">
+<meta name="author" content="Prof. Julio Cesar">
+<title>Aula 05 — Microsoft PowerPoint</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ── VARIÁVEIS FTI ── */
+:root {
+  --fti:          #534AB7;
+  --fti-d:        #3D37A0;
+  --yellow:       #F9C74F;
+  --dark:         #080D20;
+  --purple:       #7C3AED;
+  --green:        #10B981;
+  --red:          #EF4444;
+  --orange:       #F97316;
+  --white:        #FFFFFF;
+  --gray:         #CBD5E1;
+  --light:        #F8FAFC;
+  --glass-bg:     rgba(255,255,255,0.05);
+  --glass-border: rgba(255,255,255,0.10);
+  --radius:       12px;
+  --transition:   0.25s ease;
+}
+
+/* ── UTILITIES ── */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(6px);
+}
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.text-muted  { color: var(--gray); }
+.transition  { transition: var(--transition); }
+
+/* ── ACCENT CLASSES ── */
+.accent-fti    { background: var(--fti); }
+.accent-yellow { background: var(--yellow); }
+.accent-green  { background: var(--green); }
+.accent-red    { background: var(--red); }
+.accent-orange { background: var(--orange); }
+.accent-purple { background: var(--purple); }
+
+/* ── BASE ── */
+html, body {
+  background: #04070F !important;
+  margin: 0; padding: 0;
+}
+
+/* Moldura do slide */
+.reveal .slides {
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 1px rgba(83,74,183,0.3),
+    0 8px 32px rgba(0,0,0,0.6),
+    0 2px 8px rgba(0,0,0,0.4);
+}
+
+.reveal { font-family: 'DM Sans', sans-serif; }
+.reveal .slides section { height: 100%; text-align: left; overflow: hidden; }
+.reveal h1,.reveal h2,.reveal h3,.reveal h4,.reveal h5,.reveal h6 {
+  text-transform: none; font-family: 'DM Sans', sans-serif; margin: 0;
+}
+.reveal p  { margin: 0; }
+.reveal ul,.reveal ol { margin: 0; padding: 0; }
+
+/* ── CAPA ── */
+.slide-capa {
+  background: linear-gradient(135deg,#080D20 0%,#12185C 60%,#080D20 100%) !important;
+  position: relative; overflow: hidden;
+}
+.slide-capa::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:8px; background:var(--fti);
+}
+.slide-capa::after {
+  content:''; position:absolute; left:8px; top:0; bottom:0; width:4px; background:var(--yellow);
+}
+.capa-inner {
+  height:100%; max-height:720px; display:flex; flex-direction:column;
+  justify-content:center; padding:36px 40px 36px 48px;
+  overflow:hidden; box-sizing:border-box;
+}
+.capa-kicker {
+  font-family:'DM Mono',monospace; font-size:0.5em; color:var(--fti);
+  letter-spacing:3px; text-transform:uppercase; margin-bottom:16px;
+}
+.capa-title {
+  font-size:2em !important; line-height:1.15; color:var(--white);
+  margin-bottom:12px; font-weight:700;
+}
+.capa-title span { color:var(--yellow); }
+.capa-sub {
+  font-size:0.52em; color:var(--gray); margin-bottom:28px;
+  max-width:65%; line-height:1.6;
+}
+.capa-badges { display:flex; gap:10px; flex-wrap:wrap; }
+.capa-badge {
+  font-size:0.42em; padding:5px 14px; border-radius:20px;
+  font-weight:600; font-family:'DM Mono',monospace;
+}
+.cb-fti    { background:var(--fti);    color:var(--white); }
+.cb-yellow { background:var(--yellow); color:var(--dark); }
+.cb-dark   { background:rgba(255,255,255,0.1); color:var(--white); border:1px solid rgba(255,255,255,0.2); }
+.capa-deco {
+  position:absolute; right:-60px; bottom:-60px; width:280px; height:280px;
+  border-radius:50%; background:rgba(83,74,183,0.10); border:2px solid rgba(83,74,183,0.15);
+}
+.capa-deco2 {
+  position:absolute; right:40px; bottom:40px; width:140px; height:140px;
+  border-radius:50%; background:rgba(249,199,79,0.06); border:2px solid rgba(249,199,79,0.1);
+}
+
+/* ── SLIDE PADRÃO ── */
+.slide-std { background:#0D1030 !important; padding:0 !important; }
+.slide-enc { background:linear-gradient(135deg,#080D20 0%,#0D1030 100%) !important; padding:0 !important; }
+
+.slide-content {
+  height:100%; max-height:720px; display:flex; flex-direction:column;
+  padding:32px 44px; justify-content:flex-start; gap:12px;
+  overflow:hidden; box-sizing:border-box;
+}
+.slide-label {
+  font-family:'DM Mono',monospace; font-size:0.38em; color:var(--fti);
+  letter-spacing:2px; text-transform:uppercase;
+}
+.slide-title {
+  font-size:1.15em !important; color:var(--white); line-height:1.2; font-weight:700;
+  border-bottom:2px solid var(--fti); padding-bottom:10px; margin-bottom:0;
+}
+.slide-title span { color:var(--fti); }
+
+/* ── CARDS ── */
+.cards-grid { display:grid; gap:10px; }
+.cards-2 { grid-template-columns:1fr 1fr; }
+.cards-3 { grid-template-columns:1fr 1fr 1fr; }
+
+.card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  position: relative; overflow: hidden;
+  transition: transform var(--transition), border-color var(--transition), background var(--transition);
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(83,74,183,0.4);
+  background: rgba(255,255,255,0.08);
+}
+.card-accent {
+  position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:12px 0 0 12px;
+}
+.card-num   { font-family:'DM Mono',monospace; font-size:0.38em; font-weight:700; margin-bottom:6px; display:block; }
+.card-title { font-size:0.58em !important; font-weight:700; color:var(--white); margin-bottom:5px; line-height:1.3; display:block; }
+.card-text  { font-size:0.46em !important; color:var(--gray); line-height:1.6; }
+
+.card-title-red    { color:var(--red); }
+.card-title-yellow { color:var(--yellow); }
+.card-title-green  { color:var(--green); }
+.card-title-orange { color:var(--orange); }
+.card-title-fti    { color:var(--fti); }
+.card-title-purple { color:#A78BFA; }
+
+/* ── BULLET LIST ── */
+.bullet-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.bullet-list li {
+  display:flex; align-items:flex-start; gap:12px; font-size:0.52em !important;
+  color:#CBD5E1; line-height:1.5; padding:8px 12px;
+  background:rgba(255,255,255,0.04); border-radius:8px; border-left:3px solid var(--fti);
+}
+.bullet-list li strong { color:var(--white); }
+
+/* ── HIGHLIGHT BOX ── */
+.highlight-box {
+  background:rgba(83,74,183,0.12); border:1px solid rgba(83,74,183,0.35); border-radius:10px; padding:10px 14px;
+}
+.highlight-box p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box strong { color:var(--fti); }
+
+/* ── HIGHLIGHT BOX YELLOW ── */
+.highlight-box-y {
+  background:rgba(249,199,79,0.08); border:1px solid rgba(249,199,79,0.3); border-radius:10px; padding:10px 14px;
+}
+.highlight-box-y p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box-y strong { color:var(--yellow); }
+
+/* ── QUOTE BOX ── */
+.quote-box {
+  background:rgba(249,199,79,0.08); border-left:4px solid var(--yellow);
+  border-radius:0 10px 10px 0; padding:14px 18px;
+}
+.quote-box p    { font-size:0.5em !important; color:#E2E8F0; font-style:italic; line-height:1.7; margin:0; }
+.quote-box cite { font-size:0.38em !important; color:var(--yellow); font-style:normal; display:block; margin-top:6px; font-family:'DM Mono',monospace; }
+
+/* ── FLOW STEPS ── */
+.exemplo-flow { display:flex; flex-direction:column; gap:7px; }
+.flow-step {
+  background:rgba(255,255,255,0.04); border-radius:8px; padding:11px 14px;
+  display:flex; gap:14px; align-items:flex-start; border-left:3px solid;
+}
+.flow-step.fs-t  { border-color:var(--fti); }
+.flow-step.fs-y  { border-color:var(--yellow); }
+.flow-step.fs-g  { border-color:var(--green); }
+.flow-step.fs-r  { border-color:var(--red); }
+.flow-step.fs-o  { border-color:var(--orange); }
+.flow-step.fs-p  { border-color:#A78BFA; }
+.flow-label { font-family:'DM Mono',monospace; font-size:0.44em !important; font-weight:700; flex-shrink:0; min-width:28px; }
+.fs-t .flow-label { color:var(--fti); }
+.fs-y .flow-label { color:var(--yellow); }
+.fs-g .flow-label { color:var(--green); }
+.fs-r .flow-label { color:var(--red); }
+.fs-o .flow-label { color:var(--orange); }
+.fs-p .flow-label { color:#A78BFA; }
+.flow-text        { font-size:0.44em !important; color:#CBD5E1; line-height:1.6; }
+.flow-text strong { color:var(--white); }
+
+/* ── DINÂMICA ── */
+.din-header {
+  background:rgba(83,74,183,0.2); border:1px solid rgba(83,74,183,0.4);
+  border-radius:10px; padding:12px 18px; display:flex; align-items:center; gap:12px;
+}
+.din-header-text { font-size:0.55em !important; font-weight:700; color:#A78BFA; }
+.din-meta         { display:flex; gap:20px; flex-wrap:wrap; }
+.din-meta-item    { font-size:0.42em !important; color:var(--gray); }
+.din-meta-item strong { color:var(--white); }
+
+/* ── ENCERRAMENTO ── */
+.enc-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.enc-card { border-radius:10px; padding:12px 16px; }
+.enc-prox { background:rgba(249,199,79,0.1);  border:1px solid rgba(249,199,79,0.3); }
+.enc-rev  { background:rgba(83,74,183,0.12);  border:1px solid rgba(83,74,183,0.3); }
+.enc-card-label { font-family:'DM Mono',monospace; font-size:0.36em !important; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; display:block; }
+.enc-prox .enc-card-label { color:var(--yellow); }
+.enc-rev  .enc-card-label { color:var(--fti); }
+.enc-card-text { font-size:0.46em !important; color:var(--white); line-height:1.5; }
+
+/* ── COMPARATIVO ── */
+.comp-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.comp-col  { border-radius:10px; padding:14px; }
+.comp-faz  { background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25); }
+.comp-evit { background:rgba(239,68,68,0.1);  border:1px solid rgba(239,68,68,0.25); }
+.comp-header  { font-size:0.6em !important; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.comp-faz  .comp-header { color:var(--green); }
+.comp-evit .comp-header { color:var(--red); }
+.comp-item {
+  font-size:0.42em !important; color:#CBD5E1; padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,0.06); line-height:1.5; display:flex; gap:8px;
+}
+.comp-item:last-child { border-bottom:none; }
+
+/* ── TABELA ATALHOS ── */
+.atalho-table { width:100%; border-collapse:collapse; font-size:0.44em !important; }
+.atalho-table th {
+  background:rgba(83,74,183,0.2); color:var(--fti);
+  font-family:'DM Mono',monospace; font-size:0.85em; text-transform:uppercase;
+  letter-spacing:1px; padding:8px 10px; border-bottom:2px solid rgba(83,74,183,0.4);
+  text-align:left;
+}
+.atalho-table td {
+  padding:7px 10px; color:var(--gray); border-bottom:1px solid rgba(255,255,255,0.06);
+  vertical-align:middle;
+}
+.atalho-table tr:hover td { background:rgba(255,255,255,0.03); }
+.atalho-table .row-dest td { color:var(--white); font-weight:700; }
+.atalho-table .row-dest td:first-child { color:var(--fti); }
+.kbd {
+  display:inline-block; background:rgba(83,74,183,0.25); border:1px solid rgba(83,74,183,0.4);
+  border-radius:5px; padding:2px 8px; font-family:'DM Mono',monospace;
+  font-size:0.9em; color:var(--yellow); font-weight:700;
+}
+
+/* ── BADGE TIPO ── */
+.tipo-badge {
+  display:inline-block; font-family:'DM Mono',monospace; font-size:0.36em;
+  padding:3px 10px; border-radius:20px; font-weight:700; letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+/* ── PROGRESS / SLIDE NUMBER ── */
+.reveal .progress               { color:var(--fti); height:3px; }
+.reveal .slide-number           { font-family:'DM Mono',monospace; font-size:12px; color:var(--gray); background:rgba(0,0,0,0.4); border-radius:6px; padding:4px 8px; }
+
+/* ── RESPONSIVIDADE ── */
+@media (max-width:768px) {
+  .cards-grid, .comp-grid, .enc-grid { grid-template-columns:1fr !important; }
+  .slide-content { padding:24px; gap:14px; }
+  .slide-title   { font-size:0.9em !important; }
+  .card-title    { font-size:0.55em !important; }
+  .card-text, .flow-text, .bullet-list li { font-size:0.52em !important; line-height:1.7; }
+  .capa-title { font-size:1.3em !important; }
+  .capa-sub   { max-width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 1 — CAPA                         -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-capa" data-transition="zoom">
+  <div class="capa-deco"></div>
+  <div class="capa-deco2"></div>
+  <div class="capa-inner">
+    <div class="capa-kicker">Aula 05 · 2º Trimestre · Fundamentos de Tecnologias da Informação</div>
+    <h1 class="capa-title">Microsoft PowerPoint<br><span>Do Básico ao Intermediário</span></h1>
+    <p class="capa-sub">Design profissional de slides, animações, transições e boas práticas para criar apresentações que comunicam de verdade</p>
+    <div class="capa-badges">
+      <span class="capa-badge cb-fti">Aula 05 · 16/06/2026</span>
+      <span class="capa-badge cb-yellow">Módulo Apresentações</span>
+      <span class="capa-badge cb-dark">Prof. Julio Cesar</span>
+      <span class="capa-badge cb-dark">Colégio Neiva Pavan</span>
+      <span class="capa-badge cb-dark">2º Ano — TDS</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 2 — OBJETIVOS                    -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O que você vai aprender hoje</div>
+    <h2 class="slide-title">🏆 Objetivos da Aula</h2>
+    <ul class="bullet-list">
+      <li><strong>Interface:</strong> Conhecer cada parte do PowerPoint — painel, área de edição, notas do apresentador e modos de exibição</li>
+      <li><strong>Layouts e Temas:</strong> Escolher e personalizar layouts prontos e aplicar temas visuais consistentes à apresentação</li>
+      <li><strong>Slide Mestre:</strong> Entender como padronizar toda a apresentação de uma só vez usando o Slide Mestre</li>
+      <li><strong>Transições e Animações:</strong> Aplicar efeitos entre slides e dentro dos slides com moderação e propósito</li>
+      <li><strong>Boas Práticas de Design:</strong> Criar slides limpos, legíveis e profissionais seguindo regras fundamentais de comunicação visual</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 3 — CONEXÃO COM AULAS ANTERIORES -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">De onde viemos e para onde vamos</div>
+    <h2 class="slide-title">🔗 Nosso <span>Percurso</span> até aqui</h2>
+    <div class="highlight-box">
+      <p>Nas últimas 4 aulas dominamos o <strong>Excel do básico aos dashboards</strong> e conhecemos o <strong>Google Sheets</strong>. Agora iniciamos o módulo de <strong>Apresentações</strong> — a ferramenta que todo profissional usa para comunicar seus dados e ideias.</p>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">Aulas 01–04 — Planilhas</span>
+        <div class="card-text">Excel básico, intermediário, gráficos e dashboards · Google Sheets e colaboração em tempo real · Atividade avaliativa do módulo</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-fti"></div>
+        <span class="card-title card-title-fti">Aula 05 — Hoje</span>
+        <div class="card-text">PowerPoint do básico ao intermediário · Interface, layouts, Slide Mestre · Transições, animações e boas práticas de design</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">Aula 06 — Próxima</span>
+        <div class="card-text">Google Slides · Continuidade do módulo de apresentações · Colaboração em tempo real · Atividade avaliativa do módulo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 4 — O QUE É O POWERPOINT         -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Conhecendo a ferramenta</div>
+    <h2 class="slide-title">📺 O que é o <span>Microsoft PowerPoint</span>?</h2>
+    <div class="quote-box">
+      <p>"Uma boa apresentação não é um documento com slides — é uma história visual que guia o público até uma conclusão."</p>
+      <cite>— Nancy Duarte, especialista em design de apresentações</cite>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-fti"></div>
+        <span class="card-num" style="color:var(--fti);">O que é</span>
+        <span class="card-title">Software de Apresentações</span>
+        <div class="card-text">Ferramenta da Microsoft para criar slides que combinam texto, imagens, gráficos, vídeos e animações. Faz parte do pacote Office. Salva em formato <strong style="color:var(--yellow);">.pptx</strong></div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">Para que serve</span>
+        <span class="card-title">Comunicar com Impacto</span>
+        <div class="card-text">Apresentações de trabalho, aulas, treinamentos, defesas acadêmicas, pitches de projeto, relatórios visuais e muito mais. É exigido em praticamente qualquer ambiente profissional.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 5 — A INTERFACE                   -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Conhecendo cada parte</div>
+    <h2 class="slide-title">🖥️ A <span>Interface</span> do PowerPoint</h2>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-fti"></div>
+        <span class="card-title card-title-fti">📋 Faixa de Opções</span>
+        <div class="card-text">Ribbon com as abas: Início, Inserir, Design, Transições, Animações, Apresentação de Slides, Revisão e Exibir. Todos os comandos ficam aqui.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">🗂️ Painel de Slides</span>
+        <div class="card-text">Painel lateral esquerdo que mostra a miniatura de todos os slides em ordem. Clique para navegar, arraste para reordenar, clique direito para mais opções.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">🎨 Área de Edição</span>
+        <div class="card-text">A tela central — é aqui que você monta cada slide adicionando e posicionando todos os elementos visuais: textos, imagens, formas e gráficos.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">📝 Painel de Notas</span>
+        <div class="card-text">Área abaixo da área de edição para anotações do apresentador. O público não vê durante a apresentação — só você enxerga no modo de apresentação.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-purple"></div>
+        <span class="card-title card-title-purple">👁️ Modos de Exibição</span>
+        <div class="card-text">Normal, Classificação de Slides, Anotações e Leitura. Cada modo serve a um propósito: editar, organizar, revisar ou apresentar.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">⌨️ Barra de Status</span>
+        <div class="card-text">Rodapé com número do slide atual, total de slides, idioma, zoom e atalhos rápidos para os modos de exibição. Informações sempre à mão.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 6 — LAYOUTS E TEMAS              -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">A base visual da apresentação</div>
+    <h2 class="slide-title">🎨 <span>Layouts</span> e <span style="color:var(--yellow);">Temas</span></h2>
+    <div class="highlight-box">
+      <p><strong>Layout</strong> define a disposição dos elementos em cada slide (onde fica o título, onde fica o conteúdo). <strong>Tema</strong> define o visual geral — fontes, cores e plano de fundo de toda a apresentação.</p>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-t">
+        <span class="flow-label">LAYOUT</span>
+        <div class="flow-text"><strong>Como escolher:</strong> Clique com botão direito no slide → Layout. Há opções como: Título, Título e Conteúdo, Em Branco, Duas Partes, Comparação, Somente Título e outros. Escolha conforme o tipo de informação do slide.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">TEMA</span>
+        <div class="flow-text"><strong>Como aplicar:</strong> Aba Design → seção Temas → clique no tema desejado. O PowerPoint aplica automaticamente a todas os slides. Passe o mouse para pré-visualizar antes de confirmar.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">CORES</span>
+        <div class="flow-text"><strong>Personalizar:</strong> Aba Design → Variantes → Cores → escolha uma paleta ou crie a sua. As cores do tema se aplicam automaticamente em toda a apresentação de forma consistente.</div>
+      </div>
+      <div class="flow-step fs-o">
+        <span class="flow-label">FONTES</span>
+        <div class="flow-text"><strong>Padronizar:</strong> Aba Design → Variantes → Fontes → escolha o par de fontes (título + corpo). Trocar aqui muda todas as caixas de texto da apresentação de uma só vez.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 7 — SLIDE MESTRE                 -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O segredo do design consistente</div>
+    <h2 class="slide-title">👑 O <span>Slide Mestre</span></h2>
+    <div class="highlight-box">
+      <p>O Slide Mestre é um slide "pai" que controla o visual de <strong>todos os outros slides</strong> ao mesmo tempo. Qualquer mudança feita nele se aplica automaticamente a toda a apresentação — logo, cor, rodapé e estilo de fonte inclusos.</p>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-t">
+        <span class="flow-label">ACESSAR</span>
+        <div class="flow-text"><strong>Como abrir:</strong> Aba Exibir → Slide Mestre. O PowerPoint entra em modo de edição do mestre — você verá uma hierarquia de layouts no painel esquerdo.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">EDITAR</span>
+        <div class="flow-text"><strong>O que editar aqui:</strong> Logo da escola no canto, cor de fundo padrão, fonte padrão, rodapé com nome do professor ou data — qualquer elemento que deve aparecer em todos os slides.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">APLICAR</span>
+        <div class="flow-text"><strong>Para finalizar:</strong> Aba Slide Mestre → Fechar Modo de Exibição do Mestre. As mudanças são aplicadas automaticamente em todos os slides existentes e futuros.</div>
+      </div>
+      <div class="flow-step fs-o">
+        <span class="flow-label">DICA PRO</span>
+        <div class="flow-text"><strong>Quando usar:</strong> Sempre que a apresentação tiver mais de 5 slides e precisar de identidade visual padronizada. É o que diferencia uma apresentação amadora de uma profissional.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 8 — INSERIR CONTEÚDO             -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Enriquecendo os slides</div>
+    <h2 class="slide-title">➕ Inserir <span>Conteúdo</span> nos Slides</h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-fti"></div>
+        <span class="card-title card-title-fti">🔤 Caixas de Texto</span>
+        <div class="card-text">Inserir → Caixa de Texto. Clique e arraste para criar. Dica: use as caixas de título e conteúdo do layout — elas já estão posicionadas corretamente no Slide Mestre.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">🖼️ Imagens</span>
+        <div class="card-text">Inserir → Imagens → deste dispositivo ou imagens online. Use imagens em alta resolução. Evite distorcer: segure Shift ao redimensionar para manter a proporção.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">🔷 Formas e Ícones</span>
+        <div class="card-text">Inserir → Formas para setas, retângulos, círculos e muito mais. Inserir → Ícones para a biblioteca de ícones vetoriais do Office — sem perda de qualidade ao redimensionar.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">📊 Gráficos e Tabelas</span>
+        <div class="card-text">Inserir → Gráfico para criar um gráfico baseado em dados. Inserir → Tabela para tabelas. Os gráficos criados aqui são os mesmos do Excel — mesmos tipos e personalizações.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-purple"></div>
+        <span class="card-title card-title-purple">🎬 Vídeos</span>
+        <div class="card-text">Inserir → Vídeo → deste dispositivo ou do YouTube online. O vídeo do YouTube toca diretamente na apresentação se houver internet. Vídeo local fica embutido no arquivo.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">🔗 Hiperlinks</span>
+        <div class="card-text">Selecione um texto ou imagem → Inserir → Link. Pode linkar para: site externo, outro slide da mesma apresentação, arquivo local ou endereço de e-mail.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 9 — TRANSIÇÕES                   -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Efeitos entre slides</div>
+    <h2 class="slide-title">✨ <span>Transições</span> entre Slides</h2>
+    <div class="highlight-box-y">
+      <p><strong>Transição</strong> é o efeito visual que acontece quando você passa de um slide para o próximo. Use com moderação: a transição não deve ser mais interessante do que o conteúdo do slide.</p>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-fti"></div>
+        <span class="card-title card-title-fti">🌊 Sutis</span>
+        <div class="card-text"><strong>Recortar, Esmaecer, Empurrar, Revelar, Cortar</strong> — as mais profissionais. Discretas, elegantes e recomendadas para apresentações de trabalho e acadêmicas.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">💫 Elaboradas</span>
+        <div class="card-text"><strong>Cubo, Porta, Origami, Puzzle</strong> — impactantes mas podem distrair. Use só em situações onde o efeito reforça o conteúdo, como em transições de seção.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">⚠️ Dinâmico</span>
+        <div class="card-text"><strong>Transformar (Morph)</strong> — cria movimento suave entre elementos de slides consecutivos. Recurso avançado e muito profissional quando usado com intenção.</div>
+      </div>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-t">
+        <span class="flow-label">COMO APLICAR</span>
+        <div class="flow-text">Selecione o(s) slide(s) no painel esquerdo → Aba <strong>Transições</strong> → clique no efeito → ajuste Duração → marque <strong>"Aplicar a Todos"</strong> para padronizar a apresentação inteira.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 10 — ANIMAÇÕES                   -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Movimentos dentro do slide</div>
+    <h2 class="slide-title">🎬 <span>Animações</span> nos Elementos</h2>
+    <div class="highlight-box">
+      <p>Animação é o efeito aplicado a <strong>elementos dentro do slide</strong> — texto, imagem, forma. Diferente de transição (entre slides). Use para revelar informações progressivamente e guiar o olhar do público.</p>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-t">
+        <span class="flow-label">ENTRADA</span>
+        <div class="flow-text"><strong>Aparecer, Esmaecer, Emergir, Girar —</strong> o elemento surge do nada na tela. Use para revelar pontos de forma progressiva, evitando que o público leia tudo antes de você explicar.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">ÊNFASE</span>
+        <div class="flow-text"><strong>Pulsar, Girar, Aumentar/Diminuir, Brilhar —</strong> o elemento já está na tela e é destacado. Use para chamar atenção para um dado específico durante a explicação.</div>
+      </div>
+      <div class="flow-step fs-o">
+        <span class="flow-label">SAÍDA</span>
+        <div class="flow-text"><strong>Desaparecer, Esmaecer, Emergir para fora —</strong> o elemento some da tela. Use com moderação — saídas podem confundir o público se não tiverem propósito claro.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">PAINEL</span>
+        <div class="flow-text"><strong>Como abrir o Painel de Animação:</strong> Aba Animações → Painel de Animações. Aqui você controla a ordem, duração e início de cada animação individualmente.</div>
+      </div>
+      <div class="flow-step fs-r">
+        <span class="flow-label">REGRA DE OURO</span>
+        <div class="flow-text"><strong>Menos é mais.</strong> Uma animação mal usada distrai mais do que ajuda. Se o efeito chamou mais atenção do que o conteúdo, ele é desnecessário. Prefira animações simples e rápidas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 11 — BOAS PRÁTICAS DE DESIGN     -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">A diferença entre amador e profissional</div>
+    <h2 class="slide-title">🎯 Boas Práticas de <span>Design de Slides</span></h2>
+    <div class="comp-grid">
+      <div class="comp-col comp-faz">
+        <div class="comp-header">✅ FAÇA ASSIM</div>
+        <div class="comp-item">✔ Máximo de 5 linhas de texto por slide</div>
+        <div class="comp-item">✔ Fonte mínima tamanho 24 para o corpo</div>
+        <div class="comp-item">✔ Uma ideia principal por slide</div>
+        <div class="comp-item">✔ Alto contraste entre texto e fundo</div>
+        <div class="comp-item">✔ Espaço em branco é seu aliado</div>
+        <div class="comp-item">✔ Imagens relevantes e em boa qualidade</div>
+        <div class="comp-item">✔ Paleta de 2 a 3 cores consistentes</div>
+      </div>
+      <div class="comp-col comp-evit">
+        <div class="comp-header">❌ EVITE ISSO</div>
+        <div class="comp-item">✖ Paredes de texto copiadas de documentos</div>
+        <div class="comp-item">✖ Fonte menor que 18 — impossível de ler</div>
+        <div class="comp-item">✖ Mais de 5 ideias no mesmo slide</div>
+        <div class="comp-item">✖ Fundo e texto com cores muito similares</div>
+        <div class="comp-item">✖ Slide completamente cheio sem respiro</div>
+        <div class="comp-item">✖ Imagens pixeladas ou deformadas</div>
+        <div class="comp-item">✖ Mais de 5 cores diferentes por slide</div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:4px;">
+      <p><strong>Regra geral:</strong> Slide bom é aquele que o público entende em <strong>menos de 5 segundos</strong>. Se precisar de mais tempo para ler, há texto demais.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 12 — REGRA DOS 5×5              -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Quanto texto é demais?</div>
+    <h2 class="slide-title">📏 A Regra dos <span>5×5</span></h2>
+    <div class="highlight-box-y">
+      <p><strong>Regra dos 5×5:</strong> No máximo <strong>5 linhas por slide</strong> e no máximo <strong>5 palavras por linha</strong>. Slides não são documentos — são apoio visual para o que você vai falar.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">❌ Slide Parede de Texto</span>
+        <div class="card-text">O Microsoft PowerPoint é uma ferramenta de apresentação de slides criada pela Microsoft que permite ao usuário criar apresentações com texto, imagens, vídeos, gráficos e outros elementos multimídia que podem ser usados em apresentações profissionais, acadêmicas, escolares e eventos... <em style="color:var(--red);">[ninguém lê isso]</em></div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">✅ Slide Correto</span>
+        <div class="card-text">
+          <strong style="color:var(--green);">PowerPoint — o que é:</strong><br>
+          • Ferramenta de slides da Microsoft<br>
+          • Combina texto, imagem e vídeo<br>
+          • Usado em qualquer ambiente profissional<br>
+          • Salva em formato .pptx<br><br>
+          <em>[você completa falando — o slide apoia, não substitui]</em>
+        </div>
+      </div>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-t">
+        <span class="flow-label">💡 DICA</span>
+        <div class="flow-text">Se você sente necessidade de colocar muito texto no slide é porque ainda não ensaiou o suficiente. O conteúdo deve estar na sua cabeça, não na tela. O slide é a âncora visual — você é o apresentador.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 13 — PALETA DE CORES             -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Como escolher cores que funcionam</div>
+    <h2 class="slide-title">🎨 <span>Paleta de Cores</span> Profissional</h2>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-fti"></div>
+        <span class="card-title card-title-fti">🎯 Regra das 3 Cores</span>
+        <div class="card-text">Use no máximo 3 cores na apresentação: <strong style="color:var(--white);">1 cor primária</strong> (identidade), <strong style="color:var(--white);">1 cor de destaque</strong> (ação, CTA) e <strong style="color:var(--white);">neutros</strong> (branco, cinza, preto) para texto e fundo.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">☀️ Contraste é tudo</span>
+        <div class="card-text">Texto claro em fundo escuro — ou texto escuro em fundo claro. Nunca vermelho sobre verde (daltônicos), nunca cinza médio sobre cinza escuro. Teste: imprima em preto e branco — se ler, o contraste está bom.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">🌈 Paletas prontas</span>
+        <div class="card-text">O PowerPoint oferece paletas prontas em Design → Variantes → Cores. Sites como <strong style="color:var(--white);">coolors.co</strong> e <strong style="color:var(--white);">color.adobe.com</strong> geram paletas harmoniosas automaticamente.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">🌙 Fundo Escuro vs Claro</span>
+        <div class="card-text"><strong>Fundo escuro:</strong> melhor em ambientes com pouca luz e projetores. Parece mais moderno e tecnológico. <strong>Fundo claro:</strong> melhor para imprimir e para ambientes muito iluminados. Escolha conforme o contexto.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-purple"></div>
+        <span class="card-title card-title-purple">🚫 Cores que Evitar</span>
+        <div class="card-text">Nunca use vermelho e verde juntos (daltônicos). Evite amarelo sobre branco — desaparece. Evite cores vivas demais como cor de fundo — cansam os olhos rapidamente durante a apresentação.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">💡 Cor tem Significado</span>
+        <div class="card-text">Vermelho = alerta, urgência. Verde = sucesso, aprovação. Amarelo = atenção. Azul = confiança, tecnologia. Laranja = energia, criatividade. Use conscientemente para reforçar a mensagem.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 14 — TIPOGRAFIA                  -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Fontes que funcionam em apresentações</div>
+    <h2 class="slide-title">🔤 <span>Tipografia</span> para Slides</h2>
+    <div class="highlight-box">
+      <p>A fonte comunica antes mesmo de o público ler o texto. Fontes simples e limpas são mais legíveis em projeção. <strong>Nunca use mais de 2 famílias de fontes diferentes na mesma apresentação.</strong></p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">✅ Fontes Recomendadas</span>
+        <div class="card-text">
+          <strong style="color:var(--white);">Sem serifa (Sans-serif) — para apresentações:</strong><br>
+          • Calibri — padrão do Office, ótima legibilidade<br>
+          • Arial — limpa e universal<br>
+          • Montserrat — moderna, disponível no Google<br>
+          • Open Sans — digital, leve e elegante<br>
+          • Segoe UI — usada pelo próprio Windows
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">❌ O que Evitar</span>
+        <div class="card-text">
+          <strong style="color:var(--white);">Fontes que atrapalham:</strong><br>
+          • Comic Sans — informal e não profissional<br>
+          • Times New Roman — parece documento word, não slide<br>
+          • Fontes decorativas — difíceis de ler em projeção<br>
+          • Fontes em caixa alta inteira — cansativo<br>
+          • Muitos estilos juntos: negrito + itálico + sublinhado
+        </div>
+      </div>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-y">
+        <span class="flow-label">TAMANHOS</span>
+        <div class="flow-text"><strong>Título:</strong> 36–44pt · <strong>Subtítulo:</strong> 24–28pt · <strong>Corpo do texto:</strong> 20–24pt · <strong>Rodapé/legenda:</strong> 14–18pt. Nunca menor que 14pt em slides projetados.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 15 — ATALHOS E MODO APRESENTAÇÃO -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Apresentar com confiança e eficiência</div>
+    <h2 class="slide-title">⌨️ Atalhos e <span>Modo Apresentação</span></h2>
+    <table class="atalho-table">
+      <thead>
+        <tr>
+          <th>Ação</th>
+          <th>Atalho</th>
+          <th>Para que serve</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-dest">
+          <td>Iniciar apresentação</td>
+          <td><span class="kbd">F5</span></td>
+          <td>Inicia do início em tela cheia — atalho mais importante</td>
+        </tr>
+        <tr class="row-dest">
+          <td>Iniciar do slide atual</td>
+          <td><span class="kbd">Shift + F5</span></td>
+          <td>Apresenta a partir do slide onde você está editando</td>
+        </tr>
+        <tr>
+          <td>Avançar slide</td>
+          <td><span class="kbd">→</span> ou <span class="kbd">Enter</span></td>
+          <td>Próximo slide ou próxima animação</td>
+        </tr>
+        <tr>
+          <td>Voltar slide</td>
+          <td><span class="kbd">←</span> ou <span class="kbd">Backspace</span></td>
+          <td>Slide ou animação anterior</td>
+        </tr>
+        <tr>
+          <td>Tela preta</td>
+          <td><span class="kbd">B</span></td>
+          <td>Escurece a tela — para focar no apresentador</td>
+        </tr>
+        <tr>
+          <td>Tela branca</td>
+          <td><span class="kbd">W</span></td>
+          <td>Clareia a tela — alternativa à tela preta</td>
+        </tr>
+        <tr>
+          <td>Ir para slide número</td>
+          <td><span class="kbd">número + Enter</span></td>
+          <td>Pula diretamente para o slide desejado</td>
+        </tr>
+        <tr class="row-dest">
+          <td>Encerrar apresentação</td>
+          <td><span class="kbd">Esc</span></td>
+          <td>Sai do modo de apresentação e volta à edição</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 16 — MODO DO APRESENTADOR        -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Sua tela vs a tela do público</div>
+    <h2 class="slide-title">🎤 O <span>Modo do Apresentador</span></h2>
+    <div class="highlight-box">
+      <p>Com dois monitores (computador + projetor), o PowerPoint exibe o <strong>Modo do Apresentador</strong> automaticamente: você vê suas notas e o próximo slide — o público vê apenas o slide atual em tela cheia.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-fti"></div>
+        <span class="card-title card-title-fti">🖥️ O que você vê</span>
+        <div class="card-text">
+          • Slide atual em miniatura<br>
+          • <strong style="color:var(--white);">Próximo slide</strong> — para saber o que vem<br>
+          • <strong style="color:var(--white);">Suas anotações</strong> em fonte grande<br>
+          • <strong style="color:var(--white);">Cronômetro</strong> — controle do tempo<br>
+          • Botões de caneta e laser pointer virtual
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">💡 Dicas de Uso</span>
+        <div class="card-text">
+          • Escreva palavras-chave nas notas, não o texto completo<br>
+          • Use <strong style="color:var(--white);">Ctrl+P</strong> para ativar a caneta virtual<br>
+          • Pressione <strong style="color:var(--white);">Ctrl+L</strong> para o laser pointer<br>
+          • Ative em: Aba Apresentação → Usar Modo do Apresentador<br>
+          • Ensaie o tempo: Apresentação → Ensaiar intervalos
+        </div>
+      </div>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-g">
+        <span class="flow-label">SEM PROJETOR</span>
+        <div class="flow-text">Sem segundo monitor, ative o Modo do Apresentador manualmente: durante a apresentação clique com botão direito → Mostrar Modo do Apresentador. A tela fica dividida.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 17 — EXPORTAR E COMPARTILHAR     -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Entregando a apresentação</div>
+    <h2 class="slide-title">📤 <span>Exportar</span> e Compartilhar</h2>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-t">
+        <span class="flow-label">.PPTX</span>
+        <div class="flow-text"><strong>Formato padrão do PowerPoint.</strong> Arquivo → Salvar como → Apresentação do PowerPoint (.pptx). Use quando o destinatário também tem PowerPoint instalado e pode precisar editar.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">.PDF</span>
+        <div class="flow-text"><strong>Para apresentar ou compartilhar sem edição.</strong> Arquivo → Exportar → Criar PDF/XPS. O PDF preserva o visual exatamente — não importa o sistema do destinatário. Ideal para enviar por e-mail.</div>
+      </div>
+      <div class="flow-step fs-o">
+        <span class="flow-label">VÍDEO</span>
+        <div class="flow-text"><strong>Para apresentar em loop ou postar online.</strong> Arquivo → Exportar → Criar Vídeo. Escolha resolução Full HD (1080p). As animações e transições ficam gravadas no vídeo automaticamente.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">IMAGENS</span>
+        <div class="flow-text"><strong>Para usar slides como imagens individuais.</strong> Arquivo → Exportar → Alterar tipo de arquivo → JPEG ou PNG. Cada slide vira uma imagem separada — útil para Instagram, redes sociais e materiais gráficos.</div>
+      </div>
+      <div class="flow-step fs-p">
+        <span class="flow-label">ONLINE</span>
+        <div class="flow-text"><strong>Publicar na web (OneDrive/SharePoint).</strong> Arquivo → Compartilhar → Carregar para a Nuvem → salve no OneDrive → Compartilhar → gere um link. Qualquer pessoa com o link pode visualizar no navegador.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 18 — DINÂMICA                    -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Mão na massa!</div>
+    <h2 class="slide-title">🎮 Dinâmica: <span>Minha Apresentação</span></h2>
+    <div class="din-header">
+      <span style="font-size:1.4em;">🎯</span>
+      <div class="din-header-text">Criar uma apresentação de 5 slides sobre "Minha vida na área de tecnologia" aplicando todas as boas práticas aprendidas hoje</div>
+    </div>
+    <div class="din-meta">
+      <div class="din-meta-item">⏱️ <strong>20 a 25 minutos</strong></div>
+      <div class="din-meta-item">👤 <strong>Individual</strong></div>
+      <div class="din-meta-item">🖥️ <strong>PowerPoint instalado</strong></div>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-fti"></div>
+        <span class="card-title card-title-fti">📋 O que deve ter</span>
+        <div class="card-text">
+          <strong>Slide 1:</strong> Capa com seu nome e um tema visual<br>
+          <strong>Slide 2:</strong> Por que escolhi TI?<br>
+          <strong>Slide 3:</strong> Uma tecnologia que quero aprender<br>
+          <strong>Slide 4:</strong> Como me vejo daqui a 5 anos<br>
+          <strong>Slide 5:</strong> Conclusão com uma frase marcante
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">✅ Critérios Obrigatórios</span>
+        <div class="card-text">
+          • Usar um <strong style="color:var(--white);">tema visual</strong> consistente<br>
+          • Máximo <strong style="color:var(--white);">5 linhas</strong> de texto por slide<br>
+          • Pelo menos <strong style="color:var(--white);">1 imagem</strong> na apresentação<br>
+          • Transição <strong style="color:var(--white);">igual</strong> em todos os slides<br>
+          • Salvar como <strong style="color:var(--white);">.pptx</strong> com seu nome
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">⭐ Bônus — Quem fizer</span>
+        <div class="card-text">
+          • Usar o <strong style="color:var(--white);">Slide Mestre</strong> para padronizar<br>
+          • Adicionar <strong style="color:var(--white);">animação de entrada</strong> no título<br>
+          • Usar <strong style="color:var(--white);">paleta de 3 cores</strong> coerente<br>
+          • Escrever notas do apresentador em todos os slides<br>
+          • Apresentar para o colega ao lado
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">⚠️ Erros para Evitar</span>
+        <div class="card-text">
+          • Parede de texto copiada<br>
+          • Fontes diferentes em cada slide<br>
+          • Mais de 5 cores na mesma apresentação<br>
+          • Imagem distorcida ou pixelada<br>
+          • Sem nenhuma identidade visual
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 19 — RESUMO                      -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O que vimos hoje</div>
+    <h2 class="slide-title">📌 Resumo da Aula</h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-fti"></div>
+        <span class="card-title card-title-fti">🖥️ Interface e Navegação</span>
+        <div class="card-text">Faixa de Opções, Painel de Slides, Área de Edição, Painel de Notas, modos de exibição. Atalhos essenciais: <strong style="color:var(--fti);">F5</strong> para apresentar, <strong style="color:var(--fti);">Esc</strong> para sair.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">🎨 Design e Consistência</span>
+        <div class="card-text">Layouts organizam os elementos. Temas definem o visual geral. <strong style="color:var(--yellow);">Slide Mestre</strong> padroniza tudo de uma vez. Paleta de 3 cores + 2 fontes máximo.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">✨ Transições e Animações</span>
+        <div class="card-text">Transição = entre slides. Animação = dentro do slide. Regra de ouro: <strong style="color:var(--orange);">menos é mais.</strong> Efeitos devem ter propósito, nunca apenas decoração.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">📏 Boas Práticas</span>
+        <div class="card-text">Regra dos 5×5 · Fonte mínima 24pt · Alto contraste · Uma ideia por slide · Espaço em branco · Imagens de qualidade · Exportar como .pdf para compartilhar.</div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:4px;">
+      <p><strong>O PowerPoint é a ferramenta que transforma dados em história.</strong> Dominar o design de slides é uma habilidade profissional tão importante quanto saber programar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 20 — ENCERRAMENTO                -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-enc" data-transition="zoom">
+  <div class="slide-content">
+    <div class="slide-label">Até a próxima</div>
+    <h2 class="slide-title">🚀 O que <span>vem a seguir</span></h2>
+    <div class="enc-grid">
+      <div class="enc-card enc-prox">
+        <span class="enc-card-label">→ Próxima aula — Aula 06 · 23/06</span>
+        <div class="enc-card-text">Google Slides — tudo que aprendemos no PowerPoint agora na plataforma Google, com colaboração em tempo real e publicação na web. Atividade prática avaliativa do módulo de Apresentações.</div>
+      </div>
+      <div class="enc-card enc-rev">
+        <span class="enc-card-label">📝 Para a próxima aula</span>
+        <div class="enc-card-text">Trazer a apresentação criada na dinâmica de hoje salva em .pptx · Criar uma conta Google se ainda não tiver · Acessar slides.google.com e explorar a interface antes da aula</div>
+      </div>
+    </div>
+    <div class="quote-box">
+      <p>"As pessoas que se saem bem nas apresentações não são necessariamente as mais inteligentes — são as que sabem contar histórias com clareza."</p>
+      <cite>— Carmine Gallo, autor de "Fale como Steve Jobs"</cite>
+    </div>
+    <div style="text-align:center;margin-top:12px;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.36em;color:var(--gray);letter-spacing:2px;text-transform:uppercase;">Aula 05 · PowerPoint · Prof. Julio Cesar · Colégio Neiva Pavan · 2026</div>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    progress: true,
+    controls: true,
+    controlsTutorial: true,
+    transition: 'slide',
+    transitionSpeed: 'default',
+    backgroundTransition: 'fade',
+    center: true,
+    width: 1280,
+    height: 720,
+    margin: 0.08,
+    minScale: 0.2,
+    maxScale: 1.0,
+    plugins: []
+  });
+</script>
+</body>
+</html>
