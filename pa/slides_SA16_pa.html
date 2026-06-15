@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SA 16 — Formatação e Documentação de Código · Programação de Aplicativos</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pa:     #1A7A4A;
+  --yellow: #F9C74F;
+  --green:  #10B981;
+  --red:    #EF4444;
+  --orange: #F97316;
+  --purple: #7C3AED;
+  --blue:   #3B82F6;
+  --dark:   #080D20;
+  --gray:   #CBD5E1;
+}
+
+.reveal { font-family: 'DM Sans', sans-serif; }
+.reveal .slides section { text-align: left; }
+.reveal h1,.reveal h2,.reveal h3 { font-family: 'DM Sans', sans-serif; }
+.reveal pre { box-shadow: none; margin: 0; }
+.reveal section img { border: none; background: none; box-shadow: none; }
+
+/* ─── CAPA ─── */
+.slide-capa {
+  background: var(--dark) !important;
+  position: relative;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 80px !important;
+  overflow: hidden;
+}
+.slide-capa::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: var(--pa);
+}
+.capa-kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7em;
+  color: var(--pa);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.capa-title {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+.capa-sub {
+  font-size: 1.3em;
+  color: var(--yellow);
+  font-weight: 500;
+  margin-bottom: 26px;
+}
+.capa-uc {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62em;
+  color: rgba(203,213,225,0.45);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.capa-badge {
+  display: inline-block;
+  background: rgba(26,122,74,0.18);
+  border: 1px solid rgba(26,122,74,0.4);
+  color: #4ADE80;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58em;
+  padding: 5px 16px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+  margin-top: 12px;
+}
+
+/* ─── SLIDE STD ─── */
+.slide-std {
+  background: #0C1427 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column;
+}
+.slide-header {
+  background: rgba(26,122,74,0.1);
+  border-left: 4px solid var(--pa);
+  padding: 18px 56px 14px;
+  flex-shrink: 0;
+}
+.slide-kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.52em;
+  color: var(--pa);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.slide-title {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.2;
+}
+.slide-content {
+  flex: 1;
+  padding: 20px 56px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ─── ENC ─── */
+.slide-enc {
+  background: var(--dark) !important;
+  position: relative;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 72px !important;
+  overflow: hidden;
+}
+.slide-enc::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: var(--pa);
+}
+
+/* ─── CARDS ─── */
+.cards-grid { display: grid; gap: 12px; }
+.cards-2 { grid-template-columns: 1fr 1fr; }
+.cards-3 { grid-template-columns: 1fr 1fr 1fr; }
+.cards-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+.cards-5 { grid-template-columns: repeat(5, 1fr); }
+
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 14px;
+}
+.card-accent  { border-top: 3px solid var(--pa); }
+.card-green   { border-top: 3px solid var(--green); }
+.card-yellow  { border-top: 3px solid var(--yellow); }
+.card-red     { border-top: 3px solid var(--red); }
+.card-orange  { border-top: 3px solid var(--orange); }
+.card-blue    { border-top: 3px solid var(--blue); }
+.card-purple  { border-top: 3px solid var(--purple); }
+
+.card-icon { font-size: 1.3em; margin-bottom: 5px; }
+.card-title {
+  font-size: 0.72em;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.card-body {
+  font-size: 0.62em;
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+/* ─── BULLET LIST ─── */
+.bullet-list {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.bullet-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.72em;
+  color: var(--gray);
+  line-height: 1.5;
+}
+.bullet-list li::before {
+  content: '▸';
+  color: var(--pa);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.bullet-list li strong { color: #fff; }
+
+/* ─── HIGHLIGHT BOXES ─── */
+.highlight-box {
+  background: rgba(26,122,74,0.1);
+  border: 1px solid rgba(26,122,74,0.3);
+  border-left: 4px solid var(--pa);
+  border-radius: 8px;
+  padding: 11px 16px;
+  font-size: 0.65em;
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.highlight-box strong { color: #fff; }
+
+.highlight-box-y {
+  background: rgba(249,199,79,0.08);
+  border: 1px solid rgba(249,199,79,0.3);
+  border-left: 4px solid var(--yellow);
+  border-radius: 8px;
+  padding: 11px 16px;
+  font-size: 0.65em;
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.highlight-box-y strong { color: var(--yellow); }
+
+.highlight-box-r {
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.3);
+  border-left: 4px solid var(--red);
+  border-radius: 8px;
+  padding: 11px 16px;
+  font-size: 0.65em;
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.highlight-box-r strong { color: var(--red); }
+
+.highlight-box-b {
+  background: rgba(59,130,246,0.08);
+  border: 1px solid rgba(59,130,246,0.3);
+  border-left: 4px solid var(--blue);
+  border-radius: 8px;
+  padding: 11px 16px;
+  font-size: 0.65em;
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.highlight-box-b strong { color: #93C5FD; }
+
+/* ─── QUOTE ─── */
+.quote-box {
+  background: rgba(255,255,255,0.04);
+  border-left: 4px solid var(--pa);
+  padding: 14px 18px;
+  border-radius: 0 8px 8px 0;
+  margin-top: 16px;
+}
+.quote-box p {
+  font-size: 0.75em;
+  color: #fff;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 5px;
+}
+.quote-box cite {
+  font-size: 0.58em;
+  color: var(--pa);
+  font-family: 'DM Mono', monospace;
+  font-style: normal;
+}
+
+/* ─── DIN ─── */
+.din-header {
+  background: linear-gradient(135deg, rgba(26,122,74,0.18), rgba(26,122,74,0.06));
+  border: 1px solid rgba(26,122,74,0.3);
+  border-radius: 10px;
+  padding: 13px 16px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.din-icon { font-size: 1.7em; flex-shrink: 0; }
+.din-title { font-size: 0.85em; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.din-sub { font-size: 0.58em; color: var(--gray); }
+
+/* ─── ENC GRID ─── */
+.enc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+.enc-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 16px;
+}
+.enc-card-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.52em;
+  color: var(--pa);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.enc-card-title {
+  font-size: 0.75em;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.enc-card ul {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.enc-card ul li {
+  font-size: 0.6em;
+  color: var(--gray);
+  line-height: 1.5;
+  padding-left: 13px;
+  position: relative;
+}
+.enc-card ul li::before {
+  content: '▸';
+  color: var(--pa);
+  position: absolute;
+  left: 0;
+  font-size: 0.85em;
+}
+
+/* ─── COMP GRID ─── */
+.comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.comp-faz {
+  background: rgba(16,185,129,0.07);
+  border: 1px solid rgba(16,185,129,0.25);
+  border-top: 3px solid var(--green);
+  border-radius: 8px;
+  padding: 12px;
+}
+.comp-evit {
+  background: rgba(239,68,68,0.07);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-top: 3px solid var(--red);
+  border-radius: 8px;
+  padding: 12px;
+}
+.comp-blue {
+  background: rgba(59,130,246,0.07);
+  border: 1px solid rgba(59,130,246,0.25);
+  border-top: 3px solid var(--blue);
+  border-radius: 8px;
+  padding: 12px;
+}
+.comp-header {
+  font-size: 0.62em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.comp-faz .comp-header  { color: var(--green); }
+.comp-evit .comp-header { color: var(--red); }
+.comp-blue .comp-header { color: #93C5FD; }
+.comp-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.comp-list li {
+  font-size: 0.6em;
+  color: var(--gray);
+  line-height: 1.4;
+  padding-left: 14px;
+  position: relative;
+}
+.comp-faz .comp-list li::before  { content: '✓'; color: var(--green); position: absolute; left: 0; }
+.comp-evit .comp-list li::before { content: '✗'; color: var(--red);   position: absolute; left: 0; }
+.comp-blue .comp-list li::before { content: '▸'; color: #93C5FD;      position: absolute; left: 0; }
+
+/* ─── ATALHO TABLE ─── */
+.atalho-table { width: 100%; border-collapse: collapse; font-size: 0.63em; }
+.atalho-table thead tr { background: rgba(26,122,74,0.18); }
+.atalho-table th {
+  padding: 8px 12px;
+  text-align: left;
+  color: #4ADE80;
+  font-weight: 600;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.88em;
+  border-bottom: 1px solid rgba(26,122,74,0.3);
+}
+.atalho-table td {
+  padding: 7px 12px;
+  color: var(--gray);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  line-height: 1.4;
+  vertical-align: middle;
+}
+.atalho-table tr:last-child td { border-bottom: none; }
+.atalho-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+.kbd {
+  display: inline-block;
+  background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 4px;
+  padding: 1px 7px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.87em;
+  color: #fff;
+}
+
+/* ─── CODE BLOCK ─── */
+.code-block {
+  background: #050E1A;
+  border: 1px solid rgba(26,122,74,0.3);
+  border-left: 3px solid var(--pa);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58em;
+  text-align: left;
+  color: #E2E8F0;
+  line-height: 1.75;
+  margin-bottom: 10px;
+  white-space: pre;
+  overflow: hidden;
+}
+.code-block.bad {
+  border-left-color: var(--red);
+  border-color: rgba(239,68,68,0.3);
+}
+.code-block.good {
+  border-left-color: var(--green);
+  border-color: rgba(16,185,129,0.3);
+}
+.ck  { color: var(--yellow); }
+.cs  { color: #86EFAC; }
+.cc  { color: #475569; }
+.cf  { color: #93C5FD; }
+.cn  { color: #FCA5A5; }
+.ct  { color: var(--orange); }
+.cd  { color: #A78BFA; }
+
+/* ─── PERCURSO ─── */
+.percurso {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 16px;
+}
+.perc-item {
+  flex: 1;
+  text-align: center;
+  padding: 12px 6px;
+  border-radius: 8px;
+}
+.perc-item.done  { background: rgba(255,255,255,0.04); opacity: 0.7; }
+.perc-item.today { background: rgba(26,122,74,0.18); border: 1px solid rgba(26,122,74,0.4); }
+.perc-item.next  { background: rgba(249,199,79,0.09); border: 1px solid rgba(249,199,79,0.25); opacity: 0.85; }
+.perc-item.far   { background: rgba(255,255,255,0.02); opacity: 0.4; }
+
+.perc-num   { font-family: 'DM Mono', monospace; font-size: 0.52em; letter-spacing: 1px; margin-bottom: 4px; }
+.done .perc-num  { color: var(--gray); }
+.today .perc-num { color: #4ADE80; font-weight: 700; }
+.next .perc-num  { color: var(--yellow); }
+.far .perc-num   { color: var(--gray); }
+
+.perc-title { font-size: 0.56em; font-weight: 600; color: #fff; line-height: 1.3; margin-bottom: 3px; }
+.perc-date  { font-size: 0.48em; color: var(--gray); font-family: 'DM Mono', monospace; }
+.perc-badge {
+  display: inline-block;
+  font-size: 0.43em;
+  padding: 1px 7px;
+  border-radius: 10px;
+  margin-top: 4px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 700;
+}
+.today .perc-badge { background: var(--pa); color: #fff; }
+.next .perc-badge  { background: rgba(249,199,79,0.2); color: var(--yellow); }
+.perc-arrow { color: rgba(255,255,255,0.18); font-size: 0.9em; flex-shrink: 0; padding: 0 3px; }
+
+/* ─── SITU TABLE ─── */
+.situ-table { width: 100%; border-collapse: collapse; font-size: 0.59em; }
+.situ-table thead tr { background: rgba(26,122,74,0.18); }
+.situ-table th { color: #4ADE80; padding: 7px 12px; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.88em; border-bottom: 1px solid rgba(26,122,74,0.3); }
+.situ-table td { padding: 7px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--gray); line-height: 1.4; vertical-align: middle; }
+.situ-table tr:last-child td { border-bottom: none; }
+.situ-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+.badge-g { background: rgba(16,185,129,0.15);  color: var(--green);  font-family: 'DM Mono', monospace; font-size: 0.85em; padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
+.badge-r { background: rgba(239,68,68,0.15);   color: var(--red);    font-family: 'DM Mono', monospace; font-size: 0.85em; padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
+.badge-b { background: rgba(59,130,246,0.15);  color: #93C5FD;       font-family: 'DM Mono', monospace; font-size: 0.85em; padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
+.mono { font-family: 'DM Mono', monospace; font-size: 0.9em; }
+
+/* ─── SLIDE LABEL ─── */
+.slide-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5em;
+  padding: 2px 9px;
+  border-radius: 10px;
+  display: inline-block;
+  margin-bottom: 7px;
+  font-weight: 700;
+}
+.sl-green  { background: rgba(16,185,129,0.15);  color: #4ADE80; }
+.sl-red    { background: rgba(239,68,68,0.15);   color: var(--red); }
+.sl-yellow { background: rgba(249,199,79,0.15);  color: var(--yellow); }
+.sl-blue   { background: rgba(59,130,246,0.15);  color: #93C5FD; }
+
+/* ─── FLOW STEPS ─── */
+.exemplo-flow { display: flex; gap: 6px; align-items: stretch; }
+.flow-step { flex: 1; border-radius: 8px; padding: 11px 8px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+.fs-label { font-family: 'DM Mono', monospace; font-size: 0.5em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.fs-desc  { font-size: 0.55em; line-height: 1.4; color: rgba(255,255,255,0.65); }
+.fs-icon  { font-size: 1.2em; margin-bottom: 4px; }
+.fs-t  { background: rgba(26,122,74,0.15);  border: 1px solid rgba(26,122,74,0.35); }
+.fs-t .fs-label { color: #4ADE80; }
+.fs-y  { background: rgba(249,199,79,0.12); border: 1px solid rgba(249,199,79,0.3); }
+.fs-y .fs-label { color: var(--yellow); }
+.fs-g  { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); }
+.fs-g .fs-label { color: var(--green); }
+.fs-b  { background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.3); }
+.fs-b .fs-label { color: #93C5FD; }
+.fs-o  { background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.3); }
+.fs-o .fs-label { color: var(--orange); }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══ SLIDE 01 — CAPA ═══ -->
+<section class="slide-capa" data-transition="zoom">
+  <div class="capa-kicker">SA 16 · 03/06/2026 · Aula 16 · 2º Trimestre</div>
+  <div class="capa-title">Técnicas de<br>Programação</div>
+  <div class="capa-sub">Formatação e Documentação de Código</div>
+  <div class="capa-uc">Programação de Aplicativos · 1ª Série · Técnico em Desenvolvimento de Sistemas · Colégio Neiva Pavan</div>
+  <div class="capa-badge">B6 — Técnicas de Programação</div>
+</section>
+
+<!-- ═══ SLIDE 02 — OBJETIVOS ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 02 · Objetivos</div>
+    <div class="slide-title">O que você vai aprender hoje</div>
+  </div>
+  <div class="slide-content">
+    <ul class="bullet-list">
+      <li>Compreender a importância da <strong>formatação padronizada</strong> de código para legibilidade e manutenção em equipe</li>
+      <li>Aplicar os padrões de formatação: <strong>indentação, espaçamento, limite de linha</strong> e organização de blocos</li>
+      <li>Utilizar ferramentas de <strong>formatação automática da IDE</strong> — Prettier e formatadores nativos — para manter o padrão sem esforço manual</li>
+      <li>Documentar código com <strong>comentários de linha e bloco</strong> e com documentação formal (<strong>Javadoc</strong> em Java e <strong>docstrings</strong> em Python)</li>
+      <li>Reconhecer a diferença entre <strong>comentário de explicação</strong> (o porquê) e <strong>documentação formal</strong> (o contrato público do método)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 03 — PERCURSO ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 03 · Percurso</div>
+    <div class="slide-title">Onde estamos na jornada</div>
+  </div>
+  <div class="slide-content">
+    <div class="percurso">
+      <div class="perc-item done">
+        <div class="perc-num">SA 14</div>
+        <div class="perc-title">CRUD Parte 1</div>
+        <div class="perc-date">20/05</div>
+      </div>
+      <div class="perc-arrow">›</div>
+      <div class="perc-item done">
+        <div class="perc-num">SA 15</div>
+        <div class="perc-title">CRUD Parte 2</div>
+        <div class="perc-date">27/05</div>
+      </div>
+      <div class="perc-arrow">›</div>
+      <div class="perc-item today">
+        <div class="perc-num">SA 16</div>
+        <div class="perc-title">Formatação e Documentação</div>
+        <div class="perc-date">03/06</div>
+        <span class="perc-badge">HOJE</span>
+      </div>
+      <div class="perc-arrow">›</div>
+      <div class="perc-item next">
+        <div class="perc-num">SA 17</div>
+        <div class="perc-title">Reutilização de Código</div>
+        <div class="perc-date">10/06</div>
+        <span class="perc-badge">próxima</span>
+      </div>
+      <div class="perc-arrow">›</div>
+      <div class="perc-item far">
+        <div class="perc-num">SA 18</div>
+        <div class="perc-title">Técnicas de Programação</div>
+        <div class="perc-date">17/06</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <strong>Contexto:</strong> nas SA 14 e SA 15 você implementou o CRUD completo — o código funciona. A partir da SA 16 começa o bloco <strong>B6 — Técnicas de Programação</strong>: aprenderemos a fazer o código funcionar <em>bem</em> — com formatação, documentação, reutilização e boas práticas profissionais.
+    </div>
+    <div class="highlight-box-y" style="margin-bottom:0;">
+      <strong>SA 17 — próxima aula:</strong> continuidade em Técnicas de Programação — o tema será Reutilização de Código: métodos auxiliares, extração de lógica duplicada e organização de classes (10/06).
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 04 — O BLOCO B6 ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 04 · Contexto</div>
+    <div class="slide-title">De "código que funciona" para "código profissional"</div>
+  </div>
+  <div class="slide-content">
+    <div class="highlight-box" style="margin-bottom:14px;">
+      <strong>Até aqui</strong> você aprendeu a fazer o programa funcionar: variáveis, estruturas de controle, orientação a objetos, banco de dados, CRUD. <strong>A partir de agora</strong> aprendemos a fazer o código funcionar <em>bem</em> — e esse é o salto que separa o código amador do profissional.
+    </div>
+    <div class="cards-grid cards-2" style="gap:12px; margin-bottom:12px;">
+      <div class="card card-accent">
+        <div class="card-icon">📐</div>
+        <div class="card-title">Formatação</div>
+        <div class="card-body">Indentação, espaçamento, limite de linha, nomenclatura — o código precisa ser lido, não só executado. Qualquer equipe profissional adota um guia de estilo obrigatório.</div>
+      </div>
+      <div class="card card-blue">
+        <div class="card-icon">📖</div>
+        <div class="card-title">Documentação</div>
+        <div class="card-body">Comentários explicam o PORQUÊ de uma decisão. Javadoc e docstrings documentam o CONTRATO PÚBLICO de classes e métodos — para quem usa sem ver o código-fonte.</div>
+      </div>
+    </div>
+    <div class="cards-grid cards-2" style="gap:12px;">
+      <div class="card card-yellow">
+        <div class="card-icon">🔄</div>
+        <div class="card-title">Reutilização · SA 17</div>
+        <div class="card-body">Métodos auxiliares, extração de lógica duplicada — código que só existe em um lugar é mais fácil de corrigir e evoluir.</div>
+      </div>
+      <div class="card card-orange">
+        <div class="card-icon">🐛</div>
+        <div class="card-title">Testes e Depuração · SAs futuras</div>
+        <div class="card-body">Testes automatizados e uso correto do debugger — confirmar que o código funciona e encontrar erros com eficiência.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 05 — ANTES × DEPOIS ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 05 · Problematização</div>
+    <div class="slide-title">O mesmo código — duas versões. Qual você prefere manter?</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-red">❌ Versão A — como entregue</div>
+        <div class="code-block bad">public double calc(double a,double b,double c){
+double r=0;
+if(a>=0&&b>=0&&c>=0){r=(a+b+c)/3;}
+if(r>=7.0){System.out.println("aprovado");}
+else if(r>=5.0){System.out.println("recup");}
+else{System.out.println("reprovado");}
+return r;}</div>
+      </div>
+      <div>
+        <div class="slide-label sl-green">✅ Versão B — profissional</div>
+        <div class="code-block good"><span class="cd">/**
+ * Calcula a média e exibe o resultado do aluno.
+ * @param nota1 Primeira nota (0.0 a 10.0)
+ * @param nota2 Segunda nota (0.0 a 10.0)
+ * @param nota3 Terceira nota (0.0 a 10.0)
+ * @return Média aritmética das três notas
+ */</span>
+<span class="ck">public double</span> <span class="cf">calcularMedia</span>(<span class="ck">double</span> nota1, <span class="ck">double</span> nota2, <span class="ck">double</span> nota3) {
+    <span class="ck">double</span> media = (nota1 + nota2 + nota3) / <span class="cn">3.0</span>;
+    <span class="cc">// Critério: &gt;= 7 aprovado, &gt;= 5 em recuperação</span>
+    <span class="ck">if</span> (media &gt;= <span class="cn">7.0</span>) {
+        System.out.<span class="cf">println</span>(<span class="cs">"Aprovado"</span>);
+    } <span class="ck">else if</span> (media &gt;= <span class="cn">5.0</span>) {
+        System.out.<span class="cf">println</span>(<span class="cs">"Em recuperação"</span>);
+    } <span class="ck">else</span> {
+        System.out.<span class="cf">println</span>(<span class="cs">"Reprovado"</span>);
+    }
+    <span class="ck">return</span> media;
+}</div>
+      </div>
+    </div>
+    <div class="highlight-box-y" style="margin-bottom:0;">
+      <strong>As duas versões fazem a mesma coisa.</strong> A diferença é que daqui a 6 meses a Versão B pode ser lida, mantida e evoluída por qualquer desenvolvedor da equipe — inclusive por você mesmo — sem precisar adivinhar o que o código faz.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 06 — 5 PADRÕES DE FORMATAÇÃO ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 06 · Formatação</div>
+    <div class="slide-title">Cinco Padrões Essenciais de Formatação</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-5" style="gap:10px; margin-bottom:14px;">
+      <div class="card card-accent" style="padding:11px 10px; text-align:center;">
+        <div class="card-icon">📏</div>
+        <div class="card-title" style="font-size:0.65em;">Indentação</div>
+        <div class="card-body">2 ou 4 espaços por nível · nunca misturar espaços e tabs · blocos internos sempre recuados</div>
+      </div>
+      <div class="card card-accent" style="padding:11px 10px; text-align:center;">
+        <div class="card-icon">🧱</div>
+        <div class="card-title" style="font-size:0.65em;">Chaves e Blocos</div>
+        <div class="card-body">Abertura na mesma linha do comando · fechamento em linha própria · linha em branco entre métodos</div>
+      </div>
+      <div class="card card-accent" style="padding:11px 10px; text-align:center;">
+        <div class="card-icon">↔️</div>
+        <div class="card-title" style="font-size:0.65em;">Espaçamento</div>
+        <div class="card-body">Espaço antes e depois de operadores · espaço após vírgula: <span class="kbd" style="font-size:0.85em;">a + b</span> · <span class="kbd" style="font-size:0.85em;">f(a, b)</span></div>
+      </div>
+      <div class="card card-accent" style="padding:11px 10px; text-align:center;">
+        <div class="card-icon">📃</div>
+        <div class="card-title" style="font-size:0.65em;">Limite de Linha</div>
+        <div class="card-body">Máximo 80 a 120 caracteres por linha · linha longa: quebrar em múltiplas linhas com indentação</div>
+      </div>
+      <div class="card card-accent" style="padding:11px 10px; text-align:center;">
+        <div class="card-icon">🏷️</div>
+        <div class="card-title" style="font-size:0.65em;">Nomenclatura</div>
+        <div class="card-body">camelCase variáveis e métodos · PascalCase classes · snake_case Python: <span class="kbd" style="font-size:0.85em;">calcular_media</span></div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-bottom:10px;">
+      <strong>Guias de estilo obrigatórios no mercado:</strong> Google Java Style Guide (Java) · PEP 8 (Python) · Airbnb JavaScript Style Guide (JS/TS) · Essas regras não são sugestões — equipes profissionais as aplicam em todo commit via CI/CD.
+    </div>
+    <div class="highlight-box-b" style="margin-bottom:0;">
+      <strong>Código é lido muito mais vezes do que é escrito.</strong> Um desenvolvedor lê código 10× mais do que escreve. Formatação padronizada reduz o custo cognitivo de cada leitura — e o custo se acumula diariamente em toda a equipe.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 07 — INDENTAÇÃO E BLOCOS NA PRÁTICA ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 07 · Indentação</div>
+    <div class="slide-title">Indentação e Blocos — Antes e Depois</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-red">❌ Sem indentação</div>
+        <div class="code-block bad">public void verificarAluno(String nome, double nota){
+if(nota>=7.0){System.out.println(nome+" aprovado");}
+else if(nota>=5.0){System.out.println(nome+" recuperação");}
+else{System.out.println(nome+" reprovado");}
+System.out.println("Processado.");}</div>
+      </div>
+      <div>
+        <div class="slide-label sl-green">✅ Formatação correta</div>
+        <div class="code-block good"><span class="ck">public void</span> <span class="cf">verificarAluno</span>(String nome, <span class="ck">double</span> nota) {
+    <span class="ck">if</span> (nota &gt;= <span class="cn">7.0</span>) {
+        System.out.<span class="cf">println</span>(nome + <span class="cs">" aprovado"</span>);
+    } <span class="ck">else if</span> (nota &gt;= <span class="cn">5.0</span>) {
+        System.out.<span class="cf">println</span>(nome + <span class="cs">" recuperação"</span>);
+    } <span class="ck">else</span> {
+        System.out.<span class="cf">println</span>(nome + <span class="cs">" reprovado"</span>);
+    }
+    System.out.<span class="cf">println</span>(<span class="cs">"Processado."</span>);
+}</div>
+      </div>
+    </div>
+    <div class="cards-grid cards-3" style="gap:10px;">
+      <div class="card card-accent">
+        <div class="card-body"><strong style="color:#fff;">Chave de abertura</strong> na mesma linha do comando: <span class="kbd">if (cond) {</span> · nunca em linha separada</div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-body"><strong style="color:#fff;">Chave de fechamento</strong> sempre em linha própria, no mesmo nível do comando que a abriu: <span class="kbd">}</span></div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-body"><strong style="color:#fff;">Linha em branco</strong> entre métodos distintos · nunca entre o comando e sua chave de abertura</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 08 — NOMENCLATURA ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 08 · Nomenclatura</div>
+    <div class="slide-title">Nomenclatura — Nomes que se Explicam</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-red">❌ Nomes sem significado</div>
+        <div class="code-block bad"><span class="ck">int</span> x = <span class="cn">10</span>;
+String s1 = <span class="cs">"joao"</span>;
+<span class="ck">double</span> n2 = <span class="cn">8.5</span>;
+
+<span class="ck">double</span> <span class="cf">calc</span>(<span class="ck">double</span> a, <span class="ck">double</span> b) {
+    <span class="ck">return</span> (a + b) / <span class="cn">2</span>;
+}
+
+<span class="ck">class</span> <span class="ct">c1</span> { ... }</div>
+      </div>
+      <div>
+        <div class="slide-label sl-green">✅ Nomes descritivos</div>
+        <div class="code-block good"><span class="ck">int</span> idadeAluno = <span class="cn">10</span>;
+String nomeCompleto = <span class="cs">"João"</span>;
+<span class="ck">double</span> notaFinal = <span class="cn">8.5</span>;
+
+<span class="ck">double</span> <span class="cf">calcularMedia</span>(<span class="ck">double</span> nota1, <span class="ck">double</span> nota2) {
+    <span class="ck">return</span> (nota1 + nota2) / <span class="cn">2.0</span>;
+}
+
+<span class="ck">class</span> <span class="ct">CadastroAluno</span> { ... }</div>
+      </div>
+    </div>
+    <table class="atalho-table">
+      <thead>
+        <tr><th>Convenção</th><th>Usa em</th><th>Exemplos</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="kbd">camelCase</span></td>
+          <td>Variáveis e métodos em Java</td>
+          <td><code class="mono">notaFinal · calcularMedia() · buscarPorId()</code></td>
+        </tr>
+        <tr>
+          <td><span class="kbd">PascalCase</span></td>
+          <td>Classes em Java e Python</td>
+          <td><code class="mono">CadastroAluno · ConexaoDatabase · Produto</code></td>
+        </tr>
+        <tr>
+          <td><span class="kbd">snake_case</span></td>
+          <td>Variáveis e funções em Python</td>
+          <td><code class="mono">nota_final · calcular_media() · buscar_por_id()</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 09 — PRETTIER ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 09 · Ferramentas</div>
+    <div class="slide-title">Prettier — Formatação Automática na IDE</div>
+  </div>
+  <div class="slide-content">
+    <div class="exemplo-flow" style="margin-bottom:16px;">
+      <div class="flow-step fs-b">
+        <div class="fs-icon">⌨️</div>
+        <div class="fs-label">Escreve o código</div>
+        <div class="fs-desc">Foca na lógica — não precisa formatar manualmente enquanto escreve</div>
+      </div>
+      <div class="flow-step fs-y">
+        <div class="fs-icon">💾</div>
+        <div class="fs-label">Salva (Ctrl+S)</div>
+        <div class="fs-desc">Com <span style="color:var(--yellow);">formatOnSave</span> ativo, o VS Code aciona o formatador automaticamente</div>
+      </div>
+      <div class="flow-step fs-t">
+        <div class="fs-icon">✨</div>
+        <div class="fs-label">Prettier formata</div>
+        <div class="fs-desc">Indentação, espaçamento, chaves e quebras de linha são aplicados em milissegundos</div>
+      </div>
+      <div class="flow-step fs-g">
+        <div class="fs-icon">✅</div>
+        <div class="fs-label">Código padronizado</div>
+        <div class="fs-desc">Resultado sempre no padrão do projeto — zero divergência entre desenvolvedores da equipe</div>
+      </div>
+    </div>
+    <div class="cards-grid cards-3" style="gap:12px; margin-bottom:12px;">
+      <div class="card card-blue">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Atalho manual</div>
+        <div class="card-body"><span class="kbd">Shift + Alt + F</span> — formata o arquivo atual sem precisar salvar. Use quando quiser formatar sem alterar outras coisas.</div>
+      </div>
+      <div class="card card-blue">
+        <div class="card-icon">⚙️</div>
+        <div class="card-title">Configurar formatOnSave</div>
+        <div class="card-body">VS Code → Configurações → pesquisar <span class="kbd">formatOnSave</span> → marcar ativo. Prettier é a extensão recomendada.</div>
+      </div>
+      <div class="card card-yellow">
+        <div class="card-icon">🎓</div>
+        <div class="card-title">Ferramenta, não muleta</div>
+        <div class="card-body">Prettier automatiza, mas não substitui conhecer as regras. Em revisão de código e entrevistas, você precisa saber o padrão de cabeça.</div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-bottom:0;">
+      <strong>Linguagens suportadas:</strong> JavaScript · TypeScript · CSS · HTML · JSON · Markdown · Python (via extensão Black ou autopep8) · Java (via extensão Extension Pack for Java do VS Code)
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 10 — COMENTÁRIOS: O PORQUÊ ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 10 · Comentários</div>
+    <div class="slide-title">Comentários — Explica o PORQUÊ, Não o QUÊ</div>
+  </div>
+  <div class="slide-content">
+    <div class="highlight-box" style="margin-bottom:14px;">
+      <strong>Regra fundamental:</strong> bons nomes de variáveis e métodos já explicam <em>o que o código faz</em>. O comentário existe para registrar <em>por que</em> uma decisão foi tomada — uma restrição oculta, uma lógica não óbvia, um comportamento que surpreenderia quem lê.
+    </div>
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-green">✅ Comentários que agregam valor</div>
+        <div class="code-block good"><span class="cc">// Percorre de trás para frente para evitar</span>
+<span class="cc">// reindexação ao remover elementos da lista</span>
+<span class="ck">for</span> (<span class="ck">int</span> i = lista.<span class="cf">size</span>() - <span class="cn">1</span>; i &gt;= <span class="cn">0</span>; i--) { ... }
+
+<span class="cc">// Divide por 8 para converter Mbps em MB/s</span>
+<span class="ck">double</span> velocidade = mbps / <span class="cn">8.0</span>;
+
+<span class="cc">// Critério da escola: &gt;= 7 aprovado, &gt;= 5 recuperação</span>
+<span class="ck">if</span> (media &gt;= <span class="cn">7.0</span>) { ... }</div>
+      </div>
+      <div>
+        <div class="slide-label sl-red">❌ Comentários que são ruído</div>
+        <div class="code-block bad"><span class="cc">// Incrementa i em 1</span>
+i++;
+
+<span class="cc">// Seta o nome do aluno</span>
+aluno.<span class="cf">setNome</span>(nome);
+
+<span class="cc">// Cria um PreparedStatement</span>
+PreparedStatement ps = conn.<span class="cf">prepareStatement</span>(sql);
+
+<span class="cc">// Retorna a nota</span>
+<span class="ck">return</span> nota;</div>
+      </div>
+    </div>
+    <div class="highlight-box-y" style="margin-bottom:0;">
+      <strong>Teste prático:</strong> se o comentário apenas repete o que o código já diz com palavras diferentes, apague-o. Código com menos ruído é mais fácil de ler do que código com muitos comentários inúteis.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 11 — ÚTIL VS RUÍDO ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 11 · Comentários</div>
+    <div class="slide-title">Tipos de Comentários — Linha e Bloco</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-green">Java — linha // e bloco /* */</div>
+        <div class="code-block good"><span class="cc">// Comentário de uma linha — decisão específica</span>
+<span class="ck">double</span> velocidade = mbps / <span class="cn">8.0</span>; <span class="cc">// Mbps → MB/s</span>
+
+<span class="cc">/*
+ * Comentário de bloco — lógica mais complexa:
+ * ordena pelo campo 'prioridade' antes de processar
+ * porque a API downstream exige items em ordem
+ */</span>
+lista.<span class="cf">sort</span>(Comparator.<span class="cf">comparing</span>(Item::getPrioridade));</div>
+      </div>
+      <div>
+        <div class="slide-label sl-green">Python — linha # e bloco # múltiplas linhas</div>
+        <div class="code-block good"><span class="cc"># Comentário de uma linha</span>
+velocidade = mbps / <span class="cn">8.0</span>  <span class="cc"># Mbps → MB/s</span>
+
+<span class="cc"># Python não tem bloco /* */ nativo</span>
+<span class="cc"># Use múltiplas linhas com # para comentários longos:</span>
+<span class="cc"># Ordena pelo campo 'prioridade' antes de processar</span>
+<span class="cc"># porque a API downstream exige items em ordem</span>
+lista.<span class="cf">sort</span>(key=<span class="ck">lambda</span> x: x.prioridade)</div>
+      </div>
+    </div>
+    <div class="comp-grid">
+      <div class="comp-faz">
+        <div class="comp-header">✓ Quando comentar</div>
+        <ul class="comp-list">
+          <li>Constante ou fórmula com regra de negócio implícita: <span class="kbd">/ 8.0</span> converte unidade</li>
+          <li>Escolha não óbvia de algoritmo: percorrer de trás pra frente</li>
+          <li>Dependência com sistema externo ou comportamento estranho da lib</li>
+          <li>Critério de aprovação definido externamente (pela escola, regras fiscais etc.)</li>
+        </ul>
+      </div>
+      <div class="comp-evit">
+        <div class="comp-header">✗ Não comentar</div>
+        <ul class="comp-list">
+          <li>O que bons nomes já explicam: <span class="kbd">calcularMedia()</span> dispensa comentário</li>
+          <li>Operações triviais: <span class="kbd">i++</span> · <span class="kbd">setNome(nome)</span> · <span class="kbd">return nota</span></li>
+          <li>Código morto — simplesmente apague; git guarda o histórico</li>
+          <li>Comentários que serão desatualizados e ficarão mentindo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 12 — JAVADOC ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 12 · Documentação Formal</div>
+    <div class="slide-title">Javadoc — Documentação Formal em Java ( /** */ )</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-blue">Javadoc completo</div>
+        <div class="code-block"><span class="cd">/**
+ * Busca um aluno pelo identificador único no banco.
+ *
+ * @param id  Identificador do aluno (gerado pelo BD)
+ * @return    Objeto Aluno encontrado, ou null se não existir
+ * @throws    SQLException Se ocorrer erro de conexão
+ * @author    Prof. Julio Cesar
+ * @version   1.0
+ */</span>
+<span class="ck">public</span> Aluno <span class="cf">buscarPorId</span>(<span class="ck">int</span> id) <span class="ck">throws</span> SQLException {
+    String sql = <span class="cs">"SELECT * FROM alunos WHERE id = ?"</span>;
+    <span class="cc">// implementação...</span>
+}</div>
+      </div>
+      <div>
+        <div class="slide-label sl-blue">Tags Javadoc</div>
+        <div class="cards-grid" style="gap:8px;">
+          <div class="card card-blue" style="padding:9px 12px;">
+            <div class="card-body"><span style="color:#93C5FD; font-family:'DM Mono',monospace; font-weight:700;">@param nome</span> — descreve um parâmetro do método: nome e o que representa</div>
+          </div>
+          <div class="card card-blue" style="padding:9px 12px;">
+            <div class="card-body"><span style="color:#93C5FD; font-family:'DM Mono',monospace; font-weight:700;">@return</span> — descreve o valor retornado pelo método (omitir para void)</div>
+          </div>
+          <div class="card card-blue" style="padding:9px 12px;">
+            <div class="card-body"><span style="color:#93C5FD; font-family:'DM Mono',monospace; font-weight:700;">@throws</span> — exceção que o método pode lançar e em que condição</div>
+          </div>
+          <div class="card card-blue" style="padding:9px 12px;">
+            <div class="card-body"><span style="color:#93C5FD; font-family:'DM Mono',monospace; font-weight:700;">@author</span> e <span style="color:#93C5FD; font-family:'DM Mono',monospace; font-weight:700;">@version</span> — identificação do autor e versão do método/classe</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-bottom:0;">
+      <strong>Onde fica:</strong> imediatamente <em>antes</em> da declaração da classe ou do método · <strong>Quem lê:</strong> quem vai usar a classe sem ver o código-fonte — um colega de equipe, você mesmo daqui a 6 meses · <strong>Diferença dos comentários:</strong> o Javadoc documenta o <em>contrato público</em>, não a implementação interna.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 13 — DOCSTRINGS PYTHON ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 13 · Documentação Formal</div>
+    <div class="slide-title">Docstrings — Documentação Formal em Python ( """ """ )</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-blue">Docstring completa (estilo Google)</div>
+        <div class="code-block"><span class="ck">def</span> <span class="cf">calcular_media</span>(nota1: <span class="ct">float</span>, nota2: <span class="ct">float</span>) -&gt; <span class="ct">float</span>:
+    <span class="cd">"""
+    Calcula a média aritmética de duas notas.
+
+    Args:
+        nota1: Primeira nota do aluno (0.0 a 10.0)
+        nota2: Segunda nota do aluno (0.0 a 10.0)
+
+    Returns:
+        Média aritmética entre nota1 e nota2
+
+    Raises:
+        ValueError: Se alguma nota for negativa
+    """</span>
+    <span class="ck">if</span> nota1 &lt; <span class="cn">0</span> <span class="ck">or</span> nota2 &lt; <span class="cn">0</span>:
+        <span class="ck">raise</span> <span class="ct">ValueError</span>(<span class="cs">"Notas não podem ser negativas"</span>)
+    <span class="ck">return</span> (nota1 + nota2) / <span class="cn">2.0</span></div>
+      </div>
+      <div>
+        <div class="slide-label sl-blue">Acessando a documentação</div>
+        <div class="code-block"><span class="cc"># No Python REPL ou notebook:</span>
+<span class="cf">help</span>(calcular_media)
+<span class="cc"># Exibe a docstring formatada</span>
+
+<span class="cc"># Também acessível por:</span>
+<span class="cf">print</span>(calcular_media.__doc__)
+
+<span class="cc"># No VS Code: hover sobre a função</span>
+<span class="cc"># exibe a docstring como tooltip</span></div>
+        <div class="cards-grid" style="gap:8px; margin-top:10px;">
+          <div class="card card-blue" style="padding:9px 12px;">
+            <div class="card-body"><strong style="color:#93C5FD;">Args:</strong> lista de parâmetros com nome e descrição</div>
+          </div>
+          <div class="card card-blue" style="padding:9px 12px;">
+            <div class="card-body"><strong style="color:#93C5FD;">Returns:</strong> o que o método retorna e o tipo</div>
+          </div>
+          <div class="card card-blue" style="padding:9px 12px;">
+            <div class="card-body"><strong style="color:#93C5FD;">Raises:</strong> exceções possíveis e condições que as ativam</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-bottom:0;">
+      <strong>Boa prática Python:</strong> toda função pública deve ter docstring — é a forma como o <span class="kbd">help()</span> do interpretador e as ferramentas de autocompletar (VS Code, PyCharm) exibem a documentação ao usuário da função.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 14 — COMENTÁRIO × DOCUMENTAÇÃO ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 14 · Comparativo</div>
+    <div class="slide-title">Comentário de Explicação × Documentação Formal</div>
+  </div>
+  <div class="slide-content">
+    <div class="comp-grid" style="margin-bottom:12px;">
+      <div class="comp-faz" style="border-top-color: #1A7A4A; background: rgba(26,122,74,0.07); border-color: rgba(26,122,74,0.25);">
+        <div class="comp-header" style="color: #4ADE80;">💬 Comentário — // e /* */</div>
+        <ul class="comp-list">
+          <li style="color:var(--gray);"><strong style="color:#fff;">Onde fica:</strong> dentro do método, junto da lógica</li>
+          <li style="color:var(--gray);"><strong style="color:#fff;">Explica:</strong> o PORQUÊ de uma decisão de implementação</li>
+          <li style="color:var(--gray);"><strong style="color:#fff;">Quem lê:</strong> quem está lendo o código-fonte internamente</li>
+          <li style="color:var(--gray);"><strong style="color:#fff;">Tom:</strong> técnico e contextual — para desenvolvedores</li>
+          <li style="color:var(--gray);"><strong style="color:#fff;">Regra:</strong> se o código já é claro, não comente. Menos é mais.</li>
+        </ul>
+      </div>
+      <div class="comp-blue">
+        <div class="comp-header">📖 Javadoc e Docstrings</div>
+        <ul class="comp-list">
+          <li style="color:var(--gray);"><strong style="color:#fff;">Onde fica:</strong> antes da declaração da classe ou método</li>
+          <li style="color:var(--gray);"><strong style="color:#fff;">Descreve:</strong> o QUE o método faz, parâmetros e retorno</li>
+          <li style="color:var(--gray);"><strong style="color:#fff;">Quem lê:</strong> quem usa a classe sem precisar ver o código</li>
+          <li style="color:var(--gray);"><strong style="color:#fff;">Tom:</strong> contrato público — para usuários do método/classe</li>
+          <li style="color:var(--gray);"><strong style="color:#fff;">Regra:</strong> todo método e classe pública merece documentação.</li>
+        </ul>
+      </div>
+    </div>
+    <table class="atalho-table">
+      <thead>
+        <tr><th>Situação</th><th>Use</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Explicar por que se divide por 8 na conversão de velocidade</td>
+          <td><span class="badge-g">Comentário //</span></td>
+        </tr>
+        <tr>
+          <td>Descrever parâmetros e retorno de um método público de cálculo</td>
+          <td><span class="badge-b">Javadoc / Docstring</span></td>
+        </tr>
+        <tr>
+          <td>Registrar critério externo de aprovação (regra da escola)</td>
+          <td><span class="badge-g">Comentário //</span></td>
+        </tr>
+        <tr>
+          <td>Documentar uma classe de modelo (Aluno, Produto, Pedido)</td>
+          <td><span class="badge-b">Javadoc / Docstring</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 15 — EXEMPLO COMPLETO ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 15 · Exemplo Completo</div>
+    <div class="slide-title">calcularMedia — Documentado em Java e Python</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-blue">Java — Javadoc + comentário</div>
+        <div class="code-block"><span class="cd">/**
+ * Calcula a média aritmética de duas notas.
+ *
+ * @param nota1 Primeira nota do aluno (0.0 a 10.0)
+ * @param nota2 Segunda nota do aluno (0.0 a 10.0)
+ * @return Média entre nota1 e nota2
+ */</span>
+<span class="ck">public double</span> <span class="cf">calcularMedia</span>(<span class="ck">double</span> nota1, <span class="ck">double</span> nota2) {
+    <span class="cc">// Divisão por 2.0 garante resultado decimal, não inteiro</span>
+    <span class="ck">return</span> (nota1 + nota2) / <span class="cn">2.0</span>;
+}</div>
+      </div>
+      <div>
+        <div class="slide-label sl-blue">Python — docstring + comentário</div>
+        <div class="code-block"><span class="ck">def</span> <span class="cf">calcular_media</span>(nota1: <span class="ct">float</span>, nota2: <span class="ct">float</span>) -&gt; <span class="ct">float</span>:
+    <span class="cd">"""
+    Calcula a média aritmética de duas notas.
+
+    Args:
+        nota1: Primeira nota do aluno (0.0 a 10.0)
+        nota2: Segunda nota do aluno (0.0 a 10.0)
+
+    Returns:
+        Média aritmética entre nota1 e nota2
+    """</span>
+    <span class="cc"># float() garante divisão decimal em Python 2 legado</span>
+    <span class="ck">return</span> (nota1 + nota2) / <span class="cn">2.0</span></div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-bottom:0;">
+      <strong>Demonstração ao vivo na IDE:</strong> o professor digita os dois exemplos no VS Code. Observe que ao passar o mouse sobre a chamada <span class="kbd">calcularMedia(8.0, 6.5)</span> o tooltip exibe o Javadoc — sem precisar abrir o arquivo da classe.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 16 — DINÂMICA ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 16 · Dinâmica</div>
+    <div class="slide-title">Formata e Documenta — Transformando Código Bagunçado em Código Profissional</div>
+  </div>
+  <div class="slide-content">
+    <div class="din-header">
+      <div class="din-icon">📐</div>
+      <div>
+        <div class="din-title">Dinâmica em Grupo · 15 minutos · Grupos de 4–5 alunos</div>
+        <div class="din-sub">Receber o código abaixo e aplicar: formatação padrão · nomes descritivos · comentário útil · Javadoc ou docstring</div>
+      </div>
+    </div>
+    <div class="cards-grid cards-2" style="gap:14px; margin-bottom:12px;">
+      <div>
+        <div class="slide-label sl-red">Código original — reescreva este</div>
+        <div class="code-block bad">public double calc(double a,double b,double c){
+double r=0;
+if(a>=0&&b>=0&&c>=0){r=(a+b+c)/3;}
+if(r>=7.0){System.out.println("aprovado");}
+else if(r>=5.0){System.out.println("recuperacao");}
+else{System.out.println("reprovado");}
+return r;}</div>
+      </div>
+      <div>
+        <div class="slide-label sl-green">O que cada grupo deve fazer</div>
+        <ul class="bullet-list">
+          <li><strong>Reformatar</strong> — indentação 4 espaços, chaves no padrão, espaço em operadores</li>
+          <li><strong>Renomear</strong> — <span class="kbd">calc</span> → <span class="kbd">calcularMedia</span> · <span class="kbd">a, b, c</span> → <span class="kbd">nota1, nota2, nota3</span> · <span class="kbd">r</span> → <span class="kbd">media</span></li>
+          <li><strong>Comentar</strong> — adicionar <span class="kbd">// Critério: &gt;= 7 aprovado, &gt;= 5 recuperação</span> no lugar certo</li>
+          <li><strong>Documentar</strong> — adicionar Javadoc com <span class="kbd">@param</span> para cada nota e <span class="kbd">@return</span> da média</li>
+          <li><strong>Avaliar</strong> — algum comentário ficaria desnecessário (ruído) no código reformatado?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 17 — TABELA DA DINÂMICA ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 17 · Dinâmica</div>
+    <div class="slide-title">Formata e Documenta — Problemas e Melhorias</div>
+  </div>
+  <div class="slide-content">
+    <table class="situ-table">
+      <thead>
+        <tr><th>Problema no código original</th><th>Melhoria aplicada</th><th>Resultado esperado</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Nome do método: <code class="mono">calc</code></td>
+          <td><span class="badge-g">Nome descritivo</span></td>
+          <td><code class="mono">calcularMedia()</code></td>
+        </tr>
+        <tr>
+          <td>Parâmetros: <code class="mono">a, b, c</code></td>
+          <td><span class="badge-g">Nomes significativos</span></td>
+          <td><code class="mono">nota1, nota2, nota3</code></td>
+        </tr>
+        <tr>
+          <td>Variável de retorno: <code class="mono">r</code></td>
+          <td><span class="badge-g">Nome significativo</span></td>
+          <td><code class="mono">media</code></td>
+        </tr>
+        <tr>
+          <td>Tudo na mesma linha, sem indentação, chaves inline</td>
+          <td><span class="badge-b">Formatação padrão</span></td>
+          <td>Indentação 4 espaços · chave abertura na mesma linha · fechamento em linha própria</td>
+        </tr>
+        <tr>
+          <td>Critério de aprovação implícito nos ifs</td>
+          <td><span class="badge-g">Comentário do porquê</span></td>
+          <td><code class="mono">// Critério: &gt;= 7 aprovado, &gt;= 5 recuperação</code></td>
+        </tr>
+        <tr>
+          <td>Nenhuma documentação do método</td>
+          <td><span class="badge-b">Javadoc</span></td>
+          <td><code class="mono">/** @param nota1 ... @return ... */</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box-y" style="margin-bottom:0; margin-top:12px;">
+      <strong>Reforço pedagógico:</strong> renomear <span class="kbd">calc</span>, <span class="kbd">a, b, c</span> e <span class="kbd">r</span> para nomes descritivos é a forma mais valiosa de documentação. Código que se explica pelo nome precisa de muito menos comentário — e nunca vai desatualizar.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 18 — RESUMO ═══ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-header">
+    <div class="slide-kicker">Slide 18 · Resumo</div>
+    <div class="slide-title">O que aprendemos hoje</div>
+  </div>
+  <div class="slide-content">
+    <div class="cards-grid cards-2" style="gap:12px;">
+      <div class="card card-accent">
+        <div class="card-icon">📐</div>
+        <div class="card-title">Formatação Padronizada</div>
+        <div class="card-body">Indentação · chaves no padrão · espaçamento em operadores · limite de 80–120 chars · nomenclatura camelCase/PascalCase. Guias de estilo são obrigatórios em equipes profissionais.</div>
+      </div>
+      <div class="card card-blue">
+        <div class="card-icon">✨</div>
+        <div class="card-title">Prettier e Ferramentas</div>
+        <div class="card-body"><span class="kbd">Shift+Alt+F</span> ou <span class="kbd">formatOnSave</span> automatizam a formatação. Aprenda as regras: a ferramenta ajuda, mas não substitui o conhecimento.</div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-icon">💬</div>
+        <div class="card-title">Comentários ( // e /* */ )</div>
+        <div class="card-body">Explica o <strong>PORQUÊ</strong>, não o quê. Registra decisões não óbvias, restrições ocultas e critérios externos. Comentário que repete o código é ruído — apague.</div>
+      </div>
+      <div class="card card-blue">
+        <div class="card-icon">📖</div>
+        <div class="card-title">Javadoc e Docstrings</div>
+        <div class="card-body">Documentação formal para quem <em>usa</em> a classe sem ver o código. Tags: <span class="kbd">@param</span> · <span class="kbd">@return</span> · <span class="kbd">@throws</span>. Todo método público merece documentação.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 19 — ENCERRAMENTO ═══ -->
+<section class="slide-enc" data-transition="zoom">
+  <div class="enc-grid">
+    <div class="enc-card">
+      <div class="enc-card-label">Próxima Aula → SA 17 · 10/06</div>
+      <div class="enc-card-title">Técnicas de Programação — Reutilização de Código</div>
+      <ul>
+        <li>Identificar lógica duplicada e extraí-la para métodos auxiliares</li>
+        <li>Organizar classes de forma coesa — cada classe com uma responsabilidade</li>
+        <li>Aplicar o princípio DRY: Don't Repeat Yourself</li>
+        <li>Código reutilizável é mais fácil de testar, corrigir e evoluir</li>
+      </ul>
+    </div>
+    <div class="enc-card">
+      <div class="enc-card-label">Para a próxima aula</div>
+      <div class="enc-card-title">Pratique o que aprendemos</div>
+      <ul>
+        <li>Abra o projeto do CRUD (SA 14 ou SA 15) e aplique formatação padrão em todos os métodos</li>
+        <li>Adicione Javadoc com <span class="kbd">@param</span> e <span class="kbd">@return</span> nos métodos públicos</li>
+        <li>Revise os comentários: remova os que são ruído, mantenha os que explicam o porquê</li>
+        <li>Configure o <span class="kbd">formatOnSave</span> no seu VS Code se ainda não fez</li>
+      </ul>
+    </div>
+  </div>
+  <div class="quote-box">
+    <p>"Código é lido muito mais vezes do que é escrito. Formatar e documentar não é opcional — é respeito pelo próximo desenvolvedor. E esse próximo desenvolvedor pode ser você mesmo."</p>
+    <cite>— Princípio de Legibilidade em Desenvolvimento de Software</cite>
+  </div>
+</section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    progress: true,
+    controls: true,
+    width: 1280,
+    height: 720,
+    margin: 0.08,
+    transition: 'slide',
+    backgroundTransition: 'fade'
+  });
+</script>
+</body>
+</html>
