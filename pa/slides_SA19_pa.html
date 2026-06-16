@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Apresentação SA19 — Técnicas de Programação: Depuração e Rastreabilidade · UC Programação de Aplicativos · Colégio Neiva Pavan · Prof. Julio Cesar">
+<meta name="theme-color" content="#080D20">
+<meta name="color-scheme" content="dark">
+<meta name="author" content="Prof. Julio Cesar">
+<title>SA 19 — Depuração e Rastreabilidade · Programação de Aplicativos</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ── VARIÁVEIS PA ── */
+:root {
+  --pa:           #1A7A4A;
+  --pa-d:         #173404;
+  --yellow:       #F9C74F;
+  --dark:         #080D20;
+  --green:        #10B981;
+  --red:          #EF4444;
+  --orange:       #F97316;
+  --blue:         #3B82F6;
+  --white:        #FFFFFF;
+  --gray:         #CBD5E1;
+  --glass-bg:     rgba(255,255,255,0.05);
+  --glass-border: rgba(255,255,255,0.10);
+  --radius:       12px;
+  --transition:   0.25s ease;
+}
+
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(6px);
+}
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.text-muted  { color: var(--gray); }
+.transition  { transition: var(--transition); }
+
+.accent-pa     { background: var(--pa); }
+.accent-yellow { background: var(--yellow); }
+.accent-green  { background: var(--green); }
+.accent-red    { background: var(--red); }
+.accent-orange { background: var(--orange); }
+.accent-blue   { background: var(--blue); }
+
+html, body {
+  background: #04070F !important;
+  margin: 0; padding: 0;
+}
+
+.reveal .slides {
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 1px rgba(26,122,74,0.3),
+    0 8px 32px rgba(0,0,0,0.6),
+    0 2px 8px rgba(0,0,0,0.4);
+}
+
+.reveal { font-family: 'DM Sans', sans-serif; }
+.reveal .slides section { height: 100%; text-align: left; overflow: hidden; }
+.reveal h1,.reveal h2,.reveal h3,.reveal h4,.reveal h5,.reveal h6 {
+  text-transform: none; font-family: 'DM Sans', sans-serif; margin: 0;
+}
+.reveal p  { margin: 0; }
+.reveal ul,.reveal ol { margin: 0; padding: 0; }
+
+/* ── CAPA ── */
+.slide-capa {
+  background: linear-gradient(135deg,#080D20 0%,#0A1F10 60%,#080D20 100%) !important;
+  position: relative; overflow: hidden;
+}
+.slide-capa::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:8px; background:var(--pa);
+}
+.slide-capa::after {
+  content:''; position:absolute; left:8px; top:0; bottom:0; width:4px; background:var(--yellow);
+}
+.capa-inner {
+  height:100%; max-height:720px; display:flex; flex-direction:column;
+  justify-content:center; padding:36px 40px 36px 48px;
+  overflow:hidden; box-sizing:border-box;
+}
+.capa-kicker {
+  font-family:'DM Mono',monospace; font-size:0.5em; color:var(--pa);
+  letter-spacing:3px; text-transform:uppercase; margin-bottom:16px;
+}
+.capa-title {
+  font-size:2em !important; line-height:1.15; color:var(--white);
+  margin-bottom:12px; font-weight:700;
+}
+.capa-title span { color:var(--yellow); }
+.capa-sub {
+  font-size:0.52em; color:var(--gray); margin-bottom:28px;
+  max-width:65%; line-height:1.6;
+}
+.capa-badges { display:flex; gap:10px; flex-wrap:wrap; }
+.capa-badge {
+  font-size:0.42em; padding:5px 14px; border-radius:20px;
+  font-weight:600; font-family:'DM Mono',monospace;
+}
+.cb-pa     { background:var(--pa);    color:var(--white); }
+.cb-yellow { background:var(--yellow); color:var(--dark); }
+.cb-dark   { background:rgba(255,255,255,0.1); color:var(--white); border:1px solid rgba(255,255,255,0.2); }
+.capa-deco {
+  position:absolute; right:-60px; bottom:-60px; width:280px; height:280px;
+  border-radius:50%; background:rgba(26,122,74,0.10); border:2px solid rgba(26,122,74,0.15);
+}
+.capa-deco2 {
+  position:absolute; right:40px; bottom:40px; width:140px; height:140px;
+  border-radius:50%; background:rgba(249,199,79,0.06); border:2px solid rgba(249,199,79,0.1);
+}
+
+/* ── SLIDE PADRÃO ── */
+.slide-std { background:#0A1410 !important; padding:0 !important; }
+.slide-enc { background:linear-gradient(135deg,#080D20 0%,#0A1410 100%) !important; padding:0 !important; }
+
+.slide-content {
+  height:100%; max-height:720px; display:flex; flex-direction:column;
+  padding:32px 44px; justify-content:flex-start; gap:12px;
+  overflow:hidden; box-sizing:border-box;
+}
+.slide-label {
+  font-family:'DM Mono',monospace; font-size:0.38em; color:var(--pa);
+  letter-spacing:2px; text-transform:uppercase;
+}
+.slide-title {
+  font-size:1.15em !important; color:var(--white); line-height:1.2; font-weight:700;
+  border-bottom:2px solid var(--pa); padding-bottom:10px; margin-bottom:0;
+}
+.slide-title span { color:var(--pa); }
+
+/* ── CARDS ── */
+.cards-grid { display:grid; gap:10px; }
+.cards-2 { grid-template-columns:1fr 1fr; }
+.cards-3 { grid-template-columns:1fr 1fr 1fr; }
+
+.card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  position: relative; overflow: hidden;
+  transition: transform var(--transition), border-color var(--transition), background var(--transition);
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(26,122,74,0.4);
+  background: rgba(255,255,255,0.08);
+}
+.card-accent {
+  position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:12px 0 0 12px;
+}
+.card-num   { font-family:'DM Mono',monospace; font-size:0.38em; font-weight:700; margin-bottom:6px; display:block; }
+.card-title { font-size:0.58em !important; font-weight:700; color:var(--white); margin-bottom:5px; line-height:1.3; display:block; }
+.card-text  { font-size:0.46em !important; color:var(--gray); line-height:1.6; }
+
+.card-title-red    { color:var(--red); }
+.card-title-yellow { color:var(--yellow); }
+.card-title-green  { color:var(--green); }
+.card-title-orange { color:var(--orange); }
+.card-title-pa     { color:#4ADE80; }
+.card-title-blue   { color:#60A5FA; }
+
+/* ── BULLET LIST ── */
+.bullet-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.bullet-list li {
+  display:flex; align-items:flex-start; gap:12px; font-size:0.52em !important;
+  color:#CBD5E1; line-height:1.5; padding:8px 12px;
+  background:rgba(255,255,255,0.04); border-radius:8px; border-left:3px solid var(--pa);
+}
+.bullet-list li strong { color:var(--white); }
+
+/* ── HIGHLIGHT BOX ── */
+.highlight-box {
+  background:rgba(26,122,74,0.12); border:1px solid rgba(26,122,74,0.35); border-radius:10px; padding:10px 14px;
+}
+.highlight-box p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box strong { color:#4ADE80; }
+
+/* ── HIGHLIGHT BOX YELLOW ── */
+.highlight-box-y {
+  background:rgba(249,199,79,0.08); border:1px solid rgba(249,199,79,0.3); border-radius:10px; padding:10px 14px;
+}
+.highlight-box-y p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box-y strong { color:var(--yellow); }
+
+/* ── HIGHLIGHT BOX RED ── */
+.highlight-box-r {
+  background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3); border-radius:10px; padding:10px 14px;
+}
+.highlight-box-r p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box-r strong { color:var(--red); }
+
+/* ── QUOTE BOX ── */
+.quote-box {
+  background:rgba(249,199,79,0.08); border-left:4px solid var(--yellow);
+  border-radius:0 10px 10px 0; padding:14px 18px;
+}
+.quote-box p    { font-size:0.5em !important; color:#E2E8F0; font-style:italic; line-height:1.7; margin:0; }
+.quote-box cite { font-size:0.38em !important; color:var(--yellow); font-style:normal; display:block; margin-top:6px; font-family:'DM Mono',monospace; }
+
+/* ── FLOW STEPS ── */
+.exemplo-flow { display:flex; flex-direction:column; gap:7px; }
+.flow-step {
+  background:rgba(255,255,255,0.04); border-radius:8px; padding:11px 14px;
+  display:flex; gap:14px; align-items:flex-start; border-left:3px solid;
+}
+.flow-step.fs-p  { border-color:var(--pa); }
+.flow-step.fs-y  { border-color:var(--yellow); }
+.flow-step.fs-g  { border-color:var(--green); }
+.flow-step.fs-r  { border-color:var(--red); }
+.flow-step.fs-o  { border-color:var(--orange); }
+.flow-step.fs-b  { border-color:var(--blue); }
+.flow-label { font-family:'DM Mono',monospace; font-size:0.44em !important; font-weight:700; flex-shrink:0; min-width:28px; }
+.fs-p .flow-label { color:#4ADE80; }
+.fs-y .flow-label { color:var(--yellow); }
+.fs-g .flow-label { color:var(--green); }
+.fs-r .flow-label { color:var(--red); }
+.fs-o .flow-label { color:var(--orange); }
+.fs-b .flow-label { color:var(--blue); }
+.flow-text        { font-size:0.44em !important; color:#CBD5E1; line-height:1.6; }
+.flow-text strong { color:var(--white); }
+
+/* ── CÓDIGO ── */
+.code-block {
+  background:rgba(0,0,0,0.4); border:1px solid rgba(26,122,74,0.3); border-radius:8px;
+  padding:10px 14px; font-family:'DM Mono',monospace; font-size:0.42em !important;
+  color:#4ADE80; line-height:1.7; overflow:hidden;
+}
+.code-block .c-kw  { color:#60A5FA; }
+.code-block .c-str { color:var(--yellow); }
+.code-block .c-cm  { color:#64748B; font-style:italic; }
+.code-block .c-num { color:var(--orange); }
+.code-block .c-fn  { color:#C084FC; }
+
+/* ── COMPARATIVO ── */
+.comp-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.comp-col  { border-radius:10px; padding:14px; }
+.comp-faz  { background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25); }
+.comp-evit { background:rgba(239,68,68,0.1);  border:1px solid rgba(239,68,68,0.25); }
+.comp-header  { font-size:0.6em !important; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.comp-faz  .comp-header { color:var(--green); }
+.comp-evit .comp-header { color:var(--red); }
+.comp-item {
+  font-size:0.42em !important; color:#CBD5E1; padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,0.06); line-height:1.5; display:flex; gap:8px;
+}
+.comp-item:last-child { border-bottom:none; }
+
+/* ── TABELA ── */
+.data-table { width:100%; border-collapse:collapse; font-size:0.44em !important; }
+.data-table th {
+  background:rgba(26,122,74,0.2); color:#4ADE80;
+  font-family:'DM Mono',monospace; font-size:0.85em; text-transform:uppercase;
+  letter-spacing:1px; padding:8px 10px; border-bottom:2px solid rgba(26,122,74,0.4);
+  text-align:left;
+}
+.data-table td {
+  padding:7px 10px; color:var(--gray); border-bottom:1px solid rgba(255,255,255,0.06);
+  vertical-align:middle;
+}
+.data-table tr:hover td { background:rgba(255,255,255,0.03); }
+.data-table .row-dest td { color:var(--white); font-weight:700; }
+.kbd {
+  display:inline-block; background:rgba(26,122,74,0.25); border:1px solid rgba(26,122,74,0.4);
+  border-radius:5px; padding:2px 8px; font-family:'DM Mono',monospace;
+  font-size:0.9em; color:var(--yellow); font-weight:700;
+}
+.tag-r { display:inline-block; background:rgba(239,68,68,0.2); color:var(--red); font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-g { display:inline-block; background:rgba(16,185,129,0.2); color:var(--green); font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-b { display:inline-block; background:rgba(59,130,246,0.2); color:var(--blue); font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-y { display:inline-block; background:rgba(249,199,79,0.2); color:var(--yellow); font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+
+/* ── DINÂMICA ── */
+.din-header {
+  background:rgba(26,122,74,0.2); border:1px solid rgba(26,122,74,0.4);
+  border-radius:10px; padding:12px 18px; display:flex; align-items:center; gap:12px;
+}
+.din-header-text { font-size:0.55em !important; font-weight:700; color:#4ADE80; }
+.din-meta         { display:flex; gap:20px; flex-wrap:wrap; }
+.din-meta-item    { font-size:0.42em !important; color:var(--gray); }
+.din-meta-item strong { color:var(--white); }
+
+/* ── ENCERRAMENTO ── */
+.enc-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.enc-card { border-radius:10px; padding:12px 16px; }
+.enc-prox { background:rgba(249,199,79,0.1);  border:1px solid rgba(249,199,79,0.3); }
+.enc-rev  { background:rgba(26,122,74,0.12);  border:1px solid rgba(26,122,74,0.3); }
+.enc-card-label { font-family:'DM Mono',monospace; font-size:0.36em !important; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; display:block; }
+.enc-prox .enc-card-label { color:var(--yellow); }
+.enc-rev  .enc-card-label { color:#4ADE80; }
+.enc-card-text { font-size:0.46em !important; color:var(--white); line-height:1.5; }
+
+/* ── PROGRESS ── */
+.reveal .progress               { color:var(--pa); height:3px; }
+.reveal .slide-number           { font-family:'DM Mono',monospace; font-size:12px; color:var(--gray); background:rgba(0,0,0,0.4); border-radius:6px; padding:4px 8px; }
+
+/* ── RESPONSIVO ── */
+@media (max-width:768px) {
+  .cards-grid, .comp-grid, .enc-grid { grid-template-columns:1fr !important; }
+  .slide-content { padding:24px; gap:14px; }
+  .slide-title   { font-size:0.9em !important; }
+  .card-title    { font-size:0.55em !important; }
+  .card-text, .flow-text, .bullet-list li { font-size:0.52em !important; line-height:1.7; }
+  .capa-title { font-size:1.3em !important; }
+  .capa-sub   { max-width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 1 — CAPA                         -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-capa" data-transition="zoom">
+  <div class="capa-deco"></div>
+  <div class="capa-deco2"></div>
+  <div class="capa-inner">
+    <div class="capa-kicker">Situação de Aprendizagem 19 · 2º Trimestre · Programação de Aplicativos</div>
+    <h1 class="capa-title">Depuração e<br><span>Rastreabilidade</span></h1>
+    <p class="capa-sub">Tipos de erro, ferramentas do depurador da IDE — breakpoints, step over/into, call stack, painel de variáveis — breakpoints condicionais, logs e a estratégia profissional de depuração passo a passo</p>
+    <div class="capa-badges">
+      <span class="capa-badge cb-yellow">B6 — Técnicas de Programação</span>
+      <span class="capa-badge cb-dark">Prof. Julio Cesar</span>
+      <span class="capa-badge cb-dark">Colégio Neiva Pavan</span>
+      <span class="capa-badge cb-dark">1ª Série — TDS</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 2 — OBJETIVOS                    -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O que você vai aprender hoje</div>
+    <h2 class="slide-title">🏆 Objetivos da Aula</h2>
+    <ul class="bullet-list">
+      <li><strong>Depuração:</strong> compreender o conceito e sua importância no ciclo de desenvolvimento — encontrar o bug com precisão, não por tentativa e erro</li>
+      <li><strong>Ferramentas da IDE:</strong> usar breakpoints, step over <span class="kbd">F10</span>, step into <span class="kbd">F11</span>, step out <span class="kbd">Shift+F11</span> e o painel de variáveis com proficiência</li>
+      <li><strong>Rastreabilidade:</strong> acompanhar o fluxo de execução de um programa complexo usando call stack e breakpoints condicionais</li>
+      <li><strong>Tipos de erro:</strong> identificar e corrigir erros de sintaxe, lógica e tempo de execução — cada tipo tem estratégia diferente</li>
+      <li><strong>Logs:</strong> registrar eventos com os níveis <span class="kbd">DEBUG</span> · <span class="kbd">INFO</span> · <span class="kbd">WARN</span> · <span class="kbd">ERROR</span> para rastrear o comportamento em produção</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 3 — PERCURSO                     -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">De onde viemos e para onde vamos</div>
+    <h2 class="slide-title">🔗 Nosso <span>Percurso</span> até aqui</h2>
+    <div class="highlight-box">
+      <p>Na <strong>SA 18</strong> aprendemos a otimizar código — medir antes de otimizar, eliminar gargalos em laços e no banco de dados. Hoje fechamos o ciclo de qualidade: código legível (SA 17), eficiente (SA 18) e agora <strong>livre de bugs</strong> (SA 19).</p>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">SA 18 · Aula Anterior</span>
+        <div class="card-text">Otimização de Código — medir com currentTimeMillis, gargalos em laços, StringBuilder, cálculo fora do laço, SELECT fora do laço e equilíbrio entre legibilidade e desempenho.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-title card-title-pa">SA 19 · Hoje — 24/06</span>
+        <div class="card-text">Depuração e Rastreabilidade: tipos de erro, ferramentas do depurador, breakpoints condicionais, logs com níveis DEBUG/INFO/WARN/ERROR e a estratégia profissional passo a passo.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">SA 20 · Próxima — 01/07</span>
+        <div class="card-text">Teste Unitário Parte 1 — como escrever testes automatizados que verificam o comportamento do código e detectam regressões antes de chegar em produção.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 4 — TIPOS DE ERRO                -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O primeiro passo para corrigir é classificar</div>
+    <h2 class="slide-title">🐞 Os Três <span>Tipos de Erro</span></h2>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-blue"></div>
+        <span class="card-num" style="color:#60A5FA;">Tipo 1 — Mais Fácil</span>
+        <span class="card-title card-title-blue">Erro de Sintaxe</span>
+        <div class="card-text">
+          <strong style="color:var(--white);">O código não compila.</strong> A IDE sublinha em vermelho — falta de <span class="kbd">;</span>, chave não fechada, variável não declarada, parêntese faltando.<br><br>
+          <em>Estratégia:</em> siga o indicador da IDE — ela aponta a linha exata do problema.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">Tipo 2 — Mais Traiçoeiro</span>
+        <span class="card-title card-title-yellow">Erro de Lógica</span>
+        <div class="card-text">
+          <strong style="color:var(--white);">O código executa, mas o resultado está errado.</strong> Laço infinito, cálculo com operador errado, condição invertida, divisão por 2 em vez de 3.<br><br>
+          <em>Estratégia:</em> depurador — inspecionar variáveis passo a passo até achar onde o valor diverge do esperado.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-num" style="color:var(--red);">Tipo 3 — Para Abruptamente</span>
+        <span class="card-title card-title-red">Erro de Runtime</span>
+        <div class="card-text">
+          <strong style="color:var(--white);">O programa para com uma exceção.</strong> NullPointerException, ArrayIndexOutOfBoundsException, divisão por zero, ClassCastException.<br><br>
+          <em>Estratégia:</em> ler o stack trace — ele diz a linha exata. Breakpoint nela, verificar qual referência é null.
+        </div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p><strong>Regra de ouro:</strong> sempre leia a mensagem de erro completa antes de mexer no código. O stack trace diz <em>onde</em>, o tipo da exceção diz <em>o quê</em> — juntos eles apontam para o problema sem precisar adivinhar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 5 — println × DEPURADOR          -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Dois jeitos de depurar — resultados muito diferentes</div>
+    <h2 class="slide-title">🖨️ <span>println</span> × 🔬 Depurador</h2>
+    <div class="comp-grid">
+      <div class="comp-col comp-evit">
+        <div class="comp-header">🖨️ println — o jeito iniciante</div>
+        <div class="comp-item">✗ Modifica o código só para inspecionar valores</div>
+        <div class="comp-item">✗ Recompila e executa de novo a cada nova suspeita</div>
+        <div class="comp-item">✗ Deixa "lixo" no código — prints esquecidos chegam a produção</div>
+        <div class="comp-item">✗ Mostra apenas o que foi explicitamente impresso</div>
+        <div class="comp-item">✗ Ineficaz em laços longos — imprime 10.000 linhas</div>
+        <div class="comp-item">✗ Lento: cada suspeita é uma rodada de recompilação</div>
+      </div>
+      <div class="comp-col comp-faz">
+        <div class="comp-header">🔬 Depurador — o jeito profissional</div>
+        <div class="comp-item">✔ Inspeciona qualquer variável sem modificar uma linha</div>
+        <div class="comp-item">✔ Pausa exatamente onde interessa — inclusive com condição</div>
+        <div class="comp-item">✔ Navega o fluxo passo a passo: step over, into, out</div>
+        <div class="comp-item">✔ Painel Variables mostra todo o escopo atual de uma vez</div>
+        <div class="comp-item">✔ Breakpoint condicional pausa só na iteração problemática</div>
+        <div class="comp-item">✔ Call Stack revela o caminho completo até o erro</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p><strong>No mercado, desenvolvedores que sabem usar o depurador encontram bugs em minutos</strong> — o que levaria horas de prints. É uma das habilidades mais valorizadas em entrevistas e no dia a dia de qualquer equipe de desenvolvimento.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 6 — FERRAMENTAS DO DEPURADOR     -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O kit de ferramentas do depurador</div>
+    <h2 class="slide-title">🔬 Cinco <span>Ferramentas Essenciais</span> do Depurador</h2>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-r">
+        <span class="flow-label">🔴</span>
+        <div class="flow-text"><strong>Breakpoint</strong> — Clique na margem esquerda da linha desejada. A execução pausa exatamente nela. <strong>Breakpoint condicional:</strong> clique direito → "Edit Breakpoint" → coloque a condição (ex: <span class="kbd">i == 537</span>) — pausa APENAS naquela iteração.</div>
+      </div>
+      <div class="flow-step fs-b">
+        <span class="flow-label">F10</span>
+        <div class="flow-text"><strong>Step Over</strong> — Executa a linha atual e avança para a próxima, <em>sem entrar</em> dentro de métodos chamados. Use quando você não precisa inspecionar o interior de uma função que já funciona.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">F11</span>
+        <div class="flow-text"><strong>Step Into</strong> — Entra dentro do método chamado na linha atual, permitindo inspecionar sua execução. Use quando o bug pode estar <em>dentro</em> da função chamada.</div>
+      </div>
+      <div class="flow-step fs-o">
+        <span class="flow-label">⇧F11</span>
+        <div class="flow-text"><strong>Step Out</strong> — Termina a execução do método atual e retorna ao código que o chamou. Use quando entrou em um método e quer sair rapidamente sem step over linha a linha.</div>
+      </div>
+      <div class="flow-step fs-p">
+        <span class="flow-label">👁️</span>
+        <div class="flow-text"><strong>Variables / Watch / Call Stack</strong> — <em>Variables:</em> todos os valores no escopo atual. <em>Watch:</em> monitore uma expressão customizada. <em>Call Stack:</em> a pilha de chamadas — qual método chamou qual até o ponto pausado. Hover sobre qualquer variável no código exibe seu valor.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 7 — BREAKPOINTS NA PRÁTICA       -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Onde colocar e como usar</div>
+    <h2 class="slide-title">🔴 Breakpoints na <span>Prática</span></h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">Cenário: NullPointerException</span>
+        <div class="code-block">
+<span class="c-cm">// Erro: NullPointerException na linha 8</span><br>
+<span class="c-kw">public void</span> <span class="c-fn">processarPedidos</span>(List&lt;Pedido&gt; pedidos) {<br>
+&nbsp;&nbsp;<span class="c-kw">for</span> (Pedido p : pedidos) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-cm">// ← BREAKPOINT AQUI (clique na margem)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;String nome = p.<span class="c-fn">getCliente</span>().<span class="c-fn">getNome</span>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.<span class="c-fn">println</span>(nome);<br>
+&nbsp;&nbsp;}<br>
+}
+        </div>
+        <div class="card-text" style="margin-top:8px;">Com o breakpoint na linha 4, o depurador pausa em cada iteração. O painel <strong style="color:var(--white);">Variables</strong> mostra: <span class="kbd">p</span> → inspecionar se <span class="kbd">p.getCliente()</span> é null antes de chamar <span class="kbd">getNome()</span>.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">Breakpoint Condicional — o poder real</span>
+        <div class="code-block">
+<span class="c-kw">for</span> (<span class="c-kw">int</span> i = <span class="c-num">0</span>; i &lt; <span class="c-num">10_000</span>; i++) {<br>
+&nbsp;&nbsp;processar(pedidos[i]);<br>
+}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="c-cm">// O erro acontece apenas em i = 537</span><br>
+<span class="c-cm">// Breakpoint simples: F10 × 537 = inviável</span><br>
+<span class="c-cm">// Breakpoint condicional: i == 537</span><br>
+<span class="c-cm">// → pausa SOMENTE na iteração problemática</span>
+        </div>
+        <div class="card-text" style="margin-top:8px;"><strong style="color:var(--white);">Como criar:</strong> clique direito no ponto vermelho do breakpoint → <em>Edit Breakpoint</em> → digite a condição. O depurador ignora todas as iterações até que a condição seja verdadeira.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 8 — NAVEGAÇÃO + INSPEÇÃO         -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Navegar e inspecionar — os dois movimentos do depurador</div>
+    <h2 class="slide-title">⏭️ <span>Navegar</span> Passo a Passo</h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-blue"></div>
+        <span class="card-title card-title-blue">Comandos de Navegação</span>
+        <div class="code-block">
+<span class="c-cm">// Situação: pausado na linha → calcularMedia(notas)</span><br>
+<br>
+<span class="c-kw">F10</span> Step Over<br>
+&nbsp;&nbsp;<span class="c-cm">→ executa a chamada e avança</span><br>
+&nbsp;&nbsp;<span class="c-cm">→ não entra dentro de calcularMedia</span><br>
+<br>
+<span class="c-kw">F11</span> Step Into<br>
+&nbsp;&nbsp;<span class="c-cm">→ entra DENTRO de calcularMedia</span><br>
+&nbsp;&nbsp;<span class="c-cm">→ inspeciona linha a linha do método</span><br>
+<br>
+<span class="c-kw">Shift+F11</span> Step Out<br>
+&nbsp;&nbsp;<span class="c-cm">→ sai de calcularMedia e retorna</span><br>
+<br>
+<span class="c-kw">F5</span> Continue<br>
+&nbsp;&nbsp;<span class="c-cm">→ continua até o próximo breakpoint</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-title card-title-pa">Painéis de Inspeção</span>
+        <div class="flow-step fs-p" style="margin-bottom:6px;">
+          <span class="flow-label" style="min-width:80px;">Variables</span>
+          <div class="flow-text">Todos os valores no escopo atual — variáveis locais, parâmetros e campos do objeto. Expanda objetos para ver seus atributos.</div>
+        </div>
+        <div class="flow-step fs-y" style="margin-bottom:6px;">
+          <span class="flow-label" style="min-width:80px;">Watch</span>
+          <div class="flow-text">Monitore uma expressão customizada que a IDE avalia automaticamente a cada passo. Exemplo: <span class="kbd">lista.size()</span> ou <span class="kbd">nota &gt;= 7.0</span>.</div>
+        </div>
+        <div class="flow-step fs-b" style="margin-bottom:0;">
+          <span class="flow-label" style="min-width:80px;">Call Stack</span>
+          <div class="flow-text">A pilha de chamadas — qual método chamou qual, de baixo para cima. Essencial para entender como a execução chegou até o ponto pausado.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 9 — LOGS E RASTREABILIDADE       -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O depurador do ambiente de produção</div>
+    <h2 class="slide-title">📜 Logs e <span>Rastreabilidade</span></h2>
+    <div class="highlight-box-r">
+      <p>Em produção, o depurador não existe. <strong>Logs são o único mecanismo de rastreabilidade</strong> de um programa em execução real — registrar os eventos certos, no nível certo, é o que permite diagnosticar um incidente sem reproduzi-lo localmente.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-blue"></div>
+        <span class="card-title card-title-blue">☕ Java — java.util.logging</span>
+        <div class="code-block">
+<span class="c-kw">import</span> java.util.logging.Logger;<br>
+<span class="c-kw">private static final</span> Logger log =<br>
+&nbsp;&nbsp;Logger.<span class="c-fn">getLogger</span>(SistemaAluno.<span class="c-kw">class</span>.getName());<br>
+<br>
+log.<span class="c-fn">fine</span>(<span class="c-str">"DEBUG: nota recebida = "</span> + nota);<br>
+log.<span class="c-fn">info</span>(<span class="c-str">"Aluno "</span> + nome + <span class="c-str">" cadastrado"</span>);<br>
+log.<span class="c-fn">warning</span>(<span class="c-str">"Login inválido: "</span> + usuario);<br>
+log.<span class="c-fn">severe</span>(<span class="c-str">"Falha na conexão com banco!"</span>);
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">🐍 Python — módulo logging</span>
+        <div class="code-block">
+<span class="c-kw">import</span> logging<br>
+logging.<span class="c-fn">basicConfig</span>(level=logging.DEBUG)<br>
+<br>
+logging.<span class="c-fn">debug</span>(<span class="c-str">f"nota recebida: </span>{nota}<span class="c-str">"</span>)<br>
+logging.<span class="c-fn">info</span>(<span class="c-str">f"aluno </span>{nome}<span class="c-str"> cadastrado"</span>)<br>
+logging.<span class="c-fn">warning</span>(<span class="c-str">f"login inválido: </span>{usuario}<span class="c-str">"</span>)<br>
+logging.<span class="c-fn">error</span>(<span class="c-str">"falha na conexão com banco!"</span>)
+        </div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p><strong>DEBUG</strong> — valores internos, só em desenvolvimento · <strong>INFO</strong> — eventos normais (login, pedido criado) · <strong>WARN</strong> — situação inesperada mas não crítica · <strong>ERROR</strong> — falha que impede uma operação. Em produção, filtre para INFO ou acima — DEBUG inunda o arquivo de log.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 10 — ESTRATÉGIA PROFISSIONAL     -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O método que profissionais usam</div>
+    <h2 class="slide-title">🎯 Estratégia de <span>Depuração</span> em 6 Passos</h2>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-r">
+        <span class="flow-label">01</span>
+        <div class="flow-text"><strong>Reproduzir</strong> — Fazer o erro acontecer de forma consistente e controlada. Sem reprodução confiável não há depuração — é jogo de sorte. Anote os passos exatos que causam o problema.</div>
+      </div>
+      <div class="flow-step fs-o">
+        <span class="flow-label">02</span>
+        <div class="flow-text"><strong>Isolar</strong> — Identificar o menor trecho de código que ainda reproduz o erro. Quanto menor, mais fácil de analisar. Elimine partes até não poder mais sem que o bug desapareça.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">03</span>
+        <div class="flow-text"><strong>Breakpoint</strong> — Posicionar o breakpoint <em>antes</em> de onde o erro acontece — nunca depois. Condicional se for em laço com muitas iterações. Use Call Stack para escolher o ponto mais alto na pilha.</div>
+      </div>
+      <div class="flow-step fs-b">
+        <span class="flow-label">04</span>
+        <div class="flow-text"><strong>Inspecionar</strong> — Executar passo a passo e observar as variáveis no painel. Verificar em que momento o valor diverge do esperado — essa é a causa raiz, não o sintoma visível.</div>
+      </div>
+      <div class="flow-step fs-p">
+        <span class="flow-label">05</span>
+        <div class="flow-text"><strong>Corrigir</strong> — Aplicar a correção identificada. Não corrija vários problemas de uma vez — uma mudança por vez, para saber o que resolveu.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">06</span>
+        <div class="flow-text"><strong>Verificar</strong> — Confirmar que o erro não ocorre mais <em>e</em> que a correção não introduziu novos problemas. Execute o fluxo completo, não apenas o caso que estava bugado.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 11 — ERROS COMUNS                -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Os bugs mais frequentes e como rastreá-los</div>
+    <h2 class="slide-title">📋 <span>Erros Comuns</span> — Sintoma e Estratégia</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Erro</th>
+          <th>Sintoma</th>
+          <th>Tipo</th>
+          <th>Estratégia de depuração</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="kbd">NullPointerException</span></td>
+          <td>Programa para com NPE, stack trace indica a linha</td>
+          <td><span class="tag-r">Runtime</span></td>
+          <td>Breakpoint na linha indicada → Variables → qual referência é null → verificar se objeto foi inicializado</td>
+        </tr>
+        <tr>
+          <td>Resultado errado em cálculo</td>
+          <td>Valor exibido diferente do esperado</td>
+          <td><span class="tag-y">Lógica</span></td>
+          <td>Breakpoint antes do cálculo → Step Over em cada operação → Watch para cada variável → achar onde o valor diverge</td>
+        </tr>
+        <tr>
+          <td>Laço infinito</td>
+          <td>Programa trava sem resposta</td>
+          <td><span class="tag-y">Lógica</span></td>
+          <td>Pausar execução manualmente → Variables → verificar condição de saída do laço → identificar qual variável não avança</td>
+        </tr>
+        <tr>
+          <td>Dado não salvo no banco</td>
+          <td>Operação parece funcionar, dado não persiste</td>
+          <td><span class="tag-y">Lógica</span></td>
+          <td>Verificar se <span class="kbd">commit()</span> está sendo chamado → Log INFO após cada operação → verificar se exception silenciosa engole o erro</td>
+        </tr>
+        <tr class="row-dest">
+          <td><span class="kbd">ArrayIndexOutOfBounds</span></td>
+          <td>Exceção na última iteração de um for</td>
+          <td><span class="tag-r">Runtime</span></td>
+          <td>Verificar condição do for — geralmente <span class="kbd">i &lt;= array.length</span> em vez de <span class="kbd">i &lt; array.length</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box" style="margin-top:8px;">
+      <p>Padrão recorrente: <strong>leia o stack trace primeiro</strong>. Ele indica o arquivo, linha e tipo de exceção — 90% do diagnóstico já está ali antes de abrir o depurador.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 12 — DINÂMICA                    -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Atividade prática em grupo</div>
+    <h2 class="slide-title">🐞 Dinâmica — <span>Caçada ao Bug</span></h2>
+    <div class="din-header">
+      <span style="font-size:1.4em;">🔬</span>
+      <div class="din-header-text">Depuração de Programas com Bugs Intencionais · 15 minutos · grupos de 4 a 5 alunos</div>
+    </div>
+    <div class="exemplo-flow" style="margin-top:8px;">
+      <div class="flow-step fs-p">
+        <span class="flow-label">01</span>
+        <div class="flow-text"><strong>Distribuição dos programas (1 min)</strong> — Cada grupo recebe um programa diferente com um bug intencional. O desafio: identificar o tipo de erro, usar o depurador para encontrar a causa raiz, corrigir e descrever o processo usado.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">02</span>
+        <div class="flow-text"><strong>Depuração em grupo (10 min)</strong> — Os grupos usam o depurador — breakpoints, step over/into e painel de variáveis — para encontrar e corrigir o bug. Registram na ficha: onde colocaram o breakpoint · o que observaram no painel Variables · qual era o erro · como corrigiram.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">03</span>
+        <div class="flow-text"><strong>Relato e debate (4 min)</strong> — Cada grupo relata o bug encontrado e o processo de depuração. O professor complementa com dicas adicionais de cada caso e exibe ao vivo.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y" style="margin-top:8px;">
+      <p><strong>Os 4 bugs:</strong> calculadora de média dividindo por 2 em vez de 3 · busca com <span class="kbd">i &lt;= lista.length</span> causando ArrayIndexOutOfBounds · <span class="kbd">commit()</span> comentado · verificação de senha com <span class="kbd">=</span> em vez de <span class="kbd">==</span>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 13 — RESUMO                      -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O que vimos hoje</div>
+    <h2 class="slide-title">📌 Resumo da Aula</h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-blue"></div>
+        <span class="card-title card-title-blue">🐞 Três Tipos de Erro</span>
+        <div class="card-text"><strong style="color:var(--white);">Sintaxe</strong> — não compila, IDE sublinha · <strong style="color:var(--yellow);">Lógica</strong> — executa mas resultado errado, o mais difícil, precisa do depurador · <strong style="color:var(--red);">Runtime</strong> — para abruptamente com exceção, leia o stack trace primeiro.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-title card-title-pa">🔬 Ferramentas do Depurador</span>
+        <div class="card-text"><span class="kbd">F9</span> adiciona breakpoint · <span class="kbd">F5</span> inicia debug e continua · <span class="kbd">F10</span> step over · <span class="kbd">F11</span> step into · <span class="kbd">Shift+F11</span> step out. Painéis: <strong style="color:var(--white);">Variables</strong>, <strong style="color:var(--white);">Watch</strong> e <strong style="color:var(--white);">Call Stack</strong> — o escopo completo sem nenhum print.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">📜 Logs com Níveis</span>
+        <div class="card-text"><span class="kbd">DEBUG</span> — fluxo interno, só em dev · <span class="kbd">INFO</span> — eventos normais · <span class="kbd">WARN</span> — situação inesperada não crítica · <span class="kbd">ERROR</span> — falha que impede operação. Em produção, <strong style="color:var(--white);">logs substituem o depurador</strong>.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">🎯 Estratégia em 6 Passos</span>
+        <div class="card-text">Reproduzir → Isolar → Breakpoint → Inspecionar → Corrigir → Verificar. <strong style="color:var(--white);">Nunca corrija sem reproduzir</strong>, nunca feche sem verificar. Uma mudança por vez — para saber o que resolveu.</div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:4px;">
+      <p>A lição mais importante: <strong>depurar é uma habilidade, não um talento</strong>. Quanto mais você praticar com o depurador, mais rápido ficará — e no mercado, isso vale ouro.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SLIDE 14 — ENCERRAMENTO                -->
+<!-- ═══════════════════════════════════════ -->
+<section class="slide-enc" data-transition="zoom">
+  <div class="slide-content">
+    <div class="slide-label">Até a próxima</div>
+    <h2 class="slide-title">🚀 O que <span>vem a seguir</span></h2>
+    <div class="enc-grid">
+      <div class="enc-card enc-prox">
+        <span class="enc-card-label">→ Próxima aula — SA 20 · 01/07</span>
+        <div class="enc-card-text">Técnicas de Programação — Teste Unitário Parte 1. Como escrever testes automatizados que verificam o comportamento do código, detectam regressões e documentam o funcionamento esperado do sistema.</div>
+      </div>
+      <div class="enc-card enc-rev">
+        <span class="enc-card-label">📝 Para fixar o aprendizado</span>
+        <div class="enc-card-text">Abra um projeto e coloque um breakpoint em um laço · use step into para entrar em um método e inspecionar suas variáveis · adicione pelo menos um log INFO e um ERROR em um sistema que você tem · tente reproduzir um bug real usando a estratégia dos 6 passos</div>
+      </div>
+    </div>
+    <div class="quote-box">
+      <p>"Depurar é duas vezes mais difícil que escrever o código. Portanto, se você escrever o código mais esperto possível, por definição não terá inteligência suficiente para depurá-lo."</p>
+      <cite>— Brian W. Kernighan · co-autor de C e Unix · A razão pela qual código simples é mais seguro</cite>
+    </div>
+    <div style="text-align:center;margin-top:12px;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.36em;color:var(--gray);letter-spacing:2px;text-transform:uppercase;">SA 19 · Depuração e Rastreabilidade · Prof. Julio Cesar · Colégio Neiva Pavan · 2026</div>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    progress: true,
+    controls: true,
+    controlsTutorial: true,
+    transition: 'slide',
+    transitionSpeed: 'default',
+    backgroundTransition: 'fade',
+    center: true,
+    width: 1280,
+    height: 720,
+    margin: 0.08,
+    minScale: 0.2,
+    maxScale: 1.0,
+    plugins: []
+  });
+</script>
+</body>
+</html>
