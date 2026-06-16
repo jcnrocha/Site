@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Prof. Julio Cesar">
+<title>SA 20 — Teste Unitário Parte 1 · Programação de Aplicativos</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pa:#1A7A4A; --pa-d:#173404; --pa-light:#EAF3DE;
+  --yellow:#F9C74F; --dark:#080D20; --green:#10B981;
+  --red:#EF4444; --orange:#F97316; --blue:#3B82F6;
+  --purple:#A78BFA; --white:#FFFFFF; --gray:#CBD5E1;
+  --glass-bg:rgba(255,255,255,0.05); --glass-border:rgba(255,255,255,0.10);
+  --radius:12px; --transition:0.25s ease;
+}
+html,body{background:#04070F !important;margin:0;padding:0;}
+.reveal{font-family:'DM Sans',sans-serif;}
+.reveal .slides section{height:100%;text-align:left;overflow:hidden;}
+.reveal h1,.reveal h2,.reveal h3{text-transform:none;font-family:'DM Sans',sans-serif;margin:0;}
+.reveal p{margin:0;} .reveal ul,.reveal ol{margin:0;padding:0;}
+.reveal .slides{border-radius:4px;box-shadow:0 0 0 1px rgba(26,122,74,0.3),0 8px 32px rgba(0,0,0,0.6),0 2px 8px rgba(0,0,0,0.4);}
+.slide-capa{background:linear-gradient(135deg,#080D20 0%,#0A1F10 60%,#080D20 100%) !important;position:relative;overflow:hidden;}
+.slide-capa::before{content:'';position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--pa);}
+.slide-capa::after{content:'';position:absolute;left:8px;top:0;bottom:0;width:4px;background:var(--yellow);}
+.capa-deco{position:absolute;right:-60px;bottom:-60px;width:280px;height:280px;border-radius:50%;background:rgba(26,122,74,0.10);border:2px solid rgba(26,122,74,0.15);}
+.capa-deco2{position:absolute;right:40px;bottom:40px;width:140px;height:140px;border-radius:50%;background:rgba(249,199,79,0.06);border:2px solid rgba(249,199,79,0.1);}
+.capa-inner{height:100%;max-height:720px;display:flex;flex-direction:column;justify-content:center;padding:36px 40px 36px 48px;overflow:hidden;box-sizing:border-box;}
+.capa-kicker{font-family:'DM Mono',monospace;font-size:0.5em;color:var(--pa);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;}
+.capa-title{font-size:2em !important;line-height:1.15;color:var(--white);margin-bottom:12px;font-weight:700;}
+.capa-title span{color:var(--yellow);}
+.capa-sub{font-size:0.52em;color:var(--gray);margin-bottom:28px;max-width:65%;line-height:1.6;}
+.capa-badges{display:flex;gap:10px;flex-wrap:wrap;}
+.capa-badge{font-size:0.42em;padding:5px 14px;border-radius:20px;font-weight:600;font-family:'DM Mono',monospace;}
+.cb-pa{background:var(--pa);color:var(--white);}
+.cb-yellow{background:var(--yellow);color:var(--dark);}
+.cb-dark{background:rgba(255,255,255,0.1);color:var(--white);border:1px solid rgba(255,255,255,0.2);}
+.slide-std{background:#0A1410 !important;padding:0 !important;}
+.slide-enc{background:linear-gradient(135deg,#080D20 0%,#0A1410 100%) !important;padding:0 !important;}
+.slide-content{height:100%;max-height:720px;display:flex;flex-direction:column;padding:32px 44px;justify-content:flex-start;gap:12px;overflow:hidden;box-sizing:border-box;}
+.slide-label{font-family:'DM Mono',monospace;font-size:0.38em;color:var(--pa);letter-spacing:2px;text-transform:uppercase;}
+.slide-title{font-size:1.15em !important;color:var(--white);line-height:1.2;font-weight:700;border-bottom:2px solid var(--pa);padding-bottom:10px;margin-bottom:0;}
+.slide-title span{color:#4ADE80;}
+.accent-pa{background:var(--pa);} .accent-yellow{background:var(--yellow);}
+.accent-green{background:var(--green);} .accent-red{background:var(--red);}
+.accent-orange{background:var(--orange);} .accent-blue{background:var(--blue);}
+.accent-purple{background:var(--purple);}
+.cards-grid{display:grid;gap:10px;}
+.cards-2{grid-template-columns:1fr 1fr;} .cards-3{grid-template-columns:1fr 1fr 1fr;} .cards-4{grid-template-columns:1fr 1fr 1fr 1fr;}
+.card{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius);padding:14px 16px;position:relative;overflow:hidden;transition:transform var(--transition),border-color var(--transition);}
+.card:hover{transform:translateY(-4px);border-color:rgba(26,122,74,0.4);}
+.card-accent{position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:12px 0 0 12px;}
+.card-num{font-family:'DM Mono',monospace;font-size:0.38em;font-weight:700;margin-bottom:6px;display:block;}
+.card-title{font-size:0.58em !important;font-weight:700;color:var(--white);margin-bottom:5px;line-height:1.3;display:block;}
+.card-text{font-size:0.46em !important;color:var(--gray);line-height:1.6;}
+.card-title-pa{color:#4ADE80;} .card-title-yellow{color:var(--yellow);}
+.card-title-green{color:var(--green);} .card-title-red{color:var(--red);}
+.card-title-orange{color:var(--orange);} .card-title-blue{color:#60A5FA;}
+.card-title-purple{color:var(--purple);}
+.bullet-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.bullet-list li{display:flex;align-items:flex-start;gap:12px;font-size:0.52em !important;color:#CBD5E1;line-height:1.5;padding:8px 12px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid var(--pa);}
+.bullet-list li strong{color:var(--white);}
+.highlight-box{background:rgba(26,122,74,0.12);border:1px solid rgba(26,122,74,0.35);border-radius:10px;padding:10px 14px;}
+.highlight-box p{font-size:0.5em !important;color:#CBD5E1;line-height:1.7;margin:0;}
+.highlight-box strong{color:#4ADE80;}
+.highlight-box-y{background:rgba(249,199,79,0.08);border:1px solid rgba(249,199,79,0.3);border-radius:10px;padding:10px 14px;}
+.highlight-box-y p{font-size:0.5em !important;color:#CBD5E1;line-height:1.7;margin:0;}
+.highlight-box-y strong{color:var(--yellow);}
+.highlight-box-r{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:10px 14px;}
+.highlight-box-r p{font-size:0.5em !important;color:#CBD5E1;line-height:1.7;margin:0;}
+.highlight-box-r strong{color:var(--red);}
+.quote-box{background:rgba(249,199,79,0.08);border-left:4px solid var(--yellow);border-radius:0 10px 10px 0;padding:14px 18px;}
+.quote-box p{font-size:0.5em !important;color:#E2E8F0;font-style:italic;line-height:1.7;margin:0;}
+.quote-box cite{font-size:0.38em !important;color:var(--yellow);font-style:normal;display:block;margin-top:6px;font-family:'DM Mono',monospace;}
+.exemplo-flow{display:flex;flex-direction:column;gap:7px;}
+.flow-step{background:rgba(255,255,255,0.04);border-radius:8px;padding:11px 14px;display:flex;gap:14px;align-items:flex-start;border-left:3px solid;}
+.flow-step.fs-p{border-color:var(--pa);} .flow-step.fs-y{border-color:var(--yellow);}
+.flow-step.fs-g{border-color:var(--green);} .flow-step.fs-r{border-color:var(--red);}
+.flow-step.fs-o{border-color:var(--orange);} .flow-step.fs-b{border-color:var(--blue);}
+.flow-step.fs-v{border-color:var(--purple);}
+.flow-label{font-family:'DM Mono',monospace;font-size:0.44em !important;font-weight:700;flex-shrink:0;min-width:28px;}
+.fs-p .flow-label{color:#4ADE80;} .fs-y .flow-label{color:var(--yellow);}
+.fs-g .flow-label{color:var(--green);} .fs-r .flow-label{color:var(--red);}
+.fs-o .flow-label{color:var(--orange);} .fs-b .flow-label{color:var(--blue);}
+.fs-v .flow-label{color:var(--purple);}
+.flow-text{font-size:0.44em !important;color:#CBD5E1;line-height:1.6;}
+.flow-text strong{color:var(--white);}
+.code-block{background:rgba(0,0,0,0.4);border:1px solid rgba(26,122,74,0.3);border-radius:8px;padding:10px 14px;font-family:'DM Mono',monospace;font-size:0.42em !important;color:#4ADE80;line-height:1.7;overflow:hidden;}
+.code-block .c-kw{color:#60A5FA;} .code-block .c-str{color:var(--yellow);}
+.code-block .c-cm{color:#64748B;font-style:italic;} .code-block .c-num{color:var(--orange);}
+.code-block .c-fn{color:#C084FC;} .code-block .c-type{color:#34D399;}
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.comp-col{border-radius:10px;padding:14px;}
+.comp-evit{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);}
+.comp-faz{background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);}
+.comp-header{font-size:0.6em !important;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.comp-evit .comp-header{color:var(--red);} .comp-faz .comp-header{color:var(--green);}
+.comp-item{font-size:0.42em !important;color:#CBD5E1;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);line-height:1.5;display:flex;gap:8px;}
+.comp-item:last-child{border-bottom:none;}
+.data-table{width:100%;border-collapse:collapse;font-size:0.44em !important;}
+.data-table th{background:rgba(26,122,74,0.2);color:#4ADE80;font-family:'DM Mono',monospace;font-size:0.85em;text-transform:uppercase;letter-spacing:1px;padding:8px 10px;border-bottom:2px solid rgba(26,122,74,0.4);text-align:left;}
+.data-table td{padding:7px 10px;color:var(--gray);border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:middle;}
+.data-table tr:hover td{background:rgba(255,255,255,0.03);}
+.data-table .row-dest td{color:var(--white);font-weight:700;}
+.kbd{display:inline-block;background:rgba(26,122,74,0.25);border:1px solid rgba(26,122,74,0.4);border-radius:5px;padding:2px 8px;font-family:'DM Mono',monospace;font-size:0.9em;color:var(--yellow);font-weight:700;}
+.tag-r{display:inline-block;background:rgba(239,68,68,0.2);color:var(--red);font-family:'DM Mono',monospace;font-size:0.85em;padding:1px 7px;border-radius:4px;}
+.tag-g{display:inline-block;background:rgba(16,185,129,0.2);color:var(--green);font-family:'DM Mono',monospace;font-size:0.85em;padding:1px 7px;border-radius:4px;}
+.tag-b{display:inline-block;background:rgba(59,130,246,0.2);color:var(--blue);font-family:'DM Mono',monospace;font-size:0.85em;padding:1px 7px;border-radius:4px;}
+.tag-y{display:inline-block;background:rgba(249,199,79,0.2);color:var(--yellow);font-family:'DM Mono',monospace;font-size:0.85em;padding:1px 7px;border-radius:4px;}
+.din-header{background:rgba(26,122,74,0.2);border:1px solid rgba(26,122,74,0.4);border-radius:10px;padding:12px 18px;display:flex;align-items:center;gap:12px;}
+.din-header-text{font-size:0.55em !important;font-weight:700;color:#4ADE80;}
+.din-meta{display:flex;gap:20px;flex-wrap:wrap;}
+.din-meta-item{font-size:0.42em !important;color:var(--gray);}
+.din-meta-item strong{color:var(--white);}
+.enc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.enc-card{border-radius:10px;padding:12px 16px;}
+.enc-prox{background:rgba(249,199,79,0.1);border:1px solid rgba(249,199,79,0.3);}
+.enc-rev{background:rgba(26,122,74,0.12);border:1px solid rgba(26,122,74,0.3);}
+.enc-card-label{font-family:'DM Mono',monospace;font-size:0.36em !important;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;display:block;}
+.enc-prox .enc-card-label{color:var(--yellow);} .enc-rev .enc-card-label{color:#4ADE80;}
+.enc-card-text{font-size:0.46em !important;color:var(--white);line-height:1.5;}
+.reveal .progress{color:var(--pa);height:3px;}
+.reveal .slide-number{font-family:'DM Mono',monospace;font-size:12px;color:var(--gray);background:rgba(0,0,0,0.4);border-radius:6px;padding:4px 8px;}
+@media(max-width:768px){
+  .cards-grid,.comp-grid,.enc-grid{grid-template-columns:1fr !important;}
+  .slide-content{padding:24px;gap:14px;} .slide-title{font-size:0.9em !important;}
+  .capa-title{font-size:1.3em !important;} .capa-sub{max-width:100%;}
+}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- SLIDE 01 — CAPA -->
+<section class="slide-capa" data-transition="zoom" data-transition-speed="slow">
+  <div class="capa-deco"></div>
+  <div class="capa-deco2"></div>
+  <div class="capa-inner">
+    <div class="capa-kicker">SA 20 · 2º Trimestre · Programação de Aplicativos</div>
+    <h1 class="capa-title">Técnicas de Programação<br><span>Teste Unitário Parte 1 — Padrão AAA</span></h1>
+    <p class="capa-sub">Como escrever testes automatizados para verificar o comportamento de cada método — garantindo que nada quebra quando o código evolui.</p>
+    <div class="capa-badges">
+      <span class="capa-badge cb-pa">SA 20 · 01/07/2026</span>
+      <span class="capa-badge cb-yellow">B6 — Técnicas</span>
+      <span class="capa-badge cb-dark">Prof. Julio Cesar</span>
+      <span class="capa-badge cb-dark">Colégio Neiva Pavan</span>
+      <span class="capa-badge cb-dark">2º Ano — TDS</span>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 02 — OBJETIVOS -->
+<section class="slide-std" data-transition="fade">
+  <div class="slide-content">
+    <div class="slide-label">O que você vai aprender hoje</div>
+    <h2 class="slide-title">🏆 Objetivos da Aula</h2>
+    <ul class="bullet-list">
+      <li><strong>Teste Unitário:</strong> compreender o que é e qual o seu papel no ciclo de desenvolvimento de software</li>
+      <li><strong>Frameworks:</strong> identificar JUnit 5 (Java) e PyTest (Python) como ferramentas de teste automatizado</li>
+      <li><strong>Padrão AAA:</strong> estruturar testes usando Arrange (preparar), Act (agir) e Assert (verificar)</li>
+      <li><strong>Prática:</strong> escrever os primeiros testes unitários para métodos simples diretamente na IDE</li>
+      <li><strong>Manual × Automatizado:</strong> reconhecer a diferença e as vantagens do teste automatizado sobre a verificação manual</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SLIDE 03 — PERCURSO -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">De onde viemos e para onde vamos</div>
+    <h2 class="slide-title">🔗 Nosso <span>Percurso</span> até aqui</h2>
+    <div class="highlight-box">
+      <p>Na SA 19 aprendemos a <strong>depurar erros existentes</strong> — hoje aprendemos a garantir que esses erros não existam através de testes automatizados.</p>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">SA 19 · Aula Anterior</span>
+        <div class="card-text">Depuração e Rastreabilidade — técnicas para encontrar e corrigir erros existentes no código com uso de breakpoints e logs</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-title card-title-pa">SA 20 · Hoje — 01/07</span>
+        <div class="card-text">Teste Unitário Parte 1 — padrão AAA, frameworks de teste e assertions para verificar métodos de forma automatizada</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">SA 21 · Próxima — 08/07</span>
+        <div class="card-text">Teste Unitário Parte 2 — cobertura de código, mocks com Mockito e boas práticas avançadas de escrita de testes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 04 — TIPO A — O Que É Teste Unitário -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">B6 — Técnicas de Programação</div>
+    <h2 class="slide-title">🧪 O Que É um <span>Teste Unitário</span>?</h2>
+    <div class="highlight-box">
+      <p><strong>Teste unitário</strong> verifica UMA unidade isolada do código — geralmente um único método — de forma automatizada, sem banco de dados, rede ou arquivos externos.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#4ADE80;">Características</span>
+        <span class="card-title card-title-pa">Isolado · Automatizado · Rápido</span>
+        <div class="card-text">Isolado: sem banco, rede ou arquivo externo · Automatizado: roda com um clique, sempre igual · Rápido: cada teste executa em milissegundos</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">Benefícios</span>
+        <span class="card-title card-title-yellow">Detectar · Especificar · Refatorar</span>
+        <div class="card-text">Detecta bugs imediatamente após introduzi-los · funciona como especificação executável do método · permite refatorar com segurança</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p><strong>Regra:</strong> depois de alterar o código, se todos os testes passarem, você sabe que nada quebrou — isso é a rede de segurança</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 05 — TIPO C — O Padrão AAA -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">B6 — Técnicas de Programação</div>
+    <h2 class="slide-title">📐 O Padrão <span>AAA</span> — Arrange · Act · Assert</h2>
+    <div class="highlight-box">
+      <p>O padrão AAA divide cada teste em <strong>três fases claras</strong> — tornando-o legível, organizado e fácil de manter por qualquer membro da equipe.</p>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-p">
+        <span class="flow-label">01</span>
+        <div class="flow-text"><strong>Arrange — Preparar</strong> — Criar o objeto a ser testado e definir as entradas. Ex: <span style="font-family:'DM Mono',monospace;color:#4ADE80;">Calculadora c = new Calculadora(); double n1 = 8.0, n2 = 6.0;</span></div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">02</span>
+        <div class="flow-text"><strong>Act — Agir</strong> — Chamar o método sendo testado. Uma única ação por teste. Ex: <span style="font-family:'DM Mono',monospace;color:var(--yellow);">double resultado = c.calcularMedia(n1, n2);</span></div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">03</span>
+        <div class="flow-text"><strong>Assert — Verificar</strong> — Confirmar que o resultado obtido é igual ao esperado. Verde: passou. Vermelho: falhou com detalhe. Ex: <span style="font-family:'DM Mono',monospace;color:var(--green);">assertEquals(7.0, resultado);</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 06 — TIPO B — Teste Manual × Padrão AAA -->
+<section class="slide-std" data-transition="fade">
+  <div class="slide-content">
+    <div class="slide-label">B6 — Técnicas de Programação</div>
+    <h2 class="slide-title">💻 Teste <span>Manual</span> × Código AAA</h2>
+    <div class="highlight-box-r">
+      <p>Verificar manualmente é <strong>lento, inconsistente e não escala</strong> — o padrão AAA transforma a verificação em código automatizado e repetível.</p>
+    </div>
+    <div class="comp-grid">
+      <div class="comp-col comp-evit">
+        <div class="comp-header">✗ Antes — Verificação Manual</div>
+        <div class="code-block" style="font-size:0.38em !important;">
+<span class="c-cm">// Verificação manual — lento e incerto</span><br>
+<span class="c-type">Calculadora</span> c = <span class="c-kw">new</span> <span class="c-type">Calculadora</span>();<br>
+<span class="c-type">System</span>.out.<span class="c-fn">println</span>(<br>
+&nbsp;&nbsp;c.<span class="c-fn">calcularMedia</span>(<span class="c-num">8.0</span>, <span class="c-num">6.0</span>));<br>
+<span class="c-cm">// Verifico visualmente "7.0"</span><br>
+<span class="c-cm">// Tenho que fazer isso TODA alteração</span>
+        </div>
+      </div>
+      <div class="comp-col comp-faz">
+        <div class="comp-header">✔ Depois — Padrão AAA</div>
+        <div class="code-block" style="font-size:0.38em !important;">
+<span class="c-fn">@Test</span><br>
+<span class="c-kw">void</span> <span class="c-fn">deveRetornar7QuandoNotas8e6</span>() {<br>
+&nbsp;&nbsp;<span class="c-type">Calculadora</span> c = <span class="c-kw">new</span> <span class="c-type">Calculadora</span>();<br>
+&nbsp;&nbsp;<span class="c-cm">// Act</span><br>
+&nbsp;&nbsp;<span class="c-kw">double</span> r = c.<span class="c-fn">calcularMedia</span>(<span class="c-num">8.0</span>, <span class="c-num">6.0</span>);<br>
+&nbsp;&nbsp;<span class="c-cm">// Assert</span><br>
+&nbsp;&nbsp;<span class="c-fn">assertEquals</span>(<span class="c-num">7.0</span>, r);<br>
+}<span class="c-cm"> // Verde = passou · Vermelho = detalhe</span>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p><strong>Resultado:</strong> com AAA o teste <strong>documenta o comportamento esperado</strong> e verifica automaticamente — sem intervenção humana a cada mudança</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 07 — TIPO E — Frameworks por Linguagem -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">B6 — Frameworks de Teste</div>
+    <h2 class="slide-title">🛠️ Frameworks de Teste por <span>Linguagem</span></h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Linguagem</th>
+          <th>Framework</th>
+          <th>Como adicionar ao projeto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag-g">Java</span></td>
+          <td>JUnit 5</td>
+          <td>Dependência Maven: <span style="font-family:'DM Mono',monospace;font-size:0.9em;color:#4ADE80;">junit-jupiter</span> no pom.xml</td>
+        </tr>
+        <tr>
+          <td><span class="tag-b">Python</span></td>
+          <td>PyTest</td>
+          <td><span style="font-family:'DM Mono',monospace;font-size:0.9em;color:#4ADE80;">pip install pytest</span> no terminal</td>
+        </tr>
+        <tr>
+          <td><span class="tag-y">JavaScript</span></td>
+          <td>Jest</td>
+          <td><span style="font-family:'DM Mono',monospace;font-size:0.9em;color:#4ADE80;">npm install jest</span> no terminal</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box" style="margin-top:6px;">
+      <p>Na UC trabalhamos com <strong>Java + JUnit 5</strong> — adicione a dependência ao pom.xml e crie a classe de teste na pasta <span style="font-family:'DM Mono',monospace;color:#4ADE80;">src/test/java</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 08 — TIPO E — Assertions Mais Usadas -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">B6 — Teste Unitário</div>
+    <h2 class="slide-title">✅ <span>Assertions</span> Mais Usadas</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Assertion</th>
+          <th>Quando usar</th>
+          <th>Exemplo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag-g">assertEquals</span></td>
+          <td>Valor obtido deve ser igual ao esperado</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.85em;color:#4ADE80;">assertEquals(7.0, resultado)</td>
+        </tr>
+        <tr>
+          <td><span class="tag-g">assertTrue / False</span></td>
+          <td>Resultado de condição booleana</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.85em;color:#4ADE80;">assertTrue(ehMaiorDeIdade(18))</td>
+        </tr>
+        <tr>
+          <td><span class="tag-b">assertNull / NotNull</span></td>
+          <td>Objeto nulo ou não nulo</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.85em;color:#4ADE80;">assertNotNull(cliente.buscar())</td>
+        </tr>
+        <tr>
+          <td><span class="tag-y">assertThrows</span></td>
+          <td>Método deve lançar exceção específica</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.85em;color:#4ADE80;">assertThrows(Exception.class, () -&gt; ...)</td>
+        </tr>
+        <tr>
+          <td><span class="tag-b">assertNotEquals</span></td>
+          <td>Valor obtido deve ser diferente do comparado</td>
+          <td style="font-family:'DM Mono',monospace;font-size:0.85em;color:#4ADE80;">assertNotEquals(0.0, resultado)</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box" style="margin-top:6px;">
+      <p>O método de teste falha se a assertion não for satisfeita — a mensagem indica <strong>esperado × obtido</strong>, apontando exatamente o que está errado</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 09 — TIPO A — Convenções de Nomenclatura -->
+<section class="slide-std" data-transition="fade">
+  <div class="slide-content">
+    <div class="slide-label">B6 — Boas Práticas de Teste</div>
+    <h2 class="slide-title">🏷️ Convenções de <span>Nomenclatura</span></h2>
+    <div class="highlight-box">
+      <p>Um bom nome de teste é uma <strong>especificação executável</strong> — lendo apenas o nome, qualquer pessoa entende o que o método deve fazer e em qual situação.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#4ADE80;">Padrão</span>
+        <span class="card-title card-title-pa">deve[Comportamento]Quando[Condição]</span>
+        <div class="card-text">deveRetornar7_QuandoNotas8e6() · deveRetornarFalse_QuandoIdadeFor17() · deveLancarExcecao_QuandoNomeDuplicado()</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">Estrutura</span>
+        <span class="card-title card-title-yellow">Classe · Pasta · Sufixo</span>
+        <div class="card-text">Classe de teste: <span style="font-family:'DM Mono',monospace;">CalculadoraTest.java</span> (sufixo Test) · Pasta: <span style="font-family:'DM Mono',monospace;">src/test/java</span> · Uma classe de teste por classe de produção</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p><strong>Convenção:</strong> classe de teste tem o mesmo nome da classe original com o sufixo <span style="font-family:'DM Mono',monospace;color:var(--yellow);">Test</span> — exemplo: <span style="font-family:'DM Mono',monospace;color:var(--yellow);">CalculadoraTest</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10 — TIPO D — Teste Manual × Automatizado -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">B6 — Técnicas de Programação</div>
+    <h2 class="slide-title">⚖️ Teste Manual × <span>Teste Automatizado</span></h2>
+    <div class="comp-grid">
+      <div class="comp-col comp-evit">
+        <div class="comp-header">✗ Teste Manual</div>
+        <div class="comp-item">✗ Lento — rodar o programa e verificar visualmente</div>
+        <div class="comp-item">✗ Inconsistente — depende do testador e do momento</div>
+        <div class="comp-item">✗ Não escala — inviável conforme o sistema cresce</div>
+        <div class="comp-item">✗ Sem documentação — ninguém sabe o que foi verificado</div>
+        <div class="comp-item">✗ Reexecução trabalhosa — refazer tudo a cada alteração</div>
+      </div>
+      <div class="comp-col comp-faz">
+        <div class="comp-header">✔ Teste Automatizado</div>
+        <div class="comp-item">✔ Rápido — milissegundos, centenas de testes de uma vez</div>
+        <div class="comp-item">✔ Consistente — a mesma verificação toda execução</div>
+        <div class="comp-item">✔ Escala — quanto mais testes, mais seguro o sistema</div>
+        <div class="comp-item">✔ Documentado — o código de teste é a especificação</div>
+        <div class="comp-item">✔ Reexecução: um clique — a qualquer momento</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p><strong>Conclusão:</strong> testes automatizados são o que permite que sistemas cresçam sem se tornarem frágeis — o custo de escrever é menor que o custo de corrigir bugs em produção</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 11 — TIPO C — Como Executar na IDE -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">B6 — Prática na IDE</div>
+    <h2 class="slide-title">▶️ Executando Testes na <span>IDE</span></h2>
+    <div class="highlight-box">
+      <p>No VS Code com a extensão de teste, cada método <span style="font-family:'DM Mono',monospace;color:#4ADE80;">@Test</span> recebe um <strong>botão de play</strong> — o resultado aparece imediatamente com detalhe sobre o que passou ou falhou.</p>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-p">
+        <span class="flow-label">01</span>
+        <div class="flow-text"><strong>Instalar JUnit 5</strong> — adicionar a dependência <span style="font-family:'DM Mono',monospace;color:#4ADE80;">junit-jupiter</span> no pom.xml do projeto Maven</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">02</span>
+        <div class="flow-text"><strong>Criar a classe de teste</strong> — <span style="font-family:'DM Mono',monospace;color:var(--yellow);">CalculadoraTest.java</span> na pasta <span style="font-family:'DM Mono',monospace;color:var(--yellow);">src/test/java</span></div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">03</span>
+        <div class="flow-text"><strong>Escrever o método de teste</strong> — anotar com <span style="font-family:'DM Mono',monospace;color:var(--green);">@Test</span> e seguir o padrão AAA (Arrange · Act · Assert)</div>
+      </div>
+      <div class="flow-step fs-o">
+        <span class="flow-label">04</span>
+        <div class="flow-text"><strong>Executar</strong> — clicar no botão de play ao lado do método ou rodar <span style="font-family:'DM Mono',monospace;color:var(--orange);">mvn test</span> no terminal</div>
+      </div>
+      <div class="flow-step fs-b">
+        <span class="flow-label">05</span>
+        <div class="flow-text"><strong>Interpretar</strong> — Verde: passou · Vermelho: falhou, com <strong>esperado × obtido</strong> indicando exatamente o que está errado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 12 — TIPO A — O Teste como Rede de Segurança -->
+<section class="slide-std" data-transition="fade">
+  <div class="slide-content">
+    <div class="slide-label">B6 — Boas Práticas</div>
+    <h2 class="slide-title">🔒 O Teste como <span>Rede de Segurança</span></h2>
+    <div class="highlight-box">
+      <p>Testes unitários são a <strong>rede de segurança</strong> do desenvolvedor — não impedem erros, mas garantem que você saiba imediatamente quando cometeu um.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#4ADE80;">Durante o desenvolvimento</span>
+        <span class="card-title card-title-pa">Escrever · Alterar · Refatorar</span>
+        <div class="card-text">Cada novo método vem com seu teste · alterar código não quebra o que funcionava · confiança para refatorar sem medo de efeitos colaterais</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">No ciclo profissional</span>
+        <span class="card-title card-title-yellow">Qualidade · Velocidade · Documentação</span>
+        <div class="card-text">Projetos com testes têm menos bugs em produção · equipes entregam mais rápido com mais confiança · testes funcionam como documentação viva do sistema</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p><strong>Regra prática:</strong> se você não consegue testar um método isoladamente, é sinal de que ele está fazendo coisas demais — hora de refatorar</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 13 — DINÂMICA -->
+<section class="slide-std" data-transition="zoom">
+  <div class="slide-content">
+    <div class="slide-label">Atividade prática em grupo</div>
+    <h2 class="slide-title">🎮 Dinâmica — <span>Escreve o Teste</span></h2>
+    <div class="din-header">
+      <span style="font-size:1.4em;">🧪</span>
+      <div class="din-header-text">Escreve o Teste — Padrão AAA na Prática · 15 minutos · grupos de 4 a 5 alunos</div>
+    </div>
+    <div class="exemplo-flow" style="margin-top:8px;">
+      <div class="flow-step fs-p">
+        <span class="flow-label">01</span>
+        <div class="flow-text"><strong>Apresentação (1 min)</strong> — O professor projeta a assinatura e o comportamento esperado de um método. Os grupos escrevem o teste unitário no padrão AAA — sem ver a implementação</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">02</span>
+        <div class="flow-text"><strong>Execução em grupo (8 min)</strong> — Os grupos escrevem os testes na IDE ou na ficha, cobrindo ao menos dois cenários: cenário feliz (entrada válida) e cenário de borda (valor no limite ou inválido)</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">03</span>
+        <div class="flow-text"><strong>Correção ao vivo (6 min)</strong> — O professor apresenta a implementação dos métodos · os grupos executam seus testes · verificam se passam ou falham · debatem os cenários não cobertos</div>
+      </div>
+    </div>
+    <div class="highlight-box-y" style="margin-top:4px;">
+      <p><strong>Itens da dinâmica:</strong> 4 métodos com assinatura e comportamento esperado — grupos escrevem pelo menos dois cenários (feliz e borda) para cada método</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 14 — DINÂMICA (tabela de casos) -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Escreve o Teste · casos práticos</div>
+    <h2 class="slide-title">📋 Casos para <span>Analisar</span></h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Método</th>
+          <th>Comportamento esperado</th>
+          <th>Cenários sugeridos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:0.85em;">boolean ehMaiorDeIdade(int idade)</td>
+          <td>Retorna true se idade &gt;= 18</td>
+          <td><span class="tag-g">18 (limite)</span> · idade = 17 · idade = 0</td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:0.85em;">double calcularDesconto(double preco, double pct)</td>
+          <td>Retorna preço com desconto aplicado</td>
+          <td><span class="tag-b">preco=100, pct=10 → 90.0</span> · pct=0 → preço original</td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:0.85em;">String classificarNota(double nota)</td>
+          <td>Retorna "Aprovado", "Recuperação" ou "Reprovado"</td>
+          <td><span class="tag-g">nota=7.0</span> · nota=5.0 · nota=4.9</td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:0.85em;">boolean cpfValido(String cpf)</td>
+          <td>Retorna true se CPF tem 11 dígitos numéricos</td>
+          <td><span class="tag-y">CPF válido</span> · com letras · menos dígitos</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box" style="margin-top:6px;">
+      <p><strong>TDD na prática:</strong> escrever o teste antes de ver a implementação força pensar no <strong>comportamento esperado</strong> — não na implementação. Empresas que adotam isso têm menos bugs em produção.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 15 — RESUMO -->
+<section class="slide-std" data-transition="fade">
+  <div class="slide-content">
+    <div class="slide-label">O que vimos hoje</div>
+    <h2 class="slide-title">📌 Resumo da Aula</h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-title card-title-pa">🧪 Teste Unitário</span>
+        <div class="card-text">Verifica uma unidade isolada (método) · sem banco, rede ou arquivo externo · automatizado, isolado e rápido · detecta bugs imediatamente após introduzi-los</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">📐 Padrão AAA</span>
+        <div class="card-text">Arrange: preparar dados e objeto · Act: chamar o método · Assert: verificar com assertEquals ou assertThrows · nome: deve[Ação]Quando[Condição]</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">🛠️ Frameworks e Assertions</span>
+        <div class="card-text">JUnit 5 (Java) · PyTest (Python) · assertEquals, assertTrue, assertNull, assertThrows · classe de teste com sufixo Test na pasta src/test/java</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">⚡ Manual × Automatizado</span>
+        <div class="card-text">Teste automatizado é rápido, consistente e escala · teste manual não escala e não documenta · testes são a rede de segurança que permite refatorar com confiança</div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:4px;">
+      <p>Um teste verde não garante que o código está perfeito — garante que ele <strong>faz o que foi especificado</strong> em cada cenário testado</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 16 — ENCERRAMENTO -->
+<section class="slide-enc" data-transition="zoom">
+  <div class="slide-content">
+    <div class="slide-label">Até a próxima</div>
+    <h2 class="slide-title">🚀 O que <span>vem a seguir</span></h2>
+    <div class="enc-grid">
+      <div class="enc-card enc-prox">
+        <span class="enc-card-label">→ Próxima aula — SA 21 · 08/07</span>
+        <div class="enc-card-text">Teste Unitário Parte 2: cobertura de código (code coverage), cenários de borda, mocks com Mockito e o ciclo TDD (Red-Green-Refactor)</div>
+      </div>
+      <div class="enc-card enc-rev">
+        <span class="enc-card-label">📝 Para fixar o aprendizado</span>
+        <div class="enc-card-text">Escreva um teste AAA para um método simples que você criou · tente os três cenários: feliz, borda e erro · instale a extensão de cobertura no VS Code</div>
+      </div>
+    </div>
+    <div class="quote-box">
+      <p>"Code without tests is broken by design."</p>
+      <cite>— Jacob Kaplan-Moss · Co-criador do framework Django</cite>
+    </div>
+    <div style="text-align:center;margin-top:12px;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.36em;color:var(--gray);letter-spacing:2px;text-transform:uppercase;">SA 20 · Teste Unitário Parte 1 · Prof. Julio Cesar · Colégio Neiva Pavan · 2026</div>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true, slideNumber: 'c/t', progress: true,
+    controls: true, controlsTutorial: true,
+    transition: 'convex', transitionSpeed: 'fast',
+    backgroundTransition: 'fade', center: true,
+    width: 1280, height: 720, margin: 0.08,
+    minScale: 0.2, maxScale: 1.0, plugins: []
+  });
+</script>
+</body>
+</html>

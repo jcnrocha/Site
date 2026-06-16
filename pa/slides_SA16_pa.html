@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Prof. Julio Cesar">
+<title>SA 16 — Formatação e Documentação de Código · Programação de Aplicativos</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pa:           #1A7A4A;
+  --pa-d:         #173404;
+  --pa-light:     #EAF3DE;
+  --yellow:       #F9C74F;
+  --dark:         #080D20;
+  --green:        #10B981;
+  --red:          #EF4444;
+  --orange:       #F97316;
+  --blue:         #3B82F6;
+  --purple:       #A78BFA;
+  --white:        #FFFFFF;
+  --gray:         #CBD5E1;
+  --glass-bg:     rgba(255,255,255,0.05);
+  --glass-border: rgba(255,255,255,0.10);
+  --radius:       12px;
+  --transition:   0.25s ease;
+}
+html, body { background:#04070F !important; margin:0; padding:0; }
+.reveal { font-family:'DM Sans',sans-serif; }
+.reveal .slides section { height:100%; text-align:left; overflow:hidden; }
+.reveal h1,.reveal h2,.reveal h3 { text-transform:none; font-family:'DM Sans',sans-serif; margin:0; }
+.reveal p  { margin:0; }
+.reveal ul,.reveal ol { margin:0; padding:0; }
+.reveal .slides {
+  border-radius:4px;
+  box-shadow: 0 0 0 1px rgba(26,122,74,0.3), 0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4);
+}
+.slide-capa {
+  background:linear-gradient(135deg,#080D20 0%,#0A1F10 60%,#080D20 100%) !important;
+  position:relative; overflow:hidden;
+}
+.slide-capa::before { content:''; position:absolute; left:0; top:0; bottom:0; width:8px; background:var(--pa); }
+.slide-capa::after  { content:''; position:absolute; left:8px; top:0; bottom:0; width:4px; background:var(--yellow); }
+.capa-deco  { position:absolute; right:-60px; bottom:-60px; width:280px; height:280px; border-radius:50%; background:rgba(26,122,74,0.10); border:2px solid rgba(26,122,74,0.15); }
+.capa-deco2 { position:absolute; right:40px; bottom:40px; width:140px; height:140px; border-radius:50%; background:rgba(249,199,79,0.06); border:2px solid rgba(249,199,79,0.1); }
+.capa-inner { height:100%; max-height:720px; display:flex; flex-direction:column; justify-content:center; padding:36px 40px 36px 48px; overflow:hidden; box-sizing:border-box; }
+.capa-kicker  { font-family:'DM Mono',monospace; font-size:0.5em; color:var(--pa); letter-spacing:3px; text-transform:uppercase; margin-bottom:16px; }
+.capa-title   { font-size:2em !important; line-height:1.15; color:var(--white); margin-bottom:12px; font-weight:700; }
+.capa-title span { color:var(--yellow); }
+.capa-sub     { font-size:0.52em; color:var(--gray); margin-bottom:28px; max-width:65%; line-height:1.6; }
+.capa-badges  { display:flex; gap:10px; flex-wrap:wrap; }
+.capa-badge   { font-size:0.42em; padding:5px 14px; border-radius:20px; font-weight:600; font-family:'DM Mono',monospace; }
+.cb-pa        { background:var(--pa); color:var(--white); }
+.cb-yellow    { background:var(--yellow); color:var(--dark); }
+.cb-dark      { background:rgba(255,255,255,0.1); color:var(--white); border:1px solid rgba(255,255,255,0.2); }
+.slide-std { background:#0A1410 !important; padding:0 !important; }
+.slide-enc { background:linear-gradient(135deg,#080D20 0%,#0A1410 100%) !important; padding:0 !important; }
+.slide-content { height:100%; max-height:720px; display:flex; flex-direction:column; padding:32px 44px; justify-content:flex-start; gap:12px; overflow:hidden; box-sizing:border-box; }
+.slide-label { font-family:'DM Mono',monospace; font-size:0.38em; color:var(--pa); letter-spacing:2px; text-transform:uppercase; }
+.slide-title { font-size:1.15em !important; color:var(--white); line-height:1.2; font-weight:700; border-bottom:2px solid var(--pa); padding-bottom:10px; margin-bottom:0; }
+.slide-title span { color:#4ADE80; }
+.accent-pa     { background:var(--pa); }
+.accent-yellow { background:var(--yellow); }
+.accent-green  { background:var(--green); }
+.accent-red    { background:var(--red); }
+.accent-orange { background:var(--orange); }
+.accent-blue   { background:var(--blue); }
+.accent-purple { background:var(--purple); }
+.cards-grid { display:grid; gap:10px; }
+.cards-2    { grid-template-columns:1fr 1fr; }
+.cards-3    { grid-template-columns:1fr 1fr 1fr; }
+.cards-4    { grid-template-columns:1fr 1fr 1fr 1fr; }
+.card { background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--radius); padding:14px 16px; position:relative; overflow:hidden; transition:transform var(--transition), border-color var(--transition); }
+.card:hover { transform:translateY(-4px); border-color:rgba(26,122,74,0.4); }
+.card-accent { position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:12px 0 0 12px; }
+.card-num    { font-family:'DM Mono',monospace; font-size:0.38em; font-weight:700; margin-bottom:6px; display:block; }
+.card-title  { font-size:0.58em !important; font-weight:700; color:var(--white); margin-bottom:5px; line-height:1.3; display:block; }
+.card-text   { font-size:0.46em !important; color:var(--gray); line-height:1.6; }
+.card-title-pa     { color:#4ADE80; }
+.card-title-yellow { color:var(--yellow); }
+.card-title-green  { color:var(--green); }
+.card-title-red    { color:var(--red); }
+.card-title-orange { color:var(--orange); }
+.card-title-blue   { color:#60A5FA; }
+.card-title-purple { color:var(--purple); }
+.bullet-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.bullet-list li { display:flex; align-items:flex-start; gap:12px; font-size:0.52em !important; color:#CBD5E1; line-height:1.5; padding:8px 12px; background:rgba(255,255,255,0.04); border-radius:8px; border-left:3px solid var(--pa); }
+.bullet-list li strong { color:var(--white); }
+.highlight-box { background:rgba(26,122,74,0.12); border:1px solid rgba(26,122,74,0.35); border-radius:10px; padding:10px 14px; }
+.highlight-box p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box strong { color:#4ADE80; }
+.highlight-box-y { background:rgba(249,199,79,0.08); border:1px solid rgba(249,199,79,0.3); border-radius:10px; padding:10px 14px; }
+.highlight-box-y p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box-y strong { color:var(--yellow); }
+.highlight-box-r { background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3); border-radius:10px; padding:10px 14px; }
+.highlight-box-r p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box-r strong { color:var(--red); }
+.quote-box { background:rgba(249,199,79,0.08); border-left:4px solid var(--yellow); border-radius:0 10px 10px 0; padding:14px 18px; }
+.quote-box p    { font-size:0.5em !important; color:#E2E8F0; font-style:italic; line-height:1.7; margin:0; }
+.quote-box cite { font-size:0.38em !important; color:var(--yellow); font-style:normal; display:block; margin-top:6px; font-family:'DM Mono',monospace; }
+.exemplo-flow { display:flex; flex-direction:column; gap:7px; }
+.flow-step { background:rgba(255,255,255,0.04); border-radius:8px; padding:11px 14px; display:flex; gap:14px; align-items:flex-start; border-left:3px solid; }
+.flow-step.fs-p { border-color:var(--pa); }
+.flow-step.fs-y { border-color:var(--yellow); }
+.flow-step.fs-g { border-color:var(--green); }
+.flow-step.fs-r { border-color:var(--red); }
+.flow-step.fs-o { border-color:var(--orange); }
+.flow-step.fs-b { border-color:var(--blue); }
+.flow-step.fs-v { border-color:var(--purple); }
+.flow-label { font-family:'DM Mono',monospace; font-size:0.44em !important; font-weight:700; flex-shrink:0; min-width:28px; }
+.fs-p .flow-label { color:#4ADE80; }
+.fs-y .flow-label { color:var(--yellow); }
+.fs-g .flow-label { color:var(--green); }
+.fs-r .flow-label { color:var(--red); }
+.fs-o .flow-label { color:var(--orange); }
+.fs-b .flow-label { color:var(--blue); }
+.fs-v .flow-label { color:var(--purple); }
+.flow-text        { font-size:0.44em !important; color:#CBD5E1; line-height:1.6; }
+.flow-text strong { color:var(--white); }
+.code-block { background:rgba(0,0,0,0.4); border:1px solid rgba(26,122,74,0.3); border-radius:8px; padding:10px 14px; font-family:'DM Mono',monospace; font-size:0.42em !important; color:#4ADE80; line-height:1.7; overflow:hidden; white-space:pre-wrap; }
+.code-block .c-kw  { color:#60A5FA; }
+.code-block .c-str { color:var(--yellow); }
+.code-block .c-cm  { color:#64748B; font-style:italic; }
+.code-block .c-num { color:var(--orange); }
+.code-block .c-fn  { color:#C084FC; }
+.code-block .c-type{ color:#34D399; }
+.comp-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.comp-col  { border-radius:10px; padding:14px; }
+.comp-evit { background:rgba(239,68,68,0.1);  border:1px solid rgba(239,68,68,0.25); }
+.comp-faz  { background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25); }
+.comp-header { font-size:0.6em !important; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.comp-evit .comp-header { color:var(--red); }
+.comp-faz  .comp-header { color:var(--green); }
+.comp-item { font-size:0.42em !important; color:#CBD5E1; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.06); line-height:1.5; display:flex; gap:8px; }
+.comp-item:last-child { border-bottom:none; }
+.data-table { width:100%; border-collapse:collapse; font-size:0.44em !important; }
+.data-table th { background:rgba(26,122,74,0.2); color:#4ADE80; font-family:'DM Mono',monospace; font-size:0.85em; text-transform:uppercase; letter-spacing:1px; padding:8px 10px; border-bottom:2px solid rgba(26,122,74,0.4); text-align:left; }
+.data-table td { padding:7px 10px; color:var(--gray); border-bottom:1px solid rgba(255,255,255,0.06); vertical-align:middle; }
+.data-table tr:hover td { background:rgba(255,255,255,0.03); }
+.data-table .row-dest td { color:var(--white); font-weight:700; }
+.kbd   { display:inline-block; background:rgba(26,122,74,0.25); border:1px solid rgba(26,122,74,0.4); border-radius:5px; padding:2px 8px; font-family:'DM Mono',monospace; font-size:0.9em; color:var(--yellow); font-weight:700; }
+.tag-r { display:inline-block; background:rgba(239,68,68,0.2);  color:var(--red);    font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-g { display:inline-block; background:rgba(16,185,129,0.2); color:var(--green);  font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-b { display:inline-block; background:rgba(59,130,246,0.2); color:var(--blue);   font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-y { display:inline-block; background:rgba(249,199,79,0.2); color:var(--yellow); font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.din-header { background:rgba(26,122,74,0.2); border:1px solid rgba(26,122,74,0.4); border-radius:10px; padding:12px 18px; display:flex; align-items:center; gap:12px; }
+.din-header-text { font-size:0.55em !important; font-weight:700; color:#4ADE80; }
+.enc-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.enc-card { border-radius:10px; padding:12px 16px; }
+.enc-prox { background:rgba(249,199,79,0.1);  border:1px solid rgba(249,199,79,0.3); }
+.enc-rev  { background:rgba(26,122,74,0.12);  border:1px solid rgba(26,122,74,0.3); }
+.enc-card-label { font-family:'DM Mono',monospace; font-size:0.36em !important; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; display:block; }
+.enc-prox .enc-card-label { color:var(--yellow); }
+.enc-rev  .enc-card-label { color:#4ADE80; }
+.enc-card-text { font-size:0.46em !important; color:var(--white); line-height:1.5; }
+.reveal .progress     { color:var(--pa); height:3px; }
+.reveal .slide-number { font-family:'DM Mono',monospace; font-size:12px; color:var(--gray); background:rgba(0,0,0,0.4); border-radius:6px; padding:4px 8px; }
+@media (max-width:768px) {
+  .cards-grid,.comp-grid,.enc-grid { grid-template-columns:1fr !important; }
+  .slide-content { padding:24px; gap:14px; }
+  .slide-title   { font-size:0.9em !important; }
+  .card-title    { font-size:0.55em !important; }
+  .card-text,.flow-text,.bullet-list li { font-size:0.52em !important; }
+  .capa-title    { font-size:1.3em !important; }
+  .capa-sub      { max-width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 01 — CAPA
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-capa" data-transition="zoom">
+  <div class="capa-deco"></div>
+  <div class="capa-deco2"></div>
+  <div class="capa-inner">
+    <div class="capa-kicker">SA 16 · 2º Trimestre · Programação de Aplicativos</div>
+    <h1 class="capa-title">Técnicas de Programação<br><span>Formatação e Documentação de Código</span></h1>
+    <p class="capa-sub">Padrões de formatação, formatação automática com Prettier, comentários com propósito e documentação formal com Javadoc e docstrings</p>
+    <div class="capa-badges">
+      <span class="capa-badge cb-pa">SA 16 · 03/06/2026</span>
+      <span class="capa-badge cb-yellow">B6 — Técnicas</span>
+      <span class="capa-badge cb-dark">Prof. Julio Cesar</span>
+      <span class="capa-badge cb-dark">Colégio Neiva Pavan</span>
+      <span class="capa-badge cb-dark">2º Ano — TDS</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 02 — OBJETIVOS
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O que você vai aprender hoje</div>
+    <h2 class="slide-title">🏆 Objetivos da Aula</h2>
+    <ul class="bullet-list">
+      <li><strong>Formatação:</strong> Compreender a importância da formatação padronizada de código para legibilidade e manutenção em equipe</li>
+      <li><strong>Padrões:</strong> Aplicar os padrões essenciais: indentação, espaçamento, limite de linha e organização de blocos</li>
+      <li><strong>Prettier:</strong> Utilizar ferramentas de formatação automática da IDE (Prettier, formatadores nativos) para manter o padrão</li>
+      <li><strong>Comentários:</strong> Documentar código com comentários de linha e bloco e documentação formal (Javadoc e docstrings)</li>
+      <li><strong>// × /** */:</strong> Reconhecer a diferença entre comentário de explicação e documentação formal, aplicando cada um no contexto correto</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 03 — PERCURSO
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">De onde viemos e para onde vamos</div>
+    <h2 class="slide-title">🔗 Nosso <span>Percurso</span> até aqui</h2>
+    <div class="highlight-box">
+      <p>Até aqui aprendemos a fazer o programa <strong>funcionar</strong> — a partir de hoje aprendemos a fazer o programa funcionar <strong>bem</strong>: formatação, documentação e técnicas profissionais</p>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">SA 15 · Aula Anterior — 27/05</span>
+        <div class="card-text">CRUD Parte 2: UPDATE, DELETE e Transações — o sistema agora escreve, lê, modifica e remove dados</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-title card-title-pa">SA 16 · Hoje — 03/06</span>
+        <div class="card-text">Formatação e Documentação: padrões, Prettier, comentários úteis, Javadoc e docstrings</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">SA 17 · Próxima — 10/06</span>
+        <div class="card-text">Reutilização de Código — funções, métodos e como evitar repetição com abstrações bem nomeadas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 04 — TIPO A — Por que formatação importa
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Formatação — disciplina técnica, não estética</div>
+    <h2 class="slide-title">📐 Por que <span>Formatação</span> Importa</h2>
+    <div class="highlight-box">
+      <p><strong>"Código é lido muito mais vezes do que é escrito"</strong> — formatação não é preferência pessoal, é disciplina técnica que afeta diretamente a velocidade de manutenção e a qualidade do trabalho em equipe</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#4ADE80;">IMPACTO NA EQUIPE</span>
+        <span class="card-title card-title-pa">Guias de Estilo Obrigatórios</span>
+        <div class="card-text">Empresas adotam padrões obrigatórios: Google Java Style · PEP 8 (Python) · Airbnb JS Guide · toda a equipe segue o mesmo padrão para que qualquer membro consiga ler qualquer parte do código</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">IMPACTO NO CÓDIGO</span>
+        <span class="card-title card-title-yellow">Legibilidade = Manutenção</span>
+        <div class="card-text">Código bem formatado revela erros mais facilmente · a estrutura visual ajuda a entender o fluxo · código que parece confuso É confuso — reformatar faz parte do trabalho profissional</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p>Código é lido por <strong>pessoas</strong> — compiladores não ligam para formatação, mas seus colegas (e você no futuro) precisam entender o código sem esforço</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 05 — TIPO B — Desformatado × Bem formatado
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Antes × Depois — mesma lógica, resultado diferente</div>
+    <h2 class="slide-title">💻 Código Desformatado × <span>Código Bem Formatado</span></h2>
+    <div class="highlight-box-r">
+      <p>Os dois trechos têm a <strong>mesma lógica</strong> — a diferença está em nomes descritivos, indentação e espaçamento que tornam o código legível ou ilegível</p>
+    </div>
+    <div class="comp-grid">
+      <div class="comp-col comp-evit">
+        <div class="comp-header">✗ Desformatado — difícil de ler</div>
+        <div class="code-block" style="font-size:0.38em !important; white-space:pre-wrap;"><span class="c-kw">public</span> <span class="c-type">double</span> <span class="c-fn">calc</span>(<span class="c-type">double</span> a,<span class="c-type">double</span> b,<span class="c-type">double</span> c){
+<span class="c-type">double</span> m=(a+b+c)/<span class="c-num">3</span>;
+<span class="c-kw">if</span>(m>=<span class="c-num">7</span>){<span class="c-kw">return</span> m;}
+<span class="c-kw">else</span>{<span class="c-kw">return</span> -<span class="c-num">1</span>;}}
+</div>
+      </div>
+      <div class="comp-col comp-faz">
+        <div class="comp-header">✔ Bem formatado — fácil de ler</div>
+        <div class="code-block" style="font-size:0.38em !important; white-space:pre-wrap;"><span class="c-kw">public</span> <span class="c-type">double</span> <span class="c-fn">calcularMedia</span>(
+    <span class="c-type">double</span> nota1, <span class="c-type">double</span> nota2, <span class="c-type">double</span> nota3) {
+  <span class="c-type">double</span> media = (nota1 + nota2 + nota3) / <span class="c-num">3</span>;
+  <span class="c-cm">// Critério: &gt;= 7 aprovado</span>
+  <span class="c-kw">if</span> (media >= <span class="c-num">7</span>) {
+    <span class="c-kw">return</span> media;
+  }
+  <span class="c-kw">return</span> -<span class="c-num">1</span>;
+}</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p>A diferença: <strong>nomes descritivos</strong> (calc → calcularMedia · a,b,c → nota1,nota2,nota3) + indentação + espaçamento = código que se explica</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 06 — TIPO E — Os 5 padrões de formatação
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Referência rápida</div>
+    <h2 class="slide-title">📊 Cinco Padrões Essenciais de <span>Formatação</span></h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Padrão</th>
+          <th>Regra</th>
+          <th>Exemplo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-dest"><td>Indentação</td><td>4 espaços por nível · nunca misturar espaços e tabs</td><td>if (x) { → corpo com 4 espaços de recuo</td></tr>
+        <tr><td>Chaves e Blocos</td><td>Abertura na mesma linha · fechamento em linha própria</td><td>if (x) { ... } · linha em branco entre métodos</td></tr>
+        <tr><td>Espaçamento</td><td>Espaço antes/depois de operadores · espaço após vírgula</td><td>a + b · metodo(a, b) · x == 0</td></tr>
+        <tr><td>Limite de Linha</td><td>Máx. 80–120 caracteres · linha longa: quebrar</td><td>String sql = "INSERT ..." + " VALUES ..."</td></tr>
+        <tr class="row-dest"><td>Nomenclatura</td><td>camelCase para métodos/vars · PascalCase para classes</td><td>calcularMedia() · notaFinal · class Aluno</td></tr>
+      </tbody>
+    </table>
+    <div class="highlight-box" style="margin-top:6px;">
+      <p><strong>Regra de ouro:</strong> se você precisa olhar duas vezes para entender a estrutura do código, ele precisa ser reformatado — clareza visual é parte da qualidade técnica</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 07 — TIPO A — Prettier e formatação automática
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">VS Code — Shift+Alt+F</div>
+    <h2 class="slide-title">🔧 Prettier — <span>Formatação Automática</span></h2>
+    <div class="highlight-box">
+      <p>O Prettier analisa o código e aplica os padrões de formatação automaticamente — atalho <strong>Shift+Alt+F</strong> no VS Code · configurar <strong>editor.formatOnSave</strong> para formatar ao salvar</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#4ADE80;">ATIVAR NO VS CODE</span>
+        <span class="card-title card-title-pa">editor.formatOnSave</span>
+        <div class="card-text">Ctrl+, → Settings · buscar "Format On Save" · ativar · o Prettier formata automaticamente cada vez que Ctrl+S é pressionado · manter o padrão sem esforço manual</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">LIMITAÇÃO IMPORTANTE</span>
+        <span class="card-title card-title-yellow">A ferramenta não substitui o conhecimento</span>
+        <div class="card-text">Prettier cuida da indentação, espaçamento e chaves · não muda nomes de variáveis · não adiciona comentários · não renomeia calc() para calcularMedia() — isso é responsabilidade do programador</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p><strong>Atalho manual:</strong> <kbd>Shift+Alt+F</kbd> formata o arquivo atual · <strong>Shift+Alt+F</strong> em seleção formata apenas o trecho selecionado · Prettier formata, mas você decide os nomes</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 08 — TIPO A — Comentários: o porquê, não o quê
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Comentando com propósito</div>
+    <h2 class="slide-title">💬 Comentários — O <span>Porquê</span>, Não o Quê</h2>
+    <div class="highlight-box">
+      <p>Comentário bom explica o <strong>porquê</strong> de uma decisão de implementação — não repete o que o código já diz · código bem nomeado dispensa comentários óbvios</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-num" style="color:var(--red);">❌ COMENTÁRIO INÚTIL — RUÍDO</span>
+        <span class="card-title card-title-red">Repete o que o código já diz</span>
+        <div class="card-text">// Incrementa i em 1 → i++ · // Retorna true → return true · // Declara a variável nota · Esses comentários são ruído — o código já diz a mesma coisa com mais precisão · removê-los deixa o código mais limpo</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#4ADE80;">✔ COMENTÁRIO ÚTIL — PORQUÊ</span>
+        <span class="card-title card-title-pa">Explica decisão não óbvia</span>
+        <div class="card-text">// Percorre de trás pra frente para evitar reindexação · // Divide por 1024 para converter bytes em KB · // Critério: &gt;= 7 aprovado, &gt;= 5 recuperação · esses explicam a lógica por trás da implementação</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p>Comentário que explica <strong>o que o código já diz</strong> é ruído — se o nome da variável ou do método foi bem escolhido, o comentário muitas vezes não é necessário</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 09 — TIPO B — Comentários úteis × inúteis
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Exemplos práticos de comentário</div>
+    <h2 class="slide-title">💻 Comentário Inútil × <span>Comentário Útil</span></h2>
+    <div class="highlight-box-r">
+      <p>Comentários inúteis <strong>poluem o código</strong> sem acrescentar informação — e quando o código muda, o comentário errado que não foi atualizado passa a enganar quem lê</p>
+    </div>
+    <div class="comp-grid">
+      <div class="comp-col comp-evit">
+        <div class="comp-header">✗ Comentários inúteis — ruído</div>
+        <div class="code-block" style="font-size:0.38em !important; white-space:pre-wrap;"><span class="c-cm">// Declara a variável nota</span>
+<span class="c-type">double</span> nota = <span class="c-num">0</span>;
+<span class="c-cm">// Verifica se maior ou igual a 7</span>
+<span class="c-kw">if</span> (nota >= <span class="c-num">7</span>) {
+    <span class="c-cm">// Retorna verdadeiro</span>
+    <span class="c-kw">return</span> <span class="c-kw">true</span>;
+}</div>
+      </div>
+      <div class="comp-col comp-faz">
+        <div class="comp-header">✔ Comentário útil — porquê</div>
+        <div class="code-block" style="font-size:0.38em !important; white-space:pre-wrap;"><span class="c-type">double</span> nota = <span class="c-num">0</span>;
+<span class="c-cm">// Critério: &gt;= 7.0 definido pelo</span>
+<span class="c-cm">// Regimento Escolar §12</span>
+<span class="c-kw">if</span> (nota >= <span class="c-num">7</span>) {
+    <span class="c-kw">return</span> <span class="c-kw">true</span>;
+}</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p>A versão correta tem <strong>menos e melhores</strong> comentários — apenas o que explica a decisão de negócio por trás do critério, que não seria óbvio para quem lê o código sem contexto</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 10 — TIPO A — Nomenclatura
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">A melhor documentação é o nome certo</div>
+    <h2 class="slide-title">🏷️ Nomenclatura — Código que <span>se Explica</span></h2>
+    <div class="highlight-box">
+      <p>Nomear bem variáveis e métodos é a forma mais valiosa de documentação — <strong>código que se explica pelo nome</strong> precisa de muito menos comentário e é lido com muito mais facilidade</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#4ADE80;">JAVA — GOOGLE JAVA STYLE</span>
+        <span class="card-title card-title-pa">camelCase + PascalCase</span>
+        <div class="card-text">Variáveis e métodos: calcularMedia() · notaFinal · listaDeTurmas · Classes: class Aluno · class CalculadoraDeNotas · Constantes: NOTA_MINIMA_APROVACAO · MAX_ALUNOS</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">PYTHON — PEP 8</span>
+        <span class="card-title card-title-yellow">snake_case + PascalCase</span>
+        <div class="card-text">Variáveis e funções: calcular_media() · nota_final · lista_turmas · Classes: class Aluno · class CalculadoraNotas · Constantes: NOTA_MINIMA · MAX_ALUNOS</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p>Renomear <strong>calc(a, b, c)</strong> para <strong>calcularMedia(nota1, nota2, nota3)</strong> é a maior melhoria possível — o método passa a se explicar completamente sem precisar de comentário</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 11 — TIPO A — Javadoc e docstrings
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Documentação formal de classes e métodos</div>
+    <h2 class="slide-title">📖 Documentação Formal — <span>Javadoc</span> e Docstrings</h2>
+    <div class="highlight-box">
+      <p>Javadoc e docstrings documentam o <strong>contrato público</strong> de classes e métodos — descrevem o que fazem, parâmetros e retorno — lidos por quem usa a classe <strong>sem ver o código-fonte</strong></p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#4ADE80;">JAVA — /** JAVADOC */</span>
+        <span class="card-title card-title-pa">Tags: @param · @return · @throws</span>
+        <div class="card-text">Fica antes da declaração do método · @param nota1 primeira nota (0.0 a 10.0) · @param nota2 segunda nota · @return média aritmética ou -1 se inválida · @throws IllegalArgumentException · @author e @version na classe</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">PYTHON — """DOCSTRING"""</span>
+        <span class="card-title card-title-yellow">Padrão: Args / Returns / Raises</span>
+        <div class="card-text">"""Calcula a média das notas.""" imediatamente após def · Args: nota1 (float): primeira nota (0.0–10.0) · nota2 (float): segunda nota · Returns: float: média ou -1 · Raises: ValueError: se nota inválida</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p>Fica <strong>imediatamente antes</strong> da declaração do método ou classe · permite gerar documentação HTML automaticamente — Javadoc tool em Java · Sphinx em Python</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 12 — TIPO D — Comentário × Documentação Formal
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Quando usar cada tipo</div>
+    <h2 class="slide-title">⚖️ Comentário <span>//</span> × Documentação <span>/** */</span></h2>
+    <div class="comp-grid">
+      <div class="comp-col comp-evit">
+        <div class="comp-header">💬 Comentário — // e /* */</div>
+        <div class="comp-item">Onde: dentro do método, junto à lógica</div>
+        <div class="comp-item">Explica o PORQUÊ de uma decisão interna</div>
+        <div class="comp-item">Visível apenas no código-fonte</div>
+        <div class="comp-item">Lido por: quem está no código-fonte</div>
+        <div class="comp-item">Comentário que repete o código = ruído</div>
+      </div>
+      <div class="comp-col comp-faz">
+        <div class="comp-header">📖 Javadoc — /** */ e docstrings</div>
+        <div class="comp-item">Onde: antes de classes e métodos públicos</div>
+        <div class="comp-item">Descreve O QUÊ o método faz, params e retorno</div>
+        <div class="comp-item">Gera documentação HTML automática</div>
+        <div class="comp-item">Lido por: quem usa a classe sem ver o código</div>
+        <div class="comp-item">Tags: @param · @return · @throws · @author</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p>Use <strong>//</strong> para registrar decisões internas não óbvias · use <strong>/** */</strong> para documentar o contrato público de métodos e classes que outros desenvolvedores vão usar</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 13 — DINÂMICA (apresentação)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Atividade prática em grupo</div>
+    <h2 class="slide-title">🎮 Dinâmica — <span>Formata e Documenta</span></h2>
+    <div class="din-header">
+      <span style="font-size:1.4em;">📐</span>
+      <div class="din-header-text">Formata e Documenta — Código Bagunçado → Código Profissional · 15 minutos · grupos de 4 a 5 alunos</div>
+    </div>
+    <div class="exemplo-flow" style="margin-top:8px;">
+      <div class="flow-step fs-p">
+        <span class="flow-label">01</span>
+        <div class="flow-text"><strong>Apresentação (2 min)</strong> — Professor projeta o trecho desformatado: public double calc(double a,double b,double c){...} — grupos recebem a ficha de reescrita</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">02</span>
+        <div class="flow-text"><strong>Reescrita em grupo (8 min)</strong> — Grupos reescrevem aplicando: nomes descritivos · indentação e espaçamento · comentário útil · Javadoc ou docstring</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">03</span>
+        <div class="flow-text"><strong>Comparação e debate (5 min)</strong> — Grupos apresentam suas versões · professor discute: algum comentou o óbvio? algum deixou de comentar algo importante?</div>
+      </div>
+    </div>
+    <div class="highlight-box-y" style="margin-top:4px;">
+      <p><strong>Melhorias a aplicar:</strong> calc → calcularMedia · a, b, c → nota1, nota2, nota3 · indentação 4 espaços · espaço em operadores · Javadoc com @param e @return · comentário do critério de aprovação</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 14 — DINÂMICA (tabela de melhorias)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Formata e Documenta · melhorias a aplicar</div>
+    <h2 class="slide-title">📋 Melhorias para <span>Aplicar</span></h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Problema no original</th>
+          <th>Tipo de melhoria</th>
+          <th>Resultado esperado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Nome do método: calc</td><td><span class="tag-r">Nome genérico</span></td><td>calcularMedia() — nome que se explica</td></tr>
+        <tr><td>Parâmetros: a, b, c</td><td><span class="tag-r">Inespecíficos</span></td><td>nota1, nota2, nota3 — semântica clara</td></tr>
+        <tr><td>Tudo junto, sem espaços nem indentação</td><td><span class="tag-b">Formatação</span></td><td>Indentação 4 espaços · espaço em operadores · chaves no padrão</td></tr>
+        <tr><td>Nenhuma documentação do método</td><td><span class="tag-b">Javadoc</span></td><td>/** @param nota1 ... @return média */ antes do método</td></tr>
+        <tr><td>Critério >= 7 implícito no if</td><td><span class="tag-g">Comentário útil</span></td><td>// Critério: &gt;= 7 aprovado, &gt;= 5 recuperação</td></tr>
+      </tbody>
+    </table>
+    <div class="highlight-box" style="margin-top:6px;">
+      <p><strong>Reforço pedagógico:</strong> nomes descritivos são a forma mais valiosa de documentação — código que se explica pelo nome precisa de muito menos comentário para ser compreendido</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 15 — RESUMO
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O que vimos hoje</div>
+    <h2 class="slide-title">📌 Resumo da Aula</h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-title card-title-pa">📐 Formatação</span>
+        <div class="card-text">Indentação · espaçamento · limite de linha · chaves · nomenclatura — padrões que tornam o código legível · Prettier com Shift+Alt+F automatiza mas não substitui o conhecimento</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">💬 Comentários</span>
+        <div class="card-text">Explica o PORQUÊ de uma decisão não óbvia · nunca repetir o que o código já diz · comentário inútil é ruído — remover · // para decisões internas · /* */ para seções</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">🏷️ Nomenclatura</span>
+        <div class="card-text">A melhor documentação — calcularMedia(nota1, nota2) dispensa comentário · camelCase para métodos/vars · PascalCase para classes · snake_case em Python</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">📖 Javadoc e Docstrings</span>
+        <div class="card-text">/** @param @return @throws */ em Java · """Args: Returns:""" em Python · antes de classes e métodos públicos · documenta o contrato para quem usa sem ver o código</div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:4px;">
+      <p>Formatação é disciplina técnica · comentário explica o <strong>porquê</strong> · Javadoc documenta o <strong>contrato público</strong> · nome descritivo é a <strong>melhor documentação</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 16 — ENCERRAMENTO
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-enc" data-transition="zoom">
+  <div class="slide-content">
+    <div class="slide-label">Até a próxima</div>
+    <h2 class="slide-title">🚀 O que <span>vem a seguir</span></h2>
+    <div class="enc-grid">
+      <div class="enc-card enc-prox">
+        <span class="enc-card-label">→ Próxima aula — SA 17 · 10/06/2026</span>
+        <div class="enc-card-text">Reutilização de Código — como evitar repetição com funções e métodos bem nomeados, identificar blocos duplicados e criar abstrações que o código chame em vez de repetir</div>
+      </div>
+      <div class="enc-card enc-rev">
+        <span class="enc-card-label">📝 Para fixar o aprendizado</span>
+        <div class="enc-card-text">1. Abrir um projeto anterior e aplicar Prettier — identificar o que mudou<br>2. Adicionar Javadoc completo (com @param e @return) a um método existente<br>3. Revisar comentários do projeto — remover os óbvios e melhorar os que explicam o porquê</div>
+      </div>
+    </div>
+    <div class="quote-box">
+      <p>"Any fool can write code that a computer can understand. Good programmers write code that humans can understand."</p>
+      <cite>— Martin Fowler · Refactoring: Improving the Design of Existing Code · 1999</cite>
+    </div>
+    <div style="text-align:center;margin-top:12px;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.36em;color:var(--gray);letter-spacing:2px;text-transform:uppercase;">SA 16 · Formatação e Documentação de Código · Prof. Julio Cesar · Colégio Neiva Pavan · 2026</div>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    progress: true,
+    controls: true,
+    controlsTutorial: true,
+    transition: 'slide',
+    transitionSpeed: 'default',
+    backgroundTransition: 'fade',
+    center: true,
+    width: 1280,
+    height: 720,
+    margin: 0.08,
+    minScale: 0.2,
+    maxScale: 1.0,
+    plugins: []
+  });
+</script>
+</body>
+</html>
