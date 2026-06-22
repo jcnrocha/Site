@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Prof. Julio Cesar">
+<title>SA 15 — Modelagem de Dados: Conceitos e Fases · Fundamentos de Banco de Dados</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pa:           #185FA5;
+  --pa-d:         #042C53;
+  --pa-light:     #E6F1FB;
+  --yellow:       #F9C74F;
+  --dark:         #080D20;
+  --green:        #10B981;
+  --red:          #EF4444;
+  --orange:       #F97316;
+  --blue:         #3B82F6;
+  --purple:       #A78BFA;
+  --white:        #FFFFFF;
+  --gray:         #CBD5E1;
+  --glass-bg:     rgba(255,255,255,0.05);
+  --glass-border: rgba(255,255,255,0.10);
+  --radius:       12px;
+  --transition:   0.25s ease;
+}
+
+html, body { background:#04070F !important; margin:0; padding:0; }
+.reveal { font-family:'DM Sans',sans-serif; }
+.reveal .slides section { height:100%; text-align:left; overflow:hidden; }
+.reveal h1,.reveal h2,.reveal h3 { text-transform:none; font-family:'DM Sans',sans-serif; margin:0; }
+.reveal p  { margin:0; }
+.reveal ul,.reveal ol { margin:0; padding:0; }
+
+.reveal .slides {
+  border-radius:4px;
+  box-shadow:
+    0 0 0 1px rgba(24,95,165,0.3),
+    0 8px 32px rgba(0,0,0,0.6),
+    0 2px 8px rgba(0,0,0,0.4);
+}
+
+.slide-capa {
+  background:linear-gradient(135deg,#080D20 0%,#0A1020 60%,#080D20 100%) !important;
+  position:relative; overflow:hidden;
+}
+.slide-capa::before { content:''; position:absolute; left:0; top:0; bottom:0; width:8px; background:var(--pa); }
+.slide-capa::after  { content:''; position:absolute; left:8px; top:0; bottom:0; width:4px; background:var(--yellow); }
+.capa-deco  { position:absolute; right:-60px; bottom:-60px; width:280px; height:280px; border-radius:50%; background:rgba(24,95,165,0.10); border:2px solid rgba(24,95,165,0.15); }
+.capa-deco2 { position:absolute; right:40px; bottom:40px; width:140px; height:140px; border-radius:50%; background:rgba(249,199,79,0.06); border:2px solid rgba(249,199,79,0.1); }
+.capa-inner {
+  height:100%; max-height:720px; display:flex; flex-direction:column;
+  justify-content:center; padding:36px 40px 36px 48px;
+  overflow:hidden; box-sizing:border-box;
+}
+.capa-kicker  { font-family:'DM Mono',monospace; font-size:0.5em; color:var(--pa); letter-spacing:3px; text-transform:uppercase; margin-bottom:16px; }
+.capa-title   { font-size:2em !important; line-height:1.15; color:var(--white); margin-bottom:12px; font-weight:700; }
+.capa-title span { color:var(--yellow); }
+.capa-sub     { font-size:0.52em; color:var(--gray); margin-bottom:28px; max-width:65%; line-height:1.6; }
+.capa-badges  { display:flex; gap:10px; flex-wrap:wrap; }
+.capa-badge   { font-size:0.42em; padding:5px 14px; border-radius:20px; font-weight:600; font-family:'DM Mono',monospace; }
+.cb-pa        { background:var(--pa); color:var(--white); }
+.cb-yellow    { background:var(--yellow); color:var(--dark); }
+.cb-dark      { background:rgba(255,255,255,0.1); color:var(--white); border:1px solid rgba(255,255,255,0.2); }
+
+/* ── BOTÃO TELA CHEIA (apenas slide 01) ── */
+#btn-fullscreen {
+  position:absolute; top:20px; right:24px; z-index:20;
+  background:rgba(255,255,255,0.08); color:var(--white);
+  border:1px solid rgba(255,255,255,0.25); border-radius:8px;
+  padding:8px 16px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600;
+  cursor:pointer; transition:all 0.2s ease;
+}
+#btn-fullscreen:hover { background:var(--pa); border-color:var(--pa); }
+#btn-fullscreen:focus { outline:2px solid var(--yellow); outline-offset:2px; }
+@media print { #btn-fullscreen { display:none !important; } }
+
+.slide-std { background:#0A1020 !important; padding:0 !important; }
+.slide-enc { background:linear-gradient(135deg,#080D20 0%,#0A1020 100%) !important; padding:0 !important; }
+
+.slide-content {
+  height:100%; max-height:720px; display:flex; flex-direction:column;
+  padding:32px 44px; justify-content:flex-start; gap:12px;
+  overflow:hidden; box-sizing:border-box;
+}
+.slide-label {
+  font-family:'DM Mono',monospace; font-size:0.38em; color:var(--pa);
+  letter-spacing:2px; text-transform:uppercase;
+}
+.slide-title {
+  font-size:1.15em !important; color:var(--white); line-height:1.2; font-weight:700;
+  border-bottom:2px solid var(--pa); padding-bottom:10px; margin-bottom:0;
+}
+.slide-title span { color:#90C4F0; }
+
+.accent-pa     { background:var(--pa); }
+.accent-yellow { background:var(--yellow); }
+.accent-green  { background:var(--green); }
+.accent-red    { background:var(--red); }
+.accent-orange { background:var(--orange); }
+.accent-blue   { background:var(--blue); }
+.accent-purple { background:var(--purple); }
+
+.cards-grid { display:grid; gap:10px; flex:1 1 auto; align-content:stretch; }
+.cards-2    { grid-template-columns:1fr 1fr; }
+.cards-3    { grid-template-columns:1fr 1fr 1fr; }
+.cards-4    { grid-template-columns:1fr 1fr 1fr 1fr; }
+
+.card {
+  background:var(--glass-bg); border:1px solid var(--glass-border);
+  border-radius:var(--radius); padding:14px 16px;
+  position:relative; overflow:hidden;
+  transition:transform var(--transition), border-color var(--transition);
+}
+.card:hover { transform:translateY(-4px); border-color:rgba(24,95,165,0.4); }
+.card-accent { position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:12px 0 0 12px; }
+.card-num    { font-family:'DM Mono',monospace; font-size:0.38em; font-weight:700; margin-bottom:6px; display:block; }
+.card-title  { font-size:0.58em !important; font-weight:700; color:var(--white); margin-bottom:5px; line-height:1.3; display:block; }
+.card-text   { font-size:0.46em !important; color:var(--gray); line-height:1.6; }
+
+.card-title-pa     { color:#90C4F0; }
+.card-title-yellow { color:var(--yellow); }
+.card-title-green  { color:var(--green); }
+.card-title-red    { color:var(--red); }
+.card-title-orange { color:var(--orange); }
+.card-title-blue   { color:#60A5FA; }
+.card-title-purple { color:var(--purple); }
+
+.bullet-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.bullet-list li {
+  display:flex; align-items:flex-start; gap:12px; font-size:0.52em !important;
+  color:#CBD5E1; line-height:1.5; padding:8px 12px;
+  background:rgba(255,255,255,0.04); border-radius:8px; border-left:3px solid var(--pa);
+}
+.bullet-list li strong { color:var(--white); }
+
+.highlight-box {
+  background:rgba(24,95,165,0.12); border:1px solid rgba(24,95,165,0.35);
+  border-radius:10px; padding:10px 14px;
+}
+.highlight-box p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box strong { color:#90C4F0; }
+
+.highlight-box-y {
+  background:rgba(249,199,79,0.08); border:1px solid rgba(249,199,79,0.3);
+  border-radius:10px; padding:10px 14px;
+}
+.highlight-box-y p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box-y strong { color:var(--yellow); }
+
+.highlight-box-r {
+  background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3);
+  border-radius:10px; padding:10px 14px;
+}
+.highlight-box-r p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box-r strong { color:var(--red); }
+
+.quote-box {
+  background:rgba(249,199,79,0.08); border-left:4px solid var(--yellow);
+  border-radius:0 10px 10px 0; padding:14px 18px;
+}
+.quote-box p    { font-size:0.5em !important; color:#E2E8F0; font-style:italic; line-height:1.7; margin:0; }
+.quote-box cite { font-size:0.38em !important; color:var(--yellow); font-style:normal; display:block; margin-top:6px; font-family:'DM Mono',monospace; }
+
+.exemplo-flow { display:flex; flex-direction:column; gap:7px; flex:1 1 auto; }
+.flow-step {
+  background:rgba(255,255,255,0.04); border-radius:8px; padding:11px 14px;
+  display:flex; gap:14px; align-items:center; border-left:3px solid;
+  flex:1 1 auto;
+}
+.flow-step.fs-p { border-color:var(--pa); }
+.flow-step.fs-y { border-color:var(--yellow); }
+.flow-step.fs-g { border-color:var(--green); }
+.flow-step.fs-r { border-color:var(--red); }
+.flow-step.fs-o { border-color:var(--orange); }
+.flow-step.fs-b { border-color:var(--blue); }
+.flow-step.fs-v { border-color:var(--purple); }
+.flow-label { font-family:'DM Mono',monospace; font-size:0.44em !important; font-weight:700; flex-shrink:0; min-width:28px; }
+.fs-p .flow-label { color:#90C4F0; }
+.fs-y .flow-label { color:var(--yellow); }
+.fs-g .flow-label { color:var(--green); }
+.fs-r .flow-label { color:var(--red); }
+.fs-o .flow-label { color:var(--orange); }
+.fs-b .flow-label { color:var(--blue); }
+.fs-v .flow-label { color:var(--purple); }
+.flow-text        { font-size:0.44em !important; color:#CBD5E1; line-height:1.6; }
+.flow-text strong { color:var(--white); }
+
+.code-block {
+  background:rgba(0,0,0,0.4); border:1px solid rgba(24,95,165,0.3); border-radius:8px;
+  padding:10px 14px; font-family:'DM Mono',monospace; font-size:0.42em !important;
+  color:#90C4F0; line-height:1.7; overflow:hidden;
+}
+.code-block .c-kw  { color:#60A5FA; }
+.code-block .c-str { color:var(--yellow); }
+.code-block .c-cm  { color:#64748B; font-style:italic; }
+.code-block .c-num { color:var(--orange); }
+.code-block .c-fn  { color:#C084FC; }
+.code-block .c-type{ color:#34D399; }
+
+.comp-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; flex:1 1 auto; align-content:stretch; }
+.comp-col  { border-radius:10px; padding:14px; }
+.comp-evit { background:rgba(239,68,68,0.1);  border:1px solid rgba(239,68,68,0.25); }
+.comp-faz  { background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25); }
+.comp-header { font-size:0.6em !important; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.comp-evit .comp-header { color:var(--red); }
+.comp-faz  .comp-header { color:var(--green); }
+.comp-item {
+  font-size:0.42em !important; color:#CBD5E1; padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,0.06); line-height:1.5; display:flex; gap:8px;
+}
+.comp-item:last-child { border-bottom:none; }
+
+.data-table { width:100%; border-collapse:collapse; font-size:0.44em !important; margin-top:10px; }
+.data-table th {
+  background:rgba(24,95,165,0.2); color:#90C4F0;
+  font-family:'DM Mono',monospace; font-size:0.85em; text-transform:uppercase;
+  letter-spacing:1px; padding:10px 14px; border-bottom:2px solid rgba(24,95,165,0.4); text-align:left;
+}
+.data-table td {
+  padding:13px 14px; color:var(--gray); line-height:1.5;
+  border-bottom:1px solid rgba(255,255,255,0.06); vertical-align:middle;
+}
+.data-table tr:hover td { background:rgba(255,255,255,0.03); }
+.data-table .row-dest td { color:var(--white); font-weight:700; }
+
+.kbd   { display:inline-block; background:rgba(24,95,165,0.25); border:1px solid rgba(24,95,165,0.4); border-radius:5px; padding:2px 8px; font-family:'DM Mono',monospace; font-size:0.9em; color:var(--yellow); font-weight:700; }
+.tag-r { display:inline-block; background:rgba(239,68,68,0.2);  color:var(--red);   font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-g { display:inline-block; background:rgba(16,185,129,0.2); color:var(--green); font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-b { display:inline-block; background:rgba(59,130,246,0.2); color:var(--blue);  font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-y { display:inline-block; background:rgba(249,199,79,0.2); color:var(--yellow);font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+
+.din-header {
+  background:rgba(24,95,165,0.2); border:1px solid rgba(24,95,165,0.4);
+  border-radius:10px; padding:12px 18px; display:flex; align-items:center; gap:12px;
+}
+.din-header-text { font-size:0.55em !important; font-weight:700; color:#90C4F0; }
+.din-meta        { display:flex; gap:20px; flex-wrap:wrap; }
+.din-meta-item   { font-size:0.42em !important; color:var(--gray); }
+.din-meta-item strong { color:var(--white); }
+
+.enc-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; flex:1 1 auto; align-content:stretch; }
+.enc-card { border-radius:10px; padding:16px 20px; display:flex; flex-direction:column; }
+.enc-prox { background:rgba(249,199,79,0.1);  border:1px solid rgba(249,199,79,0.3); }
+.enc-rev  { background:rgba(24,95,165,0.12);  border:1px solid rgba(24,95,165,0.3); }
+.enc-card-label { font-family:'DM Mono',monospace; font-size:0.36em !important; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; display:block; }
+.enc-prox .enc-card-label { color:var(--yellow); }
+.enc-rev  .enc-card-label { color:#90C4F0; }
+.enc-card-text { font-size:0.46em !important; color:var(--white); line-height:1.5; }
+
+.reveal .progress     { color:var(--pa); height:3px; }
+.reveal .slide-number { font-family:'DM Mono',monospace; font-size:12px; color:var(--gray); background:rgba(0,0,0,0.4); border-radius:6px; padding:4px 8px; }
+
+@media (max-width:768px) {
+  .cards-grid,.comp-grid,.enc-grid { grid-template-columns:1fr !important; }
+  .slide-content { padding:24px; gap:14px; }
+  .slide-title   { font-size:0.9em !important; }
+  .card-title    { font-size:0.55em !important; }
+  .card-text,.flow-text,.bullet-list li { font-size:0.52em !important; }
+  .capa-title    { font-size:1.3em !important; }
+  .capa-sub      { max-width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- SLIDE 01 — CAPA -->
+<section class="slide-capa" data-transition="zoom" data-transition-speed="slow">
+  <button id="btn-fullscreen" onclick="toggleFullscreen()" aria-label="Ativar tela cheia">⛶ Tela Cheia</button>
+  <div class="capa-deco"></div>
+  <div class="capa-deco2"></div>
+  <div class="capa-inner">
+    <div class="capa-kicker">SA 15 · 2º Trimestre · Fundamentos de Banco de Dados</div>
+    <h1 class="capa-title">Modelagem de Dados<br><span>Conceitos e Fases</span></h1>
+    <p class="capa-sub">Antes de criar uma única tabela, todo banco de dados precisa ser planejado. Hoje você entende por que modelar e quais são as três fases que vão guiar o Projeto Integrador da Biblioteca até o fim do trimestre.</p>
+    <div class="capa-badges">
+      <span class="capa-badge cb-pa">SA 15</span>
+      <span class="capa-badge cb-yellow">Modelagem · Conceitual · Lógica · Física</span>
+      <span class="capa-badge cb-dark">Prof. Julio Cesar</span>
+      <span class="capa-badge cb-dark">Colégio Neiva Pavan</span>
+      <span class="capa-badge cb-dark">2º Ano — TDS</span>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 02 — OBJETIVOS -->
+<section class="slide-std" data-transition="fade">
+  <div class="slide-content">
+    <div class="slide-label">O que você vai aprender hoje</div>
+    <h2 class="slide-title">🏆 Objetivos da Aula</h2>
+    <ul class="bullet-list">
+      <li><strong>Modelagem de dados:</strong> compreender o que é e qual o seu papel no desenvolvimento de um sistema</li>
+      <li><strong>Modelo × Banco:</strong> diferenciar o modelo (o projeto) do banco de dados (a implementação)</li>
+      <li><strong>Três fases:</strong> identificar a fase Conceitual, a Lógica e a Física, e o que cada uma representa</li>
+      <li><strong>Artefatos:</strong> reconhecer qual artefato corresponde a cada fase — DER, esquema de tabelas ou script SQL</li>
+      <li><strong>Riscos reais:</strong> relacionar a falta de modelagem com problemas concretos em bancos mal estruturados</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SLIDE 03 — PERCURSO -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">De onde viemos e para onde vamos</div>
+    <h2 class="slide-title">🔗 Nosso <span>Percurso</span> até aqui</h2>
+    <div class="highlight-box">
+      <p>Na SA 14 você criou tabelas "na mão", sem modelar nada. Hoje você entende <strong>por que isso é arriscado</strong> e conhece o caminho correto para construir o banco da Biblioteca.</p>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">SA 14 · Anterior</span>
+        <div class="card-text">Retomada de CREATE TABLE e INSERT INTO — primeiro script "sem modelo" da Biblioteca.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-title card-title-pa">SA 15 · Hoje</span>
+        <div class="card-text">Modelagem de Dados — conceitos e as três fases (conceitual, lógica, física).</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">SA 16 · Próxima</span>
+        <div class="card-text">Modelo Conceitual — identificação de entidades e atributos do sistema da Biblioteca.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 04 — O que é modelagem de dados -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Conceito central da aula</div>
+    <h2 class="slide-title">🎯 O Que É Modelagem de Dados?</h2>
+    <div class="highlight-box">
+      <p><strong>Modelagem de dados</strong> é o processo de planejar, antes de programar, como as informações de um sistema vão ser organizadas, relacionadas e armazenadas.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#4ADE80;">O que ela define</span>
+        <span class="card-title">A estrutura, não o código</span>
+        <div class="card-text">Quais são as "coisas" do sistema (entidades), o que elas guardam (atributos) e como se conectam (relacionamentos) — tudo isso antes de qualquer SQL.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">Por que existe</span>
+        <span class="card-title">Evitar retrabalho caro</span>
+        <div class="card-text">Corrigir um erro de estrutura depois que o banco já está populado é muito mais caro do que corrigir no papel.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y" style="margin-top:auto;">
+      <p><strong>Resumindo:</strong> modelar é desenhar a planta antes de levantar a parede.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 05 — Analogia planta x obra -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Analogia · engenharia civil</div>
+    <h2 class="slide-title">🏗️ A Planta e a Obra</h2>
+    <div class="highlight-box">
+      <p>Nenhum engenheiro começa a construir uma casa sem planta. O banco de dados segue a mesma lógica: primeiro o projeto, depois a construção.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-blue"></div>
+        <span class="card-title card-title-blue">📐 A Planta</span>
+        <div class="card-text">Representa a modelagem: o projeto no papel, pensado, revisado e aprovado antes de qualquer material ser comprado.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">🏠 A Obra</span>
+        <div class="card-text">Representa o banco de dados implementado: a casa de verdade, construída seguindo exatamente o que a planta definiu.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y" style="margin-top:auto;">
+      <p><strong>No projeto da Biblioteca:</strong> o DER, o esquema lógico e o script SQL são as plantas; o banco funcionando é a obra entregue.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 06 — Modelo x Banco de dados -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Uma confusão comum</div>
+    <h2 class="slide-title">⚖️ Modelo de Dados × <span>Banco de Dados</span></h2>
+    <div class="comp-grid">
+      <div class="comp-col comp-evit">
+        <div class="comp-header">📐 Modelo de Dados</div>
+        <div class="comp-item">→ É o projeto, o desenho da estrutura</div>
+        <div class="comp-item">→ Existe no papel, em diagramas ou texto</div>
+        <div class="comp-item">→ Independente de SGBD específico</div>
+        <div class="comp-item">→ Pode ser revisado sem custo de dados</div>
+      </div>
+      <div class="comp-col comp-faz">
+        <div class="comp-header">🗄️ Banco de Dados</div>
+        <div class="comp-item">→ É a implementação real, em funcionamento</div>
+        <div class="comp-item">→ Existe dentro de um SGBD (MySQL, PostgreSQL...)</div>
+        <div class="comp-item">→ Já guarda dados reais de verdade</div>
+        <div class="comp-item">→ Mudar a estrutura agora tem custo e risco</div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:auto;">
+      <p><strong>Conclusão:</strong> você passa a maior parte do tempo do projeto trabalhando no modelo — o banco em si é só a etapa final.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 07 — As três fases (visão geral) -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Visão geral · as três fases</div>
+    <h2 class="slide-title">📊 As Três Fases da Modelagem</h2>
+    <table class="data-table">
+      <thead>
+        <tr><th>Fase</th><th>O que representa</th><th>Artefato</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="kbd">Conceitual</span></td><td>Entidades e relacionamentos, sem tecnologia</td><td>DER</td></tr>
+        <tr><td><span class="kbd">Lógica</span></td><td>Tabelas, chaves primárias e estrangeiras, sem SQL</td><td>Esquema lógico</td></tr>
+        <tr class="row-dest"><td><span class="kbd">Física</span></td><td>Implementação real no SGBD, com tipos e restrições</td><td>Script SQL</td></tr>
+      </tbody>
+    </table>
+    <div style="flex:1 1 auto;"></div>
+    <div class="highlight-box">
+      <p><strong>Destaque:</strong> cada fase é mais detalhada e mais "amarrada à tecnologia" que a anterior — você nunca pula direto para o SQL.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 08 — Fase 1: Conceitual -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Fase 1 de 3 · o nível mais abstrato</div>
+    <h2 class="slide-title">📐 Fase Conceitual</h2>
+    <div class="highlight-box">
+      <p>A fase Conceitual representa o sistema em <strong>alto nível</strong>: quais entidades existem e como elas se relacionam — sem pensar em tabelas, tipos ou SGBD.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-title">O que aparece</span>
+        <div class="card-text">Entidades (ex: LIVRO, MEMBRO), seus atributos principais e os relacionamentos entre elas (ex: MEMBRO empresta LIVRO).</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title">O que NÃO aparece</span>
+        <div class="card-text">Tipos de dados, tamanhos de campo, SQL ou qualquer detalhe de implementação — isso vem nas próximas fases.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y" style="margin-top:auto;">
+      <p><strong>Artefato desta fase:</strong> o DER (Diagrama Entidade-Relacionamento) — você vai construir o seu na SA 16 e na SA 17.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 09 — Fase 2: Lógica -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Fase 2 de 3 · estrutura de tabelas</div>
+    <h2 class="slide-title">📋 Fase Lógica</h2>
+    <div class="highlight-box">
+      <p>A fase Lógica traduz o DER em <strong>estrutura de tabelas</strong>: nomes de tabela, colunas, chaves primárias e estrangeiras — ainda sem código SQL.</p>
+    </div>
+    <div class="code-block" style="font-size:0.46em !important;">
+<span class="c-cm">-- notação textual do esquema lógico</span><br>
+FILME (<span class="c-fn">id_filme</span> <span class="c-kw">PK</span>, titulo, genero, ano)<br>
+LOCACAO (<span class="c-fn">id_locacao</span> <span class="c-kw">PK</span>, <span class="c-fn">id_cliente</span> <span class="c-kw">FK</span>, <span class="c-fn">id_filme</span> <span class="c-kw">FK</span>, data_locacao)
+    </div>
+    <div style="flex:1 1 auto;"></div>
+    <div class="highlight-box-y">
+      <p><strong>Artefato desta fase:</strong> o esquema lógico — você vai escrevê-lo na SA 18, convertendo o DER da Biblioteca.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10 — Fase 3: Física -->
+<section class="slide-std" data-transition="fade">
+  <div class="slide-content">
+    <div class="slide-label">Fase 3 de 3 · implementação real</div>
+    <h2 class="slide-title">⚙️ Fase Física</h2>
+    <div class="highlight-box-r">
+      <p>A fase Física é onde o esquema lógico se transforma em <strong>código SQL real</strong>, executável em um SGBD — com tipos de dados e restrições completos.</p>
+    </div>
+    <div class="comp-grid">
+      <div class="comp-col comp-evit">
+        <div class="comp-header">📋 Lógico (antes)</div>
+        <div class="code-block" style="font-size:0.38em !important;">
+FILME (<span class="c-fn">id_filme</span> <span class="c-kw">PK</span>,<br>
+&nbsp;&nbsp;titulo, genero, ano)
+        </div>
+      </div>
+      <div class="comp-col comp-faz">
+        <div class="comp-header">⚙️ Físico (depois)</div>
+        <div class="code-block" style="font-size:0.38em !important;">
+<span class="c-kw">CREATE TABLE</span> filme (<br>
+&nbsp;&nbsp;id_filme <span class="c-type">INT</span> <span class="c-kw">PRIMARY KEY</span>,<br>
+&nbsp;&nbsp;titulo <span class="c-type">VARCHAR</span>(150) <span class="c-kw">NOT NULL</span>,<br>
+&nbsp;&nbsp;ano <span class="c-type">INT</span><br>
+);
+        </div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:auto;">
+      <p><strong>Artefato desta fase:</strong> o script SQL completo — você vai produzi-lo na SA 19, fechando as três fases do projeto da Biblioteca.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 11 — Mesmo sistema nas 3 fases (passo a passo) -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Exemplo guiado · sistema de locadora de filmes</div>
+    <h2 class="slide-title">📋 Um Mesmo Sistema, Três Representações</h2>
+    <div class="highlight-box">
+      <p>Veja como a relação "cliente aluga filme" evolui pelas três fases, ficando mais detalhada a cada passo.</p>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-p">
+        <span class="flow-label">01</span>
+        <div class="flow-text"><strong>Conceitual:</strong> CLIENTE e FILME são entidades; "aluga" é o relacionamento entre elas — sem nenhum detalhe técnico.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">02</span>
+        <div class="flow-text"><strong>Lógica:</strong> nasce a tabela LOCACAO com <code>id_cliente FK</code> e <code>id_filme FK</code> para representar esse relacionamento.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">03</span>
+        <div class="flow-text"><strong>Física:</strong> <code>CREATE TABLE locacao (...)</code> com tipos de dados, <code>PRIMARY KEY</code> e <code>REFERENCES</code> reais no SGBD.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 12 — Por que modelar: riscos -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">O custo de não planejar</div>
+    <h2 class="slide-title">⚖️ Sem Modelagem × <span>Com Modelagem</span></h2>
+    <div class="comp-grid">
+      <div class="comp-col comp-evit">
+        <div class="comp-header">✗ Banco criado sem planejar</div>
+        <div class="comp-item">✗ Dados repetidos e inconsistentes</div>
+        <div class="comp-item">✗ Relacionamentos perdidos ou ambíguos</div>
+        <div class="comp-item">✗ Mudanças exigem reescrever tabelas inteiras</div>
+        <div class="comp-item">✗ Erros só aparecem quando o sistema já está em uso</div>
+      </div>
+      <div class="comp-col comp-faz">
+        <div class="comp-header">✔ Banco planejado em fases</div>
+        <div class="comp-item">✔ Estrutura revisada antes de qualquer dado existir</div>
+        <div class="comp-item">✔ Relacionamentos claros e documentados</div>
+        <div class="comp-item">✔ Mudanças no papel custam tempo, não dados perdidos</div>
+        <div class="comp-item">✔ Problemas aparecem e são corrigidos no diagrama</div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:auto;">
+      <p><strong>Conclusão:</strong> é exatamente isso que você vai sentir comparando seu script da SA 14 com o banco modelado da SA 19.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 13 — Conexão com o projeto da Biblioteca -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Aplicando ao Projeto Integrador</div>
+    <h2 class="slide-title">🎯 As Três Fases no Projeto da Biblioteca</h2>
+    <div class="highlight-box">
+      <p>Cada fase que você aprendeu hoje vira uma entrega real do Projeto Integrador, nas próximas SAs.</p>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#4ADE80;">SA 16 e 17</span>
+        <span class="card-title">Fase Conceitual</span>
+        <div class="card-text">Entidades, atributos e relacionamentos do sistema da Biblioteca — o DER completo.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">SA 18</span>
+        <span class="card-title">Fase Lógica</span>
+        <div class="card-text">Conversão do DER em esquema de tabelas, com PKs e FKs identificadas.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-num" style="color:var(--green);">SA 19</span>
+        <span class="card-title">Fase Física</span>
+        <div class="card-text">Script SQL completo do banco da Biblioteca, com tipos e restrições reais.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 14 — Organização do tempo -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Organização da aula de hoje</div>
+    <h2 class="slide-title">📊 Como Vamos Usar o Tempo</h2>
+    <table class="data-table">
+      <thead>
+        <tr><th>Etapa</th><th>Foco</th><th>Atividade</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Abertura</td><td><span class="tag-y">oral</span></td><td>Retomada rápida: "Qual a diferença entre DDL e DML?"</td></tr>
+        <tr><td>Retomada</td><td><span class="tag-y">debate</span></td><td>Problema motivador: banco de biblioteca sem planejamento</td></tr>
+        <tr><td>Explicação</td><td><span class="tag-b">slides</span></td><td>Conceito de modelagem, analogia da planta, as três fases</td></tr>
+        <tr><td>Dinâmica</td><td><span class="tag-g">grupo</span></td><td>"Em Qual Fase Estou?" com artefatos da locadora de filmes</td></tr>
+        <tr class="row-dest"><td>Fechamento</td><td>resumo</td><td>Modelagem = planejar antes de construir</td></tr>
+      </tbody>
+    </table>
+    <div style="flex:1 1 auto;"></div>
+    <div class="highlight-box">
+      <p><strong>Destaque:</strong> a dinâmica usa um sistema diferente (locadora) para você praticar reconhecendo as fases em um contexto novo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 15 — DINÂMICA (apresentação) -->
+<section class="slide-std" data-transition="zoom">
+  <div class="slide-content">
+    <div class="slide-label">Atividade prática em grupo</div>
+    <h2 class="slide-title">🎮 Dinâmica — <span>Em Qual Fase Estou?</span></h2>
+    <div class="din-header">
+      <span style="font-size:1.4em;">⚡</span>
+      <div class="din-header-text">Em Qual Fase Estou? · 15 minutos · grupos de 3 a 4 alunos</div>
+    </div>
+    <div class="exemplo-flow" style="margin-top:8px;">
+      <div class="flow-step fs-p">
+        <span class="flow-label">01</span>
+        <div class="flow-text"><strong>Distribuição (2 min)</strong> — 6 artefatos embaralhados de um sistema de locadora de filmes, 2 de cada fase, sem indicação.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">02</span>
+        <div class="flow-text"><strong>Classificação em grupo (7 min)</strong> — cada grupo classifica os 6 artefatos em Conceitual, Lógica ou Física, justificando a escolha.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">03</span>
+        <div class="flow-text"><strong>Apresentação e debate (5 min)</strong> — cada grupo apresenta sua classificação de um artefato sorteado; o professor consolida.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y" style="margin-top:auto;">
+      <p><strong>Sistema usado:</strong> locadora de filmes — CLIENTE aluga FILME, com artefatos reais de cada uma das três fases.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 16 — DINÂMICA (tabela de casos) -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Em Qual Fase Estou? · artefatos da locadora</div>
+    <h2 class="slide-title">📋 Artefatos para <span>Classificar</span></h2>
+    <table class="data-table">
+      <thead>
+        <tr><th>Artefato</th><th>Fase correta</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Retângulos "Filme" e "Cliente" ligados por losango "Aluga"</td><td><span class="tag-r">Conceitual</span></td></tr>
+        <tr><td>Entidade "Filme" com atributos (título, gênero, ano), sem tipos</td><td><span class="tag-r">Conceitual</span></td></tr>
+        <tr><td><code>FILME (id_filme PK, titulo, genero, ano)</code></td><td><span class="tag-b">Lógica</span></td></tr>
+        <tr><td><code>LOCACAO (id_locacao PK, id_cliente FK, id_filme FK)</code></td><td><span class="tag-b">Lógica</span></td></tr>
+        <tr class="row-dest"><td><code>CREATE TABLE filme (id_filme INT PRIMARY KEY, ...)</code></td><td><span class="tag-g">Física</span></td></tr>
+      </tbody>
+    </table>
+    <div style="flex:1 1 auto;"></div>
+    <div class="highlight-box">
+      <p><strong>Dica pedagógica:</strong> peça para o grupo apontar a palavra-chave que denunciou a fase — "PRIMARY KEY" só existe na Física, por exemplo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 17 — RESUMO -->
+<section class="slide-std" data-transition="fade">
+  <div class="slide-content">
+    <div class="slide-label">O que vimos hoje</div>
+    <h2 class="slide-title">📌 Resumo da Aula</h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-title card-title-pa">🎯 Modelagem de dados</span>
+        <div class="card-text">Planejar a estrutura do banco antes de implementar — a planta antes da obra.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">⚖️ Modelo × Banco</span>
+        <div class="card-text">O modelo é o projeto; o banco é a implementação real dentro de um SGBD.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">📐📋⚙️ Três fases</span>
+        <div class="card-text">Conceitual (DER) → Lógica (esquema de tabelas) → Física (script SQL).</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">🚀 Projeto Integrador</span>
+        <div class="card-text">As próximas SAs vão produzir, na ordem, o DER, o esquema lógico e o SQL da Biblioteca.</div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:auto;">
+      <p>Modelar não é burocracia — é o que separa um banco confiável de um banco que vai dar problema mais tarde.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 18 — ENCERRAMENTO -->
+<section class="slide-enc" data-transition="zoom">
+  <div class="slide-content">
+    <div class="slide-label">Até a próxima</div>
+    <h2 class="slide-title">🚀 O que <span>vem a seguir</span></h2>
+    <div class="enc-grid">
+      <div class="enc-card enc-prox">
+        <span class="enc-card-label">→ Próxima aula — SA 16</span>
+        <div class="enc-card-text">Modelo Conceitual: identificação das entidades e atributos do sistema da Biblioteca Escolar — o primeiro passo do DER.</div>
+      </div>
+      <div class="enc-card enc-rev">
+        <span class="enc-card-label">📝 Para fixar o aprendizado</span>
+        <div class="enc-card-text">Releia a descrição do sistema da Biblioteca · identifique mentalmente possíveis entidades · revise a diferença entre as três fases.</div>
+      </div>
+    </div>
+    <div class="quote-box">
+      <p>"Dê-me seis horas para cortar uma árvore e eu passarei as primeiras quatro afiando o machado."</p>
+      <cite>— Abraham Lincoln · sobre a importância do planejamento</cite>
+    </div>
+    <div style="text-align:center;margin-top:12px;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.36em;color:var(--gray);letter-spacing:2px;text-transform:uppercase;">SA 15 · Modelagem de Dados · Prof. Julio Cesar</div>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    progress: true,
+    controls: true,
+    controlsTutorial: true,
+    transition: 'convex',
+    transitionSpeed: 'fast',
+    backgroundTransition: 'fade',
+    center: true,
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    minScale: 0.2,
+    maxScale: 3.0,
+    plugins: []
+  });
+
+  document.addEventListener('fullscreenchange', () => Reveal.layout());
+</script>
+</body>
+</html>

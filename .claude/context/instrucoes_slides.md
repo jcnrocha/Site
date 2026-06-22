@@ -16,14 +16,28 @@
 - Total de slides: **sem limite máximo** — use quantos forem necessários para explicar o conteúdo com profundidade e exemplos. A estrutura fixa abaixo (capa, objetivos, percurso, dinâmica, resumo, encerramento) é obrigatória; os slides de conteúdo podem ser expandidos livremente.
 - Slides de código: **apenas quando o plano de aula trouxer exemplo de código**
 - **Nunca incluir datas** (dia/mês/ano) em nenhum slide — nem na capa, nem nos cards de percurso, nem no encerramento, nem no rodapé. Usar somente o número da SA (ex: `SA 14`). Isso permite reaproveitar o mesmo slide em outras turmas/anos sem precisar editar.
-- **Caixa final de cada slide (`highlight-box`, `highlight-box-y`, `highlight-box-r` de fechamento — destaque, dica, conclusão, atenção) deve usar `style="margin-top:auto;"`**, nunca um valor fixo em `px`. Como `.slide-content` é `flex-direction:column`, isso empurra a caixa para a parte inferior do slide, criando o respiro visual abaixo de tabelas/cards/código. Aplica-se apenas à última caixa do slide (a que fecha o raciocínio); caixas de introdução/contexto no topo do slide (antes de cards, tabelas ou código) continuam coladas ao título, sem `margin-top:auto`.
+- **Caixa final de cada slide (`highlight-box`, `highlight-box-y`, `highlight-box-r` de fechamento — destaque, dica, conclusão, atenção)** deve ficar sempre no rodapé do slide, com o conteúdo principal (tabela/cards/código) colado logo abaixo do título, nunca flutuando no meio. A técnica certa depende do que vem antes da caixa:
+  - Se o elemento anterior for **`cards-grid`, `comp-grid` ou `exemplo-flow`** (esses três já têm `flex:1 1 auto` no CSS, então crescem por conta própria): a caixa final usa só `style="margin-top:auto;"`, sem espaçador extra. **Nunca** adicionar um spacer aqui — ele competiria com o crescimento do próprio grid e voltaria a abrir vazio no meio do slide.
+  - Se o elemento anterior for **`<table class="data-table">` ou `.code-block`** (nenhum dos dois cresce por padrão): inserir um espaçador explícito `<div style="flex:1 1 auto;"></div>` IMEDIATAMENTE depois do elemento e antes da caixa final, e a caixa final NÃO leva `margin-top:auto` (fica com a classe pura, sem style inline). É esse espaçador vazio que absorve o espaço sobrando e empurra a caixa para o rodapé — usar `margin-top:auto` direto na caixa nesse caso resulta em distribuição inconsistente do espaço (gera vazio tanto antes quanto depois da tabela).
+  - Nunca usar valor fixo em `px` (ex: `margin-top:6px`) para esse espaçamento — sempre uma das duas técnicas acima.
+  - Caixas de introdução/contexto no topo do slide (antes de cards, tabelas ou código) continuam coladas ao título, sem `margin-top:auto` e sem espaçador.
 - A cor principal da UC sempre é referenciada como `var(--pa)` no CSS do template
 
 ---
 
-## ESTRUTURA FIXA DOS 16 SLIDES
+## ESTRUTURA DOS SLIDES — POSIÇÕES, NÃO NÚMEROS FIXOS
 
-### SLIDE 01 — CAPA
+**Atenção:** desde que o limite de slides foi removido, NUNCA numerar estas seções como "SLIDE 01", "SLIDE 16" etc. — a posição exata de cada bloco varia conforme a quantidade de conteúdo. As referências corretas são:
+
+- **1º slide** → Capa
+- **2º slide** → Objetivos
+- **3º slide** → Percurso
+- **Slides seguintes, em quantidade livre** → Conteúdo (tipos A a E, conforme o plano de aula)
+- Depois do conteúdo → Dinâmica (apresentação + tabela de casos, 2 slides)
+- **Penúltimo slide, sempre** → Resumo
+- **Último slide, sempre** → Encerramento (independente de ser o 16º, o 18º ou o 23º slide da apresentação)
+
+### 1º SLIDE — CAPA
 - Classe: `slide-capa` · Transição: `zoom` · Velocidade: `slow`
 - Kicker: `SA XX · [Nº] Trimestre · [Nome da UC]`
 - Título: tema principal `<br><span>subtítulo em destaque</span>`
@@ -42,7 +56,7 @@
 
 ---
 
-### SLIDE 02 — OBJETIVOS
+### 2º SLIDE — OBJETIVOS
 - Transição: `fade`
 - Label: `O que você vai aprender hoje`
 - Título: `🏆 Objetivos da Aula`
@@ -52,7 +66,7 @@
 
 ---
 
-### SLIDE 03 — PERCURSO
+### 3º SLIDE — PERCURSO
 - Transição: `slide`
 - Label: `De onde viemos e para onde vamos`
 - Título: `🔗 Nosso <span>Percurso</span> até aqui`
@@ -64,9 +78,9 @@
 
 ---
 
-### SLIDES 04 ao 14 — CONTEÚDO (11 slides)
+### SLIDES DE CONTEÚDO — quantidade livre, entre o Percurso e a Dinâmica
 
-Distribuir o conteúdo do plano de aula nos 11 slides.  
+Distribuir o conteúdo do plano de aula em quantos slides forem necessários para explicar com profundidade e exemplos — sem limite máximo.
 Escolher o tipo correto para cada slide conforme o conteúdo:
 
 ---
@@ -125,7 +139,7 @@ Escolher o tipo correto para cada slide conforme o conteúdo:
 
 ---
 
-### SLIDE 13 — DINÂMICA (apresentação)
+### DINÂMICA (apresentação) — logo após os slides de conteúdo
 - Transição: `zoom`
 - Label: `Atividade prática em grupo`
 - Título: `🎮 Dinâmica — <span>[Nome da Dinâmica]</span>`
@@ -138,7 +152,7 @@ Escolher o tipo correto para cada slide conforme o conteúdo:
 
 ---
 
-### SLIDE 14 — DINÂMICA (tabela de casos)
+### DINÂMICA (tabela de casos) — imediatamente depois da Dinâmica (apresentação)
 - Transição: `convex`
 - Label: `[Nome da Dinâmica] · casos práticos`
 - Título: `📋 Casos para <span>Analisar</span>`
@@ -147,7 +161,7 @@ Escolher o tipo correto para cada slide conforme o conteúdo:
 
 ---
 
-### SLIDE 15 — RESUMO
+### RESUMO — penúltimo slide, sempre
 - Transição: `fade`
 - Label: `O que vimos hoje`
 - Título: `📌 Resumo da Aula`
@@ -158,15 +172,16 @@ Escolher o tipo correto para cada slide conforme o conteúdo:
 
 ---
 
-### SLIDE 16 — ENCERRAMENTO
+### ENCERRAMENTO — último slide, sempre (não tem número fixo)
 - Classe: `slide-enc` · Transição: `zoom`
 - Label: `Até a próxima`
 - Título: `🚀 O que <span>vem a seguir</span>`
 - `enc-grid` com 2 cards:
   - `enc-prox` — próxima SA: número e tema (sem data)
   - `enc-rev` — para fixar: 3 ações práticas do aluno
-- `quote-box` — frase inspiracional relacionada ao tema da aula
-- Rodapé centralizado: `SA XX · [Tema] · Prof. Julio Cesar · Colégio Neiva Pavan · 2026`
+  - CSS: `.enc-grid { flex:1 1 auto; align-content:stretch; }` e `.enc-card { padding:16px 20px; display:flex; flex-direction:column; }` — os cards crescem para preencher o espaço vertical do slide, em vez de ficarem pequenos no topo
+- `quote-box` — frase inspiracional relacionada ao tema da aula. Fica com altura natural (sem flex-grow), posicionada logo abaixo dos cards grandes, próxima ao rodapé
+- Rodapé centralizado: `SA XX · [Tema] · Prof. Julio Cesar` — **sem nome da escola e sem ano/data**
 
 ---
 

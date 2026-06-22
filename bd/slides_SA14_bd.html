@@ -214,14 +214,14 @@ html, body { background:#04070F !important; margin:0; padding:0; }
 }
 .comp-item:last-child { border-bottom:none; }
 
-.data-table { width:100%; border-collapse:collapse; font-size:0.44em !important; }
+.data-table { width:100%; border-collapse:collapse; font-size:0.44em !important; margin-top:10px; }
 .data-table th {
   background:rgba(24,95,165,0.2); color:#90C4F0;
   font-family:'DM Mono',monospace; font-size:0.85em; text-transform:uppercase;
-  letter-spacing:1px; padding:8px 10px; border-bottom:2px solid rgba(24,95,165,0.4); text-align:left;
+  letter-spacing:1px; padding:10px 14px; border-bottom:2px solid rgba(24,95,165,0.4); text-align:left;
 }
 .data-table td {
-  padding:7px 10px; color:var(--gray);
+  padding:13px 14px; color:var(--gray); line-height:1.5;
   border-bottom:1px solid rgba(255,255,255,0.06); vertical-align:middle;
 }
 .data-table tr:hover td { background:rgba(255,255,255,0.03); }
@@ -242,8 +242,8 @@ html, body { background:#04070F !important; margin:0; padding:0; }
 .din-meta-item   { font-size:0.42em !important; color:var(--gray); }
 .din-meta-item strong { color:var(--white); }
 
-.enc-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.enc-card { border-radius:10px; padding:12px 16px; }
+.enc-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; flex:1 1 auto; align-content:stretch; }
+.enc-card { border-radius:10px; padding:16px 20px; display:flex; flex-direction:column; }
 .enc-prox { background:rgba(249,199,79,0.1);  border:1px solid rgba(249,199,79,0.3); }
 .enc-rev  { background:rgba(24,95,165,0.12);  border:1px solid rgba(24,95,165,0.3); }
 .enc-card-label { font-family:'DM Mono',monospace; font-size:0.36em !important; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; display:block; }
@@ -447,7 +447,8 @@ html, body { background:#04070F !important; margin:0; padding:0; }
         <tr class="row-dest"><td><span class="kbd">TEXT</span></td><td>texto longo, sem limite fixo</td><td><code>descricao</code> da categoria</td></tr>
       </tbody>
     </table>
-    <div class="highlight-box" style="margin-top:auto;">
+    <div style="flex:1 1 auto;"></div>
+    <div class="highlight-box">
       <p><strong>Destaque:</strong> escolha o tipo pelo que o dado realmente é — um ano não precisa de <code>VARCHAR</code>, e um CPF não deveria ser <code>INT</code> (perde os zeros à esquerda).</p>
     </div>
   </div>
@@ -669,7 +670,8 @@ html, body { background:#04070F !important; margin:0; padding:0; }
 &nbsp;&nbsp;(<span class="c-num">2</span>, <span class="c-str">'João Silva'</span>, <span class="c-str">'2026A002'</span>),<br>
 &nbsp;&nbsp;(<span class="c-num">3</span>, <span class="c-str">'Maria Souza'</span>, <span class="c-str">'2026A003'</span>);
     </div>
-    <div class="highlight-box-y" style="margin-top:auto;">
+    <div style="flex:1 1 auto;"></div>
+    <div class="highlight-box-y">
       <p><strong>Atenção:</strong> só o último grupo de valores termina com ponto e vírgula — os anteriores terminam com vírgula.</p>
     </div>
   </div>
@@ -805,7 +807,8 @@ html, body { background:#04070F !important; margin:0; padding:0; }
         <tr class="row-dest"><td>Fechamento</td><td>resumo</td><td>Conexão com a SA 15 — Modelagem de Dados</td></tr>
       </tbody>
     </table>
-    <div class="highlight-box" style="margin-top:auto;">
+    <div style="flex:1 1 auto;"></div>
+    <div class="highlight-box">
       <p><strong>Destaque:</strong> a dinâmica de hoje vale como prática de revisão crítica antes do questionário.</p>
     </div>
   </div>
@@ -855,7 +858,8 @@ html, body { background:#04070F !important; margin:0; padding:0; }
         <tr><td>3</td><td><span class="tag-b">INSERT INTO</span></td><td>Texto em campo INT — tipo incompatível</td></tr>
       </tbody>
     </table>
-    <div class="highlight-box" style="margin-top:auto;">
+    <div style="flex:1 1 auto;"></div>
+    <div class="highlight-box">
       <p><strong>Dica pedagógica:</strong> exigir a linha exata do erro força o aluno a ler o código com atenção, não só "sentir" que está errado.</p>
     </div>
   </div>
@@ -914,7 +918,7 @@ html, body { background:#04070F !important; margin:0; padding:0; }
       <cite>— Peter Chen · criador do Modelo Entidade-Relacionamento</cite>
     </div>
     <div style="text-align:center;margin-top:12px;">
-      <div style="font-family:'DM Mono',monospace;font-size:0.36em;color:var(--gray);letter-spacing:2px;text-transform:uppercase;">SA 14 · Retomada SQL · Prof. Julio Cesar · Colégio Neiva Pavan</div>
+      <div style="font-family:'DM Mono',monospace;font-size:0.36em;color:var(--gray);letter-spacing:2px;text-transform:uppercase;">SA 14 · Retomada SQL · Prof. Julio Cesar</div>
     </div>
   </div>
 </section>

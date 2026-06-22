@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "PowerShell(Rename-Item -Path \"c:\\\\Users\\\\julio310036\\\\OneDrive - Sistema Fiep\\\\Site\\\\idpsst\\\\plano_aula_SA13.html\" -NewName \"plano_aula_SA13_SST.html\")",
-      "Bash(cd \"/c/Users/julio310036/OneDrive - Sistema Fiep/Site/BancoDados\" && grep -oE '<title>[^<]*</title>' plano_aula_SA14_bd.html plano_aula_SA15_bd.html plano_aula_SA16_bd.html plano_aula_SA17_bd.html plano_aula_SA18_bd.html plano_aula_SA19_bd.html plano_aula_SA20_bd.html plano_aula_SA21_bd.html plano_aula_SA22_bd.html)"
+      "Bash(cd \"/c/Users/julio310036/OneDrive - Sistema Fiep/Site/BancoDados\" && grep -oE '<title>[^<]*</title>' plano_aula_SA14_bd.html plano_aula_SA15_bd.html plano_aula_SA16_bd.html plano_aula_SA17_bd.html plano_aula_SA18_bd.html plano_aula_SA19_bd.html plano_aula_SA20_bd.html plano_aula_SA21_bd.html plano_aula_SA22_bd.html)",
+      "Bash(git mv *)"
     ],
     "additionalDirectories": [
       "c:\\Users\\julio310036\\OneDrive - Sistema Fiep\\Site\\redes"
