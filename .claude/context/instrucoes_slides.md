@@ -22,6 +22,8 @@
   - Nunca usar valor fixo em `px` (ex: `margin-top:6px`) para esse espaçamento — sempre uma das duas técnicas acima.
   - Caixas de introdução/contexto no topo do slide (antes de cards, tabelas ou código) continuam coladas ao título, sem `margin-top:auto` e sem espaçador.
 - A cor principal da UC sempre é referenciada como `var(--pa)` no CSS do template
+- **A capa (`.slide-capa`) NÃO deve ter as regras `::before` e `::after`** (as barras verticais coloridas azul+amarelo na borda esquerda). Elas duplicavam visualmente com o `box-shadow` do `.reveal .slides`, criando um efeito de borda dupla na lateral esquerda do slide 1. A capa usa só o gradiente de fundo (`.slide-capa { background:linear-gradient(...); position:relative; overflow:hidden; }`) — a identidade visual da UC já vem da cor `var(--pa)` no kicker, no badge `cb-pa` e no `capa-deco`.
+- **Transição (`data-transition`) nunca pode repetir entre dois slides consecutivos.** Antes de definir a transição de um slide, checar a transição do slide imediatamente anterior e escolher uma diferente entre as disponíveis (`zoom`, `fade`, `slide`, `convex`). Vale para toda a sequência, incluindo capa, conteúdo, dinâmica, resumo e encerramento — nunca dois slides em seguida com a mesma transição.
 
 ---
 

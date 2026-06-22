@@ -38,7 +38,6 @@ html, body { background:#04070F !important; margin:0; padding:0; }
 .reveal .slides {
   border-radius:4px;
   box-shadow:
-    0 0 0 1px rgba(24,95,165,0.3),
     0 8px 32px rgba(0,0,0,0.6),
     0 2px 8px rgba(0,0,0,0.4);
 }
@@ -47,21 +46,20 @@ html, body { background:#04070F !important; margin:0; padding:0; }
   background:linear-gradient(135deg,#080D20 0%,#0A1020 60%,#080D20 100%) !important;
   position:relative; overflow:hidden;
 }
-.slide-capa::before { content:''; position:absolute; left:0; top:0; bottom:0; width:8px; background:var(--pa); }
-.slide-capa::after  { content:''; position:absolute; left:8px; top:0; bottom:0; width:4px; background:var(--yellow); }
 .capa-deco  { position:absolute; right:-60px; bottom:-60px; width:280px; height:280px; border-radius:50%; background:rgba(24,95,165,0.10); border:2px solid rgba(24,95,165,0.15); }
 .capa-deco2 { position:absolute; right:40px; bottom:40px; width:140px; height:140px; border-radius:50%; background:rgba(249,199,79,0.06); border:2px solid rgba(249,199,79,0.1); }
 .capa-inner {
   height:100%; max-height:720px; display:flex; flex-direction:column;
-  justify-content:center; padding:36px 40px 36px 48px;
+  justify-content:flex-start; padding:96px 48px 36px 56px;
   overflow:hidden; box-sizing:border-box;
 }
-.capa-kicker  { font-family:'DM Mono',monospace; font-size:0.5em; color:var(--pa); letter-spacing:3px; text-transform:uppercase; margin-bottom:16px; }
-.capa-title   { font-size:2em !important; line-height:1.15; color:var(--white); margin-bottom:12px; font-weight:700; }
-.capa-title span { color:var(--yellow); }
-.capa-sub     { font-size:0.52em; color:var(--gray); margin-bottom:28px; max-width:65%; line-height:1.6; }
-.capa-badges  { display:flex; gap:10px; flex-wrap:wrap; }
-.capa-badge   { font-size:0.42em; padding:5px 14px; border-radius:20px; font-weight:600; font-family:'DM Mono',monospace; }
+.capa-kicker  { font-family:'DM Mono',monospace; font-size:0.5em; color:var(--pa); letter-spacing:3px; text-transform:uppercase; margin-bottom:24px; }
+.capa-title   { font-size:2.1em !important; line-height:1.2; color:var(--white); margin-bottom:22px; font-weight:700; }
+.capa-title span { color:var(--yellow); display:block; text-wrap:balance; }
+.capa-sub     { font-size:0.56em; color:var(--gray); margin-bottom:0; max-width:70%; line-height:1.7; }
+.capa-badges  { display:flex; gap:12px; flex-wrap:wrap; margin-top:auto; }
+.capa-badges-row2 { margin-top:14px; }
+.capa-badge   { font-size:0.42em; padding:6px 16px; border-radius:20px; font-weight:600; font-family:'DM Mono',monospace; white-space:nowrap; }
 .cb-pa        { background:var(--pa); color:var(--white); }
 .cb-yellow    { background:var(--yellow); color:var(--dark); }
 .cb-dark      { background:rgba(255,255,255,0.1); color:var(--white); border:1px solid rgba(255,255,255,0.2); }
@@ -281,6 +279,8 @@ html, body { background:#04070F !important; margin:0; padding:0; }
     <div class="capa-badges">
       <span class="capa-badge cb-pa">SA 14</span>
       <span class="capa-badge cb-yellow">DDL · DML · SQL</span>
+    </div>
+    <div class="capa-badges capa-badges-row2">
       <span class="capa-badge cb-dark">Prof. Julio Cesar</span>
       <span class="capa-badge cb-dark">Colégio Neiva Pavan</span>
       <span class="capa-badge cb-dark">2º Ano — TDS</span>
