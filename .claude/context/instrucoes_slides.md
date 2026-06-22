@@ -13,8 +13,10 @@
 - Máximo **5 flow-steps** por slide
 - Máximo **10 linhas** de código por code-block
 - Se o conteúdo não couber: **dividir em 2 slides**
-- Total de slides: **mínimo 16, máximo 20**
+- Total de slides: **sem limite máximo** — use quantos forem necessários para explicar o conteúdo com profundidade e exemplos. A estrutura fixa abaixo (capa, objetivos, percurso, dinâmica, resumo, encerramento) é obrigatória; os slides de conteúdo podem ser expandidos livremente.
 - Slides de código: **apenas quando o plano de aula trouxer exemplo de código**
+- **Nunca incluir datas** (dia/mês/ano) em nenhum slide — nem na capa, nem nos cards de percurso, nem no encerramento, nem no rodapé. Usar somente o número da SA (ex: `SA 14`). Isso permite reaproveitar o mesmo slide em outras turmas/anos sem precisar editar.
+- **Caixa final de cada slide (`highlight-box`, `highlight-box-y`, `highlight-box-r` de fechamento — destaque, dica, conclusão, atenção) deve usar `style="margin-top:auto;"`**, nunca um valor fixo em `px`. Como `.slide-content` é `flex-direction:column`, isso empurra a caixa para a parte inferior do slide, criando o respiro visual abaixo de tabelas/cards/código. Aplica-se apenas à última caixa do slide (a que fecha o raciocínio); caixas de introdução/contexto no topo do slide (antes de cards, tabelas ou código) continuam coladas ao título, sem `margin-top:auto`.
 - A cor principal da UC sempre é referenciada como `var(--pa)` no CSS do template
 
 ---
@@ -27,11 +29,16 @@
 - Título: tema principal `<br><span>subtítulo em destaque</span>`
 - Descrição: 1 ou 2 linhas resumindo o tema da aula
 - Badges obrigatórios:
-  - `cb-pa` → data da aula (SA XX · DD/MM/AAAA)
+  - `cb-pa` → SA XX (sem data)
   - `cb-yellow` → módulo ou bloco do conteúdo
   - `cb-dark` → Prof. Julio Cesar
   - `cb-dark` → Colégio Neiva Pavan
   - `cb-dark` → [Nº] Ano — TDS
+- **Botão de Tela Cheia** (obrigatório, só no slide 01):
+  - `<button id="btn-fullscreen" onclick="toggleFullscreen()" aria-label="Ativar tela cheia">⛶ Tela Cheia</button>` posicionado dentro de `.slide-capa`, antes de `.capa-deco`
+  - CSS: `position:absolute; top:20px; right:24px; z-index:20;` com fundo translúcido, hover em `var(--pa)`, oculto em `@media print`
+  - Função JS `toggleFullscreen()` chama `document.documentElement.requestFullscreen()` / `exitFullscreen()` — funciona como o modo de apresentação do PowerPoint (oculta a interface do navegador, navegação por seta/espaço já nativa do Reveal, Esc sai)
+  - Comportamento aplica-se a toda a apresentação, não só ao slide 01, pois o fullscreen é do `document.documentElement`
 
 ---
 
@@ -156,7 +163,7 @@ Escolher o tipo correto para cada slide conforme o conteúdo:
 - Label: `Até a próxima`
 - Título: `🚀 O que <span>vem a seguir</span>`
 - `enc-grid` com 2 cards:
-  - `enc-prox` — próxima SA: número, data e tema
+  - `enc-prox` — próxima SA: número e tema (sem data)
   - `enc-rev` — para fixar: 3 ações práticas do aluno
 - `quote-box` — frase inspiracional relacionada ao tema da aula
 - Rodapé centralizado: `SA XX · [Tema] · Prof. Julio Cesar · Colégio Neiva Pavan · 2026`
@@ -192,6 +199,45 @@ Escolher o tipo correto para cada slide conforme o conteúdo:
 | Fundamentos de Redes | `template_slides_redes.html` | 2º Ano |
 | Qualidade, Produtividade e Sustentabilidade | `template_slides_qps.html` | 1º Ano |
 | Desenvolvimento de Projetos + SST | `template_slides_sst.html` | 1º Ano |
+
+---
+
+## CONFIGURAÇÃO DO Reveal.initialize — TELA CHEIA PREENCHENDO TUDO
+
+Para que o slide ocupe 100% da tela ao ativar o botão de Tela Cheia (e não fique limitado ao tamanho nativo 1280×720 num monitor maior):
+
+```js
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  progress: true,
+  controls: true,
+  controlsTutorial: true,
+  transition: 'convex',
+  transitionSpeed: 'fast',
+  backgroundTransition: 'fade',
+  center: true,
+  width: 1280,
+  height: 720,
+  margin: 0.04,
+  minScale: 0.2,
+  maxScale: 3.0,
+  plugins: []
+});
+
+document.addEventListener('fullscreenchange', () => Reveal.layout());
+```
+
+- `maxScale: 3.0` (em vez de `1.0`) permite que o deck amplie além do tamanho nativo até preencher monitores grandes.
+- O listener de `fullscreenchange` força `Reveal.layout()` a recalcular o tamanho exatamente no instante em que a tela cheia é ativada/desativada — sem ele, o recálculo só ocorre no resize da janela.
 
 ---
 

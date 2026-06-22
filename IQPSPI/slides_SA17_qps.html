@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Apresentação SA17 — Filosofia Lean: Definição, Mindset e Pilares · UC QPS · Colégio Neiva Pavan · Prof. Julio Cesar">
+<meta name="theme-color" content="#080D20">
+<meta name="color-scheme" content="dark">
+<meta name="author" content="Prof. Julio Cesar">
+<title>SA 17 — Filosofia Lean · QPS</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pa:           #BA7517;
+  --pa-d:         #412402;
+  --pa-light:     #FAEEDA;
+  --yellow:       #F9C74F;
+  --dark:         #080D20;
+  --green:        #10B981;
+  --red:          #EF4444;
+  --orange:       #F97316;
+  --blue:         #3B82F6;
+  --purple:       #A78BFA;
+  --white:        #FFFFFF;
+  --gray:         #CBD5E1;
+  --glass-bg:     rgba(255,255,255,0.05);
+  --glass-border: rgba(255,255,255,0.10);
+  --radius:       12px;
+  --transition:   0.25s ease;
+}
+
+html, body { background:#04070F !important; margin:0; padding:0; }
+.reveal { font-family:'DM Sans',sans-serif; }
+.reveal .slides section { height:100%; text-align:left; overflow:hidden; }
+.reveal h1,.reveal h2,.reveal h3 { text-transform:none; font-family:'DM Sans',sans-serif; margin:0; }
+.reveal p  { margin:0; }
+.reveal ul,.reveal ol { margin:0; padding:0; }
+
+.reveal .slides {
+  border-radius:4px;
+  box-shadow:
+    0 0 0 1px rgba(186,117,23,0.3),
+    0 8px 32px rgba(0,0,0,0.6),
+    0 2px 8px rgba(0,0,0,0.4);
+}
+
+.slide-capa {
+  background:linear-gradient(135deg,#080D20 0%,#0F0D08 60%,#080D20 100%) !important;
+  position:relative; overflow:hidden;
+}
+.slide-capa::before { content:''; position:absolute; left:0; top:0; bottom:0; width:8px; background:var(--pa); }
+.slide-capa::after  { content:''; position:absolute; left:8px; top:0; bottom:0; width:4px; background:var(--yellow); }
+.capa-deco  { position:absolute; right:-60px; bottom:-60px; width:280px; height:280px; border-radius:50%; background:rgba(186,117,23,0.10); border:2px solid rgba(186,117,23,0.15); }
+.capa-deco2 { position:absolute; right:40px; bottom:40px; width:140px; height:140px; border-radius:50%; background:rgba(249,199,79,0.06); border:2px solid rgba(249,199,79,0.1); }
+.capa-inner {
+  height:100%; max-height:720px; display:flex; flex-direction:column;
+  justify-content:center; padding:36px 40px 36px 48px;
+  overflow:hidden; box-sizing:border-box;
+}
+.capa-kicker  { font-family:'DM Mono',monospace; font-size:0.5em; color:var(--pa); letter-spacing:3px; text-transform:uppercase; margin-bottom:16px; }
+.capa-title   { font-size:2em !important; line-height:1.15; color:var(--white); margin-bottom:12px; font-weight:700; }
+.capa-title span { color:var(--yellow); }
+.capa-sub     { font-size:0.52em; color:var(--gray); margin-bottom:28px; max-width:65%; line-height:1.6; }
+.capa-badges  { display:flex; gap:10px; flex-wrap:wrap; }
+.capa-badge   { font-size:0.42em; padding:5px 14px; border-radius:20px; font-weight:600; font-family:'DM Mono',monospace; }
+.cb-pa     { background:var(--pa); color:var(--white); }
+.cb-yellow { background:var(--yellow); color:var(--dark); }
+.cb-dark   { background:rgba(255,255,255,0.1); color:var(--white); border:1px solid rgba(255,255,255,0.2); }
+
+.slide-std { background:#0F0D08 !important; padding:0 !important; }
+.slide-enc { background:linear-gradient(135deg,#080D20 0%,#0F0D08 100%) !important; padding:0 !important; }
+
+.slide-content {
+  height:100%; max-height:720px; display:flex; flex-direction:column;
+  padding:32px 44px; justify-content:flex-start; gap:12px;
+  overflow:hidden; box-sizing:border-box;
+}
+.slide-label {
+  font-family:'DM Mono',monospace; font-size:0.38em; color:var(--pa);
+  letter-spacing:2px; text-transform:uppercase;
+}
+.slide-title {
+  font-size:1.15em !important; color:var(--white); line-height:1.2; font-weight:700;
+  border-bottom:2px solid var(--pa); padding-bottom:10px; margin-bottom:0;
+}
+.slide-title span { color:#E8A84A; }
+
+.accent-pa     { background:var(--pa); }
+.accent-yellow { background:var(--yellow); }
+.accent-green  { background:var(--green); }
+.accent-red    { background:var(--red); }
+.accent-orange { background:var(--orange); }
+.accent-blue   { background:var(--blue); }
+.accent-purple { background:var(--purple); }
+
+.cards-grid { display:grid; gap:10px; }
+.cards-2    { grid-template-columns:1fr 1fr; }
+.cards-3    { grid-template-columns:1fr 1fr 1fr; }
+.card {
+  background:var(--glass-bg); border:1px solid var(--glass-border);
+  border-radius:var(--radius); padding:14px 16px;
+  position:relative; overflow:hidden;
+  transition:transform var(--transition), border-color var(--transition);
+}
+.card:hover { transform:translateY(-4px); border-color:rgba(186,117,23,0.4); }
+.card-accent { position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:12px 0 0 12px; }
+.card-num    { font-family:'DM Mono',monospace; font-size:0.38em; font-weight:700; margin-bottom:6px; display:block; }
+.card-title  { font-size:0.58em !important; font-weight:700; color:var(--white); margin-bottom:5px; line-height:1.3; display:block; }
+.card-text   { font-size:0.46em !important; color:var(--gray); line-height:1.6; }
+.card-title-pa     { color:#E8A84A; }
+.card-title-yellow { color:var(--yellow); }
+.card-title-green  { color:var(--green); }
+.card-title-red    { color:var(--red); }
+.card-title-orange { color:var(--orange); }
+.card-title-blue   { color:#60A5FA; }
+.card-title-purple { color:var(--purple); }
+
+.bullet-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.bullet-list li {
+  display:flex; align-items:flex-start; gap:12px; font-size:0.52em !important;
+  color:#CBD5E1; line-height:1.5; padding:8px 12px;
+  background:rgba(255,255,255,0.04); border-radius:8px; border-left:3px solid var(--pa);
+}
+.bullet-list li strong { color:var(--white); }
+
+.highlight-box {
+  background:rgba(186,117,23,0.12); border:1px solid rgba(186,117,23,0.35);
+  border-radius:10px; padding:10px 14px;
+}
+.highlight-box p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box strong { color:#E8A84A; }
+
+.highlight-box-y {
+  background:rgba(249,199,79,0.08); border:1px solid rgba(249,199,79,0.3);
+  border-radius:10px; padding:10px 14px;
+}
+.highlight-box-y p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box-y strong { color:var(--yellow); }
+
+.highlight-box-r {
+  background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3);
+  border-radius:10px; padding:10px 14px;
+}
+.highlight-box-r p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box-r strong { color:var(--red); }
+
+.quote-box {
+  background:rgba(249,199,79,0.08); border-left:4px solid var(--yellow);
+  border-radius:0 10px 10px 0; padding:14px 18px;
+}
+.quote-box p    { font-size:0.5em !important; color:#E2E8F0; font-style:italic; line-height:1.7; margin:0; }
+.quote-box cite { font-size:0.38em !important; color:var(--yellow); font-style:normal; display:block; margin-top:6px; font-family:'DM Mono',monospace; }
+
+.exemplo-flow { display:flex; flex-direction:column; gap:7px; }
+.flow-step {
+  background:rgba(255,255,255,0.04); border-radius:8px; padding:11px 14px;
+  display:flex; gap:14px; align-items:flex-start; border-left:3px solid;
+}
+.flow-step.fs-p { border-color:var(--pa); }
+.flow-step.fs-y { border-color:var(--yellow); }
+.flow-step.fs-g { border-color:var(--green); }
+.flow-step.fs-r { border-color:var(--red); }
+.flow-step.fs-o { border-color:var(--orange); }
+.flow-step.fs-b { border-color:var(--blue); }
+.flow-label { font-family:'DM Mono',monospace; font-size:0.44em !important; font-weight:700; flex-shrink:0; min-width:28px; }
+.fs-p .flow-label { color:#E8A84A; }
+.fs-y .flow-label { color:var(--yellow); }
+.fs-g .flow-label { color:var(--green); }
+.fs-r .flow-label { color:var(--red); }
+.fs-o .flow-label { color:var(--orange); }
+.fs-b .flow-label { color:var(--blue); }
+.flow-text        { font-size:0.44em !important; color:#CBD5E1; line-height:1.6; }
+.flow-text strong { color:var(--white); }
+
+.comp-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.comp-col  { border-radius:10px; padding:14px; }
+.comp-evit { background:rgba(239,68,68,0.1);  border:1px solid rgba(239,68,68,0.25); }
+.comp-faz  { background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25); }
+.comp-header { font-size:0.6em !important; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.comp-evit .comp-header { color:var(--red); }
+.comp-faz  .comp-header { color:var(--green); }
+.comp-item {
+  font-size:0.42em !important; color:#CBD5E1; padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,0.06); line-height:1.5; display:flex; gap:8px;
+}
+.comp-item:last-child { border-bottom:none; }
+
+.data-table { width:100%; border-collapse:collapse; font-size:0.44em !important; }
+.data-table th {
+  background:rgba(186,117,23,0.2); color:#E8A84A;
+  font-family:'DM Mono',monospace; font-size:0.85em; text-transform:uppercase;
+  letter-spacing:1px; padding:8px 10px; border-bottom:2px solid rgba(186,117,23,0.4); text-align:left;
+}
+.data-table td {
+  padding:7px 10px; color:var(--gray);
+  border-bottom:1px solid rgba(255,255,255,0.06); vertical-align:middle;
+}
+.data-table tr:hover td { background:rgba(255,255,255,0.03); }
+.data-table .row-dest td { color:var(--white); font-weight:700; }
+.tag-r { display:inline-block; background:rgba(239,68,68,0.2);  color:var(--red);   font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-g { display:inline-block; background:rgba(16,185,129,0.2); color:var(--green); font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-b { display:inline-block; background:rgba(59,130,246,0.2); color:var(--blue);  font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-y { display:inline-block; background:rgba(249,199,79,0.2); color:var(--yellow);font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+
+.din-header {
+  background:rgba(186,117,23,0.2); border:1px solid rgba(186,117,23,0.4);
+  border-radius:10px; padding:12px 18px; display:flex; align-items:center; gap:12px;
+}
+.din-header-text { font-size:0.55em !important; font-weight:700; color:#E8A84A; }
+
+.enc-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.enc-card { border-radius:10px; padding:12px 16px; }
+.enc-prox { background:rgba(249,199,79,0.1);  border:1px solid rgba(249,199,79,0.3); }
+.enc-rev  { background:rgba(186,117,23,0.12); border:1px solid rgba(186,117,23,0.3); }
+.enc-card-label { font-family:'DM Mono',monospace; font-size:0.36em !important; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; display:block; }
+.enc-prox .enc-card-label { color:var(--yellow); }
+.enc-rev  .enc-card-label { color:#E8A84A; }
+.enc-card-text { font-size:0.46em !important; color:var(--white); line-height:1.5; }
+
+.reveal .progress     { color:var(--pa); height:3px; }
+.reveal .slide-number { font-family:'DM Mono',monospace; font-size:12px; color:var(--gray); background:rgba(0,0,0,0.4); border-radius:6px; padding:4px 8px; }
+
+@media (max-width:768px) {
+  .cards-grid,.comp-grid,.enc-grid { grid-template-columns:1fr !important; }
+  .slide-content { padding:24px; gap:14px; }
+  .slide-title   { font-size:0.9em !important; }
+  .card-title    { font-size:0.55em !important; }
+  .card-text,.flow-text,.bullet-list li { font-size:0.52em !important; }
+  .capa-title    { font-size:1.3em !important; }
+  .capa-sub      { max-width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 01 — CAPA
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-capa" data-transition="zoom" data-transition-speed="slow">
+  <div class="capa-deco"></div>
+  <div class="capa-deco2"></div>
+  <div class="capa-inner">
+    <div class="capa-kicker">SA 17 · 2º Trimestre · Qualidade, Produtividade e Sustentabilidade</div>
+    <h1 class="capa-title">Filosofia Lean<br><span>Definição, Mindset e Pilares</span></h1>
+    <p class="capa-sub">A origem do Lean no Toyota Production System, os 7 tipos de desperdício, o mindset de melhoria contínua e os 5 pilares que conectam o Lean às práticas ágeis em TI</p>
+    <div class="capa-badges">
+      <span class="capa-badge cb-pa">SA 17 · 26/06/2026</span>
+      <span class="capa-badge cb-yellow">B4 — Lean</span>
+      <span class="capa-badge cb-dark">Prof. Julio Cesar</span>
+      <span class="capa-badge cb-dark">Colégio Neiva Pavan</span>
+      <span class="capa-badge cb-dark">1º Ano — TDS</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 02 — OBJETIVOS
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="fade">
+  <div class="slide-content">
+    <div class="slide-label">O que você vai aprender hoje</div>
+    <h2 class="slide-title">🏆 Objetivos da Aula</h2>
+    <ul class="bullet-list">
+      <li><strong>Origem do Lean:</strong> compreender como o Lean nasceu no Toyota Production System com Taiichi Ohno e evoluiu até o desenvolvimento de software</li>
+      <li><strong>Os 7 Desperdícios:</strong> identificar os 7 tipos de Muda e reconhecê-los em contextos reais de desenvolvimento de sistemas</li>
+      <li><strong>Mindset Lean:</strong> descrever o jeito de pensar Lean — eliminar desperdícios, gerar valor para o cliente e respeitar as pessoas</li>
+      <li><strong>Os 5 Pilares:</strong> apresentar os 5 princípios do Lean Thinking e explicar o papel de cada um no ciclo de melhoria</li>
+      <li><strong>Lean × Agile:</strong> relacionar os princípios Lean às metodologias ágeis (Scrum, Kanban) utilizadas em equipes de TI</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 03 — PERCURSO
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">De onde viemos e para onde vamos</div>
+    <h2 class="slide-title">🔗 Nosso <span>Percurso</span> até aqui</h2>
+    <div class="highlight-box">
+      <p>Na <strong>SA 16</strong> fechamos o bloco de 11 ferramentas da qualidade. Hoje começamos um novo bloco — a <strong>Filosofia Lean</strong>: a base que dá sentido ao uso de todas as ferramentas que aprendemos.</p>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">SA 16 · Aula Anterior</span>
+        <div class="card-text">Ferramentas da Qualidade III — CEP, 5W2H, Folha de Verificação e Dispersão. Fechamento das 11 ferramentas com foco em monitoramento e planejamento.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-title card-title-pa">SA 17 · Hoje — 26/06</span>
+        <div class="card-text">Filosofia Lean — origem no TPS, os 7 desperdícios (Muda), o mindset de melhoria contínua, os 5 pilares e a relação com as metodologias ágeis.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">SA 18 · Próxima — 03/07</span>
+        <div class="card-text">Lean — Etapas: Preparação, Coleta e Intervenção. As 3 etapas práticas para implementar o Lean em um processo real de desenvolvimento.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 04 — ORIGEM DO LEAN (Tipo A)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Como tudo começou</div>
+    <h2 class="slide-title">🏭 Origem do Lean — <span>Toyota Production System</span></h2>
+    <div class="quote-box">
+      <p>"Tudo o que fazemos é olhar para a linha do tempo desde o momento em que o cliente faz um pedido até o momento em que recebemos o dinheiro — e reduzimos essa linha do tempo eliminando desperdícios."</p>
+      <cite>— Taiichi Ohno · Engenheiro-chefe da Toyota · criador do Toyota Production System</cite>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#E8A84A;">Toyota · Anos 1950–70</span>
+        <span class="card-title">O Problema que Originou o Lean</span>
+        <div class="card-text">No pós-guerra, a Toyota não tinha capital para estocar matéria-prima como a Ford. Taiichi Ohno criou o TPS: produzir <strong style="color:var(--white);">só o necessário, na hora certa, sem desperdício</strong> — o oposto da produção em massa.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">James Womack · 1990</span>
+        <span class="card-title">O Nome "Lean" Chega ao Mundo</span>
+        <div class="card-text">Em 1990, James Womack publicou "A Máquina que Mudou o Mundo" estudando o TPS. Ele cunhou o termo <strong style="color:var(--white);">Lean</strong> (enxuto) para descrever a filosofia que eliminava tudo que não agregava valor ao cliente.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p><strong>Lean não é uma ferramenta</strong> — é uma filosofia de como enxergar e eliminar o que não gera valor. As ferramentas (incluindo as 11 que estudamos) são os instrumentos dessa visão.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 05 — EVOLUÇÃO DO LEAN (Tipo C)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Da fábrica ao software</div>
+    <h2 class="slide-title">📈 Evolução do Lean — <span>Da Manufatura ao Software</span></h2>
+    <div class="highlight-box">
+      <p>O Lean nasceu no chão de fábrica, mas seus princípios provaram ser universais — onde há processo, pessoas e tempo, há desperdício a eliminar.</p>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-p">
+        <span class="flow-label">1950</span>
+        <div class="flow-text"><strong>Toyota Production System (TPS)</strong> — Taiichi Ohno cria o sistema de produção puxada, just-in-time e eliminação de desperdícios na manufatura.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">1990</span>
+        <div class="flow-text"><strong>Lean Thinking</strong> — Womack e Jones generalizam o TPS em 5 princípios universais aplicáveis a qualquer setor — o "Lean Thinking" como filosofia de gestão.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">2001</span>
+        <div class="flow-text"><strong>Manifesto Ágil</strong> — Os valores ágeis são publicados com forte influência do Lean: entregar valor, eliminar burocracia, responder a mudanças, respeitar as pessoas.</div>
+      </div>
+      <div class="flow-step fs-o">
+        <span class="flow-label">2003</span>
+        <div class="flow-text"><strong>Lean Software Development</strong> — Mary e Tom Poppendieck adaptam os 7 desperdícios do TPS para o desenvolvimento de software, criando o Lean aplicado à TI.</div>
+      </div>
+      <div class="flow-step fs-b">
+        <span class="flow-label">Hoje</span>
+        <div class="flow-text"><strong>Lean + DevOps + Agile</strong> — A filosofia Lean está no coração do Scrum, Kanban, XP e DevOps. Equipes de alta performance usam Lean consciente ou inconscientemente.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 06 — O CONCEITO DE MUDA (Tipo A)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">O coração do Lean</div>
+    <h2 class="slide-title">🗑️ Muda — O Conceito de <span>Desperdício</span> no Lean</h2>
+    <div class="highlight-box">
+      <p>No Lean, <strong>Muda</strong> (無駄) significa qualquer atividade que consome recursos — tempo, energia, dinheiro — <strong>sem agregar valor ao cliente</strong>. Taiichi Ohno identificou 7 tipos de Muda presentes em qualquer processo.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#E8A84A;">O que é valor?</span>
+        <span class="card-title">Valor é o que o cliente pagaria</span>
+        <div class="card-text">Valor é <strong style="color:var(--white);">qualquer coisa que o cliente perceba e esteja disposto a pagar</strong>. Tudo que o processo faz além disso — reuniões sem resultado, documentação não lida, código não utilizado — é Muda.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">Os 3 inimigos do fluxo</span>
+        <span class="card-title">Muda · Mura · Muri</span>
+        <div class="card-text"><strong style="color:var(--white);">Muda</strong> = desperdício (atividade sem valor)<br><strong style="color:var(--white);">Mura</strong> = irregularidade (fluxo inconsistente)<br><strong style="color:var(--white);">Muri</strong> = sobrecarga (exigir mais do que a capacidade)<br>Os 3 devem ser eliminados juntos para um processo verdadeiramente Lean.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p><strong>Regra prática:</strong> pergunte de cada atividade do processo — "o cliente pagaria por isso?" Se a resposta for não, você encontrou um candidato a Muda.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 07 — OS 7 DESPERDÍCIOS (Tipo E)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Os 7 tipos de Muda</div>
+    <h2 class="slide-title">📋 Os 7 Desperdícios — <span>Manufatura e TI</span></h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Muda</th>
+          <th>Na Manufatura</th>
+          <th>No Desenvolvimento de Software</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag-r">Superprodução</span></td>
+          <td>Produzir mais do que o pedido</td>
+          <td>Features desenvolvidas que ninguém solicitou</td>
+        </tr>
+        <tr>
+          <td><span class="tag-r">Espera</span></td>
+          <td>Parar a linha aguardando peça ou aprovação</td>
+          <td>Dev aguardando review, deploy ou resposta do cliente</td>
+        </tr>
+        <tr>
+          <td><span class="tag-b">Transporte</span></td>
+          <td>Mover materiais desnecessariamente</td>
+          <td>Handoffs excessivos: dev → QA → ops → produto</td>
+        </tr>
+        <tr>
+          <td><span class="tag-b">Processamento</span></td>
+          <td>Operações que não adicionam valor à peça</td>
+          <td>Documentação excessiva que ninguém consulta</td>
+        </tr>
+        <tr>
+          <td><span class="tag-y">Estoque</span></td>
+          <td>Peças acumuladas esperando uso</td>
+          <td>Backlog gigante, PRs abertos sem revisão há dias</td>
+        </tr>
+        <tr>
+          <td><span class="tag-y">Movimentação</span></td>
+          <td>Operário buscando ferramentas ou informação</td>
+          <td>Dev buscando informações dispersas em múltiplas ferramentas</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box-r" style="margin-top:6px;">
+      <p><strong>7º Muda — Defeitos:</strong> na manufatura, a peça com defeito que volta para retrabalho. Em TI: <strong>bug encontrado em produção</strong> — o mais caro de todos, pois afeta o usuário final e exige correção urgente.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 08 — MINDSET LEAN (Tipo A)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Como pensar Lean</div>
+    <h2 class="slide-title">🧠 Mindset Lean — <span>Uma Nova Forma de Enxergar</span></h2>
+    <div class="highlight-box">
+      <p>Lean não é um conjunto de regras — é um <strong>jeito de enxergar o mundo</strong>. Uma pessoa com mindset Lean vê desperdícios onde os outros não veem, e age para eliminá-los continuamente.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#E8A84A;">Foco no Valor</span>
+        <span class="card-title">O que o cliente realmente precisa?</span>
+        <div class="card-text">Toda decisão começa perguntando: <strong style="color:var(--white);">"isso gera valor para o cliente?"</strong> Funcionalidades, reuniões, processos e documentação são avaliados pelo valor que entregam — não pelo esforço que exigem.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">Respeito pelas Pessoas</span>
+        <span class="card-title">Quem trabalha no processo sabe o problema</span>
+        <div class="card-text">No Lean, <strong style="color:var(--white);">as pessoas são o ativo mais importante</strong>. Quem executa o processo conhece os problemas e as soluções. Liderança Lean escuta a equipe, remove obstáculos e cria condições para que as pessoas melhorem seu próprio trabalho.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p><strong>Melhoria contínua (Kaizen):</strong> no Lean, cada processo pode sempre melhorar — nenhuma melhoria é pequena demais para ser implementada. Pequenas melhorias consistentes superam grandes transformações pontuais.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 09 — OS 5 PILARES DO LEAN (Tipo C)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Os 5 princípios do Lean Thinking</div>
+    <h2 class="slide-title">🏛️ Os <span>5 Pilares</span> do Lean</h2>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-p">
+        <span class="flow-label">01</span>
+        <div class="flow-text"><strong>Identificar o Valor</strong> — Definir o que o cliente considera valioso. Apenas o que o cliente pagaria justifica o esforço da equipe.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">02</span>
+        <div class="flow-text"><strong>Mapear o Fluxo de Valor</strong> — Visualizar todas as etapas do processo e identificar quais agregam valor, quais são necessárias e quais são puro desperdício.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">03</span>
+        <div class="flow-text"><strong>Criar o Fluxo Contínuo</strong> — Eliminar interrupções, esperas e gargalos para que o trabalho flua sem paradas do início ao fim, entregando valor mais rápido.</div>
+      </div>
+      <div class="flow-step fs-o">
+        <span class="flow-label">04</span>
+        <div class="flow-text"><strong>Implementar o Sistema Pull</strong> — Produzir apenas o que foi solicitado, quando foi solicitado. Nada é feito antes da demanda existir — elimina superprodução e estoque.</div>
+      </div>
+      <div class="flow-step fs-b">
+        <span class="flow-label">05</span>
+        <div class="flow-text"><strong>Buscar a Perfeição</strong> — Melhorar continuamente. Cada ciclo de melhoria revela novos desperdícios. A perfeição é o horizonte — a jornada de alcançá-la é o Lean.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 10 — LEAN × AGILE (Tipo D)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Filosofia e metodologia — não são a mesma coisa</div>
+    <h2 class="slide-title">⚖️ Lean × <span>Agile</span> — Confusões e Conexões</h2>
+    <div class="comp-grid">
+      <div class="comp-col comp-evit">
+        <div class="comp-header">✗ Confusões Comuns</div>
+        <div class="comp-item">✗ "Lean e Agile são a mesma coisa"</div>
+        <div class="comp-item">✗ "Lean é um framework como Scrum ou SAFe"</div>
+        <div class="comp-item">✗ "Adotar o Kanban board já torna o time Lean"</div>
+        <div class="comp-item">✗ "Lean só se aplica à manufatura"</div>
+        <div class="comp-item">✗ "Lean é sobre cortar pessoal e reduzir custos"</div>
+      </div>
+      <div class="comp-col comp-faz">
+        <div class="comp-header">✔ A Relação Real</div>
+        <div class="comp-item">✔ Lean é a <strong>filosofia</strong> — Agile é a <strong>metodologia</strong></div>
+        <div class="comp-item">✔ Scrum, Kanban e XP têm raízes diretas no Lean</div>
+        <div class="comp-item">✔ O Kanban board aplica "criar fluxo contínuo"</div>
+        <div class="comp-item">✔ Sprints e backlog priorizado = sistema pull</div>
+        <div class="comp-item">✔ Retrospectivas ágeis = busca pela perfeição</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p>Lean é o <strong>porquê</strong> e o <strong>como pensar</strong>. Agile é o <strong>como fazer</strong>. Equipes que usam Scrum ou Kanban sem o mindset Lean aplicam as ferramentas sem entender a filosofia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 11 — LEAN NA PRÁTICA EM TI (Tipo A)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">O Lean em ação no dia a dia do time</div>
+    <h2 class="slide-title">💻 Lean em <span>Prática</span> — Exemplos Reais em TI</h2>
+    <div class="highlight-box">
+      <p>O Lean não é teoria — ele se manifesta em <strong>decisões do dia a dia</strong> das equipes de desenvolvimento. Veja como os princípios aparecem em situações concretas.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#E8A84A;">Identificar o Valor + Pull</span>
+        <span class="card-title">Produto mínimo antes do completo</span>
+        <div class="card-text">Em vez de desenvolver todas as features antes de lançar, a equipe entrega a menor versão com valor real ao usuário — o MVP. Isso elimina o Muda de superprodução: <strong style="color:var(--white);">nenhuma feature é construída antes da demanda ser confirmada</strong>.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">Fluxo Contínuo + Perfeição</span>
+        <span class="card-title">WIP limit e retrospectivas</span>
+        <div class="card-text">O Kanban com limite de WIP (Work In Progress) força o fluxo — a equipe termina o que começou antes de iniciar algo novo, eliminando o Muda de estoque. As retrospectivas buscam a perfeição: <strong style="color:var(--white);">cada sprint tem algo a melhorar</strong>.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p><strong>Para reflexão:</strong> no seu projeto atual, qual é o maior Muda? Superprodução (features não usadas), espera (aprovações lentas) ou defeitos (bugs em produção)?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 12 — PENSAR LEAN × PENSAR TRADICIONAL (Tipo D)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">A mudança de mentalidade</div>
+    <h2 class="slide-title">🔄 Pensar <span>Tradicional</span> × Pensar Lean</h2>
+    <div class="comp-grid">
+      <div class="comp-col comp-evit">
+        <div class="comp-header">❌ Mentalidade Tradicional</div>
+        <div class="comp-item">✗ "Mais funcionalidades = mais valor para o cliente"</div>
+        <div class="comp-item">✗ "Vamos fazer agora e testar depois"</div>
+        <div class="comp-item">✗ "A equipe precisa estar sempre 100% ocupada"</div>
+        <div class="comp-item">✗ "Bugs são normais — corrigimos quando aparecer"</div>
+        <div class="comp-item">✗ "Melhorias grandes valem mais que pequenas"</div>
+      </div>
+      <div class="comp-col comp-faz">
+        <div class="comp-header">✔ Mentalidade Lean</div>
+        <div class="comp-item">✔ "Apenas o que gera valor real ao cliente"</div>
+        <div class="comp-item">✔ "Qualidade integrada desde a primeira linha"</div>
+        <div class="comp-item">✔ "Fluxo eficiente vale mais que ocupação constante"</div>
+        <div class="comp-item">✔ "Prevenir defeitos custa menos do que corrigi-los"</div>
+        <div class="comp-item">✔ "Kaizen: melhorias pequenas e consistentes todo sprint"</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p>Lean não muda o que você faz — muda <strong>como você pensa</strong> sobre o que vale a pena fazer. A diferença entre equipes boas e equipes excelentes está no mindset, não nas ferramentas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 13 — DINÂMICA: CAÇA AO DESPERDÍCIO (apresentação)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="zoom">
+  <div class="slide-content">
+    <div class="slide-label">Atividade prática em grupo</div>
+    <h2 class="slide-title">🎮 Dinâmica — <span>Caça ao Desperdício</span></h2>
+    <div class="din-header">
+      <span style="font-size:1.4em;">🔎</span>
+      <div class="din-header-text">Caça ao Desperdício · 15 minutos · grupos de 5 alunos</div>
+    </div>
+    <div class="exemplo-flow" style="margin-top:8px;">
+      <div class="flow-step fs-p">
+        <span class="flow-label">01</span>
+        <div class="flow-text"><strong>Apresentação do cenário (2 min)</strong> — O professor distribui os cartões e lê em voz alta. Cada grupo recebe o dia a dia de uma equipe de desenvolvimento com múltiplos problemas ocultos.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">02</span>
+        <div class="flow-text"><strong>Trabalho em grupo (8 min)</strong> — Cada grupo identifica o maior número de desperdícios no seu cenário, classifica cada um entre os 7 tipos de Muda e propõe uma ação de eliminação para cada um.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">03</span>
+        <div class="flow-text"><strong>Compartilhamento ao vivo (5 min)</strong> — Um representante apresenta os desperdícios encontrados. O professor complementa, valida a classificação e reforça os conceitos com os exemplos reais do grupo.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y" style="margin-top:4px;">
+      <p><strong>Objetivo:</strong> identificar desperdícios, classificar entre os 7 Mudas (superprodução, espera, transporte, processamento, estoque, movimentação, defeitos) e propor ação de eliminação.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 14 — DINÂMICA: CENÁRIOS (tabela)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Caça ao Desperdício · cenários práticos</div>
+    <h2 class="slide-title">📋 Cenários para <span>Analisar</span></h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Grupo</th>
+          <th>Cenário — dia a dia da equipe de desenvolvimento</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag-y">A</span></td>
+          <td>Equipe desenvolve funcionalidades não solicitadas · reuniões diárias duram 1 hora · código reescrito por falta de padrão</td>
+        </tr>
+        <tr>
+          <td><span class="tag-y">B</span></td>
+          <td>Dev aguarda aprovação por 3 dias para iniciar tarefa · bugs corrigidos após deploy em produção · documentação feita duas vezes</td>
+        </tr>
+        <tr>
+          <td><span class="tag-y">C</span></td>
+          <td>Backlog com 200 tarefas sem priorização · testes executados manualmente a cada sprint · PRs abertos por dias sem revisão</td>
+        </tr>
+        <tr>
+          <td><span class="tag-y">D</span></td>
+          <td>Cada dev usa ambiente diferente · deploy feito por apenas uma pessoa · requisitos mudam sem comunicação formal</td>
+        </tr>
+        <tr>
+          <td><span class="tag-y">E</span></td>
+          <td>Código gerado mas nunca usado em produção · relatórios automáticos que ninguém lê · reuniões de alinhamento sem pauta</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box" style="margin-top:6px;">
+      <p>Para cada desperdício encontrado: <strong>1) nomeie o Muda</strong> (qual dos 7 tipos?), <strong>2) explique por que é desperdício</strong> e <strong>3) proponha uma ação concreta</strong> para eliminá-lo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 15 — RESUMO DA AULA
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="fade">
+  <div class="slide-content">
+    <div class="slide-label">O que vimos hoje</div>
+    <h2 class="slide-title">📌 Resumo da Aula</h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-title card-title-pa">🏭 Origem do Lean</span>
+        <div class="card-text">Nasceu no Toyota Production System com Taiichi Ohno nos anos 1950. James Womack generalizou como Lean Thinking em 1990. Mary Poppendieck adaptou para software em 2003.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">🗑️ Os 7 Desperdícios</span>
+        <div class="card-text">Superprodução · Espera · Transporte · Processamento desnecessário · Estoque · Movimentação · Defeitos. Em TI, os mais críticos são: espera, defeitos e superprodução (features sem valor).</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">🏛️ Os 5 Pilares</span>
+        <div class="card-text">Identificar o Valor → Mapear o Fluxo de Valor → Criar Fluxo Contínuo → Sistema Pull → Buscar a Perfeição. São os 5 princípios universais do Lean Thinking.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">⚖️ Lean × Agile</span>
+        <div class="card-text">Lean é a filosofia — Agile é a metodologia. Scrum, Kanban e XP têm raízes diretas no Lean. Aplicar Agile sem mindset Lean é usar as ferramentas sem entender o porquê.</div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:4px;">
+      <p><strong>A lição mais importante:</strong> Lean não é uma ferramenta — é um <strong>jeito de enxergar</strong> desperdícios onde os outros não veem e agir continuamente para eliminá-los.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 16 — ENCERRAMENTO
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-enc" data-transition="zoom">
+  <div class="slide-content">
+    <div class="slide-label">Até a próxima</div>
+    <h2 class="slide-title">🚀 O que <span>vem a seguir</span></h2>
+    <div class="enc-grid">
+      <div class="enc-card enc-prox">
+        <span class="enc-card-label">→ Próxima aula — SA 18 · 03/07</span>
+        <div class="enc-card-text">Lean — Etapas: Preparação, Coleta e Intervenção. Agora que entendemos a filosofia, aprenderemos as 3 etapas práticas para implementar o Lean em um processo real de desenvolvimento.</div>
+      </div>
+      <div class="enc-card enc-rev">
+        <span class="enc-card-label">📝 Para fixar o aprendizado</span>
+        <div class="enc-card-text">Observe o seu dia de trabalho ou estudo e identifique 3 Mudas · Classifique cada um entre os 7 tipos · Para cada Muda, escreva uma ação concreta de eliminação usando o mindset Lean</div>
+      </div>
+    </div>
+    <div class="quote-box">
+      <p>"O Lean não é sobre fazer mais com menos — é sobre fazer melhor o que realmente importa, eliminando o que nunca deveria ter sido feito."</p>
+      <cite>— Princípio Lean · baseado no pensamento de Taiichi Ohno e W. Edwards Deming</cite>
+    </div>
+    <div style="text-align:center;margin-top:12px;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.36em;color:var(--gray);letter-spacing:2px;text-transform:uppercase;">SA 17 · Filosofia Lean · Prof. Julio Cesar · Colégio Neiva Pavan · 2026</div>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    progress: true,
+    controls: true,
+    controlsTutorial: true,
+    transition: 'convex',
+    transitionSpeed: 'fast',
+    backgroundTransition: 'fade',
+    center: true,
+    width: 1280,
+    height: 720,
+    margin: 0.08,
+    minScale: 0.2,
+    maxScale: 1.0,
+    plugins: []
+  });
+</script>
+</body>
+</html>

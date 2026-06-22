@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Apresentação SA18 — Lean: Preparação, Coleta e Intervenção · UC Qualidade, Produtividade e Sustentabilidade · Colégio Neiva Pavan · Prof. Julio Cesar">
+<meta name="theme-color" content="#080D20">
+<meta name="color-scheme" content="dark">
+<meta name="author" content="Prof. Julio Cesar">
+<title>SA 18 — Lean: Preparação, Coleta e Intervenção · QPS</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   PALETA UC — QUALIDADE, PRODUTIVIDADE E SUSTENTABILIDADE
+   Principal : #BA7517
+   Fundo     : #FAEEDA
+   Texto     : #412402
+   Justific. : Âmbar processo — cor do controle e da atenção, presente no PDCA
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --pa:           #BA7517;
+  --pa-d:         #412402;
+  --pa-light:     #FAEEDA;
+  --yellow:       #F9C74F;
+  --dark:         #080D20;
+  --green:        #10B981;
+  --red:          #EF4444;
+  --orange:       #F97316;
+  --blue:         #3B82F6;
+  --purple:       #A78BFA;
+  --white:        #FFFFFF;
+  --gray:         #CBD5E1;
+  --glass-bg:     rgba(255,255,255,0.05);
+  --glass-border: rgba(255,255,255,0.10);
+  --radius:       12px;
+  --transition:   0.25s ease;
+}
+
+/* ── RESET ── */
+html, body { background:#04070F !important; margin:0; padding:0; }
+.reveal { font-family:'DM Sans',sans-serif; }
+.reveal .slides section { height:100%; text-align:left; overflow:hidden; }
+.reveal h1,.reveal h2,.reveal h3 { text-transform:none; font-family:'DM Sans',sans-serif; margin:0; }
+.reveal p  { margin:0; }
+.reveal ul,.reveal ol { margin:0; padding:0; }
+
+/* ── SOMBRA DO DECK ── */
+.reveal .slides {
+  border-radius:4px;
+  box-shadow:
+    0 0 0 1px rgba(186,117,23,0.3),
+    0 8px 32px rgba(0,0,0,0.6),
+    0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* ══════════════════════════════════════
+   SLIDE CAPA
+   ══════════════════════════════════════ */
+.slide-capa {
+  background:linear-gradient(135deg,#080D20 0%,#0F0D08 60%,#080D20 100%) !important;
+  position:relative; overflow:hidden;
+}
+.slide-capa::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:8px; background:var(--pa);
+}
+.slide-capa::after {
+  content:''; position:absolute; left:8px; top:0; bottom:0; width:4px; background:var(--yellow);
+}
+.capa-deco  { position:absolute; right:-60px; bottom:-60px; width:280px; height:280px; border-radius:50%; background:rgba(186,117,23,0.10); border:2px solid rgba(186,117,23,0.15); }
+.capa-deco2 { position:absolute; right:40px; bottom:40px; width:140px; height:140px; border-radius:50%; background:rgba(249,199,79,0.06); border:2px solid rgba(249,199,79,0.1); }
+.capa-inner {
+  height:100%; max-height:720px; display:flex; flex-direction:column;
+  justify-content:center; padding:36px 40px 36px 48px;
+  overflow:hidden; box-sizing:border-box;
+}
+.capa-kicker  { font-family:'DM Mono',monospace; font-size:0.5em; color:var(--pa); letter-spacing:3px; text-transform:uppercase; margin-bottom:16px; }
+.capa-title   { font-size:2em !important; line-height:1.15; color:var(--white); margin-bottom:12px; font-weight:700; }
+.capa-title span { color:var(--yellow); }
+.capa-sub     { font-size:0.52em; color:var(--gray); margin-bottom:28px; max-width:65%; line-height:1.6; }
+.capa-badges  { display:flex; gap:10px; flex-wrap:wrap; }
+.capa-badge   { font-size:0.42em; padding:5px 14px; border-radius:20px; font-weight:600; font-family:'DM Mono',monospace; }
+.cb-pa        { background:var(--pa); color:var(--white); }
+.cb-yellow    { background:var(--yellow); color:var(--dark); }
+.cb-dark      { background:rgba(255,255,255,0.1); color:var(--white); border:1px solid rgba(255,255,255,0.2); }
+
+/* ══════════════════════════════════════
+   SLIDES PADRÃO E ENCERRAMENTO
+   ══════════════════════════════════════ */
+.slide-std { background:#0F0D08 !important; padding:0 !important; }
+.slide-enc { background:linear-gradient(135deg,#080D20 0%,#0F0D08 100%) !important; padding:0 !important; }
+
+/* CONTAINER PRINCIPAL — NUNCA ULTRAPASSAR 720px */
+.slide-content {
+  height:100%; max-height:720px; display:flex; flex-direction:column;
+  padding:32px 44px; justify-content:flex-start; gap:12px;
+  overflow:hidden; box-sizing:border-box;
+}
+.slide-label {
+  font-family:'DM Mono',monospace; font-size:0.38em; color:var(--pa);
+  letter-spacing:2px; text-transform:uppercase;
+}
+.slide-title {
+  font-size:1.15em !important; color:var(--white); line-height:1.2; font-weight:700;
+  border-bottom:2px solid var(--pa); padding-bottom:10px; margin-bottom:0;
+}
+.slide-title span { color:#E8A84A; }
+
+/* ══════════════════════════════════════
+   ACENTOS DE COR
+   ══════════════════════════════════════ */
+.accent-pa     { background:var(--pa); }
+.accent-yellow { background:var(--yellow); }
+.accent-green  { background:var(--green); }
+.accent-red    { background:var(--red); }
+.accent-orange { background:var(--orange); }
+.accent-blue   { background:var(--blue); }
+.accent-purple { background:var(--purple); }
+
+/* ══════════════════════════════════════
+   CARDS — MÁX 4 POR SLIDE
+   ══════════════════════════════════════ */
+.cards-grid { display:grid; gap:10px; }
+.cards-2    { grid-template-columns:1fr 1fr; }
+.cards-3    { grid-template-columns:1fr 1fr 1fr; }
+.cards-4    { grid-template-columns:1fr 1fr 1fr 1fr; }
+
+.card {
+  background:var(--glass-bg); border:1px solid var(--glass-border);
+  border-radius:var(--radius); padding:14px 16px;
+  position:relative; overflow:hidden;
+  transition:transform var(--transition), border-color var(--transition);
+}
+.card:hover { transform:translateY(-4px); border-color:rgba(186,117,23,0.4); }
+.card-accent { position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:12px 0 0 12px; }
+.card-num    { font-family:'DM Mono',monospace; font-size:0.38em; font-weight:700; margin-bottom:6px; display:block; }
+.card-title  { font-size:0.58em !important; font-weight:700; color:var(--white); margin-bottom:5px; line-height:1.3; display:block; }
+.card-text   { font-size:0.46em !important; color:var(--gray); line-height:1.6; }
+
+/* cores de título de card */
+.card-title-pa     { color:#E8A84A; }
+.card-title-yellow { color:var(--yellow); }
+.card-title-green  { color:var(--green); }
+.card-title-red    { color:var(--red); }
+.card-title-orange { color:var(--orange); }
+.card-title-blue   { color:#60A5FA; }
+.card-title-purple { color:var(--purple); }
+
+/* ══════════════════════════════════════
+   BULLET LIST
+   ══════════════════════════════════════ */
+.bullet-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.bullet-list li {
+  display:flex; align-items:flex-start; gap:12px; font-size:0.52em !important;
+  color:#CBD5E1; line-height:1.5; padding:8px 12px;
+  background:rgba(255,255,255,0.04); border-radius:8px; border-left:3px solid var(--pa);
+}
+.bullet-list li strong { color:var(--white); }
+
+/* ══════════════════════════════════════
+   HIGHLIGHT BOXES
+   ══════════════════════════════════════ */
+.highlight-box {
+  background:rgba(186,117,23,0.12); border:1px solid rgba(186,117,23,0.35);
+  border-radius:10px; padding:10px 14px;
+}
+.highlight-box p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box strong { color:#E8A84A; }
+
+.highlight-box-y {
+  background:rgba(249,199,79,0.08); border:1px solid rgba(249,199,79,0.3);
+  border-radius:10px; padding:10px 14px;
+}
+.highlight-box-y p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box-y strong { color:var(--yellow); }
+
+.highlight-box-r {
+  background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3);
+  border-radius:10px; padding:10px 14px;
+}
+.highlight-box-r p { font-size:0.5em !important; color:#CBD5E1; line-height:1.7; margin:0; }
+.highlight-box-r strong { color:var(--red); }
+
+/* ══════════════════════════════════════
+   QUOTE BOX
+   ══════════════════════════════════════ */
+.quote-box {
+  background:rgba(249,199,79,0.08); border-left:4px solid var(--yellow);
+  border-radius:0 10px 10px 0; padding:14px 18px;
+}
+.quote-box p    { font-size:0.5em !important; color:#E2E8F0; font-style:italic; line-height:1.7; margin:0; }
+.quote-box cite { font-size:0.38em !important; color:var(--yellow); font-style:normal; display:block; margin-top:6px; font-family:'DM Mono',monospace; }
+
+/* ══════════════════════════════════════
+   FLOW STEPS — MÁX 5 POR SLIDE
+   ══════════════════════════════════════ */
+.exemplo-flow { display:flex; flex-direction:column; gap:7px; }
+.flow-step {
+  background:rgba(255,255,255,0.04); border-radius:8px; padding:11px 14px;
+  display:flex; gap:14px; align-items:flex-start; border-left:3px solid;
+}
+.flow-step.fs-p { border-color:var(--pa); }
+.flow-step.fs-y { border-color:var(--yellow); }
+.flow-step.fs-g { border-color:var(--green); }
+.flow-step.fs-r { border-color:var(--red); }
+.flow-step.fs-o { border-color:var(--orange); }
+.flow-step.fs-b { border-color:var(--blue); }
+.flow-step.fs-v { border-color:var(--purple); }
+.flow-label { font-family:'DM Mono',monospace; font-size:0.44em !important; font-weight:700; flex-shrink:0; min-width:28px; }
+.fs-p .flow-label { color:#E8A84A; }
+.fs-y .flow-label { color:var(--yellow); }
+.fs-g .flow-label { color:var(--green); }
+.fs-r .flow-label { color:var(--red); }
+.fs-o .flow-label { color:var(--orange); }
+.fs-b .flow-label { color:var(--blue); }
+.fs-v .flow-label { color:var(--purple); }
+.flow-text        { font-size:0.44em !important; color:#CBD5E1; line-height:1.6; }
+.flow-text strong { color:var(--white); }
+
+/* ══════════════════════════════════════
+   COMPARATIVO (ANTES × DEPOIS)
+   ══════════════════════════════════════ */
+.comp-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.comp-col  { border-radius:10px; padding:14px; }
+.comp-evit { background:rgba(239,68,68,0.1);  border:1px solid rgba(239,68,68,0.25); }
+.comp-faz  { background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25); }
+.comp-header { font-size:0.6em !important; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.comp-evit .comp-header { color:var(--red); }
+.comp-faz  .comp-header { color:var(--green); }
+.comp-item {
+  font-size:0.42em !important; color:#CBD5E1; padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,0.06); line-height:1.5; display:flex; gap:8px;
+}
+.comp-item:last-child { border-bottom:none; }
+
+/* ══════════════════════════════════════
+   TABELA — MÁX 6 LINHAS
+   ══════════════════════════════════════ */
+.data-table { width:100%; border-collapse:collapse; font-size:0.44em !important; }
+.data-table th {
+  background:rgba(186,117,23,0.2); color:#E8A84A;
+  font-family:'DM Mono',monospace; font-size:0.85em; text-transform:uppercase;
+  letter-spacing:1px; padding:8px 10px; border-bottom:2px solid rgba(186,117,23,0.4); text-align:left;
+}
+.data-table td {
+  padding:7px 10px; color:var(--gray);
+  border-bottom:1px solid rgba(255,255,255,0.06); vertical-align:middle;
+}
+.data-table tr:hover td { background:rgba(255,255,255,0.03); }
+.data-table .row-dest td { color:var(--white); font-weight:700; }
+
+/* ── TAGS INLINE ── */
+.tag-r { display:inline-block; background:rgba(239,68,68,0.2);  color:var(--red);   font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-g { display:inline-block; background:rgba(16,185,129,0.2); color:var(--green); font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-b { display:inline-block; background:rgba(59,130,246,0.2); color:var(--blue);  font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+.tag-y { display:inline-block; background:rgba(249,199,79,0.2); color:var(--yellow);font-family:'DM Mono',monospace; font-size:0.85em; padding:1px 7px; border-radius:4px; }
+
+/* ══════════════════════════════════════
+   DINÂMICA
+   ══════════════════════════════════════ */
+.din-header {
+  background:rgba(186,117,23,0.2); border:1px solid rgba(186,117,23,0.4);
+  border-radius:10px; padding:12px 18px; display:flex; align-items:center; gap:12px;
+}
+.din-header-text { font-size:0.55em !important; font-weight:700; color:#E8A84A; }
+.din-meta        { display:flex; gap:20px; flex-wrap:wrap; }
+.din-meta-item   { font-size:0.42em !important; color:var(--gray); }
+.din-meta-item strong { color:var(--white); }
+
+/* ══════════════════════════════════════
+   ENCERRAMENTO
+   ══════════════════════════════════════ */
+.enc-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.enc-card { border-radius:10px; padding:12px 16px; }
+.enc-prox { background:rgba(249,199,79,0.1);  border:1px solid rgba(249,199,79,0.3); }
+.enc-rev  { background:rgba(186,117,23,0.12);  border:1px solid rgba(186,117,23,0.3); }
+.enc-card-label { font-family:'DM Mono',monospace; font-size:0.36em !important; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; display:block; }
+.enc-prox .enc-card-label { color:var(--yellow); }
+.enc-rev  .enc-card-label { color:#E8A84A; }
+.enc-card-text { font-size:0.46em !important; color:var(--white); line-height:1.5; }
+
+/* ══════════════════════════════════════
+   PROGRESS E NÚMERO DE SLIDE
+   ══════════════════════════════════════ */
+.reveal .progress     { color:var(--pa); height:3px; }
+.reveal .slide-number { font-family:'DM Mono',monospace; font-size:12px; color:var(--gray); background:rgba(0,0,0,0.4); border-radius:6px; padding:4px 8px; }
+
+/* ══════════════════════════════════════
+   RESPONSIVO
+   ══════════════════════════════════════ */
+@media (max-width:768px) {
+  .cards-grid,.comp-grid,.enc-grid { grid-template-columns:1fr !important; }
+  .slide-content { padding:24px; gap:14px; }
+  .slide-title   { font-size:0.9em !important; }
+  .card-title    { font-size:0.55em !important; }
+  .card-text,.flow-text,.bullet-list li { font-size:0.52em !important; }
+  .capa-title    { font-size:1.3em !important; }
+  .capa-sub      { max-width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 01 — CAPA
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-capa" data-transition="zoom" data-transition-speed="slow">
+  <div class="capa-deco"></div>
+  <div class="capa-deco2"></div>
+  <div class="capa-inner">
+    <div class="capa-kicker">SA 18 · 2º Trimestre · Qualidade, Produtividade e Sustentabilidade</div>
+    <h1 class="capa-title">Lean — Etapas<br><span>Preparação, Coleta e Intervenção</span></h1>
+    <p class="capa-sub">As três etapas essenciais para implementar o Lean na prática — do diagnóstico ao estado atual até a ação transformadora baseada em dados</p>
+    <div class="capa-badges">
+      <span class="capa-badge cb-pa">SA 18 · 03/07/2026</span>
+      <span class="capa-badge cb-yellow">B4 — Lean</span>
+      <span class="capa-badge cb-dark">Prof. Julio Cesar</span>
+      <span class="capa-badge cb-dark">Colégio Neiva Pavan</span>
+      <span class="capa-badge cb-dark">1º Ano — TDS</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 02 — OBJETIVOS
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="fade">
+  <div class="slide-content">
+    <div class="slide-label">O que você vai aprender hoje</div>
+    <h2 class="slide-title">🏆 Objetivos da Aula</h2>
+    <ul class="bullet-list">
+      <li><strong>Preparação:</strong> descrever a etapa de Preparação e sua importância para o sucesso de uma implementação Lean</li>
+      <li><strong>Coleta:</strong> compreender como realizar a coleta de dados para mapeamento do estado atual de um processo</li>
+      <li><strong>Desperdícios:</strong> identificar os tipos de desperdícios encontrados na fase de Coleta e classificá-los corretamente</li>
+      <li><strong>Intervenção:</strong> planejar uma Intervenção Lean com base nos dados coletados — com priorização e plano de ação</li>
+      <li><strong>Aplicação:</strong> aplicar as três etapas a um processo real de desenvolvimento de sistemas</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 03 — PERCURSO
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">De onde viemos e para onde vamos</div>
+    <h2 class="slide-title">🔗 Nosso <span>Percurso</span> até aqui</h2>
+    <div class="highlight-box">
+      <p>Na <strong>SA 17</strong> conhecemos a filosofia Lean — definição, mindset e os pilares que sustentam a metodologia. Hoje vamos à prática: as <strong>3 etapas</strong> que transformam intenção em resultado concreto.</p>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">SA 17 · Aula Anterior</span>
+        <div class="card-text">Filosofia Lean — Definição, mindset e pilares. Os fundamentos da metodologia, os 7 desperdícios e o mindset de melhoria contínua.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-title card-title-pa">SA 18 · Hoje — 03/07</span>
+        <div class="card-text">Lean — Etapas: Preparação, Coleta e Intervenção. Como estruturar a implementação Lean em 3 etapas sequenciais baseadas em dados reais.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-title card-title-green">SA 19 · Próxima — 10/07</span>
+        <div class="card-text">Lean — Monitoramento e Encerramento. Como acompanhar os resultados, medir o impacto das mudanças e fechar formalmente o ciclo Lean.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 04 — VISÃO GERAL: AS 3 ETAPAS (Tipo A)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">O mapa da implementação Lean</div>
+    <h2 class="slide-title">🗺️ As <span>3 Etapas</span> do Lean na Prática</h2>
+    <div class="highlight-box">
+      <p>O Lean não se aplica de uma só vez. Ele segue um caminho em <strong>3 etapas sequenciais</strong> — cada uma depende da anterior e alimenta a próxima. Pular qualquer etapa compromete todo o resultado.</p>
+    </div>
+    <div class="cards-grid cards-3">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#E8A84A;">Etapa 1</span>
+        <span class="card-title card-title-pa">📋 Preparação</span>
+        <div class="card-text">Definir o escopo, formar a equipe e mapear o processo atual antes de qualquer ação. A base que garante que a Coleta será focada e eficiente.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">Etapa 2</span>
+        <span class="card-title card-title-yellow">🔍 Coleta</span>
+        <div class="card-text">Observar o processo, cronometrar atividades e registrar desperdícios com dados reais — não opiniões. O estado atual só é confiável com observação direta.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-green"></div>
+        <span class="card-num" style="color:var(--green);">Etapa 3</span>
+        <span class="card-title card-title-green">🚀 Intervenção</span>
+        <div class="card-text">Priorizar as melhorias com base nos dados coletados, montar o plano de ação e executar as mudanças de forma estruturada e mensurável.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p><strong>Atenção:</strong> Pular etapas é o erro mais comum — quem vai direto à Intervenção sem Coleta está agindo sem evidência. Isso não é Lean, é improviso.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 05 — ETAPA 1: PREPARAÇÃO — O QUE É (Tipo A)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Etapa 1 de 3</div>
+    <h2 class="slide-title">📋 Etapa 1 — <span>Preparação</span></h2>
+    <div class="highlight-box">
+      <p>A Preparação é o alicerce de toda a implementação Lean. Antes de qualquer mudança, a equipe precisa saber <strong>o que vai melhorar</strong>, <strong>quem vai participar</strong> e como o processo funciona hoje.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#E8A84A;">Definição do Escopo</span>
+        <span class="card-title">O que vamos melhorar?</span>
+        <div class="card-text">Qual processo está no foco? Quais são os limites da análise? O que está dentro e o que está fora? Um escopo claro evita dispersão e garante resultados tangíveis.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">Formação da Equipe</span>
+        <span class="card-title">Quem vai participar?</span>
+        <div class="card-text">Quem conhece o processo por dentro? Quem tem autoridade para aprovar mudanças? A equipe deve ser multidisciplinar — e todos precisam entender o porquê do Lean.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p><strong>Sensibilização é essencial:</strong> pessoas que não entendem o propósito do Lean resistem às mudanças — e sabotam a implementação sem querer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 06 — PREPARAÇÃO: PASSO A PASSO (Tipo C)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Como conduzir a Preparação</div>
+    <h2 class="slide-title">📝 Preparação — <span>Passo a Passo</span></h2>
+    <div class="highlight-box">
+      <p>A Preparação segue 4 passos que garantem que a equipe parte com <strong>clareza de escopo</strong> e um mapeamento inicial confiável do processo.</p>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-p">
+        <span class="flow-label">01</span>
+        <div class="flow-text"><strong>Definir o processo e o escopo</strong> — Escolher qual processo será analisado, seus limites e os critérios de sucesso da melhoria.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">02</span>
+        <div class="flow-text"><strong>Formar a equipe multidisciplinar</strong> — Reunir representantes do processo com diferentes perspectivas: quem executa, quem gerencia e quem aprova.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">03</span>
+        <div class="flow-text"><strong>Sensibilizar os envolvidos</strong> — Apresentar a filosofia Lean, os objetivos da implementação e o papel de cada participante no processo.</div>
+      </div>
+      <div class="flow-step fs-o">
+        <span class="flow-label">04</span>
+        <div class="flow-text"><strong>Fazer o mapeamento inicial</strong> — Desenhar o fluxo de atividades do processo atual em alto nível para orientar a fase de Coleta.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 07 — ETAPA 2: COLETA (Tipo A)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Etapa 2 de 3</div>
+    <h2 class="slide-title">🔍 Etapa 2 — <span>Coleta de Dados</span></h2>
+    <div class="highlight-box">
+      <p>Na Coleta, a equipe <strong>sai da sala e vai ao processo real</strong> — observa, cronometra e registra o que realmente acontece, não o que deveria acontecer. Os dados coletados serão a base de toda a Intervenção.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#E8A84A;">Cronoanálise Básica</span>
+        <span class="card-title">Quanto tempo cada atividade leva?</span>
+        <div class="card-text">Medir o tempo real de cada etapa do processo. Comparar com o tempo esperado e identificar onde o tempo está sendo consumido sem gerar valor.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">Registro de Desperdícios</span>
+        <span class="card-title">O que acontece que não deveria?</span>
+        <div class="card-text">Documentar cada desperdício observado — espera, retrabalho, transporte — com frequência e impacto estimado. Dados concretos, não impressões subjetivas.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p><strong>Princípio do gemba:</strong> o estado atual só é confiável se baseado em <strong>observação direta do processo</strong> — nunca em suposições ou memória da equipe.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 08 — COLETA: IDENTIFICANDO DESPERDÍCIOS (Tipo E)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">O que registrar na Coleta</div>
+    <h2 class="slide-title">📊 Desperdícios — <span>Identificação em TI</span></h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Tipo de Desperdício</th>
+          <th>Classificação</th>
+          <th>Exemplo em Desenvolvimento de Sistemas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Espera</td>
+          <td><span class="tag-r">Alto impacto</span></td>
+          <td>Aguardar aprovação de PR, resposta do cliente, ambiente de testes disponível</td>
+        </tr>
+        <tr>
+          <td>Retrabalho</td>
+          <td><span class="tag-r">Alto impacto</span></td>
+          <td>Bug encontrado em produção, feature refeita por requisito mal levantado</td>
+        </tr>
+        <tr>
+          <td>Excesso de processo</td>
+          <td><span class="tag-b">Médio impacto</span></td>
+          <td>Aprovações em excesso, reuniões sem pauta, documentação nunca consultada</td>
+        </tr>
+        <tr>
+          <td>Inventário</td>
+          <td><span class="tag-y">Atenção</span></td>
+          <td>Backlog com centenas de itens, features prontas mas não entregues</td>
+        </tr>
+        <tr>
+          <td>Talento não aproveitado</td>
+          <td><span class="tag-b">Médio impacto</span></td>
+          <td>Desenvolvedor realizando tarefas manuais repetitivas que poderiam ser automatizadas</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box" style="margin-top:6px;">
+      <p><strong>Como registrar:</strong> Para cada desperdício observado, anote o tipo, a frequência (vezes por semana) e o tempo desperdiçado por ocorrência — isso alimentará a priorização na Intervenção.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 09 — ETAPA 3: INTERVENÇÃO (Tipo A)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Etapa 3 de 3</div>
+    <h2 class="slide-title">🚀 Etapa 3 — <span>Intervenção</span></h2>
+    <div class="highlight-box">
+      <p>A Intervenção é onde as mudanças acontecem — mas <strong>só após os dados da Coleta apontarem o caminho</strong>. Agir sem dados é otimismo; agir com dados coletados é estratégia Lean.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#E8A84A;">Priorização das Melhorias</span>
+        <span class="card-title">O que atacar primeiro?</span>
+        <div class="card-text">Quais desperdícios têm maior impacto? Qual melhoria é mais viável agora? Usar a lógica impacto × esforço para decidir por onde começar com os dados da Coleta.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">Plano de Ação</span>
+        <span class="card-title">Como executar?</span>
+        <div class="card-text">Para cada melhoria: o quê será feito, quem é responsável, quando será concluído e como medir o resultado. O plano deve ser simples, direto e executável.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p><strong>A Intervenção não termina na execução</strong> — cada mudança precisa ser medida. Sem comparar antes e depois, não há evidência de que o Lean funcionou.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 10 — CONECTANDO AS 3 ETAPAS (Tipo C)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="slide">
+  <div class="slide-content">
+    <div class="slide-label">Do diagnóstico à ação</div>
+    <h2 class="slide-title">🔗 Conectando as <span>3 Etapas</span></h2>
+    <div class="highlight-box">
+      <p>As 3 etapas formam um <strong>ciclo lógico</strong>: a Preparação define o campo de visão, a Coleta revela a realidade, e a Intervenção transforma o que foi descoberto.</p>
+    </div>
+    <div class="exemplo-flow">
+      <div class="flow-step fs-p">
+        <span class="flow-label">01</span>
+        <div class="flow-text"><strong>Preparação</strong> — Definir escopo, formar equipe e mapear o processo atual em alto nível para orientar a Coleta.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">02</span>
+        <div class="flow-text"><strong>Coleta</strong> — Observar o processo diretamente, cronometrar atividades e registrar desperdícios com dados reais.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">03</span>
+        <div class="flow-text"><strong>Análise dos Dados</strong> — Revisar o que foi coletado, identificar os gargalos de maior impacto e construir a visão do estado atual.</div>
+      </div>
+      <div class="flow-step fs-o">
+        <span class="flow-label">04</span>
+        <div class="flow-text"><strong>Intervenção</strong> — Priorizar melhorias com base nos dados, executar as mudanças e documentar cada alteração aplicada.</div>
+      </div>
+      <div class="flow-step fs-b">
+        <span class="flow-label">05</span>
+        <div class="flow-text"><strong>Validação</strong> — Medir o resultado da Intervenção e comparar com o estado anterior registrado na Coleta. Sem medição, não há evidência.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 11 — ERROS COMUNS × BOAS PRÁTICAS (Tipo D)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">O que NÃO fazer</div>
+    <h2 class="slide-title">⚠️ Erros <span>Comuns</span> × Boas Práticas</h2>
+    <div class="comp-grid">
+      <div class="comp-col comp-evit">
+        <div class="comp-header">✗ Erros Comuns</div>
+        <div class="comp-item">✗ Pular a Preparação e ir direto à Intervenção</div>
+        <div class="comp-item">✗ Coletar dados sem observar o processo diretamente</div>
+        <div class="comp-item">✗ Agir com base em opinião, sem dados concretos</div>
+        <div class="comp-item">✗ Ignorar a resistência da equipe às mudanças</div>
+        <div class="comp-item">✗ Não medir o resultado após a Intervenção</div>
+      </div>
+      <div class="comp-col comp-faz">
+        <div class="comp-header">✔ Boas Práticas</div>
+        <div class="comp-item">✔ Respeitar a sequência: Preparar → Coletar → Intervir</div>
+        <div class="comp-item">✔ Ir ao gemba — observar o processo pessoalmente</div>
+        <div class="comp-item">✔ Basear cada decisão nos dados coletados</div>
+        <div class="comp-item">✔ Envolver a equipe desde a etapa de Preparação</div>
+        <div class="comp-item">✔ Comparar antes e depois de cada mudança aplicada</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p>A maioria das implementações Lean falha não por falta de metodologia, mas por <strong>atalhos</strong> — especialmente pular a Coleta e intervir com base em suposição.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 12 — LEAN APLICADO EM TI (Tipo A)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Exemplo prático em desenvolvimento de software</div>
+    <h2 class="slide-title">💻 Lean em <span>Desenvolvimento de Software</span></h2>
+    <div class="highlight-box">
+      <p>O Lean nasceu na manufatura, mas seus princípios se aplicam diretamente ao desenvolvimento de sistemas — onde esperas, retrabalhos e excesso de processo são tão comuns quanto em uma fábrica.</p>
+    </div>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-num" style="color:#E8A84A;">Ciclo de Entrega Lento</span>
+        <span class="card-title">45 dias → meta: 15 dias</span>
+        <div class="card-text"><strong style="color:var(--white);">Preparação:</strong> escopo = pipeline de entrega completo. <strong style="color:var(--white);">Coleta:</strong> medir tempo de cada fase e registrar esperas. <strong style="color:var(--white);">Intervenção:</strong> paralelizar fases independentes e automatizar testes manuais.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-num" style="color:var(--yellow);">Bugs em Produção</span>
+        <span class="card-title">60% dos bugs → antecipar detecção</span>
+        <div class="card-text"><strong style="color:var(--white);">Preparação:</strong> mapear o processo de testes atual. <strong style="color:var(--white);">Coleta:</strong> registrar em qual fase cada bug é detectado. <strong style="color:var(--white);">Intervenção:</strong> antecipar testes para o início do ciclo de desenvolvimento.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y">
+      <p><strong>Qualquer processo com pessoas, fluxo e tempo tem desperdícios</strong> — e pode se beneficiar das 3 etapas Lean. A pergunta não é "se aplica?", mas "onde começo?".</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 13 — DINÂMICA: LEAN EM PRÁTICA (apresentação)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="zoom">
+  <div class="slide-content">
+    <div class="slide-label">Atividade prática em grupo</div>
+    <h2 class="slide-title">🎮 Dinâmica — <span>Lean em Prática</span></h2>
+    <div class="din-header">
+      <span style="font-size:1.4em;">⚡</span>
+      <div class="din-header-text">Lean em Prática · 15 minutos · grupos de 5 alunos</div>
+    </div>
+    <div class="exemplo-flow" style="margin-top:8px;">
+      <div class="flow-step fs-p">
+        <span class="flow-label">01</span>
+        <div class="flow-text"><strong>Apresentação do cenário (2 min)</strong> — O professor distribui os cartões com a descrição do processo de cada grupo e explica a tarefa: aplicar as 3 etapas ao cenário recebido.</div>
+      </div>
+      <div class="flow-step fs-y">
+        <span class="flow-label">02</span>
+        <div class="flow-text"><strong>Execução em grupo (8 min)</strong> — Cada grupo define o escopo da Preparação, lista o que coletar na fase de Coleta e propõe pelo menos 2 ações concretas de Intervenção.</div>
+      </div>
+      <div class="flow-step fs-g">
+        <span class="flow-label">03</span>
+        <div class="flow-text"><strong>Compartilhamento ao vivo (5 min)</strong> — Um representante apresenta as etapas planejadas. Professor avalia a coerência entre os dados da Coleta e as ações de Intervenção propostas.</div>
+      </div>
+    </div>
+    <div class="highlight-box-y" style="margin-top:4px;">
+      <p><strong>Cenários:</strong> ciclo de entrega de 45 dias · 60% dos bugs em produção · onboarding de novos devs em 30 dias · code review com 4 dias por PR · chamados com 72h de resolução</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 14 — DINÂMICA: CASOS PARA ANALISAR (tabela)
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="convex">
+  <div class="slide-content">
+    <div class="slide-label">Lean em Prática · casos práticos</div>
+    <h2 class="slide-title">📋 Cenários para <span>Analisar</span></h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Grupo</th>
+          <th>Cenário</th>
+          <th>Meta de Melhoria</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag-y">A</span></td>
+          <td>Processo de desenvolvimento com ciclos de entrega de 45 dias</td>
+          <td><span class="tag-g">Reduzir para 15 dias</span></td>
+        </tr>
+        <tr>
+          <td><span class="tag-y">B</span></td>
+          <td>Processo de testes com 60% dos bugs encontrados somente em produção</td>
+          <td><span class="tag-g">Antecipar a detecção para o ciclo de testes</span></td>
+        </tr>
+        <tr>
+          <td><span class="tag-y">C</span></td>
+          <td>Onboarding de novos devs que leva 30 dias para ser concluído</td>
+          <td><span class="tag-g">Reduzir para 10 dias</span></td>
+        </tr>
+        <tr>
+          <td><span class="tag-y">D</span></td>
+          <td>Code review com tempo médio de 4 dias por pull request</td>
+          <td><span class="tag-g">Chegar a menos de 1 dia</span></td>
+        </tr>
+        <tr>
+          <td><span class="tag-y">E</span></td>
+          <td>Atendimento de chamados com tempo médio de resolução de 72 horas</td>
+          <td><span class="tag-g">Chegar a 24 horas</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box" style="margin-top:6px;">
+      <p><strong>Para cada cenário:</strong> definam o <strong>escopo</strong> (Preparação), listem o que <strong>coletar</strong> (Coleta) e proponham pelo menos <strong>2 ações concretas</strong> baseadas nos dados (Intervenção).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 15 — RESUMO DA AULA
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-std" data-transition="fade">
+  <div class="slide-content">
+    <div class="slide-label">O que vimos hoje</div>
+    <h2 class="slide-title">📌 Resumo da Aula</h2>
+    <div class="cards-grid cards-2">
+      <div class="card">
+        <div class="card-accent accent-pa"></div>
+        <span class="card-title card-title-pa">📋 Preparação</span>
+        <div class="card-text">Definir escopo, formar equipe multidisciplinar, sensibilizar os envolvidos e mapear o processo atual antes de qualquer coleta ou ação.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-yellow"></div>
+        <span class="card-title card-title-yellow">🔍 Coleta</span>
+        <div class="card-text">Observar o processo diretamente no gemba, cronometrar atividades e registrar desperdícios com dados reais — nunca com suposições.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-orange"></div>
+        <span class="card-title card-title-orange">🚀 Intervenção</span>
+        <div class="card-text">Priorizar melhorias usando impacto × esforço, montar plano de ação com responsáveis e prazos, e medir o resultado após cada mudança aplicada.</div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-red"></div>
+        <span class="card-title card-title-red">⚠️ Erros que Evitar</span>
+        <div class="card-text">Pular etapas, agir sem dados, coletar por memória em vez de observação direta e não medir o resultado da Intervenção.</div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:4px;">
+      <p><strong>A principal lição:</strong> sem dados reais da Coleta, qualquer Intervenção é apenas suposição — e no Lean, <strong>agir sem evidência é o maior desperdício</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SLIDE 16 — ENCERRAMENTO
+     ═══════════════════════════════════════════════════════ -->
+<section class="slide-enc" data-transition="zoom">
+  <div class="slide-content">
+    <div class="slide-label">Até a próxima</div>
+    <h2 class="slide-title">🚀 O que <span>vem a seguir</span></h2>
+    <div class="enc-grid">
+      <div class="enc-card enc-prox">
+        <span class="enc-card-label">→ Próxima aula — SA 19 · 10/07</span>
+        <div class="enc-card-text">Lean — Etapas: Monitoramento e Encerramento. Como acompanhar os resultados das intervenções, medir o impacto real das mudanças e fechar formalmente o ciclo Lean com aprendizados registrados.</div>
+      </div>
+      <div class="enc-card enc-rev">
+        <span class="enc-card-label">📝 Para fixar o aprendizado</span>
+        <div class="enc-card-text">Escolha um processo do seu cotidiano · Liste 3 desperdícios que você observaria na fase de Coleta · Escreva 1 ação de Intervenção para o maior deles e como mediria o resultado</div>
+      </div>
+    </div>
+    <div class="quote-box">
+      <p>"Não gerencie o que você não mede — e não mede o que você não observou."</p>
+      <cite>— Princípio Lean · adaptado de W. Edwards Deming · pai do gerenciamento da qualidade</cite>
+    </div>
+    <div style="text-align:center;margin-top:12px;">
+      <div style="font-family:'DM Mono',monospace;font-size:0.36em;color:var(--gray);letter-spacing:2px;text-transform:uppercase;">SA 18 · Lean: Preparação, Coleta e Intervenção · Prof. Julio Cesar · Colégio Neiva Pavan · 2026</div>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    progress: true,
+    controls: true,
+    controlsTutorial: true,
+    transition: 'convex',
+    transitionSpeed: 'fast',
+    backgroundTransition: 'fade',
+    center: true,
+    width: 1280,
+    height: 720,
+    margin: 0.08,
+    minScale: 0.2,
+    maxScale: 1.0,
+    plugins: []
+  });
+</script>
+</body>
+</html>
